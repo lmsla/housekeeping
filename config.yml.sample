@@ -3,13 +3,13 @@ actions:
     description: delete selected indices1
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
+      value: prefixmore
     - filtertype: space
       disk_space: 2
 
@@ -17,13 +17,13 @@ actions:
     description: delete selected indices2
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 5
     - filtertype: pattern
       kind: prefix
-      value: "test_index"
+      value: test_index
 
   - action: delete_indices
     description: delete selected indices3
@@ -36,22 +36,22 @@ actions:
     description: close selected indices
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
+      value: prefixmore
 
   - action: open
     description: open selected indices
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
+      value: prefixmore

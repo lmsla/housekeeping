@@ -43,10 +43,10 @@ func Action_open_indices() {
 				comparelist = Indicesmapping(spacelist, agelist, patternlist)
 
 			}
-			fmt.Println("agelist:", agelist)
-			fmt.Println("patternlist:", patternlist)
-			fmt.Println("spacelist:", spacelist)
-			fmt.Println("compare:", comparelist)
+			// fmt.Println("agelist:", agelist)
+			// fmt.Println("patternlist:", patternlist)
+			// fmt.Println("spacelist:", spacelist)
+			// fmt.Println("compare:", comparelist)
 			detailMsg := fmt.Sprintf("Open these indices :%s", comparelist)
 			log_record.Logrecord("Details", detailMsg)
 			//// Close function write from here
@@ -80,10 +80,10 @@ func Action_close_indices() {
 				comparelist = Indicesmapping(spacelist, agelist, patternlist)
 
 			}
-			fmt.Println("agelist:", agelist)
-			fmt.Println("patternlist:", patternlist)
-			fmt.Println("spacelist:", spacelist)
-			fmt.Println("compare:", comparelist)
+			// fmt.Println("agelist:", agelist)
+			// fmt.Println("patternlist:", patternlist)
+			// fmt.Println("spacelist:", spacelist)
+			// fmt.Println("compare:", comparelist)
 			detailMsg := fmt.Sprintf("Close these indices :%s", comparelist)
 			log_record.Logrecord("Details", detailMsg)
 			//// Close function write from here
@@ -118,14 +118,14 @@ func Action_delete_indices() {
 				comparelist = Indicesmapping(spacelist, agelist, patternlist)
 
 			}
-			fmt.Println("agelist:", agelist)
-			fmt.Println("patternlist:", patternlist)
-			fmt.Println("spacelist:", spacelist)
-			fmt.Println("compare:", comparelist)
+			// fmt.Println("agelist:", agelist)
+			// fmt.Println("patternlist:", patternlist)
+			// fmt.Println("spacelist:", spacelist)
+			// fmt.Println("compare:", comparelist)
 			detailMsg := fmt.Sprintf("Delete these indices :%s", comparelist)
 			log_record.Logrecord("Details", detailMsg)
 			//// delete function write from here
-			// DeleteIndex(comparelist)
+			DeleteIndex(comparelist)
 		}
 	}
 }

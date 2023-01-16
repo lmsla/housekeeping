@@ -1,6 +1,8 @@
 # housekeeping
 
-This is an alternative to ES-curator.
+ES-curator 的替代方案
+
+## 
 
 ## Actions
 
@@ -19,6 +21,19 @@ ex. description: delete selected indices1
 - age
 - pattern
 - space
+
+## Filter elements
+掛在 filtertype 下使用，不同的 filtertype 各有適用的 filter elements，詳細說明請往下翻看。
+
+- source
+- direction
+- unit
+- unit_count
+- kind
+- value
+- disk_space
+
+-------------------------
 
 ## age 
 以執行程式當下，以 unit_count (5)  unit (days) 前的時間為基準，篩選出前 (older) 或後 (younger) 產生的 index。
@@ -39,7 +54,7 @@ ex. description: delete selected indices1
 ### unit_count
 - 任一正整數 ex. 1、2、5、10....
 
-## patter
+## pattern
 以 index 名稱做匹配條件，可前匹配 (prefix) 、後匹配 (suffix)、及正則匹配 (regex)，value 中輸入的是匹配字樣，例如 kind : prefix ; value : logstash-asa 會匹配到所有 logstash-asa 開頭的 index。
 
 ### kind
@@ -76,8 +91,11 @@ index-05 10GB
 ```
 
 ### disk_space
-- 任一正整數，單位 GB，例如 10 代表 10 GB 
+- 任一正整數，單位 GB，例如 10 代表 10 GB 。
 
+
+
+---------------------
 
 
 ## config sample
@@ -86,6 +104,8 @@ index-05 10GB
 注意縮排不能有誤，不然程式會出錯。
 
 ### setting.yml 
+execute_cron ，可以是 true or flase ， if true，程式進入排程，在指定的時間執行；if false，手動執行所有 actions。
+
 ```
 es:
   url: https://10.99.1.117:9200
@@ -99,6 +119,8 @@ information:
 ```
 
 ### config.yml 
+config 中可以有一或多個 actions，一個 actions 中現階段最多可加入三個 filter，各個 filter 各有適用的 filter element ，請詳閱上方說明。
+
 ```
 actions: 
   - action: delete_indices

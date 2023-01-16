@@ -3,16 +3,15 @@
 actions: 
   - action: delete_indices
     description: delete selected indices1
-    execute_period: "*/1 * * * *"
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
+      value: prefixmore
       exclude: 
     - filtertype: space
       disk_space: 2
@@ -21,20 +20,18 @@ actions:
 
   - action: delete_indices
     description: delete selected indices2
-    execute_period: "*/3 * * * *"
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 5
     - filtertype: pattern
       kind: prefix
-      value: "test_index"
+      value: test_index
       exclude:
   - action: delete_indices
     description: delete selected indices3
-    execute_period: "*/5 * * * *"
     filters:
     - filtertype: space
       disk_space: 10
@@ -46,26 +43,26 @@ actions:
     execute_period: "*/1 * * * *"
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
+      value: prefixmore
       exclude:
 
   - action: open
     description: open selected indices
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
+      value: prefixmore
       exclude:
 
             

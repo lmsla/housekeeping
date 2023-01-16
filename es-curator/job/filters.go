@@ -53,7 +53,7 @@ func FilterType_age(source string, direction string, unit string, unit_count int
 			}
 
 		}
-		fmt.Println(indices)
+		// fmt.Println(indices)
 		return indices
 	}
 	return
@@ -63,12 +63,12 @@ func FilterType_pattern(kind string, value string) (indiceslist []string) {
 	indicesinfo := CatIndices()
 	var indices []string
 	if kind == "prefix" {
-		fmt.Println("prefix")
+		// fmt.Println("prefix")
 		for data := range indicesinfo {
 			matchstring := fmt.Sprintf("^%s.*$", value)
 			matchbool, err := regexp.MatchString(matchstring, indicesinfo[data].Index)
 			if err != nil {
-				panic("wow")
+				panic("prefix")
 			}
 			if matchbool == true {
 				indices = append(indices, indicesinfo[data].Index)
@@ -92,7 +92,7 @@ func FilterType_pattern(kind string, value string) (indiceslist []string) {
 		for data := range indicesinfo {
 			matchbool, err := regexp.MatchString(value, indicesinfo[data].Index)
 			if err != nil {
-				panic("suffix")
+				panic("regex")
 			}
 			if matchbool == true {
 				indices = append(indices, indicesinfo[data].Index)
@@ -100,7 +100,7 @@ func FilterType_pattern(kind string, value string) (indiceslist []string) {
 			}
 		}
 	}
-	fmt.Println(indices)
+	// fmt.Println(indices)
 	return indices
 
 }
@@ -117,7 +117,7 @@ func FilterType_space(disk_space int) (indiceslist []string) {
 		indexSizemap[indicesinfo[data].Index] = indicesinfo[data].StoreSize
 		creationdate_NameMap[indicesinfo[data].CreationDate] = indicesinfo[data].Index
 		creationDateSlice = append(creationDateSlice, indicesinfo[data].CreationDate)
-		fmt.Println(indicesinfo[data].Index, "size", indicesinfo[data].StoreSize, "date", indicesinfo[data].CreationDate)
+		// fmt.Println(indicesinfo[data].Index, "size", indicesinfo[data].StoreSize, "date", indicesinfo[data].CreationDate)
 	}
 	// 按 index 的 create_date 排序
 	sort.Strings(creationDateSlice)
@@ -137,7 +137,7 @@ func FilterType_space(disk_space int) (indiceslist []string) {
 		indexSortbycreationAsc = append(indexSortbycreationAsc, name)
 
 	}
-	fmt.Println("asc:", indexSortbycreationAsc)
+	// fmt.Println("asc:", indexSortbycreationAsc)
 	var finalIndexList []string
 	total := 0
 	for bytes := range indexSortbycreationAsc {

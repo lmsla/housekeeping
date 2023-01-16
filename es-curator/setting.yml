@@ -4,7 +4,6 @@ es:
   sourcePassword: "12345678"
 
 information:
-  caPath: "/Users/chen/Downloads/BiMap/程式區/es-curator/http_ca.crt"
   logdir: "/Users/chen/Downloads/BiMap/程式區/es-curator/log/custom.log"
-  execute_cron : true
+  execute_cron : false
   period: "59 11 * * *"
