@@ -1,92 +1,170 @@
-# house_keeping
+# housekeeping
 
+This is an alternative to ES-curator.
 
+## Actions
 
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.bimap.co/product/house_keeping.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.bimap.co/product/house_keeping/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
+Open indices</br>
+Close indices</br>
+Delete indices</br>
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+描述執行的動作，可將相關說明寫上，方便日後在 log 中查閱相關紀錄。
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+ex. description: delete selected indices1
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## Filter types
+三個過濾條件，可混用，或單獨使用。
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- age
+- pattern
+- space
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## age 
+以執行程式當下，以 unit_count (5)  unit (days) 前的時間為基準，篩選出前 (older) 或後 (younger) 產生的 index。
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+例： 當前時間為2023/01/16，unit : days ; unit_count : 5 ; direction : older ，篩選結果為2023/01/11 之前的產生的所有 index。
+### source 
+- creation_date
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### direction
+- older
+- younger
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### unit
+- years
+- months
+- days
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### unit_count
+- 任一正整數 ex. 1、2、5、10....
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## patter
+以 index 名稱做匹配條件，可前匹配 (prefix) 、後匹配 (suffix)、及正則匹配 (regex)，value 中輸入的是匹配字樣，例如 kind : prefix ; value : logstash-asa 會匹配到所有 logstash-asa 開頭的 index。
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### kind
+- prefix
+- suffix
+- regex
 
-## License
-For open source projects, say how it is licensed.
+### value
+匹配字樣</br>
+ex. logstash-ap , ap
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## space
+計算 index 所佔空間，由最新的 index 開始算，超過設定的閥值 disk_space ，篩選出較舊的 index，新舊判定依據為 index 產生時間。
+
+例，有五個 index ，舊到新的順序分別為 01~05 ，disk_space : 20 ，index-05、index-04 加起來共 20 GB，超過的部分 index-03、index-02、index-01，會被篩選出來。
+
+```
+index-01 10GB
+index-02 10GB
+index-03 10GB
+index-04 10GB
+index-05 10GB
+```
+
+閥值為絕對值，只要超過閥值就會被篩出來，如下例，index-05、index-04 加起來共 15 GB，再加上 index-03 的 5.1GB 共 20.1 GB ，即使只超過 0.1 GB，index-03 也會被列入篩選名單中。
+
+```
+index-01 10GB
+index-02 10GB
+index-03 5.1GB
+index-04 5GB
+index-05 10GB
+
+```
+
+### disk_space
+- 任一正整數，單位 GB，例如 10 代表 10 GB 
+
+
+
+## config sample
+會用到兩個 config ，setting.yml 及 config.yml ，setting.yml 控制環境參數及排程執行相關；config.yml 控制要執行的 Actions。
+
+注意縮排不能有誤，不然程式會出錯。
+
+### setting.yml 
+```
+es:
+  url: https://10.99.1.117:9200
+  sourceAccount: "elastic"
+  sourcePassword: "12345678"
+
+information:
+  logdir: "/Users/chen/Downloads/BiMap/程式區/es-curator/log/custom.log"
+  execute_cron : true
+  period: "59 11 * * *"
+```
+
+### config.yml 
+```
+actions: 
+  - action: delete_indices
+    description: delete selected indices1
+    filters:
+    - filtertype: age
+      source: "creation_date"
+      direction: older
+      unit: days
+      unit_count: 1
+    - filtertype: pattern
+      kind: prefix
+      value: "prefixmore"
+      exclude: 
+    - filtertype: space
+      disk_space: 2
+      use_age: True
+      source: creation_date
+
+  - action: delete_indices
+    description: delete selected indices2
+    filters:
+    - filtertype: age
+      source: "creation_date"
+      direction: older
+      unit: days
+      unit_count: 5
+    - filtertype: pattern
+      kind: prefix
+      value: "test_index"
+      exclude:
+  - action: delete_indices
+    description: delete selected indices3
+    filters:
+    - filtertype: space
+      disk_space: 10
+      # use_age: True
+      # source: creation_date
+
+  - action: close
+    description: close selected indices
+    execute_period: "*/1 * * * *"
+    filters:
+    - filtertype: age
+      source: "creation_date"
+      direction: older
+      unit: days
+      unit_count: 1
+    - filtertype: pattern
+      kind: prefix
+      value: "prefixmore"
+      exclude:
+
+  - action: open
+    description: open selected indices
+    filters:
+    - filtertype: age
+      source: "creation_date"
+      direction: older
+      unit: days
+      unit_count: 1
+    - filtertype: pattern
+      kind: prefix
+      value: "prefixmore"
+      exclude:
+```
+
+
+

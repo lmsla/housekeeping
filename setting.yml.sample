@@ -1,0 +1,9 @@
+es:
+  url: https://10.99.1.117:9200
+  sourceAccount: "elastic"
+  sourcePassword: "12345678"
+
+information:
+  logdir: "/Users/chen/Downloads/BiMap/es-curator/log/custom.log"
+  execute_cron : true
+  period: "59 11 * * *"

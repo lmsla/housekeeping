@@ -1,0 +1,10 @@
+es:
+  url: https://10.99.1.117:9200
+  sourceAccount: "elastic"
+  sourcePassword: "12345678"
+
+information:
+  caPath: "/Users/chen/Downloads/BiMap/程式區/es-curator/http_ca.crt"
+  logdir: "/Users/chen/Downloads/BiMap/程式區/es-curator/log/custom.log"
+  execute_cron : true
+  period: "59 11 * * *"
