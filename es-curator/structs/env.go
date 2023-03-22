@@ -28,7 +28,7 @@ type ActionStruct struct {
 type Actiond struct {
 	Action         string   `yaml:"action"`
 	Description    string   `yaml:"description"`
-	Options        Options  `yaml:"options"`
+	Options        Option   `yaml:"options,omitempty"`
 	Filters        []Filter `yaml:"filters,omitempty"`
 	Execute_Period string   `yaml:"execute_period,omitempty"`
 }
@@ -47,11 +47,14 @@ type Filter struct {
 	Disk_space int    `yaml:"disk_space,omitempty"`
 }
 
-type Options struct {
+type Option struct {
 	WaitForCompletion bool   `yaml:"wait_for_completion"`
 	Key               string `yaml:"key"`
 	Value             string `yaml:"value"`
 	AllocationType    string `yaml:"allocation_type"`
+	MaxNumSegment     int    `yaml:"maxnumsegment"`
+	Delay             int    `yaml:"delay"`
+	TimeoutOverride   int    `yaml:"TimeoutOverride"`
 }
 
 /// sample
@@ -78,9 +81,9 @@ type Options struct {
 // 	Unit       *string `json:"unit,omitempty"`
 // }
 
-type Action struct {
-	Delete_indices delete_indices
-}
+// type Action struct {
+// 	Delete_indices delete_indices
+// }
 
 type delete_indices struct {
 	Action  string
@@ -107,9 +110,9 @@ type type_pattern struct {
 }
 
 type information struct {
-	CaPath string
-	Logdir string
-	Period string
+	CaPath       string
+	Logdir       string
+	Period       string
 	Execute_cron bool
 }
 

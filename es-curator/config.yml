@@ -65,7 +65,20 @@ actions:
       value: prefixmore
       exclude:
 
-            
+  - action: forcemerge
+    description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+    options:
+      max_num_segment: 1
+      TimeoutOverride: 21600
+      delay: 120
+      key: testhdfidfhi
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: elasticsearch-api-202302
+      exclude:
+
+
   - action: allocation
     description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
     options:
@@ -74,15 +87,12 @@ actions:
       value: tansfer
       allocation_type: require
     filters:
-      - filtertype: pattern
-        kind: suffix
-        value: h
-      - filtertype: period
-        source: name
-        range_from: -15
-        range_to: -15
-        timestring: '%Y.%m.%d'
-        unit: days
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-bimap
+
+
+
   - action: allocation
     description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name2
     options:

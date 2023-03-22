@@ -73,7 +73,7 @@ func loadSettingFile() {
 
 func viperSettingToModel() {
 	var config structs.EnviromentModel
-	var action structs.Action
+	// var action structs.Action
 	//// ES
 	config.ES.URL = viper.GetStringSlice("es.url")
 	config.ES.SourceAccount = viper.GetString("es.sourceAccount")
@@ -85,5 +85,5 @@ func viperSettingToModel() {
 	config.INFORMATION.Execute_cron = viper.GetBool("information.execute_cron")
 
 	global.EnvConfig = &config
-	global.Action = &action
+	// global.Action = &action
 }

@@ -1,7 +1,10 @@
 es:
-  url: https://10.99.1.117:9200
+  # url: https://10.99.1.110:9200
+  # sourceAccount: "elastic"
+  # sourcePassword: "RnIv7YhigaVKS=l-*yz9"
+  url: https://10.99.1.188:9200
   sourceAccount: "elastic"
-  sourcePassword: "12345678"
+  sourcePassword: "a12345678"
 
 information:
   logdir: "/Users/chen/Downloads/BiMap/程式區/es-curator/log/custom.log"

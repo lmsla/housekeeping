@@ -2,15 +2,15 @@ package job
 
 import (
 	// "github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"fmt"
 	"log"
 
-	// "strings"
-	"fmt"
-	"net/http"
-	"time"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+
+	// "net/http"
+	// "time"
 	// "crypto/tls"
-	// "bytes"
+	"bytes"
 	"context"
 	"encoding/json"
 	"io"
@@ -18,6 +18,76 @@ import (
 	// "strconv"
 	// "sync"
 )
+
+// type CatIndicesRequest struct {
+// 	Index []string
+
+// 	Bytes                   string
+// 	ExpandWildcards         string
+// 	Format                  string
+// 	H                       []string
+// 	Health                  string
+// 	Help                    *bool
+// 	IncludeUnloadedSegments *bool
+// 	Local                   *bool
+// 	MasterTimeout           time.Duration
+// 	Pri                     *bool
+// 	S                       []string
+// 	Time                    string
+// 	V                       *bool
+
+// 	Pretty     bool
+// 	Human      bool
+// 	ErrorTrace bool
+// 	FilterPath []string
+
+// 	Header http.Header
+// 	// contains filtered or unexported fields
+// }
+
+func newTrue() *bool {
+	b := true
+	return &b
+}
+
+type CatIndice []struct {
+	Health       string `json:"health"`
+	Status       string `json:"status"`
+	Index        string `json:"index"`
+	UUID         string `json:"uuid"`
+	Pri          string `json:"pri"`
+	Rep          string `json:"rep"`
+	DocsCount    string `json:"docs.count"`
+	DocsDeleted  string `json:"docs.deleted"`
+	StoreSize    string `json:"store.size"`
+	PriStoreSize string `json:"pri.store.size"`
+	CreationDate string `json:"creation.date"`
+	// CreationDate	time.Time
+}
+
+func CatIndices() CatIndice {
+	req := esapi.CatIndicesRequest{
+		ExpandWildcards: "open,closed",
+		Format:          "json",
+		Bytes:           "kb",
+		H:               []string{"health", "status", "index", "uuid", "pri", "rep", "docs.count", "docs.deleted", "store.size", "pri.store.size", "creation.date"},
+		V:               newTrue(),
+		Pretty:          true,
+	}
+	res, err := req.Do(context.Background(), es)
+	if err != nil {
+		panic(err)
+	}
+	// log.Println(res)
+	resString, err := io.ReadAll(res.Body)
+	var s CatIndice
+	json.Unmarshal(resString, &s)
+	defer res.Body.Close()
+
+	return s
+}
+
+// ---------- open,close,delete,forcemerge ---------- //
 
 func OpenIndices(Index []string) {
 	req := esapi.IndicesOpenRequest{
@@ -86,70 +156,108 @@ func IndicesStatus() {
 	fmt.Println(res)
 }
 
-type CatIndicesRequest struct {
-	Index []string
+func ForceMerge(Index []string, MaxNumSegments int) {
+	// a := false
+	// var max_num_segments int
+	// max_num_segments = MaxNumSegments
+	req := esapi.IndicesForcemergeRequest{
+		Index:          Index,
+		MaxNumSegments: &MaxNumSegments,
 
-	Bytes                   string
-	ExpandWildcards         string
-	Format                  string
-	H                       []string
-	Health                  string
-	Help                    *bool
-	IncludeUnloadedSegments *bool
-	Local                   *bool
-	MasterTimeout           time.Duration
-	Pri                     *bool
-	S                       []string
-	Time                    string
-	V                       *bool
+		// WaitForCompletion: &a,
 
-	Pretty     bool
-	Human      bool
-	ErrorTrace bool
-	FilterPath []string
-
-	Header http.Header
-	// contains filtered or unexported fields
-}
-
-func newTrue() *bool {
-	b := true
-	return &b
-}
-
-type CatIndice []struct {
-	Health       string `json:"health"`
-	Status       string `json:"status"`
-	Index        string `json:"index"`
-	UUID         string `json:"uuid"`
-	Pri          string `json:"pri"`
-	Rep          string `json:"rep"`
-	DocsCount    string `json:"docs.count"`
-	DocsDeleted  string `json:"docs.deleted"`
-	StoreSize    string `json:"store.size"`
-	PriStoreSize string `json:"pri.store.size"`
-	CreationDate string `json:"creation.date"`
-	// CreationDate	time.Time
-}
-
-func CatIndices() CatIndice {
-	req := esapi.CatIndicesRequest{
-		ExpandWildcards: "open,closed",
-		Format:          "json",
-		Bytes:           "kb",
-		H:               []string{"health", "status", "index", "uuid", "pri", "rep", "docs.count", "docs.deleted", "store.size", "pri.store.size", "creation.date"},
-		V:               newTrue(),
-		Pretty:          true,
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		panic(err)
 	}
-	// log.Println(res)
-	resString, err := io.ReadAll(res.Body)
-	var s CatIndice
-	json.Unmarshal(resString, &s)
-	defer res.Body.Close()
 
-	return s
+	defer res.Body.Close()
+	log.Println(res)
+}
+
+
+func Allocation1(Index []string) {
+
+	type Settingss struct {
+		K string `json:"index.routing.allocation.include._tier_preference"`
+	}
+	f := Settingss{
+
+		K: "data_hot",
+	}
+
+	var buf bytes.Buffer
+
+	err := json.NewEncoder(&buf).Encode(f)
+
+	if err != nil {
+
+		log.Fatal(err)
+
+	}
+
+	req := esapi.IndicesPutSettingsRequest{
+		Index: Index,
+		Body:  &buf,
+	}
+	res, err := req.Do(context.Background(), es)
+	if err != nil {
+		panic(err)
+	}
+
+	defer res.Body.Close()
+	log.Println(res)
+}
+
+
+
+// type Setting struct {
+// 	Settings Setting1 `json:"settings"`
+// }
+
+// type Setting1 struct {
+// 	IndexRoutingAllocation IndexRoutingAllocation1 `json:"index.routing.allocation"`
+// }
+// type IndexRoutingAllocation1 struct {
+// 	Include Includes `json:"include"`
+// }
+
+// type Includes struct {
+// 	Tier string `json:"_tier_preference"`
+// }
+
+
+
+type AutoGenerated struct {
+	Settings struct {
+		IndexRoutingAllocation struct {
+			Include struct {
+				TierPreference string `json:"_tier_preference"`
+			} `json:"include"`
+		} `json:"index.routing.allocation"`
+	} `json:"settings"`
+}
+
+
+func Test111() {
+	// a := `json:"index.routing.allocation.include._tier_preference"`
+	// f := Settingss {Settings: { IndexRoutingAllocation1:{Includes:{Tier:"data_warm"}}}}
+	// k := AutoGenerated.Settings.
+	// f := Settings.IndexRoutingAllocation.Include.TierPreference 
+
+	var f AutoGenerated
+	f.Settings.IndexRoutingAllocation.Include.TierPreference = "awrm"
+	// f := {"settings": { "index":{"routing":{"allocation":{"include":{"_tier_preference" : "data_warm"} }}}}}
+	fmt.Println(f)
+	var buf bytes.Buffer
+
+	err := json.NewEncoder(&buf).Encode(f)
+
+	if err != nil {
+
+		log.Fatal(err)
+
+	}
+	fmt.Println(&buf)
 }

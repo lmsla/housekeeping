@@ -8,6 +8,6 @@ import (
 var (
 	EnvConfig     *structs.EnviromentModel
 	Elasticsearch *elasticsearch.Client
-	Action        *structs.Action
+	// Action        *structs.Action
 	ActionStruct  *structs.ActionStruct
 )
