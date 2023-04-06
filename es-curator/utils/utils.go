@@ -28,23 +28,7 @@ func loadConfigFile() {
 	if err := viper.Unmarshal(&c); err != nil {
 		panic(err)
 	}
-	
-	// fmt.Println("0",c.Actions)
-	// for i := range c.Actions {
-	// 	// c.Actions[i].Description = viper.GetString("actions.description")
-	// 	// action := viper.GetString("actions.action")
-	// 	for j := range c.Actions[i].Filters {
-	// 		int1 := viper.GetInt("actions.action.filters.range_from")
-	// 		fmt.Println("1",c.Actions[i].Filters[j].Range_From)
-	// 		fmt.Println("int1:",int1)
-	// 	}
 
-	// 	fmt.Println("2",c.Actions[i].Description)
-	// }
-	// a := configViperConfig.GetStringSlice("actions.action")
-	// fmt.Println("a:",a)
-	// action := viper.GetInt("actions.action.filters.range_from")
-	// fmt.Println("4",action)
 
 	global.ActionStruct = &c
 }

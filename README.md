@@ -1,39 +1,51 @@
-# housekeeping
-
-ES-curator 的替代方案
-
-## 
-
+ES-curator 的 golang 版替代方案
+# 可用參數列表
+ 
 ## Actions
 
-Open indices</br>
-Close indices</br>
-Delete indices</br>
+`open` </br>
+`close` </br>
+`delete_indices`</br>
+`allocation`</br>
+`forcemerge`</br>
 
 ## Description
 描述執行的動作，可將相關說明寫上，方便日後在 log 中查閱相關紀錄。
 
 ex. description: delete selected indices1
 
+## Options
+用來設定 action 執行時欲傳入的常用參數
+
+- `disable_action`
+- `key`
+- `value`
+- `allocation_type`
+- `delay`
+- `max_num_segment`
+
+
 ## Filter types
 三個過濾條件，可混用，或單獨使用。
 
-- age
-- pattern
-- space
+- `age`
+- `pattern`
+- `space`
 
-## Filter elements
+### Filter elements
 掛在 filtertype 下使用，不同的 filtertype 各有適用的 filter elements，詳細說明請往下翻看。
 
-- source
-- direction
-- unit
-- unit_count
-- kind
-- value
-- disk_space
+- `source`
+- `direction`
+- `unit`
+- `unit_count`
+- `kind`
+- `value`
+- `disk_space`
 
 -------------------------
+
+# 使用說明
 
 ## age 
 以執行程式當下，以 unit_count (5)  unit (days) 前的時間為基準，篩選出前 (older) 或後 (younger) 產生的 index。

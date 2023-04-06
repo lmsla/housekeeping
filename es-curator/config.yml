@@ -3,6 +3,8 @@
 actions: 
   - action: delete_indices
     description: delete selected indices1
+    options: 
+      disable_action: false
     filters:
     - filtertype: age
       source: creation_date
@@ -18,29 +20,33 @@ actions:
       use_age: True
       source: creation_date
 
-  - action: delete_indices
-    description: delete selected indices2
-    filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 5
-    - filtertype: pattern
-      kind: prefix
-      value: test_index
-      exclude:
-  - action: delete_indices
-    description: delete selected indices3
-    filters:
-    - filtertype: space
-      disk_space: 10
-      # use_age: True
-      # source: creation_date
+  # - action: delete_indices
+  #   description: delete selected indices2
+  #   options:
+  #     disable_action: true
+  #   filters:
+  #   - filtertype: age
+  #     source: creation_date
+  #     direction: older
+  #     unit: days
+  #     unit_count: 5
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: test_index
+  #     exclude:
+      
+  # - action: delete_indices
+  #   description: delete selected indices3
+  #   filters:
+  #   - filtertype: space
+  #     disk_space: 10
+  #     # use_age: True
+  #     # source: creation_date
 
   - action: close
     description: close selected indices
-    execute_period: "*/1 * * * *"
+    options: 
+      disable_action: true
     filters:
     - filtertype: age
       source: creation_date
@@ -54,6 +60,8 @@ actions:
 
   - action: open
     description: open selected indices
+    options: 
+      disable_action: true
     filters:
     - filtertype: age
       source: creation_date
@@ -65,51 +73,101 @@ actions:
       value: prefixmore
       exclude:
 
-  - action: forcemerge
-    description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
-    options:
-      max_num_segment: 1
-      TimeoutOverride: 21600
-      delay: 120
-      key: testhdfidfhi
-    filters:
-    - filtertype: pattern
-      kind: prefix
-      value: elasticsearch-api-202302
-      exclude:
+  # - action: forcemerge
+  #   description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+  #   options:
+  #     max_num_segment: 1
+  #     TimeoutOverride: 21600
+  #     delay: 120
+  #     key: testhdfidfhi
+  #   filters:
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: elasticsearch-api-202302
+  #     exclude:
+
+  # - action: forcemerge
+  #   description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+  #   options:
+  #     max_num_segment: 1
+  #     TimeoutOverride: 21600
+  #     delay: 120
+  #     key: testhdfidfhi
+  #   filters:
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: logstash-zs
+  #     exclude:
+
 
 
   - action: allocation
     description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
     options:
+      disable_action: True
       wait_for_completion: True
-      key: box_type
-      value: tansfer
-      allocation_type: require
+      key: _tier_preference
+      value: data_hot
+      allocation_type: include
+      delay: 20
     filters:
     - filtertype: pattern
       kind: prefix
-      value: logstash-bimap
+      value: logstash-zs
 
-
-
-  - action: allocation
-    description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name2
+  - action: forcemerge
+    description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
     options:
-      wait_for_completion: True
-      key: box_type
-      value: tansfer
-      allocation_type: require
+      disable_action: true
+      max_num_segment: 1
+      delay: 10
     filters:
-      - filtertype: pattern
-        kind: suffix
-        value: h
-      - filtertype: period
-        source: name
-        range_from: -15
-        range_to: -15
-        timestring: '%Y.%m.%d'
-        unit: days
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-zs
+      exclude:
+
+  - action: delete_indices
+    description: delete selected indices1
+    options: 
+      disable_action: true
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-zs
+      exclude: 
+
+  # - action: allocation
+  #   description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+  #   options:
+  #     wait_for_completion: True
+  #     key: _tier_preference
+  #     value: data_cold
+  #     allocation_type: include
+  #   filters:
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: logstash-zs
+
+
+  # - action: allocation
+  #   description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name2
+  #   options:
+  #     wait_for_completion: True
+  #     key: _tier_preference
+  #     value: data_hot
+  #     allocation_type: include
+  #   filters:
+  #     - filtertype: pattern
+  #       kind: suffix
+  #       value: h
+  #     - filtertype: period
+  #       source: name
+  #       range_from: -15
+  #       range_to: -15
+  #       timestring: '%Y.%m.%d'
+  #       unit: days
+
   - action: shrink
     description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name3
     options:

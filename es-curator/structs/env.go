@@ -7,20 +7,6 @@ type EnviromentModel struct {
 	INFORMATION     information
 }
 
-type ConfigStruct struct {
-	OrgName     string                   `yaml:"orgname"`
-	ChannelName string                   `yaml:"channelname"`
-	Peer        []string                 `yaml:"peer"`
-	Orderer     map[string][]OrdererInfo `yaml:"ORDERER"`
-}
-
-type OrdererInfo struct {
-	ServerHostName string `yaml:"ServerHostName"`
-	Address        string `yaml:"Address"`
-}
-
-//// adjust
-
 type ActionStruct struct {
 	Actions []Actiond `yaml:"actions"`
 }
@@ -48,42 +34,15 @@ type Filter struct {
 }
 
 type Option struct {
-	WaitForCompletion bool   `yaml:"wait_for_completion"`
+	DisableAction     bool   `mapstructure:"disable_action"`
+	WaitForCompletion bool   `mapstructure:"wait_for_completion"`
 	Key               string `yaml:"key"`
 	Value             string `yaml:"value"`
-	AllocationType    string `yaml:"allocation_type"`
-	MaxNumSegment     int    `yaml:"maxnumsegment"`
+	AllocationType    string `mapstructure:"allocation_type"`
+	MaxNumSegment     int    `mapstructure:"max_num_segment"`
 	Delay             int    `yaml:"delay"`
 	TimeoutOverride   int    `yaml:"TimeoutOverride"`
 }
-
-/// sample
-
-// type ActionStruct struct {
-// 	Actions map[string]Action `yaml:"actions"`
-// }
-
-// type Actions struct {
-// 	Action      string   `yaml:"action"`
-// 	Description string   `yaml:"description"`
-// 	// Options     Options  `json:"options"`
-// 	Filters     []Filter `yaml:"filters"`
-// }
-
-// type Filter struct {
-// 	Filtertype string  `yaml:"filtertype"`
-// 	Kind       *string `yaml:"kind,omitempty"`
-// 	Value      *string `json:"value,omitempty"`
-// 	Source     *string `json:"source,omitempty"`
-// 	RangeFrom  *int64  `json:"range_from,omitempty"`
-// 	RangeTo    *int64  `json:"range_to,omitempty"`
-// 	Timestring *string `json:"timestring,omitempty"`
-// 	Unit       *string `json:"unit,omitempty"`
-// }
-
-// type Action struct {
-// 	Delete_indices delete_indices
-// }
 
 type delete_indices struct {
 	Action  string

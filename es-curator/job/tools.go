@@ -1,5 +1,9 @@
 package job
 
+import (
+	"time"
+	"fmt"
+)
 
 func Indicesmapping(list1 []string, list2 []string, list3 []string) []string {
 	var compareList []string
@@ -53,4 +57,24 @@ func Indicesmapping(list1 []string, list2 []string, list3 []string) []string {
 	}
 	
 	return compareList
+}
+
+
+
+func Node_relocating_checking() {
+	i := 1
+	for i <= 10000 {
+		indicesinfo := ClusterHealth()
+		time.Sleep(3 * time.Second)
+		// a := fmt.Printf("%s",indicesinfo["relocating_shards"])
+		if indicesinfo.RelocatingShards != 0 {
+			fmt.Println("relocating_shards : not finished")
+			continue
+		} else if indicesinfo.RelocatingShards == 0 {
+			fmt.Println("relocating_shards : 0")
+			break
+		}
+	}
+	fmt.Println("check finish1")
+
 }

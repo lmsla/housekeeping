@@ -206,3 +206,80 @@ Actions 2023/03/17 14:12:22 Action: allocation,Description: allocation routing t
 Details 2023/03/17 14:12:22 allocation these indices :[logstash-bimap-test]
 Actions 2023/03/17 14:12:23 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name2
 Details 2023/03/17 14:12:23 allocation these indices :[logstash-bimap-test]
+Actions 2023/03/28 12:04:34 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/28 12:04:34 segement num :0
+Details 2023/03/28 12:04:34 forcemerge these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/28 12:05:56 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/28 12:05:56 allocation these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/28 12:05:56 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/28 12:05:56 segement num :1
+Details 2023/03/28 12:05:56 forcemerge these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/28 14:01:54 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:04:14 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:06:14 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:07:54 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:10:02 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:13:51 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:19:18 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:20:11 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:21:48 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/28 14:25:23 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Actions 2023/03/29 10:58:18 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/29 10:58:18 allocation these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 10:58:19 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/29 10:58:19 segement num :1
+Details 2023/03/29 10:58:19 forcemerge these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:11:36 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/29 11:11:36 allocation these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:11:36 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/29 11:11:36 segement num :1
+Details 2023/03/29 11:11:36 forcemerge these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:20:00 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/29 11:20:00 allocation these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:24:18 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/29 11:24:18 allocation these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:24:18 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/29 11:24:18 segement num :1
+Details 2023/03/29 11:24:18 forcemerge these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:27:23 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/29 11:27:23 allocation these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:27:23 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/29 11:27:23 segement num :1
+Details 2023/03/29 11:27:23 forcemerge these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:31:02 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/29 11:31:02 segement num :1
+Details 2023/03/29 11:31:02 forcemerge these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 11:53:51 Action: delete_indices,Description: delete selected indices1
+Details 2023/03/29 11:53:51 Delete these indices :[logstash-bimap-test01]
+Actions 2023/03/29 12:06:44 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/29 12:06:44 allocation these indices :[logstash-zs-windows-20230329 logstash-zs-windows-20230328]
+Actions 2023/03/29 12:06:44 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/29 12:06:44 segement num :1
+Details 2023/03/29 12:06:44 forcemerge these indices :[logstash-zs-windows-20230329 logstash-zs-windows-20230328]
+Actions 2023/03/29 12:06:58 Action: delete_indices,Description: delete selected indices1
+Details 2023/03/29 12:06:58 Delete these indices :[logstash-zs-windows-20230328]
+Actions 2023/03/29 12:10:27 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/29 12:10:27 allocation these indices :[logstash-zs-windows-20230329]
+Actions 2023/03/29 12:10:37 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/29 12:10:37 segement num :1
+Details 2023/03/29 12:10:37 forcemerge these indices :[logstash-zs-windows-20230329]
+Actions 2023/03/29 13:07:52 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/03/29 13:07:52 allocation these indices :[logstash-zs-windows-20230329]
+Actions 2023/03/29 13:46:04 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/03/29 13:46:04 segement num :1
+Details 2023/03/29 13:46:04 forcemerge these indices :[logstash-zs-windows-20230329]
+Actions 2023/04/06 14:36:42 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/04/06 14:36:42 allocation these indices :[logstash-zs-windows-20230406]
+Actions 2023/04/06 14:40:20 Action: allocation,Description: allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+Details 2023/04/06 14:40:20 allocation these indices :[logstash-zs-windows-20230406]
+Actions 2023/04/06 14:40:45 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/04/06 14:40:45 segement num :1
+Details 2023/04/06 14:40:45 forcemerge these indices :[logstash-zs-windows-20230406]
+Actions 2023/04/06 15:52:44 Action: forcemerge,Description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+segement 2023/04/06 15:52:44 segement num :1
+Details 2023/04/06 15:52:44 forcemerge these indices :[logstash-zs-windows-20230406]
+Info 2023/04/06 16:53:20 Pausing for 120 seconds before continuing...
+Info 2023/04/06 16:59:49 Pausing for 20 seconds before continuing...
+Info 2023/04/06 17:00:14 Pausing for 10 seconds before continuing...
+Info 2023/04/06 17:01:49 Pausing for 0 seconds before continuing...
+Info 2023/04/06 17:01:54 Pausing for 10 seconds before continuing...

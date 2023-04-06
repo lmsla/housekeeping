@@ -4,22 +4,76 @@ import (
 	"es-curator/global"
 	"es-curator/log_record"
 	"fmt"
+	"time"
 )
 
-
 func Action_controll() {
+	ActionList := global.ActionStruct.Actions
+	for actions := range ActionList {
+		switch ActionList[actions].Action {
+		case "allocation":
+			if ActionList[actions].Options.DisableAction == true {
+				// Action_allocation_indices()
+				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
+				log_record.Logrecord("Info", delaymsg)
+				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
+			}
+		case "forcemerge":
+			if ActionList[actions].Options.DisableAction == true {
+				// Action_forcemerge_indices()
+				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
+				log_record.Logrecord("Info", delaymsg)
+				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
+			}
+		case "delete_indices":
+			if ActionList[actions].Options.DisableAction == true {
+				// Action_delete_indices()
+				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
+				log_record.Logrecord("Info", delaymsg)
+				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
+			}
+		case "close":
+			if ActionList[actions].Options.DisableAction == true {
+				// Action_close_indices()
+				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
+				log_record.Logrecord("Info", delaymsg)
+				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
+			}
+		case "open":
+			if ActionList[actions].Options.DisableAction == true {
+				// Action_open_indices()
+				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
+				log_record.Logrecord("Info", delaymsg)
+				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
+			}
+		}
+	}
+	// for actions := range ActionList {
+	// 	if ActionList[actions].Action == "allocation" {
+	// 		// Action_allocation_indices()
+	// 		time.Sleep(5 * time.Second)
+	// 		fmt.Println("allocation wait fot 5 s ")
+	// 	} else if ActionList[actions].Action == "forcemerge" {
+	// 		// Action_forcemerge_indices()
+	// 		time.Sleep(5 * time.Second)
+	// 		fmt.Println("forcemerge wait fot 5 s ")
+	// 	} else if ActionList[actions].Action == "delete_indices" {
+	// 		fmt.Println("delete_indices wait fot 5 s ")
+	// 		time.Sleep(5 * time.Second)
+	// 		// Action_delete_indices()
+	// 	} else if ActionList[actions].Action == "close" {
+	// 		time.Sleep(5 * time.Second)
+	// 		fmt.Println("close indices wait fot 5 s ")
+	// 	}
+	// }
 	// Action_open_indices()
 	// Action_close_indices()
 	// Action_delete_indices()
 	// Action_forcemerge_indices()
-	Action_allocation_indices()
-
+	// Action_allocation_indices()
 }
 
-
-
-
-
+////------- Open indices -------////
 func Action_open_indices() {
 	ActionList := global.ActionStruct.Actions
 
@@ -57,6 +111,7 @@ func Action_open_indices() {
 	}
 }
 
+////------- Close indices -------////
 func Action_close_indices() {
 	ActionList := global.ActionStruct.Actions
 
@@ -95,6 +150,7 @@ func Action_close_indices() {
 
 }
 
+////------- Delete indices -------////
 func Action_delete_indices() {
 	ActionList := global.ActionStruct.Actions
 
@@ -128,11 +184,15 @@ func Action_delete_indices() {
 			log_record.Logrecord("Details", detailMsg)
 			//// delete function write from here
 			DeleteIndex(comparelist)
+
 		}
 	}
 }
 
+////------- Forcemerge indices -------////
 func Action_forcemerge_indices() {
+	Node_relocating_checking()
+
 	ActionList := global.ActionStruct.Actions
 
 	for actions := range ActionList {
@@ -156,7 +216,7 @@ func Action_forcemerge_indices() {
 					spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 				}
 				comparelist = Indicesmapping(spacelist, agelist, patternlist)
-				
+
 			}
 			MaxNumSegments = ActionList[actions].Options.MaxNumSegment
 			// MaxNumSegments := ActionList[actions].Options.MaxNumSegments
@@ -176,14 +236,14 @@ func Action_forcemerge_indices() {
 			log_record.Logrecord("Details", detailMsg)
 
 			//// Close function write from here
-			ForceMerge(comparelist,MaxNumSegments)
+			ForceMerge(comparelist, MaxNumSegments)
+
 		}
 	}
 
 }
 
-
-
+////------- Allocation indices -------////
 func Action_allocation_indices() {
 	ActionList := global.ActionStruct.Actions
 
@@ -191,6 +251,9 @@ func Action_allocation_indices() {
 		// fmt.Println(global.ActionStruct.Actions[actions].Action)
 		if ActionList[actions].Action == "allocation" {
 			actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
+			allocationtype := ActionList[actions].Options.AllocationType
+			key := ActionList[actions].Options.Key
+			value := ActionList[actions].Options.Value
 			log_record.Logrecord("Actions", actionMsg)
 			FilterList := ActionList[actions].Filters
 			var agelist []string
@@ -207,13 +270,17 @@ func Action_allocation_indices() {
 					spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 				}
 				comparelist = Indicesmapping(spacelist, agelist, patternlist)
-				
+
 			}
+
 			detailMsg := fmt.Sprintf("allocation these indices :%s", comparelist)
 			log_record.Logrecord("Details", detailMsg)
 
-			//// Close function write from here
-			Allocation1(comparelist)
+			//// allocation function write from here
+			Allocation(comparelist, allocationtype, key, value)
+
+			Node_relocating_checking()
+
 		}
 	}
 
