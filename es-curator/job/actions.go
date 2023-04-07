@@ -48,24 +48,6 @@ func Action_controll() {
 			}
 		}
 	}
-	// for actions := range ActionList {
-	// 	if ActionList[actions].Action == "allocation" {
-	// 		// Action_allocation_indices()
-	// 		time.Sleep(5 * time.Second)
-	// 		fmt.Println("allocation wait fot 5 s ")
-	// 	} else if ActionList[actions].Action == "forcemerge" {
-	// 		// Action_forcemerge_indices()
-	// 		time.Sleep(5 * time.Second)
-	// 		fmt.Println("forcemerge wait fot 5 s ")
-	// 	} else if ActionList[actions].Action == "delete_indices" {
-	// 		fmt.Println("delete_indices wait fot 5 s ")
-	// 		time.Sleep(5 * time.Second)
-	// 		// Action_delete_indices()
-	// 	} else if ActionList[actions].Action == "close" {
-	// 		time.Sleep(5 * time.Second)
-	// 		fmt.Println("close indices wait fot 5 s ")
-	// 	}
-	// }
 	// Action_open_indices()
 	// Action_close_indices()
 	// Action_delete_indices()
@@ -219,20 +201,15 @@ func Action_forcemerge_indices() {
 
 			}
 			MaxNumSegments = ActionList[actions].Options.MaxNumSegment
-			// MaxNumSegments := ActionList[actions].Options.MaxNumSegments
-			// fmt.Println("agelist:", agelist)
-			// fmt.Println("patternlist:", patternlist)
-			// fmt.Println("spacelist:", spacelist)
-			// fmt.Println("compare:", comparelist)
-			fmt.Println(MaxNumSegments)
-			fmt.Println(ActionList[actions].Options.Key)
-			fmt.Println(ActionList[actions].Options.Delay)
-			fmt.Println(ActionList[actions].Options.MaxNumSegment)
-			fmt.Println(ActionList[actions].Options.TimeoutOverride)
-			fmt.Println(ActionList[actions].Description)
-			detailMsg := fmt.Sprintf("forcemerge these indices :%s", comparelist)
-			msg := fmt.Sprintf("segement num :%v", MaxNumSegments)
-			log_record.Logrecord("segement", msg)
+			// fmt.Println(MaxNumSegments)
+			// fmt.Println(ActionList[actions].Options.Key)
+			// fmt.Println(ActionList[actions].Options.Delay)
+			// fmt.Println(ActionList[actions].Options.MaxNumSegment)
+			// fmt.Println(ActionList[actions].Options.TimeoutOverride)
+			// fmt.Println(ActionList[actions].Description)
+			detailMsg := fmt.Sprintf("forcemerge these indices :%s,segement num :%v", comparelist,MaxNumSegments)
+			// msg := fmt.Sprintf("segement num :%v", MaxNumSegments)
+			// log_record.Logrecord("segement", msg)
 			log_record.Logrecord("Details", detailMsg)
 
 			//// Close function write from here
@@ -273,7 +250,7 @@ func Action_allocation_indices() {
 
 			}
 
-			detailMsg := fmt.Sprintf("allocation these indices :%s", comparelist)
+			detailMsg := fmt.Sprintf("allocation these indices :%s to %s ", comparelist,value)
 			log_record.Logrecord("Details", detailMsg)
 
 			//// allocation function write from here
