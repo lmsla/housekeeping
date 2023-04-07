@@ -4,9 +4,6 @@ import (
 	"es-curator/global"
 	"es-curator/job"
 	"es-curator/utils"
-	"fmt"
-
-	// "fmt"
 	"sync"
 )
 
