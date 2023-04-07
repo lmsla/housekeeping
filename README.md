@@ -24,7 +24,7 @@ ex. description: delete selected indices1
 - `delay`
 - `max_num_segment`
 
-###disable_action
+### disable_action
 ---
 type = bool
 
@@ -82,7 +82,7 @@ ex. 1,2,3，forcemerge 後 index 的 segment 數量。
 - `disk_space`
 
 
-###age
+### age
 ---
 以執行程式當下，以 unit_count (5)  unit (days) 前的時間為基準，篩選出前 (older) 或後 (younger) 產生的 index。
 
