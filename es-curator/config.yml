@@ -105,7 +105,6 @@ actions:
     description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
     options:
       disable_action: True
-      wait_for_completion: True
       key: _tier_preference
       value: data_hot
       allocation_type: include

@@ -24,6 +24,44 @@ ex. description: delete selected indices1
 - `delay`
 - `max_num_segment`
 
+###disable_action
+---
+type = bool
+
+接受的值為 true or false，控制 action 執行與否，每個 action 都要加上這個控制選項。
+### key
+---
+**used in allocation**
+
+`_tier_preference`
+
+### value
+---
+**used in allocation**
+
+`data_hot`,`data_warm`,`data_cold`
+
+### allocation_type
+---
+**used in allocation**
+
+`include`,`require`,`exclude`
+
+### delay
+---
+type = number 
+
+action 執行後等待的時間，單位為秒
+
+### max_num _segment
+---
+**used in forcemerge**
+
+type = number 
+ex. 1,2,3，forcemerge 後 index 的 segment 數量。
+
+
+
 
 ## Filter types
 三個過濾條件，可混用，或單獨使用。
@@ -43,42 +81,44 @@ ex. description: delete selected indices1
 - `value`
 - `disk_space`
 
--------------------------
 
-# 使用說明
-
-## age 
+###age
+---
 以執行程式當下，以 unit_count (5)  unit (days) 前的時間為基準，篩選出前 (older) 或後 (younger) 產生的 index。
 
 例： 當前時間為2023/01/16，unit : days ; unit_count : 5 ; direction : older ，篩選結果為2023/01/11 之前的產生的所有 index。
-### source 
+
+#### source 
+
 - creation_date
 
-### direction
+#### direction
 - older
 - younger
 
-### unit
+#### unit
 - years
 - months
 - days
 
-### unit_count
+#### unit_count
 - 任一正整數 ex. 1、2、5、10....
 
-## pattern
+### pattern
+---
 以 index 名稱做匹配條件，可前匹配 (prefix) 、後匹配 (suffix)、及正則匹配 (regex)，value 中輸入的是匹配字樣，例如 kind : prefix ; value : logstash-asa 會匹配到所有 logstash-asa 開頭的 index。
 
-### kind
+#### kind
 - prefix
 - suffix
 - regex
 
-### value
+#### value
 匹配字樣</br>
 ex. logstash-ap , ap
 
-## space
+### space
+---
 計算 index 所佔空間，由最新的 index 開始算，超過設定的閥值 disk_space ，篩選出較舊的 index，新舊判定依據為 index 產生時間。
 
 例，有五個 index ，舊到新的順序分別為 01~05 ，disk_space : 20 ，index-05、index-04 加起來共 20 GB，超過的部分 index-03、index-02、index-01，會被篩選出來。
@@ -102,15 +142,12 @@ index-05 10GB
 
 ```
 
-### disk_space
+#### disk_space
 - 任一正整數，單位 GB，例如 10 代表 10 GB 。
 
 
 
----------------------
-
-
-## config sample
+# config sample
 會用到兩個 config ，setting.yml 及 config.yml ，setting.yml 控制環境參數及排程執行相關；config.yml 控制要執行的 Actions。
 
 注意縮排不能有誤，不然程式會出錯。
@@ -137,67 +174,87 @@ config 中可以有一或多個 actions，一個 actions 中現階段最多可�
 actions: 
   - action: delete_indices
     description: delete selected indices1
+    options: 
+      disable_action: false
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
+      value: prefixmore
       exclude: 
     - filtertype: space
       disk_space: 2
       use_age: True
       source: creation_date
 
-  - action: delete_indices
-    description: delete selected indices2
-    filters:
-    - filtertype: age
-      source: "creation_date"
-      direction: older
-      unit: days
-      unit_count: 5
-    - filtertype: pattern
-      kind: prefix
-      value: "test_index"
-      exclude:
-  - action: delete_indices
-    description: delete selected indices3
-    filters:
-    - filtertype: space
-      disk_space: 10
-      # use_age: True
-      # source: creation_date
-
   - action: close
     description: close selected indices
-    execute_period: "*/1 * * * *"
+    options: 
+      disable_action: true
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
-      exclude:
+      value: prefixmore
 
   - action: open
     description: open selected indices
+    options: 
+      disable_action: true
     filters:
     - filtertype: age
-      source: "creation_date"
+      source: creation_date
       direction: older
       unit: days
       unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: "prefixmore"
-      exclude:
+      value: prefixmore
+
+
+  - action: allocation
+    description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+    options:
+      disable_action: True
+      key: _tier_preference
+      value: data_hot
+      allocation_type: include
+      delay: 20
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-zs
+
+  - action: forcemerge
+    description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+    options:
+      disable_action: true
+      max_num_segment: 1
+      delay: 10
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-zs
+
+
+  - action: delete_indices
+    description: delete selected indices1
+    options: 
+      disable_action: true
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-zs
+
+
 ```
 
 

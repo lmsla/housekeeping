@@ -13,35 +13,35 @@ func Action_controll() {
 		switch ActionList[actions].Action {
 		case "allocation":
 			if ActionList[actions].Options.DisableAction == true {
-				// Action_allocation_indices()
+				Action_allocation_indices()
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 				log_record.Logrecord("Info", delaymsg)
 				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "forcemerge":
 			if ActionList[actions].Options.DisableAction == true {
-				// Action_forcemerge_indices()
+				Action_forcemerge_indices()
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 				log_record.Logrecord("Info", delaymsg)
 				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "delete_indices":
 			if ActionList[actions].Options.DisableAction == true {
-				// Action_delete_indices()
+				Action_delete_indices()
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 				log_record.Logrecord("Info", delaymsg)
 				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "close":
 			if ActionList[actions].Options.DisableAction == true {
-				// Action_close_indices()
+				Action_close_indices()
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 				log_record.Logrecord("Info", delaymsg)
 				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "open":
 			if ActionList[actions].Options.DisableAction == true {
-				// Action_open_indices()
+				Action_open_indices()
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 				log_record.Logrecord("Info", delaymsg)
 				time.Sleep( time.Duration(ActionList[actions].Options.Delay) * time.Second)

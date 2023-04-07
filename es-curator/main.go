@@ -4,11 +4,13 @@ import (
 	"es-curator/global"
 	"es-curator/job"
 	"es-curator/utils"
+	"fmt"
+
 	// "fmt"
 	"sync"
 )
 
-func main() {
+func main1() {
 	utils.LoadEnvironment()
 	job.SetElkClient()
 
@@ -24,7 +26,7 @@ func main() {
 
 }
 
-func main1() {
+func main() {
 	utils.LoadEnvironment()
 	job.SetElkClient()
 	// job.Allocation1([]string{"logstash-bimap-test01"})
@@ -34,6 +36,15 @@ func main1() {
 	// job.Nodetest()
 	// job.Test111()
 	// job.Allocation([]string{"logstash-bimap-test01"},"include","_tier_preference","data_hot")
-	job.Node_relocating_checking()
+	Test()
+
+}
+
+func Test() {
+
+	a := true
+	if a != false {
+		fmt.Println("ok")
+	}
 
 }
