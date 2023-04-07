@@ -10,7 +10,7 @@ import (
 	"sync"
 )
 
-func main1() {
+func main() {
 	utils.LoadEnvironment()
 	job.SetElkClient()
 
@@ -26,7 +26,7 @@ func main1() {
 
 }
 
-func main() {
+func main1() {
 	utils.LoadEnvironment()
 	job.SetElkClient()
 	// job.Allocation1([]string{"logstash-bimap-test01"})
@@ -36,15 +36,7 @@ func main() {
 	// job.Nodetest()
 	// job.Test111()
 	// job.Allocation([]string{"logstash-bimap-test01"},"include","_tier_preference","data_hot")
-	Test()
+	// Test()
 
 }
 
-func Test() {
-
-	a := true
-	if a != false {
-		fmt.Println("ok")
-	}
-
-}
