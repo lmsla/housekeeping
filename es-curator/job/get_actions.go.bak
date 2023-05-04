@@ -1,0 +1,132 @@
+package job
+
+import (
+	// "fmt"
+	"es-curator/structs"
+	"fmt"
+	"io/ioutil"
+
+	// "rule-engine-golang-cli/handler"
+	// "rule-engine-golang-cli/models"
+	"strings"
+
+	"github.com/spf13/viper"
+)
+
+
+func GetRules() []structs.Actiond {
+
+	var actions []structs.Actiond
+	// 抓 rule.d 下所有的 file
+	filePath := "./action.d/"
+	files, err := ioutil.ReadDir(filePath)
+	if err != nil {
+		// handler.WriteErrorLog("services.GetRulesConfig", "failed to load rule configs", err.Error())
+	}
+
+	for _, file := range files {
+
+		filenames := strings.Split(file.Name(), ".")
+		extension := filenames[len(filenames)-1]
+		filename := strings.Join(filenames[:len(filenames)-1], ".")
+
+		if extension != "yml" {
+			// msg := fmt.Sprintf("%s not yml file", strings.Join(filenames, "."))
+			// handler.WriteErrorLog("services.GetRuleConfig", msg, "")
+			continue
+		} else if len(filenames) <= 1 {
+			// msg := fmt.Sprintf("%s file name illegal", strings.Join(filenames, "."))
+			// handler.WriteErrorLog("services.GetRuleConfig", msg, "")
+			continue
+		} else if strings.Contains(filename, "example") {
+			// msg := fmt.Sprintf("%s file is example file", strings.Join(filenames, "."))
+			// handler.WriteErrorLog("services.GetRuleConfig", msg, "")
+			continue
+		}
+
+		var data structs.ActionStruct
+		
+		viper.SetConfigName(filename)
+		viper.SetConfigType("yml")
+		viper.AddConfigPath(filePath)
+		if err = viper.ReadInConfig(); err != nil {
+			// errMsg := fmt.Sprintf("Failed to read yaml file %s",strings.Join(filenames,"."))
+			// handler.WriteErrorLog("services.GetRules",errMsg,err.Error())
+			continue
+		}
+
+		if err = viper.Unmarshal(&data); err != nil {
+			// errMsg := fmt.Sprintf("Failed to parse yaml file %s",strings.Join(filenames,"."))
+			// handler.WriteErrorLog("services.GetRules",errMsg,err.Error())
+			continue
+		}
+		
+		actions = append(actions, data.Actions...)
+	}
+	fmt.Println(actions)
+	return actions
+}
+
+
+
+func GetCronTime() []structs. {
+
+	var actions []structs.Actiond
+	// 抓 rule.d 下所有的 file
+	filePath := "./action.d/"
+	files, err := ioutil.ReadDir(filePath)
+	if err != nil {
+		// handler.WriteErrorLog("services.GetRulesConfig", "failed to load rule configs", err.Error())
+	}
+
+	for _, file := range files {
+
+		filenames := strings.Split(file.Name(), ".")
+		extension := filenames[len(filenames)-1]
+		filename := strings.Join(filenames[:len(filenames)-1], ".")
+
+		if extension != "yml" {
+			// msg := fmt.Sprintf("%s not yml file", strings.Join(filenames, "."))
+			// handler.WriteErrorLog("services.GetRuleConfig", msg, "")
+			continue
+		} else if len(filenames) <= 1 {
+			// msg := fmt.Sprintf("%s file name illegal", strings.Join(filenames, "."))
+			// handler.WriteErrorLog("services.GetRuleConfig", msg, "")
+			continue
+		} else if strings.Contains(filename, "example") {
+			// msg := fmt.Sprintf("%s file is example file", strings.Join(filenames, "."))
+			// handler.WriteErrorLog("services.GetRuleConfig", msg, "")
+			continue
+		}
+
+		var data structs.ActionStruct
+		
+		viper.SetConfigName(filename)
+		viper.SetConfigType("yml")
+		viper.AddConfigPath(filePath)
+		if err = viper.ReadInConfig(); err != nil {
+			// errMsg := fmt.Sprintf("Failed to read yaml file %s",strings.Join(filenames,"."))
+			// handler.WriteErrorLog("services.GetRules",errMsg,err.Error())
+			continue
+		}
+
+		if err = viper.Unmarshal(&data); err != nil {
+			// errMsg := fmt.Sprintf("Failed to parse yaml file %s",strings.Join(filenames,"."))
+			// handler.WriteErrorLog("services.GetRules",errMsg,err.Error())
+			continue
+		}
+		
+		actions = append(actions, data.Actions...)
+	}
+	fmt.Println(actions)
+	return actions
+}
+
+
+
+func GetdataInAction() {
+	actions := GetRules()
+	for _,data := range actions {
+		fmt.Println(data.Action)
+	}
+}

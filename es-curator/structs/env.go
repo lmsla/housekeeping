@@ -8,7 +8,8 @@ type EnviromentModel struct {
 }
 
 type ActionStruct struct {
-	Actions []Actiond `yaml:"actions"`
+	Actions   []Actiond `yaml:"actions"`
+	Cron_Time string    `yaml:"cron_time"`
 }
 
 type Actiond struct {

@@ -1,0 +1,235 @@
+#### timestring "2006-01-02 15:04:05"
+#### adjust 
+actions: 
+  cron_time: 00 10 * * *
+  - action:  delete_indices action2
+    description: action2 delete selected indices1
+    options: 
+      disable_action: false
+    filters:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 1
+    - filtertype: pattern
+      kind: prefix
+      value: prefixmore
+      exclude: 
+    - filtertype: space
+      disk_space: 2
+      use_age: True
+      source: creation_date
+
+  - action: close action2
+    description: action2 close selected indices
+    options: 
+      disable_action: true
+    filters:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 1
+    - filtertype: pattern
+      kind: prefix
+      value: prefixmore
+      exclude:
+
+  - action: open action2
+    description: action2 open selected indices
+    options: 
+      disable_action: true
+    filters:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 1
+    - filtertype: pattern
+      kind: prefix
+      value: prefixmore
+      exclude:
+
+  # - action: forcemerge
+  #   description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+  #   options:
+  #     max_num_segment: 1
+  #     TimeoutOverride: 21600
+  #     delay: 120
+  #     key: testhdfidfhi
+  #   filters:
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: elasticsearch-api-202302
+  #     exclude:
+
+  # - action: forcemerge
+  #   description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+  #   options:
+  #     max_num_segment: 1
+  #     TimeoutOverride: 21600
+  #     delay: 120
+  #     key: testhdfidfhi
+  #   filters:
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: logstash-zs
+  #     exclude:
+
+
+
+  - action: allocation
+    description:  action2 allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+    options:
+      disable_action: True
+      key: _tier_preference
+      value: data_hot
+      allocation_type: include
+      delay: 20
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-zs
+
+  - action: forcemerge
+    description: action2 Perform a forceMerge on selected indices to 'max_num_segments' per shard
+    options:
+      disable_action: true
+      max_num_segment: 1
+      delay: 10
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-zs
+      exclude:
+
+  - action: delete_indices
+    description: action2  delete selected indices
+    options: 
+      disable_action: true
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-zs
+      exclude: 
+
+  # - action: allocation
+  #   description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+  #   options:
+  #     wait_for_completion: True
+  #     key: _tier_preference
+  #     value: data_cold
+  #     allocation_type: include
+  #   filters:
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: logstash-zs
+
+
+  # - action: allocation
+  #   description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name2
+  #   options:
+  #     wait_for_completion: True
+  #     key: _tier_preference
+  #     value: data_hot
+  #     allocation_type: include
+  #   filters:
+  #     - filtertype: pattern
+  #       kind: suffix
+  #       value: h
+  #     - filtertype: period
+  #       source: name
+  #       range_from: -15
+  #       range_to: -15
+  #       timestring: '%Y.%m.%d'
+  #       unit: days
+
+  - action: shrink
+    description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name3
+    options:
+      wait_for_completion: True
+      key: box_type
+      value: tansfer
+      allocation_type: require
+    filters:
+      - filtertype: pattern
+        kind: suffix
+        value: h
+      - filtertype: period
+        source: name
+        range_from: -15
+        range_to: -15
+        timestring: '%Y.%m.%d'
+        unit: days
+
+
+
+
+
+
+### sample 
+# actions:
+#   2:
+#     action: allocation
+#     description: >-
+#       allocation routing to warm node
+#       setup for *-h indices older than 1 days, based on index-name
+#     options:
+#       wait_for_completion: True
+#       key: box_type
+#       value: tansfer
+#       allocation_type: require
+#     filters:
+#     - filtertype: pattern
+#       kind: suffix
+#       value: h
+#     - filtertype: period
+#       source: name
+#       range_from: -15
+#       range_to: -15
+#       timestring: '%Y.%m.%d'
+#       unit: days
+#   3:
+#     action: shrink
+#     description: >-
+#       Shrink *-h- indices to cold node
+#       Delete each source index after successful shrink, then reroute the shrunk
+#       index with the provided parameters.
+#     options:
+#       ignore_empty_list: True
+#       shrink_node: bimap-data-02
+#       node_filters:
+#         permit_masters: True
+#       number_of_shards: 6
+#       number_of_replicas: 0
+#       shrink_prefix:
+#       shrink_suffix: '-lc'
+#       continue_if_exception: True
+#       delete_after: True
+#       #delete_after: false
+#       post_allocation:
+#         allocation_type: require
+#         key: box_type
+#         value: cold
+#       wait_for_active_shards: 1
+#       extra_settings:
+#         settings:
+#           index.codec: best_compression
+#       wait_for_completion: True
+#       wait_for_rebalance: True
+#       wait_interval: 9
+#       max_wait: -1
+#     filters:
+#     - filtertype: pattern
+#       kind: regex
+#       value: '^logstash-netflow'
+#     - filtertype: period
+#       source: name
+#       range_from: -15
+#       range_to: -15
+#       timestring: '%Y.%m.%d'
+#       unit: days
+
+
+      

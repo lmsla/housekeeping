@@ -25,7 +25,7 @@ func main() {
 
 func main1() {
 	utils.LoadEnvironment()
-	job.SetElkClient()
+	// job.SetElkClient()
 	// job.Allocation1([]string{"logstash-bimap-test01"})
 	// job.CatNodes()
 	// job.CatIndices()
@@ -33,7 +33,6 @@ func main1() {
 	// job.Nodetest()
 	// job.Test111()
 	// job.Allocation([]string{"logstash-bimap-test01"},"include","_tier_preference","data_hot")
-	// Test()
-
+	// job.GetdataInAction()
 }
 
