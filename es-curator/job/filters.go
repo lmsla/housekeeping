@@ -1,12 +1,12 @@
 package job
 
 import (
+	"es-curator/log_record"
 	"fmt"
 	"regexp"
 	"sort"
 	"strconv"
 	"time"
-	// "es-curator/global"
 )
 
 func FilterType_age(source string, direction string, unit string, unit_count int) (indiceslist []string) {
@@ -68,7 +68,8 @@ func FilterType_pattern(kind string, value string) (indiceslist []string) {
 			matchstring := fmt.Sprintf("^%s.*$", value)
 			matchbool, err := regexp.MatchString(matchstring, indicesinfo[data].Index)
 			if err != nil {
-				panic("prefix")
+				log_record.Logrecord("ERROR ", "filter prefix error"+err.Error())
+				// panic("prefix")
 			}
 			if matchbool == true {
 				indices = append(indices, indicesinfo[data].Index)
@@ -81,7 +82,8 @@ func FilterType_pattern(kind string, value string) (indiceslist []string) {
 			matchstring := fmt.Sprintf("%s.*$", value)
 			matchbool, err := regexp.MatchString(matchstring, indicesinfo[data].Index)
 			if err != nil {
-				panic("suffix")
+				log_record.Logrecord("ERROR ", "filter suffix error"+err.Error())
+				// panic("suffix")
 			}
 			if matchbool == true {
 				indices = append(indices, indicesinfo[data].Index)
@@ -92,7 +94,8 @@ func FilterType_pattern(kind string, value string) (indiceslist []string) {
 		for data := range indicesinfo {
 			matchbool, err := regexp.MatchString(value, indicesinfo[data].Index)
 			if err != nil {
-				panic("regex")
+				log_record.Logrecord("ERROR ", "filter regex error"+err.Error())
+				// panic("regex")
 			}
 			if matchbool == true {
 				indices = append(indices, indicesinfo[data].Index)
@@ -119,45 +122,82 @@ func FilterType_space(disk_space int) (indiceslist []string) {
 		creationDateSlice = append(creationDateSlice, indicesinfo[data].CreationDate)
 		// fmt.Println(indicesinfo[data].Index, "size", indicesinfo[data].StoreSize, "date", indicesinfo[data].CreationDate)
 	}
-	// 按 index 的 create_date 排序
-	sort.Strings(creationDateSlice)
-	// fmt.Println("sort of creationDateSlice:", creationDateSlice)
-	// fmt.Println("indexSizemap", indexSizemap)
-	// 把 index_name 塞到 slice 中
-	var indexSortbycreation []string
-	for date := range creationDateSlice {
-		indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
-	}
-	// fmt.Println("indexSortbycreation:", indexSortbycreation)
-
-	/// 倒序 - 從 newest create 的 index 開始加總 disk_space
-	var indexSortbycreationAsc []string
-	for index := range indexSortbycreation {
-		name := indexSortbycreation[len(indexSortbycreation)-index-1]
-		indexSortbycreationAsc = append(indexSortbycreationAsc, name)
-
-	}
-	// fmt.Println("asc:", indexSortbycreationAsc)
 	var finalIndexList []string
-	total := 0
-	for bytes := range indexSortbycreationAsc {
-		bytesnum, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
-		if err != nil {
-			fmt.Println("Error during conversion")
-			return
+	var aggregate_bytes []string
+	if creationDateSlice == nil {
+		// 如果撈不到 index 則返回一個空的list
+		finalIndexList = append(finalIndexList)
+	} else if creationDateSlice != nil {
+		// 按 index 的 create_date 排序
+		sort.Strings(creationDateSlice)
+		// fmt.Println("sort of creationDateSlice:", creationDateSlice)
+		// fmt.Println("indexSizemap", indexSizemap)
+		// 把 index_name 塞到 slice 中
+		var indexSortbycreation []string
+		for date := range creationDateSlice {
+			indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
 		}
-		finalIndexList = append(finalIndexList, indexSortbycreationAsc[bytes])
-		// 加總 index storage
-		total += bytesnum
-		if total > disk_space*1024*1024 {
-			break
+		// fmt.Println("indexSortbycreation:", indexSortbycreation)
+
+		/// 倒序 - 從 newest create 的 index 開始加總 disk_space
+		var indexSortbycreationAsc []string
+		for index := range indexSortbycreation {
+			name := indexSortbycreation[len(indexSortbycreation)-index-1]
+			indexSortbycreationAsc = append(indexSortbycreationAsc, name)
+
 		}
+		// fmt.Println("asc:", indexSortbycreationAsc)
+
+		total := 0
+		for bytes := range indexSortbycreationAsc {
+			// fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
+			bytesnum, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
+			if err != nil {
+				log_record.Logrecord("ERROR ", "Error during conversion"+err.Error())
+				fmt.Println("Error during conversion")
+				return
+			}
+			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
+			// fmt.Println("aggregate_bytes list",aggregate_bytes)
+			// 加總 index storage
+			total += bytesnum
+			fmt.Println(total)
+			if total > disk_space*1024*1024 {
+				break
+			}
+
+		}
+		// fmt.Println("final_list:", finalIndexList)
+		// fmt.Println(total)
+
+		added,removed := Diff(indexSortbycreationAsc,aggregate_bytes)
+		finalIndexList = removed
+		fmt.Println("added: ",added)
+		fmt.Println("removed: ",removed)
 
 	}
-	reserveIndexList := finalIndexList[:len(finalIndexList)-1]
-	finalIndexList = indexSortbycreationAsc[len(reserveIndexList):]
-	// fmt.Println("reserveIndexList:", reserveIndexList)
-	// fmt.Println("final_list:", finalIndexList)
-	// fmt.Println(total)
 	return finalIndexList
 }
+
+
+
+func ListTest(){
+	// var finalIndexList []string
+	// var x []string
+	x := []string{"a","b","c"}
+
+	// reserveIndexList := finalIndexList[:len(finalIndexList)-1]
+	// finalIndexList = indexSortbycreationAsc[len(reserveIndexList):]
+
+	reserveIndexList := x[:len(x)-1]
+	// finalIndexList = indexSortbycreationAsc[len(reserveIndexList):]
+	final := x[0:]
+
+	fmt.Println(reserveIndexList)
+	fmt.Println(final)
+
+	//[a b]
+}
+
+
+

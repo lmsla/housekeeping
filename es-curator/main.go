@@ -33,6 +33,7 @@ func main1() {
 	// job.Nodetest()
 	// job.Test111()
 	// job.Allocation([]string{"logstash-bimap-test01"},"include","_tier_preference","data_hot")
-	// job.GetdataInAction()
+	// job.ListTest()
+	// job.Action_controll()
+	job.Output()
 }
-

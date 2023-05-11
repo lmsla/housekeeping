@@ -7,6 +7,7 @@ import (
 	"fmt"
 	// "net/http"
 	// "time"
+	"es-curator/log_record"
 	"context"
 	"io"
 )
@@ -19,7 +20,8 @@ func Catnodes() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","cat nodes error" + err.Error())
+		// panic(err)
 	}
 
 	defer res.Body.Close()
@@ -49,7 +51,8 @@ func CatNodes() CatNode {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","cat nodes error" + err.Error())
+		// panic(err)
 	}
 	defer res.Body.Close()
 	log.Println(res)
@@ -81,7 +84,8 @@ func NodeStatus() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","node status error" + err.Error())
+		// panic(err)
 	}
 
 	defer res.Body.Close()

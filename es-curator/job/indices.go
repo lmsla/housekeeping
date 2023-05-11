@@ -9,6 +9,7 @@ import (
 	// "net/http"
 	// "time"
 	// "crypto/tls"
+	"es-curator/log_record"
 	"context"
 	"encoding/json"
 	"io"
@@ -85,7 +86,8 @@ func ClusterHealth() CatClusterHealth {
 
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","cluster health error" + err.Error())
+		// panic(err)
 	}
 	// fmt.Println(res)
 
@@ -111,7 +113,8 @@ func CatIndices() CatIndice {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","cat index error" + err.Error())
+		// panic(err)
 	}
 	// log.Println(res)
 	resString, err := io.ReadAll(res.Body)
@@ -130,7 +133,8 @@ func OpenIndices(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","open index error" + err.Error())
+		// panic(err)
 	}
 
 	defer res.Body.Close()
@@ -143,7 +147,8 @@ func CloseIndices(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","close index error" + err.Error())
+		// panic(err)
 	}
 
 	defer res.Body.Close()
@@ -156,7 +161,8 @@ func CreateIndex() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","create index error" + err.Error())
+		// panic(err)
 	}
 	defer res.Body.Close()
 	log.Println(res)
@@ -169,7 +175,8 @@ func DeleteIndex(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","delete index error" + err.Error())
+		// panic(err)
 	}
 	defer res.Body.Close()
 	log.Println(res)
@@ -183,7 +190,8 @@ func IndicesStatus() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","cat index status error" + err.Error())
+		// panic(err)
 	}
 
 	defer res.Body.Close()
@@ -200,7 +208,8 @@ func ForceMerge(Index []string, MaxNumSegments int) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","forcemerge error" + err.Error())
+		// panic(err)
 	}
 
 	defer res.Body.Close()
@@ -217,7 +226,8 @@ func Allocation(Index []string, AllocationType string, key string, value string)
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		panic(err)
+		log_record.Logrecord("ERROR ","allocation error" + err.Error())
+		// panic(err)
 	}
 
 	defer res.Body.Close()

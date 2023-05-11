@@ -7,13 +7,12 @@ import (
 	"sort"
 	"time"
 	// "strconv"
+	"reflect"
 )
 
 func Test1() {
 	// f := regexp.MustCompile()
 }
-
-
 
 func Test() {
 	// fmt.Println(global.configViperConfig.Get("orgname"))
@@ -68,8 +67,6 @@ func Test() {
 	// fmt.Println(numbers)
 }
 
-
-
 func Testsum() {
 	xi := []int{10, 10, 10, 10, 10}
 	fmt.Println(Sum(xi...))
@@ -102,15 +99,67 @@ func Sort() {
 	fmt.Println("Sorted: ", s)
 }
 
-
 func Job1() {
-	fmt.Println(time.Now(),"this is job 1")
+	fmt.Println(time.Now(), "this is job 1")
 }
 
 func Job2() {
-	fmt.Println(time.Now(),"this is job 2")
+	fmt.Println(time.Now(), "this is job 2")
 }
 
 func Job3() {
-	fmt.Println(time.Now(),"this is job 3")
+	fmt.Println(time.Now(), "this is job 3")
+}
+
+func DiffArray(a []int, b []int) []int {
+	var diffArray []int
+	temp := map[int]struct{}{}
+
+	for _, val := range b {
+		if _, ok := temp[val]; !ok {
+			temp[val] = struct{}{}
+		}
+	}
+
+	for _, val := range a {
+		if _, ok := temp[val]; !ok {
+			diffArray = append(diffArray, val)
+		}
+	}
+
+	return diffArray
+}
+
+func ContainsAll(list []string, elems []string) bool {
+	sort.Strings(list)
+	for _, elem := range elems {
+		index := sort.SearchStrings(list, elem)
+		if index < 0 || index >= len(list) || list[index] != elem {
+			return false
+		}
+	}
+	return true
+}
+
+func EqualSlices(slice1, slice2 []string) bool {
+	return reflect.DeepEqual(slice1, slice2)
+}
+
+func Output() {
+	list := []string{"age", "pattern", "space"}
+	elems := []string{"pattern","space","age"}
+	// ap := []string{"age", "pattern"}
+	// as := []string{"age","space"}
+	// sp := []string{"space,pattern"}
+	// a := []string{"age"}
+	// p := []string{"pattern"}
+	// s := []string{"space"}
+	// aps := []string{"age", "pattern", "space"}
+
+	sort.Strings(list)
+	sort.Strings(elems)
+	fmt.Println(list)
+	fmt.Println(elems)
+	fmt.Println(EqualSlices(list,elems))  
+
 }
