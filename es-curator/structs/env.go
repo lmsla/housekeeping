@@ -74,6 +74,7 @@ type information struct {
 	Logdir       string
 	Period       string
 	Execute_cron bool
+	Test_mode bool
 }
 
 type es struct {

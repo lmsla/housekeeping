@@ -67,6 +67,7 @@ func viperSettingToModel() {
 	config.INFORMATION.Period = viper.GetString("information.period")
 	config.INFORMATION.CaPath = viper.GetString("information.caPath")
 	config.INFORMATION.Execute_cron = viper.GetBool("information.execute_cron")
+	config.INFORMATION.Test_mode = viper.GetBool("information.test_mode")
 
 	global.EnvConfig = &config
 	// global.Action = &action

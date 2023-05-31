@@ -93,9 +93,14 @@ func Action_open_indices() {
 				var index_onebyone []string
 				for index := range comparelist {
 					index_onebyone = append(index_onebyone, comparelist[index])
-					OpenIndices(index_onebyone)
-					individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
-					log_record.Logrecord("Details", individual_Msg)
+
+					if global.EnvConfig.INFORMATION.Test_mode == true {
+
+					} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						OpenIndices(index_onebyone)
+						individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
+						log_record.Logrecord("Details", individual_Msg)
+					}
 				}
 				//// open function write from here
 				// OpenIndices(comparelist)
@@ -134,7 +139,7 @@ func Action_close_indices() {
 					filter_record = append(filter_record, "space")
 					spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 				}
-				comparelist = Indicesmapping3(spacelist, agelist, patternlist)
+				// comparelist = Indicesmapping3(spacelist, agelist, patternlist)
 
 			}
 			comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
@@ -149,9 +154,14 @@ func Action_close_indices() {
 				var index_onebyone []string
 				for index := range comparelist {
 					index_onebyone = append(index_onebyone, comparelist[index])
-					CloseIndices(index_onebyone)
-					individual_Msg := fmt.Sprintf("%s has already closed", index_onebyone)
-					log_record.Logrecord("Details", individual_Msg)
+
+					if global.EnvConfig.INFORMATION.Test_mode == true {
+
+					} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						CloseIndices(index_onebyone)
+						individual_Msg := fmt.Sprintf("%s has already closed", index_onebyone)
+						log_record.Logrecord("Details", individual_Msg)
+					}
 				}
 				//// Close function write from here
 				// CloseIndices(comparelist)
@@ -211,9 +221,14 @@ func Action_delete_indices() {
 				var index_onebyone []string
 				for index := range comparelist {
 					index_onebyone = append(index_onebyone, comparelist[index])
-					DeleteIndex(index_onebyone)
-					individual_Msg := fmt.Sprintf("%s has already deleted", index_onebyone)
-					log_record.Logrecord("Details", individual_Msg)
+					if global.EnvConfig.INFORMATION.Test_mode == true {
+
+					} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						DeleteIndex(index_onebyone)
+						individual_Msg := fmt.Sprintf("%s has already deleted", index_onebyone)
+						log_record.Logrecord("Details", individual_Msg)
+					}
+
 				}
 				// DeleteIndex(comparelist)
 			} else if comparelist == nil {
@@ -265,7 +280,6 @@ func Action_forcemerge_indices() {
 			// fmt.Println(ActionList[actions].Options.MaxNumSegment)
 			// fmt.Println(ActionList[actions].Options.TimeoutOverride)
 			// fmt.Println(ActionList[actions].Description)
-
 			// msg := fmt.Sprintf("segement num :%v", MaxNumSegments)
 			// log_record.Logrecord("segement", msg)
 
@@ -276,13 +290,16 @@ func Action_forcemerge_indices() {
 				var index_onebyone []string
 				for index := range comparelist {
 					index_onebyone = append(index_onebyone, comparelist[index])
-					ForceMerge(index_onebyone,MaxNumSegments)
-					individual_Msg := fmt.Sprintf("%s has already forcemerged", index_onebyone)
-					log_record.Logrecord("Details", individual_Msg)
+
+					if global.EnvConfig.INFORMATION.Test_mode == true {
+
+					} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						ForceMerge(index_onebyone, MaxNumSegments)
+						individual_Msg := fmt.Sprintf("%s has already forcemerged", index_onebyone)
+						log_record.Logrecord("Details", individual_Msg)
+					}
 				}
-
 				// ForceMerge(comparelist, MaxNumSegments)
-
 			} else if comparelist == nil {
 				log_record.Logrecord("Details", "no match indices")
 			}
@@ -326,7 +343,7 @@ func Action_allocation_indices() {
 
 			}
 			comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
-			fmt.Println(allocationtype,key)
+			fmt.Println(allocationtype, key)
 
 			if comparelist != nil {
 				detailMsg := fmt.Sprintf("allocation these indices :%s to %s ", comparelist, value)
@@ -335,9 +352,14 @@ func Action_allocation_indices() {
 				var index_onebyone []string
 				for index := range comparelist {
 					index_onebyone = append(index_onebyone, comparelist[index])
-					Allocation(index_onebyone,allocationtype,key, value)
-					individual_Msg := fmt.Sprintf("%s has already allocated", index_onebyone)
-					log_record.Logrecord("Details", individual_Msg)
+					if global.EnvConfig.INFORMATION.Test_mode == true {
+
+					} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						Allocation(index_onebyone, allocationtype, key, value)
+						individual_Msg := fmt.Sprintf("%s has already allocated", index_onebyone)
+						log_record.Logrecord("Details", individual_Msg)
+					}
+
 				}
 				//// allocation function write from here
 				// Allocation(comparelist, allocationtype, key, value)
