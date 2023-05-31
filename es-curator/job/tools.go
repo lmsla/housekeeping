@@ -162,7 +162,7 @@ func Filter_of_filter(filter_record, agelist, patternlist, spacelist []string) [
 	sort.Strings(aps)
 	sort.Strings(filter_record)
 
-	fmt.Println("sp:",sp)
+	// fmt.Println("sp:",sp)
 	fmt.Println("filter_record: ",filter_record)
 
 	switch {

@@ -89,8 +89,16 @@ func Action_open_indices() {
 			if comparelist != nil {
 				detailMsg := fmt.Sprintf("Open these indices :%s", comparelist)
 				log_record.Logrecord("Details", detailMsg)
+
+				var index_onebyone []string
+				for index := range comparelist {
+					index_onebyone = append(index_onebyone, comparelist[index])
+					OpenIndices(index_onebyone)
+					individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
+					log_record.Logrecord("Details", individual_Msg)
+				}
 				//// open function write from here
-				OpenIndices(comparelist)
+				// OpenIndices(comparelist)
 			} else if comparelist == nil {
 				log_record.Logrecord("Details", "no match indices")
 			}
@@ -137,8 +145,16 @@ func Action_close_indices() {
 			if comparelist != nil {
 				detailMsg := fmt.Sprintf("Close these indices :%s", comparelist)
 				log_record.Logrecord("Details", detailMsg)
+
+				var index_onebyone []string
+				for index := range comparelist {
+					index_onebyone = append(index_onebyone, comparelist[index])
+					CloseIndices(index_onebyone)
+					individual_Msg := fmt.Sprintf("%s has already closed", index_onebyone)
+					log_record.Logrecord("Details", individual_Msg)
+				}
 				//// Close function write from here
-				CloseIndices(comparelist)
+				// CloseIndices(comparelist)
 			} else if comparelist == nil {
 				log_record.Logrecord("Details", "no match indices")
 			}
@@ -191,6 +207,14 @@ func Action_delete_indices() {
 			if comparelist != nil {
 				detailMsg := fmt.Sprintf("Delete these indices :%s", comparelist)
 				log_record.Logrecord("Details", detailMsg)
+
+				var index_onebyone []string
+				for index := range comparelist {
+					index_onebyone = append(index_onebyone, comparelist[index])
+					DeleteIndex(index_onebyone)
+					individual_Msg := fmt.Sprintf("%s has already deleted", index_onebyone)
+					log_record.Logrecord("Details", individual_Msg)
+				}
 				// DeleteIndex(comparelist)
 			} else if comparelist == nil {
 				log_record.Logrecord("Details", "no match indices")
@@ -248,7 +272,16 @@ func Action_forcemerge_indices() {
 			if comparelist != nil {
 				detailMsg := fmt.Sprintf("forcemerge these indices :%s,segement num :%v", comparelist, MaxNumSegments)
 				log_record.Logrecord("Details", detailMsg)
-				ForceMerge(comparelist, MaxNumSegments)
+
+				var index_onebyone []string
+				for index := range comparelist {
+					index_onebyone = append(index_onebyone, comparelist[index])
+					ForceMerge(index_onebyone,MaxNumSegments)
+					individual_Msg := fmt.Sprintf("%s has already forcemerged", index_onebyone)
+					log_record.Logrecord("Details", individual_Msg)
+				}
+
+				// ForceMerge(comparelist, MaxNumSegments)
 
 			} else if comparelist == nil {
 				log_record.Logrecord("Details", "no match indices")
@@ -293,12 +326,21 @@ func Action_allocation_indices() {
 
 			}
 			comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+			fmt.Println(allocationtype,key)
 
 			if comparelist != nil {
 				detailMsg := fmt.Sprintf("allocation these indices :%s to %s ", comparelist, value)
 				log_record.Logrecord("Details", detailMsg)
+
+				var index_onebyone []string
+				for index := range comparelist {
+					index_onebyone = append(index_onebyone, comparelist[index])
+					Allocation(index_onebyone,allocationtype,key, value)
+					individual_Msg := fmt.Sprintf("%s has already allocated", index_onebyone)
+					log_record.Logrecord("Details", individual_Msg)
+				}
 				//// allocation function write from here
-				Allocation(comparelist, allocationtype, key, value)
+				// Allocation(comparelist, allocationtype, key, value)
 				Node_relocating_checking()
 			} else if comparelist == nil {
 				log_record.Logrecord("Details", "no match indices")

@@ -570,3 +570,11 @@ Actions 2023/05/12 02:55:51 Action: delete_indices,Description: delete selected 
 Details 2023/05/12 02:55:51 use these filter :[age pattern space]
 Details 2023/05/12 02:55:51 Delete these indices :[logstash-zs-windows-20230505]
 Info 2023/05/12 02:55:51 Pausing for 5 seconds before continuing...
+Actions 2023/05/12 14:48:27 Action: delete_indices,Description: delete selected indices5
+ERROR  2023/05/12 14:48:27 cat index errordial tcp 10.99.1.64:9200: connect: no route to host
+Actions 2023/05/12 14:50:44 Action: delete_indices,Description: delete selected indices5
+ERROR  2023/05/12 14:50:44 cat index errordial tcp 10.99.1.64:9200: connect: no route to host
+Actions 2023/05/12 14:53:56 Action: delete_indices,Description: delete selected indices5
+Details 2023/05/12 14:53:56 use these filter :[age pattern space]
+Details 2023/05/12 14:53:56 Delete these indices :[logstash-zs-windows-20230505]
+Info 2023/05/12 14:53:56 Pausing for 5 seconds before continuing...
