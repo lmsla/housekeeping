@@ -1,8 +1,54 @@
 ES-curator 的 golang 版替代方案
-# 可用參數列表
+
+會使用到的設定檔有 setting.yml 和 config.yml。
+
+setting.yml 用來設定基本的環境參數、控制排程開關及測試模式開關。
+
+# setting.yml 參數說明
+
+以下是一個 setting.yml 的範例
+
+```
+es:
+  url: https://10.99.1.64:9200
+  sourceAccount: "elastic"
+  sourcePassword: "a12345678"
+
+information:
+  test_mode: true
+  logdir: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log/custom.log"
+  execute_cron : false
+  period: "59 11 * * *"
+```
+
+## es
+```url ``` </br>
+es的網址</br>
+
+```sourceAccount``` </br>
+es 的帳號</br>
+
+```sourcePassword ``` </br>
+es 的密碼</br>
+
+## information
+
+```test_mode``` </br>
+是否在測試模式下執行，執行後只會在 log 中 print 出每個 action 條件設定下匹配到的 index，不會實際執行action，可接受的值為 false or false。
+
+```logdir``` </br>
+log 存放的位置。
+
+```execute_cron``` </br>
+是否使用排程定時執行，可接受的值為 false or false，若為 true 則下一個參數 ```period``` 須加入排程時間，若為 false 則是單次執行。
+
+```period``` </br>
+crontab的執行時間，與```execute_cron ```搭配使用。
+
+# config.yml 參數說明
  
 ## Actions
-
+可使用的actions如下</br>
 `open` </br>
 `close` </br>
 `delete_indices`</br>
@@ -23,6 +69,7 @@ ex. description: delete selected indices1
 - `allocation_type`
 - `delay`
 - `max_num_segment`
+- `delay`
 
 ### disable_action
 ---
