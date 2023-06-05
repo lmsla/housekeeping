@@ -63,7 +63,7 @@ func viperSettingToModel() {
 	config.ES.SourceAccount = viper.GetString("es.sourceAccount")
 	config.ES.SourcePassword = viper.GetString("es.sourcePassword")
 	//// INFORMATION
-	config.INFORMATION.Logdir = viper.GetString("information.logdir")
+	config.INFORMATION.LogPath = viper.GetString("information.logPath")
 	config.INFORMATION.Period = viper.GetString("information.period")
 	config.INFORMATION.CaPath = viper.GetString("information.caPath")
 	config.INFORMATION.Execute_cron = viper.GetBool("information.execute_cron")

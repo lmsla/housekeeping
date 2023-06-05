@@ -71,7 +71,7 @@ type type_pattern struct {
 
 type information struct {
 	CaPath       string
-	Logdir       string
+	LogPath       string
 	Period       string
 	Execute_cron bool
 	Test_mode bool

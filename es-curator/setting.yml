@@ -8,6 +8,6 @@ es:
 
 information:
   test_mode: true
-  logdir: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log/custom.log"
+  logPath: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
   execute_cron : false
   period: "59 11 * * *"

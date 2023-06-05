@@ -5,6 +5,6 @@ es:
 
 information:
   test_mode: true
-  logdir: "/Users/chen/Downloads/BiMap/es-curator/log/custom.log"
+  logPath: "/Users/chen/Downloads/BiMap/es-curator/log"
   execute_cron : true
   period: "59 11 * * *"

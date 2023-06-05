@@ -5,6 +5,9 @@ ES-curator 的 golang 版替代方案
 會使用到的設定檔有 setting.yml 和 config.yml。
 
 setting.yml 用來設定基本的環境參數、控制排程開關及測試模式開關。
+config.yml 控制要執行的 Actions。
+
+注意縮排不能有誤，不然程式會出錯。
 
 # setting.yml 參數說明
 
@@ -18,7 +21,7 @@ es:
 
 information:
   test_mode: true
-  logdir: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log/custom.log"
+  logPath: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
   execute_cron : false
   period: "59 11 * * *"
 ```
@@ -38,8 +41,9 @@ es 的密碼</br>
 ```test_mode``` </br>
 是否在測試模式下執行，執行後只會在 log 中 print 出每個 action 條件設定下匹配到的 index，不會實際執行action，可接受的值為 true or false。
 
-```logdir``` </br>
-log 存放的位置。
+```logPath``` </br>
+log 存放的路徑，注意最後不要加／
+會按執行的日期產生如 housekeeping_20230605.log 的紀錄檔。
 
 ```execute_cron``` </br>
 是否使用排程定時執行，可接受的值為 false or false，若為 true 則下一個參數 ```period``` 須加入排程時間，若為 false 則是單次執行。
@@ -101,6 +105,8 @@ type = bool
 type = number 
 
 action 執行後等待的時間，單位為秒
+
+沒加的話程式默認等待0秒，會直接進入下一個 action
 
 ### max_num _segment
 ---
@@ -200,21 +206,6 @@ index-05 10GB
 會用到兩個 config ，setting.yml 及 config.yml ，setting.yml 控制環境參數及排程執行相關；config.yml 控制要執行的 Actions。
 
 注意縮排不能有誤，不然程式會出錯。
-
-### setting.yml 
-execute_cron ，可以是 true or flase ， if true，程式進入排程，在指定的時間執行；if false，手動執行所有 actions。
-
-```
-es:
-  url: https://10.99.1.117:9200
-  sourceAccount: "elastic"
-  sourcePassword: "12345678"
-
-information:
-  logdir: "/Users/chen/Downloads/BiMap/程式區/es-curator/log/custom.log"
-  execute_cron : true
-  period: "59 11 * * *"
-```
 
 ### config.yml 
 config 中可以有一或多個 actions，一個 actions 中現階段最多可加入三個 filter，各個 filter 各有適用的 filter element ，請詳閱上方說明。

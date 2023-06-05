@@ -5,7 +5,7 @@ actions:
     description: delete selected elasticsearch-api-status
     options: 
       disable_action: false
-      delay: 5
+
     filters:
     - filtertype: age
       source: creation_date
