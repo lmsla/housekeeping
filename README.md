@@ -34,7 +34,7 @@ es 的密碼</br>
 ## information
 
 ```test_mode``` </br>
-是否在測試模式下執行，執行後只會在 log 中 print 出每個 action 條件設定下匹配到的 index，不會實際執行action，可接受的值為 false or false。
+是否在測試模式下執行，執行後只會在 log 中 print 出每個 action 條件設定下匹配到的 index，不會實際執行action，可接受的值為 true or false。
 
 ```logdir``` </br>
 log 存放的位置。
@@ -223,6 +223,7 @@ actions:
     description: delete selected indices1
     options: 
       disable_action: false
+      delay: 5
     filters:
     - filtertype: age
       source: creation_date
@@ -242,6 +243,7 @@ actions:
     description: close selected indices
     options: 
       disable_action: true
+      delay: 5
     filters:
     - filtertype: age
       source: creation_date
@@ -256,6 +258,7 @@ actions:
     description: open selected indices
     options: 
       disable_action: true
+      delay: 5
     filters:
     - filtertype: age
       source: creation_date
@@ -296,6 +299,7 @@ actions:
     description: delete selected indices1
     options: 
       disable_action: true
+      delay: 5
     filters:
     - filtertype: pattern
       kind: prefix

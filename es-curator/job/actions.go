@@ -92,10 +92,11 @@ func Action_open_indices() {
 
 				var index_onebyone []string
 				for index := range comparelist {
-					index_onebyone = append(index_onebyone, comparelist[index])
+					index_onebyone := append(index_onebyone, comparelist[index])
 
 					if global.EnvConfig.INFORMATION.Test_mode == true {
-
+						individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
+						log_record.Logrecord("Test Mode Details", individual_Msg)
 					} else if global.EnvConfig.INFORMATION.Test_mode == false {
 						OpenIndices(index_onebyone)
 						individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
@@ -153,9 +154,11 @@ func Action_close_indices() {
 
 				var index_onebyone []string
 				for index := range comparelist {
-					index_onebyone = append(index_onebyone, comparelist[index])
+					index_onebyone := append(index_onebyone, comparelist[index])
 
 					if global.EnvConfig.INFORMATION.Test_mode == true {
+						individual_Msg := fmt.Sprintf("%s has already closed", index_onebyone)
+						log_record.Logrecord("Test Mode Details", individual_Msg)
 
 					} else if global.EnvConfig.INFORMATION.Test_mode == false {
 						CloseIndices(index_onebyone)
@@ -220,8 +223,10 @@ func Action_delete_indices() {
 
 				var index_onebyone []string
 				for index := range comparelist {
-					index_onebyone = append(index_onebyone, comparelist[index])
+					index_onebyone := append(index_onebyone, comparelist[index])
 					if global.EnvConfig.INFORMATION.Test_mode == true {
+						individual_Msg := fmt.Sprintf("%s has already deleted", index_onebyone)
+						log_record.Logrecord("Test Mode Details", individual_Msg)
 
 					} else if global.EnvConfig.INFORMATION.Test_mode == false {
 						DeleteIndex(index_onebyone)
@@ -289,9 +294,11 @@ func Action_forcemerge_indices() {
 
 				var index_onebyone []string
 				for index := range comparelist {
-					index_onebyone = append(index_onebyone, comparelist[index])
+					index_onebyone := append(index_onebyone, comparelist[index])
 
 					if global.EnvConfig.INFORMATION.Test_mode == true {
+						individual_Msg := fmt.Sprintf("%s has already forcemerged", index_onebyone)
+						log_record.Logrecord("Test Mode Details", individual_Msg)
 
 					} else if global.EnvConfig.INFORMATION.Test_mode == false {
 						ForceMerge(index_onebyone, MaxNumSegments)
@@ -351,8 +358,10 @@ func Action_allocation_indices() {
 
 				var index_onebyone []string
 				for index := range comparelist {
-					index_onebyone = append(index_onebyone, comparelist[index])
+					index_onebyone := append(index_onebyone, comparelist[index])
 					if global.EnvConfig.INFORMATION.Test_mode == true {
+						individual_Msg := fmt.Sprintf("%s has already allocated", index_onebyone)
+						log_record.Logrecord("Test Mode Details", individual_Msg)
 
 					} else if global.EnvConfig.INFORMATION.Test_mode == false {
 						Allocation(index_onebyone, allocationtype, key, value)
