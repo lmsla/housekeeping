@@ -1,6 +1,9 @@
 actions: 
   - action: delete_indices
     description: delete selected indices1
+    options: 
+      disable_action: false
+      delay: 5
     filters:
     - filtertype: age
       source: creation_date
@@ -15,6 +18,9 @@ actions:
 
   - action: delete_indices
     description: delete selected indices2
+    options:
+      disable_action: false
+      delay: 5
     filters:
     - filtertype: age
       source: creation_date
@@ -27,6 +33,9 @@ actions:
 
   - action: delete_indices
     description: delete selected indices3
+    options:
+      disable_action: false
+      delay: 5    
     filters:
     - filtertype: space
       disk_space: 10
@@ -35,6 +44,9 @@ actions:
   - action: close
     description: close selected indices
     filters:
+    options:
+      disable_action: false
+      delay: 5    
     - filtertype: age
       source: creation_date
       direction: older
@@ -46,6 +58,9 @@ actions:
 
   - action: open
     description: open selected indices
+    options:
+      disable_action: false
+      delay: 5    
     filters:
     - filtertype: age
       source: creation_date
