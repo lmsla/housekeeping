@@ -2,10 +2,9 @@
 #### adjust 
 actions: 
   - action: delete_indices
-    description: delete selected elasticsearch-api-status
+    description: delete selected elasticsearch-api-status-2023
     options: 
       disable_action: false
-
     filters:
     - filtertype: age
       source: creation_date
@@ -14,4 +13,32 @@ actions:
       unit_count: 30
     - filtertype: pattern
       kind: prefix
-      value: elasticsearch-api-status
+      value: elasticsearch-api-status-2023
+
+  - action: delete_indices
+    description: delete selected elasticsearch-api-status-calculate
+    options: 
+      disable_action: false
+    filters:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 30
+    - filtertype: pattern
+      kind: prefix
+      value: elasticsearch-api-status-calculate
+
+  - action: delete_indices
+    description: delete selected logstash-bde-apache-access
+    options: 
+      disable_action: false
+    filters:
+    - filtertype: age
+      source: creation_date
+      direction: older
+      unit: days
+      unit_count: 2
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-bde-apache-access

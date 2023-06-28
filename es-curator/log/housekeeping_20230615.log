@@ -1,0 +1,268 @@
+Actions 2023/06/15 13:05:53 Action: delete_indices,Description: delete selected elasticsearch-api-status-2023
+Details 2023/06/15 13:05:53 use these filter :[age pattern]
+Details 2023/06/15 13:05:53 Delete these indices :[elasticsearch-api-status-20230227 elasticsearch-api-status-20230228 elasticsearch-api-status-20230225 elasticsearch-api-status-20230226 elasticsearch-api-status-20230223 elasticsearch-api-status-20230224 elasticsearch-api-status-20230221 elasticsearch-api-status-20230222 elasticsearch-api-status-20230220 elasticsearch-api-status-20230218 elasticsearch-api-status-20230219 elasticsearch-api-status-20230216 elasticsearch-api-status-20230217 elasticsearch-api-status-20230215 elasticsearch-api-status-20230322 elasticsearch-api-status-20230323 elasticsearch-api-status-20230320 elasticsearch-api-status-20230321 elasticsearch-api-status-20230319 elasticsearch-api-status-20230317 elasticsearch-api-status-20230318 elasticsearch-api-status-20230315 elasticsearch-api-status-20230316 elasticsearch-api-status-20230313 elasticsearch-api-status-20230314 elasticsearch-api-status-20230311 elasticsearch-api-status-20230312 elasticsearch-api-status-20230310 elasticsearch-api-status-20230308 elasticsearch-api-status-20230309 elasticsearch-api-status-20230306 elasticsearch-api-status-20230307 elasticsearch-api-status-20230304 elasticsearch-api-status-20230305 elasticsearch-api-status-20230302 elasticsearch-api-status-20230303 elasticsearch-api-status-20230301]
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230227] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230228] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230225] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230226] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230223] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230224] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230221] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230222] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230220] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230218] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230219] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230216] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230217] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230215] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230322] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230323] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230320] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230321] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230319] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230317] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230318] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230315] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230316] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230313] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230314] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230311] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230312] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230310] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230308] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230309] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230306] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230307] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230304] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230305] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230302] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230303] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-20230301] has already deleted
+Info 2023/06/15 13:05:53 Pausing for 0 seconds before continuing...
+Actions 2023/06/15 13:05:53 Action: delete_indices,Description: delete selected elasticsearch-api-status-calculate
+Details 2023/06/15 13:05:53 use these filter :[age pattern]
+Details 2023/06/15 13:05:53 Delete these indices :[elasticsearch-api-status-calculate-20230308 elasticsearch-api-status-calculate-20230307 elasticsearch-api-status-calculate-20230309 elasticsearch-api-status-calculate-20230304 elasticsearch-api-status-calculate-20230303 elasticsearch-api-status-calculate-20230306 elasticsearch-api-status-calculate-20230305 elasticsearch-api-status-calculate-20230302 elasticsearch-api-status-calculate-20230301 elasticsearch-api-status-calculate-20230320 elasticsearch-api-status-calculate-20230319 elasticsearch-api-status-calculate-20230318 elasticsearch-api-status-calculate-20230315 elasticsearch-api-status-calculate-20230314 elasticsearch-api-status-calculate-20230317 elasticsearch-api-status-calculate-20230316 elasticsearch-api-status-calculate-20230311 elasticsearch-api-status-calculate-20230310 elasticsearch-api-status-calculate-20230313 elasticsearch-api-status-calculate-20230312 elasticsearch-api-status-calculate-20230322 elasticsearch-api-status-calculate-20230321 elasticsearch-api-status-calculate-20230323 elasticsearch-api-status-calculate-20230221 elasticsearch-api-status-calculate-20230220 elasticsearch-api-status-calculate-20230219 elasticsearch-api-status-calculate-20230216 elasticsearch-api-status-calculate-20230215 elasticsearch-api-status-calculate-20230218 elasticsearch-api-status-calculate-20230217 elasticsearch-api-status-calculate-20230227 elasticsearch-api-status-calculate-20230226 elasticsearch-api-status-calculate-20230228 elasticsearch-api-status-calculate-20230223 elasticsearch-api-status-calculate-20230222 elasticsearch-api-status-calculate-20230225 elasticsearch-api-status-calculate-20230224]
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230308] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230307] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230309] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230304] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230303] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230306] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230305] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230302] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230301] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230320] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230319] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230318] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230315] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230314] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230317] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230316] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230311] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230310] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230313] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230312] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230322] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230321] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230323] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230221] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230220] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230219] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230216] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230215] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230218] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230217] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230227] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230226] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230228] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230223] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230222] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230225] has already deleted
+Test Mode Details 2023/06/15 13:05:53 [elasticsearch-api-status-calculate-20230224] has already deleted
+Info 2023/06/15 13:05:53 Pausing for 0 seconds before continuing...
+Actions 2023/06/15 13:05:53 Action: delete_indices,Description: delete selected logstash-bde-apache-access
+Details 2023/06/15 13:05:53 use these filter :[age pattern]
+Details 2023/06/15 13:05:53 no match indices
+Info 2023/06/15 13:05:53 Pausing for 0 seconds before continuing...
+Actions 2023/06/15 13:10:44 Action: delete_indices,Description: delete selected elasticsearch-api-status-2023
+Details 2023/06/15 13:10:44 use these filter :[age pattern]
+Details 2023/06/15 13:10:44 Delete these indices :[elasticsearch-api-status-20230227 elasticsearch-api-status-20230228 elasticsearch-api-status-20230225 elasticsearch-api-status-20230226 elasticsearch-api-status-20230223 elasticsearch-api-status-20230224 elasticsearch-api-status-20230221 elasticsearch-api-status-20230222 elasticsearch-api-status-20230220 elasticsearch-api-status-20230218 elasticsearch-api-status-20230219 elasticsearch-api-status-20230216 elasticsearch-api-status-20230217 elasticsearch-api-status-20230215 elasticsearch-api-status-20230322 elasticsearch-api-status-20230323 elasticsearch-api-status-20230320 elasticsearch-api-status-20230321 elasticsearch-api-status-20230319 elasticsearch-api-status-20230317 elasticsearch-api-status-20230318 elasticsearch-api-status-20230315 elasticsearch-api-status-20230316 elasticsearch-api-status-20230313 elasticsearch-api-status-20230314 elasticsearch-api-status-20230311 elasticsearch-api-status-20230312 elasticsearch-api-status-20230310 elasticsearch-api-status-20230308 elasticsearch-api-status-20230309 elasticsearch-api-status-20230306 elasticsearch-api-status-20230307 elasticsearch-api-status-20230304 elasticsearch-api-status-20230305 elasticsearch-api-status-20230302 elasticsearch-api-status-20230303 elasticsearch-api-status-20230301]
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230227] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230228] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230225] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230226] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230223] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230224] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230221] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230222] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230220] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230218] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230219] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230216] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230217] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230215] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230322] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230323] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230320] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230321] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230319] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230317] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230318] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230315] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230316] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230313] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230314] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230311] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230312] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230310] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230308] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230309] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230306] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230307] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230304] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230305] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230302] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230303] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-20230301] has already deleted
+Info 2023/06/15 13:10:44 Pausing for 0 seconds before continuing...
+Actions 2023/06/15 13:10:44 Action: delete_indices,Description: delete selected elasticsearch-api-status-calculate
+Details 2023/06/15 13:10:44 use these filter :[age pattern]
+Details 2023/06/15 13:10:44 Delete these indices :[elasticsearch-api-status-calculate-20230308 elasticsearch-api-status-calculate-20230307 elasticsearch-api-status-calculate-20230309 elasticsearch-api-status-calculate-20230304 elasticsearch-api-status-calculate-20230303 elasticsearch-api-status-calculate-20230306 elasticsearch-api-status-calculate-20230305 elasticsearch-api-status-calculate-20230302 elasticsearch-api-status-calculate-20230301 elasticsearch-api-status-calculate-20230320 elasticsearch-api-status-calculate-20230319 elasticsearch-api-status-calculate-20230318 elasticsearch-api-status-calculate-20230315 elasticsearch-api-status-calculate-20230314 elasticsearch-api-status-calculate-20230317 elasticsearch-api-status-calculate-20230316 elasticsearch-api-status-calculate-20230311 elasticsearch-api-status-calculate-20230310 elasticsearch-api-status-calculate-20230313 elasticsearch-api-status-calculate-20230312 elasticsearch-api-status-calculate-20230322 elasticsearch-api-status-calculate-20230321 elasticsearch-api-status-calculate-20230323 elasticsearch-api-status-calculate-20230221 elasticsearch-api-status-calculate-20230220 elasticsearch-api-status-calculate-20230219 elasticsearch-api-status-calculate-20230216 elasticsearch-api-status-calculate-20230215 elasticsearch-api-status-calculate-20230218 elasticsearch-api-status-calculate-20230217 elasticsearch-api-status-calculate-20230227 elasticsearch-api-status-calculate-20230226 elasticsearch-api-status-calculate-20230228 elasticsearch-api-status-calculate-20230223 elasticsearch-api-status-calculate-20230222 elasticsearch-api-status-calculate-20230225 elasticsearch-api-status-calculate-20230224]
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230308] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230307] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230309] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230304] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230303] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230306] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230305] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230302] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230301] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230320] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230319] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230318] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230315] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230314] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230317] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230316] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230311] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230310] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230313] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230312] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230322] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230321] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230323] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230221] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230220] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230219] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230216] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230215] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230218] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230217] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230227] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230226] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230228] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230223] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230222] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230225] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [elasticsearch-api-status-calculate-20230224] has already deleted
+Info 2023/06/15 13:10:44 Pausing for 0 seconds before continuing...
+Actions 2023/06/15 13:10:44 Action: delete_indices,Description: delete selected logstash-bde-apache-access
+Details 2023/06/15 13:10:44 use these filter :[age pattern]
+Details 2023/06/15 13:10:44 Delete these indices :[logstash-bde-apache-access-20230607 logstash-bde-apache-access-20230605 logstash-bde-apache-access-20230606 logstash-bde-apache-access-20230603 logstash-bde-apache-access-20230604]
+Test Mode Details 2023/06/15 13:10:44 [logstash-bde-apache-access-20230607] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [logstash-bde-apache-access-20230605] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [logstash-bde-apache-access-20230606] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [logstash-bde-apache-access-20230603] has already deleted
+Test Mode Details 2023/06/15 13:10:44 [logstash-bde-apache-access-20230604] has already deleted
+Info 2023/06/15 13:10:44 Pausing for 0 seconds before continuing...
+Actions 2023/06/15 13:16:42 Action: delete_indices,Description: delete selected elasticsearch-api-status-2023
+Details 2023/06/15 13:16:42 use these filter :[age pattern]
+Details 2023/06/15 13:16:42 Delete these indices :[elasticsearch-api-status-20230227 elasticsearch-api-status-20230228 elasticsearch-api-status-20230225 elasticsearch-api-status-20230226 elasticsearch-api-status-20230223 elasticsearch-api-status-20230224 elasticsearch-api-status-20230221 elasticsearch-api-status-20230222 elasticsearch-api-status-20230220 elasticsearch-api-status-20230218 elasticsearch-api-status-20230219 elasticsearch-api-status-20230216 elasticsearch-api-status-20230217 elasticsearch-api-status-20230215 elasticsearch-api-status-20230322 elasticsearch-api-status-20230323 elasticsearch-api-status-20230320 elasticsearch-api-status-20230321 elasticsearch-api-status-20230319 elasticsearch-api-status-20230317 elasticsearch-api-status-20230318 elasticsearch-api-status-20230315 elasticsearch-api-status-20230316 elasticsearch-api-status-20230313 elasticsearch-api-status-20230314 elasticsearch-api-status-20230311 elasticsearch-api-status-20230312 elasticsearch-api-status-20230310 elasticsearch-api-status-20230308 elasticsearch-api-status-20230309 elasticsearch-api-status-20230306 elasticsearch-api-status-20230307 elasticsearch-api-status-20230304 elasticsearch-api-status-20230305 elasticsearch-api-status-20230302 elasticsearch-api-status-20230303 elasticsearch-api-status-20230301]
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230227] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230228] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230225] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230226] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230223] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230224] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230221] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230222] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230220] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230218] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230219] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230216] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230217] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230215] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230322] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230323] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230320] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230321] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230319] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230317] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230318] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230315] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230316] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230313] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230314] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230311] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230312] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230310] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230308] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230309] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230306] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230307] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230304] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230305] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230302] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230303] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-20230301] has already deleted
+Info 2023/06/15 13:16:42 Pausing for 0 seconds before continuing...
+Actions 2023/06/15 13:16:42 Action: delete_indices,Description: delete selected elasticsearch-api-status-calculate
+Details 2023/06/15 13:16:42 use these filter :[age pattern]
+Details 2023/06/15 13:16:42 Delete these indices :[elasticsearch-api-status-calculate-20230308 elasticsearch-api-status-calculate-20230307 elasticsearch-api-status-calculate-20230309 elasticsearch-api-status-calculate-20230304 elasticsearch-api-status-calculate-20230303 elasticsearch-api-status-calculate-20230306 elasticsearch-api-status-calculate-20230305 elasticsearch-api-status-calculate-20230302 elasticsearch-api-status-calculate-20230301 elasticsearch-api-status-calculate-20230320 elasticsearch-api-status-calculate-20230319 elasticsearch-api-status-calculate-20230318 elasticsearch-api-status-calculate-20230315 elasticsearch-api-status-calculate-20230314 elasticsearch-api-status-calculate-20230317 elasticsearch-api-status-calculate-20230316 elasticsearch-api-status-calculate-20230311 elasticsearch-api-status-calculate-20230310 elasticsearch-api-status-calculate-20230313 elasticsearch-api-status-calculate-20230312 elasticsearch-api-status-calculate-20230322 elasticsearch-api-status-calculate-20230321 elasticsearch-api-status-calculate-20230323 elasticsearch-api-status-calculate-20230221 elasticsearch-api-status-calculate-20230220 elasticsearch-api-status-calculate-20230219 elasticsearch-api-status-calculate-20230216 elasticsearch-api-status-calculate-20230215 elasticsearch-api-status-calculate-20230218 elasticsearch-api-status-calculate-20230217 elasticsearch-api-status-calculate-20230227 elasticsearch-api-status-calculate-20230226 elasticsearch-api-status-calculate-20230228 elasticsearch-api-status-calculate-20230223 elasticsearch-api-status-calculate-20230222 elasticsearch-api-status-calculate-20230225 elasticsearch-api-status-calculate-20230224]
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230308] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230307] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230309] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230304] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230303] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230306] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230305] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230302] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230301] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230320] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230319] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230318] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230315] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230314] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230317] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230316] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230311] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230310] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230313] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230312] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230322] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230321] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230323] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230221] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230220] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230219] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230216] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230215] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230218] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230217] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230227] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230226] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230228] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230223] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230222] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230225] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [elasticsearch-api-status-calculate-20230224] has already deleted
+Info 2023/06/15 13:16:42 Pausing for 0 seconds before continuing...
+Actions 2023/06/15 13:16:42 Action: delete_indices,Description: delete selected logstash-bde-apache-access
+Details 2023/06/15 13:16:42 use these filter :[age pattern]
+Details 2023/06/15 13:16:42 Delete these indices :[logstash-bde-apache-access-20230607 logstash-bde-apache-access-20230605 logstash-bde-apache-access-20230606 logstash-bde-apache-access-20230603 logstash-bde-apache-access-20230604]
+Test Mode Details 2023/06/15 13:16:42 [logstash-bde-apache-access-20230607] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [logstash-bde-apache-access-20230605] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [logstash-bde-apache-access-20230606] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [logstash-bde-apache-access-20230603] has already deleted
+Test Mode Details 2023/06/15 13:16:42 [logstash-bde-apache-access-20230604] has already deleted
+Info 2023/06/15 13:16:42 Pausing for 0 seconds before continuing...
