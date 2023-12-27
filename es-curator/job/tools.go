@@ -1,6 +1,8 @@
 package job
 
 import (
+	"es-curator/log_record"
+	"es-curator/structs"
 	"fmt"
 	"reflect"
 	"sort"
@@ -26,20 +28,19 @@ func Indicesmapping3(list1 []string, list2 []string, list3 []string) []string {
 	return compareList
 }
 
-
 //取得兩個 list中相同的元素 method1
 func Intersection(a, b []string) []string {
-    m := make(map[string]bool)
-    for _, item := range a {
-        m[item] = true
-    }
-    var intersection []string
-    for _, item := range b {
-        if m[item] {
-            intersection = append(intersection, item)
-        }
-    }
-    return intersection
+	m := make(map[string]bool)
+	for _, item := range a {
+		m[item] = true
+	}
+	var intersection []string
+	for _, item := range b {
+		if m[item] {
+			intersection = append(intersection, item)
+		}
+	}
+	return intersection
 }
 
 //取得兩個 list中相同的元素 method2
@@ -147,12 +148,106 @@ func Diff(a, b []string) (added []string, removed []string) {
 	return added, removed
 }
 
-func Filter_of_filter(filter_record, agelist, patternlist, spacelist []string) []string{
+func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []string {
+	var agelist, patternlist, spacelist, water_level_list, patternListPre, compareList []string
+	// aps := []string{"age", "pattern", "space"}
+	ap := []string{"age", "pattern"}
+	// as := []string{"age", "space"}
+	sp := []string{"space", "pattern"}
+	wp := []string{"water_level", "pattern"}
+	a := []string{"age"}
+	p := []string{"pattern"}
+	s := []string{"space"}
+	w := []string{"water_level"}
+	sort.Strings(ap)
+	sort.Strings(wp)
+	sort.Strings(sp)
+	// sort.Strings(aps)
+	sort.Strings(filter_record)
+
+	// fmt.Println("sp:",sp)
+	fmt.Println("filter_record: ", filter_record)
+
+	arr1 := []string{"space", "pattern", "age"}
+	arr2 := []string{"space", "age"}
+	arr3 := []string{"space", "water_level"}
+	arr4 := []string{"space", "water_level", "pattern"}
+	arr5 := []string{"space", "water_level", "pattern", "age"}
+	sort.Strings(arr1)
+	sort.Strings(arr2)
+	sort.Strings(arr3)
+	sort.Strings(arr4)
+	sort.Strings(arr5)
+	sort.Strings(filter_record)
+
+	fmt.Println("filterList: ", FilterList)
+
+	for filtertype := range FilterList {
+		if FilterList[filtertype].Filtertype == "pattern" {
+			for _, pattern := range FilterList[filtertype].Value {
+				patternListPre = append(patternListPre, pattern+"*")
+			}
+
+		}
+	}
+	
+	if fmt.Sprint(filter_record) == fmt.Sprint(arr1) || fmt.Sprint(filter_record) == fmt.Sprint(arr2) {
+		log_record.Logrecord("ERROR", "Can't use age & space at the same time")
+	} else if fmt.Sprint(filter_record) == fmt.Sprint(arr3) || fmt.Sprint(filter_record) == fmt.Sprint(arr4) {
+		log_record.Logrecord("ERROR", "Can't use space & water_level at the same time")
+	} else if fmt.Sprint(filter_record) == fmt.Sprint(arr5) {
+		log_record.Logrecord("ERROR", "age can't use with space or water_level at the same time")
+	} else {
+		for filtertype := range FilterList {
+			if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction != "range" {
+				agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
+			} else if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction == "range" {
+				agelist = FilterType_age_range(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Range_From, FilterList[filtertype].Range_To)
+			} else if FilterList[filtertype].Filtertype == "pattern" {
+				patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
+			} else if FilterList[filtertype].Filtertype == "space" {
+				spacelist = FilterType_space(patternListPre, FilterList[filtertype].Disk_space)
+			} else if FilterList[filtertype].Filtertype == "water_level" {
+				water_level_list = FilterType_waterLevel(patternListPre, FilterList[filtertype].Upper_limit, FilterList[filtertype].Lower_limit)
+			}
+
+		}
+	}
+
+	switch {
+
+	case reflect.DeepEqual(filter_record, ap) == true:
+		compareList = Indicesmapping2(agelist, patternlist)
+
+	case reflect.DeepEqual(filter_record, sp) == true:
+		compareList = Indicesmapping2(patternlist, spacelist)
+
+	case reflect.DeepEqual(filter_record, wp) == true:
+		compareList = Indicesmapping2(patternlist, water_level_list)
+
+	case reflect.DeepEqual(filter_record, a) == true:
+		compareList = agelist
+
+	case reflect.DeepEqual(filter_record, p) == true:
+		compareList = patternlist
+
+	case reflect.DeepEqual(filter_record, s) == true:
+		compareList = spacelist
+
+	case reflect.DeepEqual(filter_record, w) == true:
+		compareList = water_level_list
+
+	}
+	fmt.Println("filter_of_filter's compare: ", compareList)
+	return compareList
+}
+
+func Filter_of_filter_bak(filter_record, agelist, patternlist, spacelist []string) []string {
 	var compareList []string
 	aps := []string{"age", "pattern", "space"}
 	ap := []string{"age", "pattern"}
 	as := []string{"age", "space"}
-	sp := []string{"space","pattern"}
+	sp := []string{"space", "pattern"}
 	a := []string{"age"}
 	p := []string{"pattern"}
 	s := []string{"space"}
@@ -163,7 +258,7 @@ func Filter_of_filter(filter_record, agelist, patternlist, spacelist []string) [
 	sort.Strings(filter_record)
 
 	// fmt.Println("sp:",sp)
-	fmt.Println("filter_record: ",filter_record)
+	fmt.Println("filter_record: ", filter_record)
 
 	switch {
 	case reflect.DeepEqual(filter_record, aps) == true:
@@ -172,22 +267,22 @@ func Filter_of_filter(filter_record, agelist, patternlist, spacelist []string) [
 	case reflect.DeepEqual(filter_record, ap) == true:
 		compareList = Indicesmapping2(agelist, patternlist)
 
-	case reflect.DeepEqual(filter_record,as) == true:
-		compareList = Indicesmapping2(agelist,spacelist)
+	case reflect.DeepEqual(filter_record, as) == true:
+		compareList = Indicesmapping2(agelist, spacelist)
 
-	case reflect.DeepEqual(filter_record,sp) == true:
-		compareList = Indicesmapping2(patternlist,spacelist)
+	case reflect.DeepEqual(filter_record, sp) == true:
+		compareList = Indicesmapping2(patternlist, spacelist)
 
-	case reflect.DeepEqual(filter_record,a) == true:
+	case reflect.DeepEqual(filter_record, a) == true:
 		compareList = agelist
-	
-	case reflect.DeepEqual(filter_record,p) == true:
+
+	case reflect.DeepEqual(filter_record, p) == true:
 		compareList = patternlist
-	
-	case reflect.DeepEqual(filter_record,s) == true:
+
+	case reflect.DeepEqual(filter_record, s) == true:
 		compareList = spacelist
-	
+
 	}
-	fmt.Println("filter_of_filter's compare: ",compareList)
+	fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }

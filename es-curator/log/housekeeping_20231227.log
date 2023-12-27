@@ -1,0 +1,31 @@
+
+Actions 2023/12/27 12:04:58 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/27 12:04:58 Average Water Level: 57.030001
+Details 2023/12/27 12:04:58 Disk Space to Clean 19.890000 gb
+Details 2023/12/27 12:04:58 use these filter :[pattern water_level]
+Details 2023/12/27 12:04:58 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231022 logstash-atm-sn-20231021]
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-00010101] has already deleted ,Pri: 1,Rep: 1,DocCount: 80, DocDelete: 0,StoreSize: 306,PriStoreSize: 153,CreationDate: 1697441576376
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-20231020] has already deleted ,Pri: 1,Rep: 1,DocCount: 13381284, DocDelete: 1752733,StoreSize: 3346489,PriStoreSize: 1673244,CreationDate: 1697731201268
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-20231017] has already deleted ,Pri: 1,Rep: 1,DocCount: 13464757, DocDelete: 245333,StoreSize: 3045200,PriStoreSize: 1522600,CreationDate: 1697472001220
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-20231016] has already deleted ,Pri: 1,Rep: 1,DocCount: 4971968, DocDelete: 377758,StoreSize: 1191870,PriStoreSize: 595935,CreationDate: 1697441401554
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-20231010] has already deleted ,Pri: 1,Rep: 1,DocCount: 22024870, DocDelete: 7359,StoreSize: 3650577,PriStoreSize: 1825288,CreationDate: 1697192351755
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-20231019] has already deleted ,Pri: 1,Rep: 1,DocCount: 13399027, DocDelete: 221793,StoreSize: 3009813,PriStoreSize: 1504906,CreationDate: 1697644801228
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-20231018] has already deleted ,Pri: 1,Rep: 1,DocCount: 13357568, DocDelete: 342544,StoreSize: 3037235,PriStoreSize: 1518617,CreationDate: 1697558401164
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-20231022] has already deleted ,Pri: 1,Rep: 1,DocCount: 13067781, DocDelete: 804777,StoreSize: 3045350,PriStoreSize: 1522675,CreationDate: 1697904001300
+Test Mode Details 2023/12/27 12:04:58 [logstash-atm-sn-20231021] has already deleted ,Pri: 1,Rep: 1,DocCount: 13255594, DocDelete: 1458208,StoreSize: 3241825,PriStoreSize: 1620912,CreationDate: 1697817601346
+Info 2023/12/27 12:04:58 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 12:10:04 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/27 12:10:05 Average Water Level: 57.049999
+Details 2023/12/27 12:10:05 Disk Space to Clean 19.890000 gb
+Details 2023/12/27 12:10:05 use these filter :[pattern water_level]
+Details 2023/12/27 12:10:05 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231022 logstash-atm-sn-20231021]
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-00010101] has already deleted ,Pri: 1,Rep: 1,DocCount: 80, DocDelete: 0,StoreSize: 306,PriStoreSize: 153,CreationDate: 2023-10-16
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-20231020] has already deleted ,Pri: 1,Rep: 1,DocCount: 13381284, DocDelete: 1752733,StoreSize: 3346489,PriStoreSize: 1673244,CreationDate: 2023-10-20
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-20231017] has already deleted ,Pri: 1,Rep: 1,DocCount: 13464757, DocDelete: 245333,StoreSize: 3045200,PriStoreSize: 1522600,CreationDate: 2023-10-17
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-20231016] has already deleted ,Pri: 1,Rep: 1,DocCount: 4971968, DocDelete: 377758,StoreSize: 1191870,PriStoreSize: 595935,CreationDate: 2023-10-16
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-20231010] has already deleted ,Pri: 1,Rep: 1,DocCount: 22024870, DocDelete: 7359,StoreSize: 3650577,PriStoreSize: 1825288,CreationDate: 2023-10-13
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-20231019] has already deleted ,Pri: 1,Rep: 1,DocCount: 13399027, DocDelete: 221793,StoreSize: 3009813,PriStoreSize: 1504906,CreationDate: 2023-10-19
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-20231018] has already deleted ,Pri: 1,Rep: 1,DocCount: 13357568, DocDelete: 342544,StoreSize: 3037235,PriStoreSize: 1518617,CreationDate: 2023-10-18
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-20231022] has already deleted ,Pri: 1,Rep: 1,DocCount: 13067781, DocDelete: 804777,StoreSize: 3045350,PriStoreSize: 1522675,CreationDate: 2023-10-22
+Test Mode Details 2023/12/27 12:10:05 [logstash-atm-sn-20231021] has already deleted ,Pri: 1,Rep: 1,DocCount: 13255594, DocDelete: 1458208,StoreSize: 3241825,PriStoreSize: 1620912,CreationDate: 2023-10-21
+Info 2023/12/27 12:10:05 Pausing for 5 seconds before continuing...

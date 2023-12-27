@@ -63,8 +63,8 @@ func CatNodes() CatNode {
 	defer res.Body.Close()
 	// fmt.Println(s)
 	return s
-
 }
+
 
 
 func Nodetest() {

@@ -10,9 +10,6 @@ import (
 	"reflect"
 )
 
-func Test1() {
-	// f := regexp.MustCompile()
-}
 
 func Test() {
 	// fmt.Println(global.configViperConfig.Get("orgname"))

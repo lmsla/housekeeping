@@ -21,17 +21,20 @@ type Actiond struct {
 }
 
 type Filter struct {
-	Filtertype string `yaml:"filtertype"`
-	Kind       string `yaml:"kind,omitempty"`
-	Value      string `yaml:"value,omitempty"`
-	Source     string `yaml:"source,omitempty"`
-	Range_From int64  `yaml:"range_from"`
-	Range_To   int    `yaml:"range_to"`
-	Timestring string `yaml:"timestring,omitempty"`
-	Unit       string `yaml:"unit,omitempty"`
-	Unit_count int    `yaml:"unit_count,omitempty"`
-	Direction  string `yaml:"direction,omitempty"`
-	Disk_space int    `yaml:"disk_space,omitempty"`
+	Filtertype string   `yaml:"filtertype"`
+	Kind       string   `yaml:"kind,omitempty"`
+	Value      []string `yaml:"value,omitempty"`
+	// Value      interface{} `yaml:"value,omitempty"`
+	Source      string `yaml:"source,omitempty"`
+	Range_From  int    `yaml:"range_from"`
+	Range_To    int    `yaml:"range_to"`
+	Timestring  string `yaml:"timestring,omitempty"`
+	Unit        string `yaml:"unit,omitempty"`
+	Unit_count  int    `yaml:"unit_count,omitempty"`
+	Direction   string `yaml:"direction,omitempty"`
+	Disk_space  int    `yaml:"disk_space,omitempty"`
+	Upper_limit int    `yaml:"upper_limit,omitempty"`
+	Lower_limit int    `yaml:"lower_limit,omitempty"`
 }
 
 type Option struct {
@@ -65,16 +68,20 @@ type type_age struct {
 
 type type_pattern struct {
 	Kind    string
-	Value   string
+	Value   interface{}
 	Exclude bool
+}
+
+type value struct {
+	value []string `yaml:"value,omitempty"`
 }
 
 type information struct {
 	CaPath       string
-	LogPath       string
+	LogPath      string
 	Period       string
 	Execute_cron bool
-	Test_mode bool
+	Test_mode    bool
 }
 
 type es struct {

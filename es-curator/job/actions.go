@@ -5,6 +5,7 @@ import (
 	"es-curator/log_record"
 	"fmt"
 	"time"
+	"strconv"
 )
 
 func Action_controll() {
@@ -20,44 +21,45 @@ func Action_controll() {
 				value := ActionList[actions].Options.Value
 				log_record.Logrecord("Actions", actionMsg)
 				FilterList := ActionList[actions].Filters
-				var agelist []string
-				var patternlist []string
-				var spacelist []string
 				var comparelist []string
 				var filter_record []string
 				for filtertype := range FilterList {
 					if FilterList[filtertype].Filtertype == "age" {
 						filter_record = append(filter_record, "age")
-						agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 					} else if FilterList[filtertype].Filtertype == "pattern" {
 						filter_record = append(filter_record, "pattern")
-						patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 					} else if FilterList[filtertype].Filtertype == "space" {
 						filter_record = append(filter_record, "space")
-						spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 					}
-	
 				}
-				comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+				comparelist = Filter_of_filter(filter_record, FilterList)
 				fmt.Println(allocationtype, key)
-	
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("allocation these indices :%s to %s ", comparelist, value)
 					log_record.Logrecord("Details", detailMsg)
-	
+
 					var index_onebyone []string
 					for index := range comparelist {
 						index_onebyone := append(index_onebyone, comparelist[index])
 						if global.EnvConfig.INFORMATION.Test_mode == true {
-							individual_Msg := fmt.Sprintf("%s has already allocated", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+
 							log_record.Logrecord("Test Mode Details", individual_Msg)
-	
+
 						} else if global.EnvConfig.INFORMATION.Test_mode == false {
 							Allocation(index_onebyone, allocationtype, key, value)
-							individual_Msg := fmt.Sprintf("%s has already allocated", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
-	
+
 					}
 					Node_relocating_checking()
 				} else if comparelist == nil {
@@ -74,27 +76,19 @@ func Action_controll() {
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 				log_record.Logrecord("Actions", actionMsg)
 				FilterList := ActionList[actions].Filters
-				var agelist []string
-				var patternlist []string
-				var spacelist []string
 				var comparelist []string
 				var MaxNumSegments int
 				var filter_record []string
 				for filtertype := range FilterList {
 					if FilterList[filtertype].Filtertype == "age" {
 						filter_record = append(filter_record, "age")
-						agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 					} else if FilterList[filtertype].Filtertype == "pattern" {
 						filter_record = append(filter_record, "pattern")
-						patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 					} else if FilterList[filtertype].Filtertype == "space" {
 						filter_record = append(filter_record, "space")
-						spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 					}
-					// comparelist = Indicesmapping(spacelist, agelist, patternlist)
-
 				}
-				comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+				comparelist = Filter_of_filter(filter_record, FilterList)
 				MaxNumSegments = ActionList[actions].Options.MaxNumSegment
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("forcemerge these indices :%s,segement num :%v", comparelist, MaxNumSegments)
@@ -105,12 +99,20 @@ func Action_controll() {
 						index_onebyone := append(index_onebyone, comparelist[index])
 
 						if global.EnvConfig.INFORMATION.Test_mode == true {
-							individual_Msg := fmt.Sprintf("%s has already forcemerged", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
 
 						} else if global.EnvConfig.INFORMATION.Test_mode == false {
 							ForceMerge(index_onebyone, MaxNumSegments)
-							individual_Msg := fmt.Sprintf("%s has already forcemerged", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 					}
@@ -118,37 +120,32 @@ func Action_controll() {
 				} else if comparelist == nil {
 					log_record.Logrecord("Details", "no match indices")
 				}
-
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 				log_record.Logrecord("Info", delaymsg)
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
-			
 		case "delete_indices":
 			if ActionList[actions].Options.DisableAction == false {
 				// Action_delete_indices()
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 				log_record.Logrecord("Actions", actionMsg)
 				FilterList := ActionList[actions].Filters
-				var agelist []string
-				var patternlist []string
-				var spacelist []string
 				var comparelist []string
 				var filter_record []string
+
 				for filtertype := range FilterList {
 					if FilterList[filtertype].Filtertype == "age" {
 						filter_record = append(filter_record, "age")
-						agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 					} else if FilterList[filtertype].Filtertype == "pattern" {
 						filter_record = append(filter_record, "pattern")
-						patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 					} else if FilterList[filtertype].Filtertype == "space" {
 						filter_record = append(filter_record, "space")
-						spacelist = FilterType_space(FilterList[filtertype].Disk_space)
+					} else if FilterList[filtertype].Filtertype == "water_level" {
+						filter_record = append(filter_record, "water_level")
 					}
 
 				}
-				comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+				comparelist = Filter_of_filter(filter_record, FilterList)
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
 				log_record.Logrecord("Details", filter_info)
 				//// delete function write from here
@@ -160,11 +157,19 @@ func Action_controll() {
 					for index := range comparelist {
 						index_onebyone := append(index_onebyone, comparelist[index])
 						if global.EnvConfig.INFORMATION.Test_mode == true {
-							individual_Msg := fmt.Sprintf("%s has already deleted", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
 						} else if global.EnvConfig.INFORMATION.Test_mode == false {
 							DeleteIndex(index_onebyone)
-							individual_Msg := fmt.Sprintf("%s has already deleted", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 
@@ -179,29 +184,22 @@ func Action_controll() {
 		case "close":
 			if ActionList[actions].Options.DisableAction == false {
 				// Action_close_indices()
-
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 				log_record.Logrecord("Actions", actionMsg)
 				FilterList := ActionList[actions].Filters
-				var agelist []string
-				var patternlist []string
-				var spacelist []string
 				var comparelist []string
 				var filter_record []string
 				for filtertype := range FilterList {
 					if FilterList[filtertype].Filtertype == "age" {
 						filter_record = append(filter_record, "age")
-						agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 					} else if FilterList[filtertype].Filtertype == "pattern" {
 						filter_record = append(filter_record, "pattern")
-						patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 					} else if FilterList[filtertype].Filtertype == "space" {
 						filter_record = append(filter_record, "space")
-						spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 					}
 
 				}
-				comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+				comparelist = Filter_of_filter(filter_record, FilterList)
 
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
 				log_record.Logrecord("Details", filter_info)
@@ -215,12 +213,20 @@ func Action_controll() {
 						index_onebyone := append(index_onebyone, comparelist[index])
 
 						if global.EnvConfig.INFORMATION.Test_mode == true {
-							individual_Msg := fmt.Sprintf("%s has already closed", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
 
 						} else if global.EnvConfig.INFORMATION.Test_mode == false {
 							CloseIndices(index_onebyone)
-							individual_Msg := fmt.Sprintf("%s has already closed", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 					}
@@ -232,32 +238,24 @@ func Action_controll() {
 				log_record.Logrecord("Info", delaymsg)
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
-
 		case "open":
 			if ActionList[actions].Options.DisableAction == false {
 				// Action_open_indices()
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 				log_record.Logrecord("Actions", actionMsg)
 				FilterList := ActionList[actions].Filters
-				var agelist []string
-				var patternlist []string
-				var spacelist []string
 				var comparelist []string
 				var filter_record []string
 				for filtertype := range FilterList {
 					if FilterList[filtertype].Filtertype == "age" {
 						filter_record = append(filter_record, "age")
-						agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 					} else if FilterList[filtertype].Filtertype == "pattern" {
 						filter_record = append(filter_record, "pattern")
-						patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 					} else if FilterList[filtertype].Filtertype == "space" {
-						spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 						filter_record = append(filter_record, "space")
 					}
-
 				}
-				comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+				comparelist = Filter_of_filter(filter_record, FilterList)
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
 				log_record.Logrecord("Details", filter_info)
 				if comparelist != nil {
@@ -268,11 +266,19 @@ func Action_controll() {
 					for index := range comparelist {
 						index_onebyone := append(index_onebyone, comparelist[index])
 						if global.EnvConfig.INFORMATION.Test_mode == true {
-							individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
 						} else if global.EnvConfig.INFORMATION.Test_mode == false {
 							OpenIndices(index_onebyone)
-							individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
+							indicesInfo := CatIndices_withPattern(index_onebyone)
+							i := indicesInfo[0]
+							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
+							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 					}
@@ -288,6 +294,8 @@ func Action_controll() {
 
 }
 
+
+////////////////-----------------------------Useless Function--------------------------------------/////////////////////
 ////------- Open indices -------////
 func Action_open_indices() {
 	ActionList := global.ActionStruct.Actions
@@ -298,27 +306,20 @@ func Action_open_indices() {
 			actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 			log_record.Logrecord("Actions", actionMsg)
 			FilterList := ActionList[actions].Filters
-			var agelist []string
-			var patternlist []string
-			var spacelist []string
 			var comparelist []string
 			var filter_record []string
 			for filtertype := range FilterList {
 				// fmt.Println("action:", ActionList[actions].Action, "description:", ActionList[actions].Description, "filtertype:", FilterList[filtertype].Filtertype)
 				if FilterList[filtertype].Filtertype == "age" {
 					filter_record = append(filter_record, "age")
-					agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 				} else if FilterList[filtertype].Filtertype == "pattern" {
 					filter_record = append(filter_record, "pattern")
-					patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 				} else if FilterList[filtertype].Filtertype == "space" {
-					spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 					filter_record = append(filter_record, "space")
 				}
-				// comparelist = Indicesmapping3(spacelist, agelist, patternlist)
 
 			}
-			comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+			comparelist = Filter_of_filter(filter_record, FilterList)
 
 			filter_info := fmt.Sprintf("use these filter :%s", filter_record)
 			log_record.Logrecord("Details", filter_info)
@@ -360,27 +361,20 @@ func Action_close_indices() {
 			actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 			log_record.Logrecord("Actions", actionMsg)
 			FilterList := ActionList[actions].Filters
-			var agelist []string
-			var patternlist []string
-			var spacelist []string
 			var comparelist []string
 			var filter_record []string
 			for filtertype := range FilterList {
 				// fmt.Println("action:", ActionList[actions].Action, "description:", ActionList[actions].Description, "filtertype:", FilterList[filtertype].Filtertype)
 				if FilterList[filtertype].Filtertype == "age" {
 					filter_record = append(filter_record, "age")
-					agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 				} else if FilterList[filtertype].Filtertype == "pattern" {
 					filter_record = append(filter_record, "pattern")
-					patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 				} else if FilterList[filtertype].Filtertype == "space" {
 					filter_record = append(filter_record, "space")
-					spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 				}
-				// comparelist = Indicesmapping3(spacelist, agelist, patternlist)
 
 			}
-			comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+			comparelist = Filter_of_filter(filter_record, FilterList)
 
 			filter_info := fmt.Sprintf("use these filter :%s", filter_record)
 			log_record.Logrecord("Details", filter_info)
@@ -424,27 +418,21 @@ func Action_delete_indices() {
 			actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 			log_record.Logrecord("Actions", actionMsg)
 			FilterList := ActionList[actions].Filters
-			var agelist []string
-			var patternlist []string
-			var spacelist []string
 			var comparelist []string
 			var filter_record []string
-			for filtertype := range FilterList {
+			for _,data := range FilterList {
 				// fmt.Println("action:", ActionList[actions].Action, "description:", ActionList[actions].Description, "filtertype:", FilterList[filtertype].Filtertype)
-				if FilterList[filtertype].Filtertype == "age" {
+				if data.Filtertype == "age" {
 					filter_record = append(filter_record, "age")
-					agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
-				} else if FilterList[filtertype].Filtertype == "pattern" {
+				} else if data.Filtertype == "pattern" {
 					filter_record = append(filter_record, "pattern")
-					patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
-				} else if FilterList[filtertype].Filtertype == "space" {
+				} else if data.Filtertype == "space" {
 					filter_record = append(filter_record, "space")
-					spacelist = FilterType_space(FilterList[filtertype].Disk_space)
+				} else if data.Filtertype == "waterlevel" {
+					filter_record = append(filter_record, "waterlevel") 
 				}
-				// comparelist = Indicesmapping3(agelist, patternlist,spacelist )
-
 			}
-			comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+			comparelist = Filter_of_filter(filter_record, FilterList)
 
 			// fmt.Println("filter_record:", filter_record)
 			// fmt.Println("agelist:", agelist)
@@ -493,9 +481,6 @@ func Action_forcemerge_indices() {
 			actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 			log_record.Logrecord("Actions", actionMsg)
 			FilterList := ActionList[actions].Filters
-			var agelist []string
-			var patternlist []string
-			var spacelist []string
 			var comparelist []string
 			var MaxNumSegments int
 			var filter_record []string
@@ -503,18 +488,13 @@ func Action_forcemerge_indices() {
 				// fmt.Println("action:", ActionList[actions].Action, "description:", ActionList[actions].Description, "filtertype:", FilterList[filtertype].Filtertype)
 				if FilterList[filtertype].Filtertype == "age" {
 					filter_record = append(filter_record, "age")
-					agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 				} else if FilterList[filtertype].Filtertype == "pattern" {
 					filter_record = append(filter_record, "pattern")
-					patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 				} else if FilterList[filtertype].Filtertype == "space" {
 					filter_record = append(filter_record, "space")
-					spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 				}
-				// comparelist = Indicesmapping(spacelist, agelist, patternlist)
-
 			}
-			comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+			comparelist = Filter_of_filter(filter_record, FilterList)
 			MaxNumSegments = ActionList[actions].Options.MaxNumSegment
 			// fmt.Println(MaxNumSegments)
 			// fmt.Println(ActionList[actions].Options.Key)
@@ -566,27 +546,19 @@ func Action_allocation_indices() {
 			value := ActionList[actions].Options.Value
 			log_record.Logrecord("Actions", actionMsg)
 			FilterList := ActionList[actions].Filters
-			var agelist []string
-			var patternlist []string
-			var spacelist []string
 			var comparelist []string
 			var filter_record []string
 			for filtertype := range FilterList {
 				// fmt.Println("action:", ActionList[actions].Action, "description:", ActionList[actions].Description, "filtertype:", FilterList[filtertype].Filtertype)
 				if FilterList[filtertype].Filtertype == "age" {
 					filter_record = append(filter_record, "age")
-					agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
 				} else if FilterList[filtertype].Filtertype == "pattern" {
 					filter_record = append(filter_record, "pattern")
-					patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 				} else if FilterList[filtertype].Filtertype == "space" {
 					filter_record = append(filter_record, "space")
-					spacelist = FilterType_space(FilterList[filtertype].Disk_space)
 				}
-				// comparelist = Indicesmapping3(spacelist, agelist, patternlist)
-
 			}
-			comparelist = Filter_of_filter(filter_record, agelist, patternlist, spacelist)
+			comparelist = Filter_of_filter(filter_record, FilterList)
 			fmt.Println(allocationtype, key)
 
 			if comparelist != nil {

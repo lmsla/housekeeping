@@ -1,0 +1,1737 @@
+filter_record:  [pattern space]
+filterList:  [{space  [] creation_date 0 0   0  250} {pattern prefix [logstash-atm-sn-20 logstash-sevone-sn-20]  0 0   0  0}]
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231111",
+    "uuid" : "C79ShGdFSUSMHCcEQBbAhA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6727952",
+    "docs.deleted" : "0",
+    "store.size" : "5580601",
+    "pri.store.size" : "2790199",
+    "creation.date" : "1699632268983"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231110",
+    "uuid" : "1Htv7BVtTzOPQ89VVqID1w",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6521271",
+    "docs.deleted" : "0",
+    "store.size" : "5474654",
+    "pri.store.size" : "2738002",
+    "creation.date" : "1699545908581"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231120-test",
+    "uuid" : "rTk7iWSyRsGYgs1dnEKkpA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "408",
+    "docs.deleted" : "0",
+    "store.size" : "477",
+    "pri.store.size" : "238",
+    "creation.date" : "1701172904280"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231109",
+    "uuid" : "NkYRtl8mTlCzZLsawNN6GQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6709200",
+    "docs.deleted" : "0",
+    "store.size" : "5625362",
+    "pri.store.size" : "2812668",
+    "creation.date" : "1699459240988"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231108",
+    "uuid" : "4SEcOI6dRWC4aV0u_UNEKw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6616818",
+    "docs.deleted" : "0",
+    "store.size" : "5561766",
+    "pri.store.size" : "2779045",
+    "creation.date" : "1699373443341"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231107",
+    "uuid" : "NhtI4QM4TLyFWqrH5prMZA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6631149",
+    "docs.deleted" : "0",
+    "store.size" : "5571781",
+    "pri.store.size" : "2785394",
+    "creation.date" : "1699286442289"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231130-test",
+    "uuid" : "xvfV6mGAQgWDeuo7a2D-Ew",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1740",
+    "docs.deleted" : "0",
+    "store.size" : "1750",
+    "pri.store.size" : "886",
+    "creation.date" : "1701367227357"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231208-test",
+    "uuid" : "7zicbIHvQ0eMRB_nBp6UGQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "7478",
+    "docs.deleted" : "0",
+    "store.size" : "3685",
+    "pri.store.size" : "1885",
+    "creation.date" : "1702058450918"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231109-test",
+    "uuid" : "beE2-5RxSWevSjCBo5qBUw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "233993",
+    "docs.deleted" : "0",
+    "store.size" : "90015",
+    "pri.store.size" : "44936",
+    "creation.date" : "1701162852035"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231107-test",
+    "uuid" : "VMNa2Bg5R3Ko6fgvGDJBbA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "284609",
+    "docs.deleted" : "0",
+    "store.size" : "107377",
+    "pri.store.size" : "53599",
+    "creation.date" : "1701151155426"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231206-test",
+    "uuid" : "wBwncXNiReKJ4FTLbSZnAA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "2624",
+    "docs.deleted" : "0",
+    "store.size" : "1654",
+    "pri.store.size" : "827",
+    "creation.date" : "1701885635712"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231204-test",
+    "uuid" : "4kVyQy9fSQSQ4RmOGgMeJw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "646",
+    "docs.deleted" : "0",
+    "store.size" : "657",
+    "pri.store.size" : "328",
+    "creation.date" : "1701712824333"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231130",
+    "uuid" : "I9mDl44FSj2p1UOWJZMyQQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13271104",
+    "docs.deleted" : "0",
+    "store.size" : "3292907",
+    "pri.store.size" : "1646489",
+    "creation.date" : "1701273601284"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231202-test",
+    "uuid" : "xz26reOnSCaCzhKkuE0_Hg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "8826",
+    "docs.deleted" : "0",
+    "store.size" : "1978",
+    "pri.store.size" : "991",
+    "creation.date" : "1701540025028"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231119-test",
+    "uuid" : "538Dk7a-TXqKopG-exfx5A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "772",
+    "docs.deleted" : "0",
+    "store.size" : "1071",
+    "pri.store.size" : "546",
+    "creation.date" : "1701172862426"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231214-test",
+    "uuid" : "8pAoJwsXQPqD5zQqypzhig",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1502",
+    "docs.deleted" : "0",
+    "store.size" : "1246",
+    "pri.store.size" : "656",
+    "creation.date" : "1702576832370"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231210",
+    "uuid" : "9ERqAj4eTpiqCWWXTM5k_g",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13238645",
+    "docs.deleted" : "1476153",
+    "store.size" : "3590729",
+    "pri.store.size" : "1829188",
+    "creation.date" : "1702137601709"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231211",
+    "uuid" : "lxCT8x9YQ0uLzqmFnZLTmA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13230824",
+    "docs.deleted" : "758389",
+    "store.size" : "3566597",
+    "pri.store.size" : "1739019",
+    "creation.date" : "1702224003028"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231212",
+    "uuid" : "6pZaofBySla4EDxHy2wugA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13222056",
+    "docs.deleted" : "1480670",
+    "store.size" : "3732015",
+    "pri.store.size" : "1849626",
+    "creation.date" : "1702310401608"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231213",
+    "uuid" : "_c4KfFAjQCCMs8PAj07VVg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13034254",
+    "docs.deleted" : "872358",
+    "store.size" : "3480318",
+    "pri.store.size" : "1745687",
+    "creation.date" : "1702396801669"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231117-test",
+    "uuid" : "jlaSZzv1Qq-WCuRwDLXg5w",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "27512",
+    "docs.deleted" : "0",
+    "store.size" : "19156",
+    "pri.store.size" : "9545",
+    "creation.date" : "1701172302959"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231214",
+    "uuid" : "YYNfYSQqR_2gqjHf-zxZGw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13090882",
+    "docs.deleted" : "1106446",
+    "store.size" : "3500891",
+    "pri.store.size" : "1783104",
+    "creation.date" : "1702483203863"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231215",
+    "uuid" : "mEAEMDiSTNu1un6fwbX6TQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "10113953",
+    "docs.deleted" : "784992",
+    "store.size" : "2716517",
+    "pri.store.size" : "1383718",
+    "creation.date" : "1702569601825"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231115-test",
+    "uuid" : "6VJuLv_MS_6lvyBD4MTa1Q",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "219149",
+    "docs.deleted" : "0",
+    "store.size" : "86666",
+    "pri.store.size" : "43309",
+    "creation.date" : "1701171011319"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231128",
+    "uuid" : "Hllb7-G6S_eNK7MzCJK1qw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13340577",
+    "docs.deleted" : "0",
+    "store.size" : "3323592",
+    "pri.store.size" : "1661972",
+    "creation.date" : "1701100801601"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231129",
+    "uuid" : "tuYTCtmwTp21yJ7DinveDA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13341996",
+    "docs.deleted" : "0",
+    "store.size" : "3298546",
+    "pri.store.size" : "1649578",
+    "creation.date" : "1701187201459"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231123",
+    "uuid" : "sK3Y6MUOQYKXM9Rl2feeiQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13478102",
+    "docs.deleted" : "0",
+    "store.size" : "3342916",
+    "pri.store.size" : "1671686",
+    "creation.date" : "1700668803525"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231124",
+    "uuid" : "PEpvX_PoQjazHLXuFfO4hg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13164696",
+    "docs.deleted" : "0",
+    "store.size" : "3271526",
+    "pri.store.size" : "1636107",
+    "creation.date" : "1700755204958"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231127",
+    "uuid" : "VWeQstJWQliMz82lhtWNbQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13337234",
+    "docs.deleted" : "0",
+    "store.size" : "3312707",
+    "pri.store.size" : "1656302",
+    "creation.date" : "1701014401342"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231126",
+    "uuid" : "JBfeddeUS4S75zERUShqUg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "12762579",
+    "docs.deleted" : "0",
+    "store.size" : "3167013",
+    "pri.store.size" : "1583347",
+    "creation.date" : "1700928003835"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231125",
+    "uuid" : "qOSCeQ6HRSabZk1qel9pzA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "12702770",
+    "docs.deleted" : "0",
+    "store.size" : "3159064",
+    "pri.store.size" : "1579976",
+    "creation.date" : "1700841601379"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231212-test",
+    "uuid" : "CFJRERS6RhKZEMaPTvCjJQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1224",
+    "docs.deleted" : "0",
+    "store.size" : "1217",
+    "pri.store.size" : "620",
+    "creation.date" : "1702404028314"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231113-test",
+    "uuid" : "1r22qFaFQQ6QJvVjvUBjYg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "238891",
+    "docs.deleted" : "0",
+    "store.size" : "91446",
+    "pri.store.size" : "45640",
+    "creation.date" : "1701168570512"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231122",
+    "uuid" : "RLZMMsaCQJG00_MkvazKsQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13611221",
+    "docs.deleted" : "0",
+    "store.size" : "3376859",
+    "pri.store.size" : "1688330",
+    "creation.date" : "1700582461170"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231121",
+    "uuid" : "_v7BheEQRamc6PBfwTIIbA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13553332",
+    "docs.deleted" : "0",
+    "store.size" : "3390935",
+    "pri.store.size" : "1694666",
+    "creation.date" : "1700496003838"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231120",
+    "uuid" : "GOjc1N9fRqiKQENzF7VC4g",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13660546",
+    "docs.deleted" : "0",
+    "store.size" : "3378607",
+    "pri.store.size" : "1690202",
+    "creation.date" : "1700409603189"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231129-test",
+    "uuid" : "SFmAIgaXTB6ydvOnaJsuFg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "10184",
+    "docs.deleted" : "0",
+    "store.size" : "4968",
+    "pri.store.size" : "2484",
+    "creation.date" : "1701280842354"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231210-test",
+    "uuid" : "uwG0oF9YSOmXEAjXeg5WKQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1142",
+    "docs.deleted" : "0",
+    "store.size" : "1407",
+    "pri.store.size" : "781",
+    "creation.date" : "1702231224660"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231111-test",
+    "uuid" : "oQbQ5CG2Sv6rrIOP0PyBAg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "101968",
+    "docs.deleted" : "0",
+    "store.size" : "46248",
+    "pri.store.size" : "23071",
+    "creation.date" : "1701166507894"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231127-test",
+    "uuid" : "j0xqOosCTrWzeZ46LL50lA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "188",
+    "docs.deleted" : "0",
+    "store.size" : "327",
+    "pri.store.size" : "163",
+    "creation.date" : "1701173255144"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231123-test",
+    "uuid" : "x8p3H-bTRi21OT1XKv7DRA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1450",
+    "docs.deleted" : "0",
+    "store.size" : "1042",
+    "pri.store.size" : "521",
+    "creation.date" : "1701173015202"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231205",
+    "uuid" : "8oHQrJoST-6bwz2MrmABAg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13162509",
+    "docs.deleted" : "0",
+    "store.size" : "3229526",
+    "pri.store.size" : "1614763",
+    "creation.date" : "1701705601818"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231206",
+    "uuid" : "sltFv7qjRdqfTW-W4cDJ6Q",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13024622",
+    "docs.deleted" : "0",
+    "store.size" : "3203126",
+    "pri.store.size" : "1601563",
+    "creation.date" : "1701792001562"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231207",
+    "uuid" : "Au9uL_sQTgCPR_SxZ2mphA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13167108",
+    "docs.deleted" : "1544932",
+    "store.size" : "3613942",
+    "pri.store.size" : "1854473",
+    "creation.date" : "1701878404173"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231125-test",
+    "uuid" : "q4A5aFofRuSnNgGMoCAuXg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1258",
+    "docs.deleted" : "0",
+    "store.size" : "941",
+    "pri.store.size" : "470",
+    "creation.date" : "1701173163154"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231208",
+    "uuid" : "RJwSqMdrRIiEoBgw7qcmow",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13215552",
+    "docs.deleted" : "1417580",
+    "store.size" : "3670862",
+    "pri.store.size" : "1836861",
+    "creation.date" : "1701964802111"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231209",
+    "uuid" : "kPlxIl3sRbqIaNCSf1yZ-w",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13131985",
+    "docs.deleted" : "1262335",
+    "store.size" : "3553418",
+    "pri.store.size" : "1793499",
+    "creation.date" : "1702051203123"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231201",
+    "uuid" : "5dxL632UTdGRs14sHT_ZYA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13288497",
+    "docs.deleted" : "0",
+    "store.size" : "3279552",
+    "pri.store.size" : "1639910",
+    "creation.date" : "1701360002585"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231202",
+    "uuid" : "PUFGo1tjTbybt0HrEuz3Iw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13264673",
+    "docs.deleted" : "0",
+    "store.size" : "3220541",
+    "pri.store.size" : "1610628",
+    "creation.date" : "1701446403034"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231203",
+    "uuid" : "sAofTlulQ3e93P3UKeVPdw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "12778940",
+    "docs.deleted" : "0",
+    "store.size" : "3120660",
+    "pri.store.size" : "1560376",
+    "creation.date" : "1701532805521"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231204",
+    "uuid" : "_HxOdSuMSYiAYZQ4OnZgfg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13153517",
+    "docs.deleted" : "0",
+    "store.size" : "3226750",
+    "pri.store.size" : "1613609",
+    "creation.date" : "1701619202635"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231121-test",
+    "uuid" : "sUL5eXXuTqCZuT32xKXRig",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "784",
+    "docs.deleted" : "0",
+    "store.size" : "659",
+    "pri.store.size" : "329",
+    "creation.date" : "1701172939539"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231119",
+    "uuid" : "w3Ptx4dRT8C43nL_Xyt-lA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13255835",
+    "docs.deleted" : "0",
+    "store.size" : "3255371",
+    "pri.store.size" : "1627562",
+    "creation.date" : "1700323203084"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231118",
+    "uuid" : "0S3FDt2_SQKkYdvXrRilpg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13501844",
+    "docs.deleted" : "0",
+    "store.size" : "3314789",
+    "pri.store.size" : "1658485",
+    "creation.date" : "1700236802929"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231117",
+    "uuid" : "DUQTU7HYQOGr4M6xMiV2-Q",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13706065",
+    "docs.deleted" : "0",
+    "store.size" : "3378338",
+    "pri.store.size" : "1689035",
+    "creation.date" : "1700150402836"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231116",
+    "uuid" : "Q8FeB6y4R8SzyMStAGVTkA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "13848278",
+    "docs.deleted" : "0",
+    "store.size" : "3408175",
+    "pri.store.size" : "1704181",
+    "creation.date" : "1700064003723"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231115",
+    "uuid" : "Hho7ai0_QRuAmy0uz7yJrg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "24551621",
+    "docs.deleted" : "0",
+    "store.size" : "3835591",
+    "pri.store.size" : "1918496",
+    "creation.date" : "1700041501145"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231114",
+    "uuid" : "xHDAYJgwTT-Q-F90Dr3rsA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23460084",
+    "docs.deleted" : "0",
+    "store.size" : "3554966",
+    "pri.store.size" : "1776358",
+    "creation.date" : "1700454621993"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231113",
+    "uuid" : "01Gm1fRyTaGJspL9psd1-A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23596293",
+    "docs.deleted" : "0",
+    "store.size" : "3575277",
+    "pri.store.size" : "1787987",
+    "creation.date" : "1700447910296"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231112",
+    "uuid" : "6WTTBftkQqWGSFvQ8cE3gw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23395289",
+    "docs.deleted" : "0",
+    "store.size" : "3519820",
+    "pri.store.size" : "1760037",
+    "creation.date" : "1700447916632"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231111",
+    "uuid" : "Ih0gHI1pSpasvhxhsqNlFQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23432724",
+    "docs.deleted" : "0",
+    "store.size" : "3525868",
+    "pri.store.size" : "1762728",
+    "creation.date" : "1700441000241"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231110",
+    "uuid" : "Qs6gjN9QQu2cdJsVClmk1Q",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23423215",
+    "docs.deleted" : "0",
+    "store.size" : "3543238",
+    "pri.store.size" : "1772443",
+    "creation.date" : "1700441001745"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231109",
+    "uuid" : "oJxVi77tRmSJMgJJcvCVYg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23499237",
+    "docs.deleted" : "0",
+    "store.size" : "3559919",
+    "pri.store.size" : "1779832",
+    "creation.date" : "1700410647877"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231108",
+    "uuid" : "jwj9wl5CTIKyaJ1mYaK1LA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23508160",
+    "docs.deleted" : "0",
+    "store.size" : "3568376",
+    "pri.store.size" : "1784457",
+    "creation.date" : "1700410649812"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-atm-sn-20231107",
+    "uuid" : "zF-VQBHNSh2n9YiRmPvR6w",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23501571",
+    "docs.deleted" : "0",
+    "store.size" : "3566140",
+    "pri.store.size" : "1783301",
+    "creation.date" : "1699946773890"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231209-test",
+    "uuid" : "U_tkC6vqRsC0EGNdEQYEzg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1316",
+    "docs.deleted" : "0",
+    "store.size" : "1053",
+    "pri.store.size" : "581",
+    "creation.date" : "1702144823941"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231207-test",
+    "uuid" : "5tZ5mHIYQfOzDB-sVosqmw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "7018",
+    "docs.deleted" : "0",
+    "store.size" : "4017",
+    "pri.store.size" : "2008",
+    "creation.date" : "1701972058601"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231108-test",
+    "uuid" : "iV4DUPOjSaKeqRuH86R3Jg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "327166",
+    "docs.deleted" : "0",
+    "store.size" : "118575",
+    "pri.store.size" : "59324",
+    "creation.date" : "1701157108734"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231205-test",
+    "uuid" : "1nY980C8TgCtY38hyEa7JQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "2591",
+    "docs.deleted" : "0",
+    "store.size" : "1713",
+    "pri.store.size" : "856",
+    "creation.date" : "1701799231513"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231130",
+    "uuid" : "bFgVS8M1SQaWMlhArSKH7A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6828180",
+    "docs.deleted" : "0",
+    "store.size" : "3764205",
+    "pri.store.size" : "1882353",
+    "creation.date" : "1701273602878"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231203-test",
+    "uuid" : "HtF4zQ9ySTqo2xWAjiX_Eg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "750",
+    "docs.deleted" : "0",
+    "store.size" : "709",
+    "pri.store.size" : "352",
+    "creation.date" : "1701626425121"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231116-test",
+    "uuid" : "rgBHYZS4TWCHZTrEozSD4A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "35646",
+    "docs.deleted" : "0",
+    "store.size" : "21427",
+    "pri.store.size" : "10731",
+    "creation.date" : "1701172022232"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231201-test",
+    "uuid" : "FRjFmIc3TOimO0u3y0HnCQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "376",
+    "docs.deleted" : "0",
+    "store.size" : "435",
+    "pri.store.size" : "217",
+    "creation.date" : "1701453625769"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231212",
+    "uuid" : "X0_bkU0aTzGrbTAlfvrlyg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6821208",
+    "docs.deleted" : "708",
+    "store.size" : "3918984",
+    "pri.store.size" : "1938843",
+    "creation.date" : "1702310404063"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231213",
+    "uuid" : "aC7folqiRpybaI7KyL0NCg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6820668",
+    "docs.deleted" : "232",
+    "store.size" : "3835504",
+    "pri.store.size" : "1911883",
+    "creation.date" : "1702396803163"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231214",
+    "uuid" : "730hIUiDSF21PTKE47FTzQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6825988",
+    "docs.deleted" : "1040",
+    "store.size" : "3840612",
+    "pri.store.size" : "1923884",
+    "creation.date" : "1702483201850"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231215",
+    "uuid" : "sNkIs2NqRuuNSHDqXbzR4A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "5247085",
+    "docs.deleted" : "0",
+    "store.size" : "2945333",
+    "pri.store.size" : "1468267",
+    "creation.date" : "1702569605006"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231118-test",
+    "uuid" : "DScC0EXUTeO5TgQVIW5ucw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "23686",
+    "docs.deleted" : "0",
+    "store.size" : "14336",
+    "pri.store.size" : "7144",
+    "creation.date" : "1701172514861"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231210",
+    "uuid" : "Oj62WrNrSO-CHDCffZPTtQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6821290",
+    "docs.deleted" : "114",
+    "store.size" : "3885619",
+    "pri.store.size" : "1931699",
+    "creation.date" : "1702137607300"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231211",
+    "uuid" : "B_TyY1RJRJKrWXaQ-5Zm3g",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6568614",
+    "docs.deleted" : "267",
+    "store.size" : "3710968",
+    "pri.store.size" : "1852381",
+    "creation.date" : "1702224001756"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231114-test",
+    "uuid" : "DDP4twnPSeiSEjUxpghmrg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "210627",
+    "docs.deleted" : "0",
+    "store.size" : "83706",
+    "pri.store.size" : "41755",
+    "creation.date" : "1701169650544"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231128",
+    "uuid" : "6mXKgh-VTcGvcTg9HTP0RQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6825728",
+    "docs.deleted" : "0",
+    "store.size" : "5468373",
+    "pri.store.size" : "2734419",
+    "creation.date" : "1701100803029"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231129",
+    "uuid" : "Pyr4oU4zTBeMFMuIOvUQDQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6819736",
+    "docs.deleted" : "0",
+    "store.size" : "3762898",
+    "pri.store.size" : "1881347",
+    "creation.date" : "1701187203659"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231213-test",
+    "uuid" : "NzGspKxsSV6dYPqQIrZ6jw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1764",
+    "docs.deleted" : "0",
+    "store.size" : "1929",
+    "pri.store.size" : "1034",
+    "creation.date" : "1702490426428"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231127",
+    "uuid" : "hXUTS11zRNeTpD1O9EyMDQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6829732",
+    "docs.deleted" : "0",
+    "store.size" : "6289572",
+    "pri.store.size" : "3144817",
+    "creation.date" : "1701014403630"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231126",
+    "uuid" : "7rkLnaxVRCSFyXb58BrBCg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6828932",
+    "docs.deleted" : "0",
+    "store.size" : "6290256",
+    "pri.store.size" : "3144439",
+    "creation.date" : "1700928004325"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231125",
+    "uuid" : "zcgBQkwYR-ah9rsHE07UBQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6828662",
+    "docs.deleted" : "0",
+    "store.size" : "6274296",
+    "pri.store.size" : "3135048",
+    "creation.date" : "1700841604454"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231124",
+    "uuid" : "nO9PrITATomUVry683zMdw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6825648",
+    "docs.deleted" : "0",
+    "store.size" : "6269193",
+    "pri.store.size" : "3132199",
+    "creation.date" : "1700755203468"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231123",
+    "uuid" : "QNvK4BrzR6qMgOAMiEz0fQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6828470",
+    "docs.deleted" : "0",
+    "store.size" : "6263818",
+    "pri.store.size" : "3131780",
+    "creation.date" : "1700668802690"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231122",
+    "uuid" : "lNHnlcWCRReep0Ef6o021g",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6828138",
+    "docs.deleted" : "0",
+    "store.size" : "6248859",
+    "pri.store.size" : "3123592",
+    "creation.date" : "1700582402662"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231121",
+    "uuid" : "ffVV_LjZQNiVHgL0OLNn1g",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6829136",
+    "docs.deleted" : "0",
+    "store.size" : "6243548",
+    "pri.store.size" : "3120600",
+    "creation.date" : "1700496001680"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231120",
+    "uuid" : "ig3j0FwqTr-njAy5vBGEhQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6829512",
+    "docs.deleted" : "0",
+    "store.size" : "6250097",
+    "pri.store.size" : "3125714",
+    "creation.date" : "1700409602100"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231211-test",
+    "uuid" : "yo0NfnTwTreGw8M_r7waEQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "253818",
+    "docs.deleted" : "0",
+    "store.size" : "88272",
+    "pri.store.size" : "44341",
+    "creation.date" : "1702317626672"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231112-test",
+    "uuid" : "5YRmRN_aTnW3MVnYSowfCA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "308471",
+    "docs.deleted" : "0",
+    "store.size" : "113704",
+    "pri.store.size" : "57084",
+    "creation.date" : "1701167051727"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231126-test",
+    "uuid" : "oWsigVCzSyS3ICPERuh-jw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "988",
+    "docs.deleted" : "0",
+    "store.size" : "854",
+    "pri.store.size" : "427",
+    "creation.date" : "1701173216811"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231128-test",
+    "uuid" : "gxdDrkgaQ5SmGh1MKOVOvg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "4192",
+    "docs.deleted" : "0",
+    "store.size" : "2383",
+    "pri.store.size" : "1198",
+    "creation.date" : "1701222080600"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231110-test",
+    "uuid" : "SrGew0lVQZCbXZ6pxiRiPw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "349171",
+    "docs.deleted" : "0",
+    "store.size" : "124693",
+    "pri.store.size" : "62354",
+    "creation.date" : "1701164020115"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231209",
+    "uuid" : "GTYopw7LS0iPAAF68Xh3KA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6822268",
+    "docs.deleted" : "4",
+    "store.size" : "3877810",
+    "pri.store.size" : "1920873",
+    "creation.date" : "1702051201897"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231205",
+    "uuid" : "e4h0jhweSLu3vca93sn8tg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6818689",
+    "docs.deleted" : "0",
+    "store.size" : "3760954",
+    "pri.store.size" : "1880477",
+    "creation.date" : "1701705601351"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231206",
+    "uuid" : "iE35PIpaR7q99t7HIGZkBw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6818656",
+    "docs.deleted" : "0",
+    "store.size" : "3758495",
+    "pri.store.size" : "1879247",
+    "creation.date" : "1701792002393"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231207",
+    "uuid" : "fYN8otIxSZGYzJjNr6KCWA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6815000",
+    "docs.deleted" : "5816",
+    "store.size" : "3857193",
+    "pri.store.size" : "1926579",
+    "creation.date" : "1701878402942"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231208",
+    "uuid" : "weIIOeJ9TDuN0F5WmDthtw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6817258",
+    "docs.deleted" : "5044",
+    "store.size" : "3872729",
+    "pri.store.size" : "1932186",
+    "creation.date" : "1701964804293"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231201",
+    "uuid" : "1R4o_pICRvKvKLtlTSuGLg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6829544",
+    "docs.deleted" : "0",
+    "store.size" : "3770533",
+    "pri.store.size" : "1885070",
+    "creation.date" : "1701360004586"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231202",
+    "uuid" : "XWuMrMfPSwyYc7YXz-HK8g",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6821094",
+    "docs.deleted" : "0",
+    "store.size" : "3768148",
+    "pri.store.size" : "1883990",
+    "creation.date" : "1701446406176"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231203",
+    "uuid" : "5Igz-oomSN60eh4WRkRgsw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6820530",
+    "docs.deleted" : "0",
+    "store.size" : "3762392",
+    "pri.store.size" : "1881352",
+    "creation.date" : "1701532801813"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231204",
+    "uuid" : "7V3VffKHT4Ka2SCHEYrtkg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6820634",
+    "docs.deleted" : "0",
+    "store.size" : "3761042",
+    "pri.store.size" : "1880955",
+    "creation.date" : "1701619202524"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231122-test",
+    "uuid" : "eH8k6tubQNm1s7hzvLvKXg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1782",
+    "docs.deleted" : "0",
+    "store.size" : "1474",
+    "pri.store.size" : "739",
+    "creation.date" : "1701172975598"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231124-test",
+    "uuid" : "yb8c7ROQQFqg2TUI08w13A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "4272",
+    "docs.deleted" : "0",
+    "store.size" : "2161",
+    "pri.store.size" : "1080",
+    "creation.date" : "1701173062614"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231119",
+    "uuid" : "d9Tf4WqLQ-O0FvLSpOB_qA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6829148",
+    "docs.deleted" : "0",
+    "store.size" : "6289997",
+    "pri.store.size" : "3144906",
+    "creation.date" : "1700323201960"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231118",
+    "uuid" : "p3kxFO-bQrGlDuFTBRqTNg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6806234",
+    "docs.deleted" : "0",
+    "store.size" : "6136289",
+    "pri.store.size" : "3064584",
+    "creation.date" : "1700237074627"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231117",
+    "uuid" : "wcDdIFKZTT6Mj4XAWFGg3Q",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6802408",
+    "docs.deleted" : "0",
+    "store.size" : "6102964",
+    "pri.store.size" : "3052912",
+    "creation.date" : "1700150402378"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231116",
+    "uuid" : "E0HyjQDHR3ullXHb-GnlTw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6794274",
+    "docs.deleted" : "0",
+    "store.size" : "6078354",
+    "pri.store.size" : "3036465",
+    "creation.date" : "1700064187720"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231115",
+    "uuid" : "_VLG-qseT9G1ukf-B4pPuA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6610771",
+    "docs.deleted" : "0",
+    "store.size" : "5707179",
+    "pri.store.size" : "2854714",
+    "creation.date" : "1699978457791"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231114",
+    "uuid" : "EXCG_oQ9QAmQp4BzCWZGUQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6619293",
+    "docs.deleted" : "0",
+    "store.size" : "5565143",
+    "pri.store.size" : "2781381",
+    "creation.date" : "1699891204751"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231113",
+    "uuid" : "iEqbDAcgRHC9sKWN2dSGvA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6591029",
+    "docs.deleted" : "0",
+    "store.size" : "5540609",
+    "pri.store.size" : "2769662",
+    "creation.date" : "1699804838441"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-sevone-sn-20231112",
+    "uuid" : "cWQtje1KTRSl9u_rd9xNHw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6521449",
+    "docs.deleted" : "0",
+    "store.size" : "5485565",
+    "pri.store.size" : "2742921",
+    "creation.date" : "1699718517240"
+  }
+]
+
+patternlist [logstash-atm-sn-20* logstash-sevone-sn-20*]
+[{green open logstash-sevone-sn-20231111 C79ShGdFSUSMHCcEQBbAhA 3 1 6727952 0 5580601 2790199 1699632268983} {green open logstash-sevone-sn-20231110 1Htv7BVtTzOPQ89VVqID1w 3 1 6521271 0 5474654 2738002 1699545908581} {green open logstash-sevone-sn-20231120-test rTk7iWSyRsGYgs1dnEKkpA 3 1 408 0 477 238 1701172904280} {green open logstash-sevone-sn-20231109 NkYRtl8mTlCzZLsawNN6GQ 3 1 6709200 0 5625362 2812668 1699459240988} {green open logstash-sevone-sn-20231108 4SEcOI6dRWC4aV0u_UNEKw 3 1 6616818 0 5561766 2779045 1699373443341} {green open logstash-sevone-sn-20231107 NhtI4QM4TLyFWqrH5prMZA 3 1 6631149 0 5571781 2785394 1699286442289} {green open logstash-sevone-sn-20231130-test xvfV6mGAQgWDeuo7a2D-Ew 3 1 1740 0 1750 886 1701367227357} {green open logstash-sevone-sn-20231208-test 7zicbIHvQ0eMRB_nBp6UGQ 3 1 7478 0 3685 1885 1702058450918} {green open logstash-sevone-sn-20231109-test beE2-5RxSWevSjCBo5qBUw 3 1 233993 0 90015 44936 1701162852035} {green open logstash-sevone-sn-20231107-test VMNa2Bg5R3Ko6fgvGDJBbA 3 1 284609 0 107377 53599 1701151155426} {green open logstash-sevone-sn-20231206-test wBwncXNiReKJ4FTLbSZnAA 3 1 2624 0 1654 827 1701885635712} {green open logstash-sevone-sn-20231204-test 4kVyQy9fSQSQ4RmOGgMeJw 3 1 646 0 657 328 1701712824333} {green open logstash-atm-sn-20231130 I9mDl44FSj2p1UOWJZMyQQ 3 1 13271104 0 3292907 1646489 1701273601284} {green open logstash-sevone-sn-20231202-test xz26reOnSCaCzhKkuE0_Hg 3 1 8826 0 1978 991 1701540025028} {green open logstash-sevone-sn-20231119-test 538Dk7a-TXqKopG-exfx5A 3 1 772 0 1071 546 1701172862426} {green open logstash-sevone-sn-20231214-test 8pAoJwsXQPqD5zQqypzhig 3 1 1502 0 1246 656 1702576832370} {green open logstash-atm-sn-20231210 9ERqAj4eTpiqCWWXTM5k_g 3 1 13238645 1476153 3590729 1829188 1702137601709} {green open logstash-atm-sn-20231211 lxCT8x9YQ0uLzqmFnZLTmA 3 1 13230824 758389 3566597 1739019 1702224003028} {green open logstash-atm-sn-20231212 6pZaofBySla4EDxHy2wugA 3 1 13222056 1480670 3732015 1849626 1702310401608} {green open logstash-atm-sn-20231213 _c4KfFAjQCCMs8PAj07VVg 3 1 13034254 872358 3480318 1745687 1702396801669} {green open logstash-sevone-sn-20231117-test jlaSZzv1Qq-WCuRwDLXg5w 3 1 27512 0 19156 9545 1701172302959} {green open logstash-atm-sn-20231214 YYNfYSQqR_2gqjHf-zxZGw 3 1 13090882 1106446 3500891 1783104 1702483203863} {green open logstash-atm-sn-20231215 mEAEMDiSTNu1un6fwbX6TQ 3 1 10113953 784992 2716517 1383718 1702569601825} {green open logstash-sevone-sn-20231115-test 6VJuLv_MS_6lvyBD4MTa1Q 3 1 219149 0 86666 43309 1701171011319} {green open logstash-atm-sn-20231128 Hllb7-G6S_eNK7MzCJK1qw 3 1 13340577 0 3323592 1661972 1701100801601} {green open logstash-atm-sn-20231129 tuYTCtmwTp21yJ7DinveDA 3 1 13341996 0 3298546 1649578 1701187201459} {green open logstash-atm-sn-20231123 sK3Y6MUOQYKXM9Rl2feeiQ 3 1 13478102 0 3342916 1671686 1700668803525} {green open logstash-atm-sn-20231124 PEpvX_PoQjazHLXuFfO4hg 3 1 13164696 0 3271526 1636107 1700755204958} {green open logstash-atm-sn-20231127 VWeQstJWQliMz82lhtWNbQ 3 1 13337234 0 3312707 1656302 1701014401342} {green open logstash-atm-sn-20231126 JBfeddeUS4S75zERUShqUg 3 1 12762579 0 3167013 1583347 1700928003835} {green open logstash-atm-sn-20231125 qOSCeQ6HRSabZk1qel9pzA 3 1 12702770 0 3159064 1579976 1700841601379} {green open logstash-sevone-sn-20231212-test CFJRERS6RhKZEMaPTvCjJQ 3 1 1224 0 1217 620 1702404028314} {green open logstash-sevone-sn-20231113-test 1r22qFaFQQ6QJvVjvUBjYg 3 1 238891 0 91446 45640 1701168570512} {green open logstash-atm-sn-20231122 RLZMMsaCQJG00_MkvazKsQ 3 1 13611221 0 3376859 1688330 1700582461170} {green open logstash-atm-sn-20231121 _v7BheEQRamc6PBfwTIIbA 3 1 13553332 0 3390935 1694666 1700496003838} {green open logstash-atm-sn-20231120 GOjc1N9fRqiKQENzF7VC4g 3 1 13660546 0 3378607 1690202 1700409603189} {green open logstash-sevone-sn-20231129-test SFmAIgaXTB6ydvOnaJsuFg 3 1 10184 0 4968 2484 1701280842354} {green open logstash-sevone-sn-20231210-test uwG0oF9YSOmXEAjXeg5WKQ 3 1 1142 0 1407 781 1702231224660} {green open logstash-sevone-sn-20231111-test oQbQ5CG2Sv6rrIOP0PyBAg 3 1 101968 0 46248 23071 1701166507894} {green open logstash-sevone-sn-20231127-test j0xqOosCTrWzeZ46LL50lA 3 1 188 0 327 163 1701173255144} {green open logstash-sevone-sn-20231123-test x8p3H-bTRi21OT1XKv7DRA 3 1 1450 0 1042 521 1701173015202} {green open logstash-atm-sn-20231205 8oHQrJoST-6bwz2MrmABAg 3 1 13162509 0 3229526 1614763 1701705601818} {green open logstash-atm-sn-20231206 sltFv7qjRdqfTW-W4cDJ6Q 3 1 13024622 0 3203126 1601563 1701792001562} {green open logstash-atm-sn-20231207 Au9uL_sQTgCPR_SxZ2mphA 3 1 13167108 1544932 3613942 1854473 1701878404173} {green open logstash-sevone-sn-20231125-test q4A5aFofRuSnNgGMoCAuXg 3 1 1258 0 941 470 1701173163154} {green open logstash-atm-sn-20231208 RJwSqMdrRIiEoBgw7qcmow 3 1 13215552 1417580 3670862 1836861 1701964802111} {green open logstash-atm-sn-20231209 kPlxIl3sRbqIaNCSf1yZ-w 3 1 13131985 1262335 3553418 1793499 1702051203123} {green open logstash-atm-sn-20231201 5dxL632UTdGRs14sHT_ZYA 3 1 13288497 0 3279552 1639910 1701360002585} {green open logstash-atm-sn-20231202 PUFGo1tjTbybt0HrEuz3Iw 3 1 13264673 0 3220541 1610628 1701446403034} {green open logstash-atm-sn-20231203 sAofTlulQ3e93P3UKeVPdw 3 1 12778940 0 3120660 1560376 1701532805521} {green open logstash-atm-sn-20231204 _HxOdSuMSYiAYZQ4OnZgfg 3 1 13153517 0 3226750 1613609 1701619202635} {green open logstash-sevone-sn-20231121-test sUL5eXXuTqCZuT32xKXRig 3 1 784 0 659 329 1701172939539} {green open logstash-atm-sn-20231119 w3Ptx4dRT8C43nL_Xyt-lA 3 1 13255835 0 3255371 1627562 1700323203084} {green open logstash-atm-sn-20231118 0S3FDt2_SQKkYdvXrRilpg 3 1 13501844 0 3314789 1658485 1700236802929} {green open logstash-atm-sn-20231117 DUQTU7HYQOGr4M6xMiV2-Q 3 1 13706065 0 3378338 1689035 1700150402836} {green open logstash-atm-sn-20231116 Q8FeB6y4R8SzyMStAGVTkA 3 1 13848278 0 3408175 1704181 1700064003723} {green open logstash-atm-sn-20231115 Hho7ai0_QRuAmy0uz7yJrg 3 1 24551621 0 3835591 1918496 1700041501145} {green open logstash-atm-sn-20231114 xHDAYJgwTT-Q-F90Dr3rsA 3 1 23460084 0 3554966 1776358 1700454621993} {green open logstash-atm-sn-20231113 01Gm1fRyTaGJspL9psd1-A 3 1 23596293 0 3575277 1787987 1700447910296} {green open logstash-atm-sn-20231112 6WTTBftkQqWGSFvQ8cE3gw 3 1 23395289 0 3519820 1760037 1700447916632} {green open logstash-atm-sn-20231111 Ih0gHI1pSpasvhxhsqNlFQ 3 1 23432724 0 3525868 1762728 1700441000241} {green open logstash-atm-sn-20231110 Qs6gjN9QQu2cdJsVClmk1Q 3 1 23423215 0 3543238 1772443 1700441001745} {green open logstash-atm-sn-20231109 oJxVi77tRmSJMgJJcvCVYg 3 1 23499237 0 3559919 1779832 1700410647877} {green open logstash-atm-sn-20231108 jwj9wl5CTIKyaJ1mYaK1LA 3 1 23508160 0 3568376 1784457 1700410649812} {green open logstash-atm-sn-20231107 zF-VQBHNSh2n9YiRmPvR6w 3 1 23501571 0 3566140 1783301 1699946773890} {green open logstash-sevone-sn-20231209-test U_tkC6vqRsC0EGNdEQYEzg 3 1 1316 0 1053 581 1702144823941} {green open logstash-sevone-sn-20231207-test 5tZ5mHIYQfOzDB-sVosqmw 3 1 7018 0 4017 2008 1701972058601} {green open logstash-sevone-sn-20231108-test iV4DUPOjSaKeqRuH86R3Jg 3 1 327166 0 118575 59324 1701157108734} {green open logstash-sevone-sn-20231205-test 1nY980C8TgCtY38hyEa7JQ 3 1 2591 0 1713 856 1701799231513} {green open logstash-sevone-sn-20231130 bFgVS8M1SQaWMlhArSKH7A 3 1 6828180 0 3764205 1882353 1701273602878} {green open logstash-sevone-sn-20231203-test HtF4zQ9ySTqo2xWAjiX_Eg 3 1 750 0 709 352 1701626425121} {green open logstash-sevone-sn-20231116-test rgBHYZS4TWCHZTrEozSD4A 3 1 35646 0 21427 10731 1701172022232} {green open logstash-sevone-sn-20231201-test FRjFmIc3TOimO0u3y0HnCQ 3 1 376 0 435 217 1701453625769} {green open logstash-sevone-sn-20231212 X0_bkU0aTzGrbTAlfvrlyg 3 1 6821208 708 3918984 1938843 1702310404063} {green open logstash-sevone-sn-20231213 aC7folqiRpybaI7KyL0NCg 3 1 6820668 232 3835504 1911883 1702396803163} {green open logstash-sevone-sn-20231214 730hIUiDSF21PTKE47FTzQ 3 1 6825988 1040 3840612 1923884 1702483201850} {green open logstash-sevone-sn-20231215 sNkIs2NqRuuNSHDqXbzR4A 3 1 5247085 0 2945333 1468267 1702569605006} {green open logstash-sevone-sn-20231118-test DScC0EXUTeO5TgQVIW5ucw 3 1 23686 0 14336 7144 1701172514861} {green open logstash-sevone-sn-20231210 Oj62WrNrSO-CHDCffZPTtQ 3 1 6821290 114 3885619 1931699 1702137607300} {green open logstash-sevone-sn-20231211 B_TyY1RJRJKrWXaQ-5Zm3g 3 1 6568614 267 3710968 1852381 1702224001756} {green open logstash-sevone-sn-20231114-test DDP4twnPSeiSEjUxpghmrg 3 1 210627 0 83706 41755 1701169650544} {green open logstash-sevone-sn-20231128 6mXKgh-VTcGvcTg9HTP0RQ 3 1 6825728 0 5468373 2734419 1701100803029} {green open logstash-sevone-sn-20231129 Pyr4oU4zTBeMFMuIOvUQDQ 3 1 6819736 0 3762898 1881347 1701187203659} {green open logstash-sevone-sn-20231213-test NzGspKxsSV6dYPqQIrZ6jw 3 1 1764 0 1929 1034 1702490426428} {green open logstash-sevone-sn-20231127 hXUTS11zRNeTpD1O9EyMDQ 3 1 6829732 0 6289572 3144817 1701014403630} {green open logstash-sevone-sn-20231126 7rkLnaxVRCSFyXb58BrBCg 3 1 6828932 0 6290256 3144439 1700928004325} {green open logstash-sevone-sn-20231125 zcgBQkwYR-ah9rsHE07UBQ 3 1 6828662 0 6274296 3135048 1700841604454} {green open logstash-sevone-sn-20231124 nO9PrITATomUVry683zMdw 3 1 6825648 0 6269193 3132199 1700755203468} {green open logstash-sevone-sn-20231123 QNvK4BrzR6qMgOAMiEz0fQ 3 1 6828470 0 6263818 3131780 1700668802690} {green open logstash-sevone-sn-20231122 lNHnlcWCRReep0Ef6o021g 3 1 6828138 0 6248859 3123592 1700582402662} {green open logstash-sevone-sn-20231121 ffVV_LjZQNiVHgL0OLNn1g 3 1 6829136 0 6243548 3120600 1700496001680} {green open logstash-sevone-sn-20231120 ig3j0FwqTr-njAy5vBGEhQ 3 1 6829512 0 6250097 3125714 1700409602100} {green open logstash-sevone-sn-20231211-test yo0NfnTwTreGw8M_r7waEQ 3 1 253818 0 88272 44341 1702317626672} {green open logstash-sevone-sn-20231112-test 5YRmRN_aTnW3MVnYSowfCA 3 1 308471 0 113704 57084 1701167051727} {green open logstash-sevone-sn-20231126-test oWsigVCzSyS3ICPERuh-jw 3 1 988 0 854 427 1701173216811} {green open logstash-sevone-sn-20231128-test gxdDrkgaQ5SmGh1MKOVOvg 3 1 4192 0 2383 1198 1701222080600} {green open logstash-sevone-sn-20231110-test SrGew0lVQZCbXZ6pxiRiPw 3 1 349171 0 124693 62354 1701164020115} {green open logstash-sevone-sn-20231209 GTYopw7LS0iPAAF68Xh3KA 3 1 6822268 4 3877810 1920873 1702051201897} {green open logstash-sevone-sn-20231205 e4h0jhweSLu3vca93sn8tg 3 1 6818689 0 3760954 1880477 1701705601351} {green open logstash-sevone-sn-20231206 iE35PIpaR7q99t7HIGZkBw 3 1 6818656 0 3758495 1879247 1701792002393} {green open logstash-sevone-sn-20231207 fYN8otIxSZGYzJjNr6KCWA 3 1 6815000 5816 3857193 1926579 1701878402942} {green open logstash-sevone-sn-20231208 weIIOeJ9TDuN0F5WmDthtw 3 1 6817258 5044 3872729 1932186 1701964804293} {green open logstash-sevone-sn-20231201 1R4o_pICRvKvKLtlTSuGLg 3 1 6829544 0 3770533 1885070 1701360004586} {green open logstash-sevone-sn-20231202 XWuMrMfPSwyYc7YXz-HK8g 3 1 6821094 0 3768148 1883990 1701446406176} {green open logstash-sevone-sn-20231203 5Igz-oomSN60eh4WRkRgsw 3 1 6820530 0 3762392 1881352 1701532801813} {green open logstash-sevone-sn-20231204 7V3VffKHT4Ka2SCHEYrtkg 3 1 6820634 0 3761042 1880955 1701619202524} {green open logstash-sevone-sn-20231122-test eH8k6tubQNm1s7hzvLvKXg 3 1 1782 0 1474 739 1701172975598} {green open logstash-sevone-sn-20231124-test yb8c7ROQQFqg2TUI08w13A 3 1 4272 0 2161 1080 1701173062614} {green open logstash-sevone-sn-20231119 d9Tf4WqLQ-O0FvLSpOB_qA 3 1 6829148 0 6289997 3144906 1700323201960} {green open logstash-sevone-sn-20231118 p3kxFO-bQrGlDuFTBRqTNg 3 1 6806234 0 6136289 3064584 1700237074627} {green open logstash-sevone-sn-20231117 wcDdIFKZTT6Mj4XAWFGg3Q 3 1 6802408 0 6102964 3052912 1700150402378} {green open logstash-sevone-sn-20231116 E0HyjQDHR3ullXHb-GnlTw 3 1 6794274 0 6078354 3036465 1700064187720} {green open logstash-sevone-sn-20231115 _VLG-qseT9G1ukf-B4pPuA 3 1 6610771 0 5707179 2854714 1699978457791} {green open logstash-sevone-sn-20231114 EXCG_oQ9QAmQp4BzCWZGUQ 3 1 6619293 0 5565143 2781381 1699891204751} {green open logstash-sevone-sn-20231113 iEqbDAcgRHC9sKWN2dSGvA 3 1 6591029 0 5540609 2769662 1699804838441} {green open logstash-sevone-sn-20231112 cWQtje1KTRSl9u_rd9xNHw 3 1 6521449 0 5485565 2742921 1699718517240}]
+logstash-sevone-sn-20231111 size 5580601 date 1699632268983
+logstash-sevone-sn-20231110 size 5474654 date 1699545908581
+logstash-sevone-sn-20231120-test size 477 date 1701172904280
+logstash-sevone-sn-20231109 size 5625362 date 1699459240988
+logstash-sevone-sn-20231108 size 5561766 date 1699373443341
+logstash-sevone-sn-20231107 size 5571781 date 1699286442289
+logstash-sevone-sn-20231130-test size 1750 date 1701367227357
+logstash-sevone-sn-20231208-test size 3685 date 1702058450918
+logstash-sevone-sn-20231109-test size 90015 date 1701162852035
+logstash-sevone-sn-20231107-test size 107377 date 1701151155426
+logstash-sevone-sn-20231206-test size 1654 date 1701885635712
+logstash-sevone-sn-20231204-test size 657 date 1701712824333
+logstash-atm-sn-20231130 size 3292907 date 1701273601284
+logstash-sevone-sn-20231202-test size 1978 date 1701540025028
+logstash-sevone-sn-20231119-test size 1071 date 1701172862426
+logstash-sevone-sn-20231214-test size 1246 date 1702576832370
+logstash-atm-sn-20231210 size 3590729 date 1702137601709
+logstash-atm-sn-20231211 size 3566597 date 1702224003028
+logstash-atm-sn-20231212 size 3732015 date 1702310401608
+logstash-atm-sn-20231213 size 3480318 date 1702396801669
+logstash-sevone-sn-20231117-test size 19156 date 1701172302959
+logstash-atm-sn-20231214 size 3500891 date 1702483203863
+logstash-atm-sn-20231215 size 2716517 date 1702569601825
+logstash-sevone-sn-20231115-test size 86666 date 1701171011319
+logstash-atm-sn-20231128 size 3323592 date 1701100801601
+logstash-atm-sn-20231129 size 3298546 date 1701187201459
+logstash-atm-sn-20231123 size 3342916 date 1700668803525
+logstash-atm-sn-20231124 size 3271526 date 1700755204958
+logstash-atm-sn-20231127 size 3312707 date 1701014401342
+logstash-atm-sn-20231126 size 3167013 date 1700928003835
+logstash-atm-sn-20231125 size 3159064 date 1700841601379
+logstash-sevone-sn-20231212-test size 1217 date 1702404028314
+logstash-sevone-sn-20231113-test size 91446 date 1701168570512
+logstash-atm-sn-20231122 size 3376859 date 1700582461170
+logstash-atm-sn-20231121 size 3390935 date 1700496003838
+logstash-atm-sn-20231120 size 3378607 date 1700409603189
+logstash-sevone-sn-20231129-test size 4968 date 1701280842354
+logstash-sevone-sn-20231210-test size 1407 date 1702231224660
+logstash-sevone-sn-20231111-test size 46248 date 1701166507894
+logstash-sevone-sn-20231127-test size 327 date 1701173255144
+logstash-sevone-sn-20231123-test size 1042 date 1701173015202
+logstash-atm-sn-20231205 size 3229526 date 1701705601818
+logstash-atm-sn-20231206 size 3203126 date 1701792001562
+logstash-atm-sn-20231207 size 3613942 date 1701878404173
+logstash-sevone-sn-20231125-test size 941 date 1701173163154
+logstash-atm-sn-20231208 size 3670862 date 1701964802111
+logstash-atm-sn-20231209 size 3553418 date 1702051203123
+logstash-atm-sn-20231201 size 3279552 date 1701360002585
+logstash-atm-sn-20231202 size 3220541 date 1701446403034
+logstash-atm-sn-20231203 size 3120660 date 1701532805521
+logstash-atm-sn-20231204 size 3226750 date 1701619202635
+logstash-sevone-sn-20231121-test size 659 date 1701172939539
+logstash-atm-sn-20231119 size 3255371 date 1700323203084
+logstash-atm-sn-20231118 size 3314789 date 1700236802929
+logstash-atm-sn-20231117 size 3378338 date 1700150402836
+logstash-atm-sn-20231116 size 3408175 date 1700064003723
+logstash-atm-sn-20231115 size 3835591 date 1700041501145
+logstash-atm-sn-20231114 size 3554966 date 1700454621993
+logstash-atm-sn-20231113 size 3575277 date 1700447910296
+logstash-atm-sn-20231112 size 3519820 date 1700447916632
+logstash-atm-sn-20231111 size 3525868 date 1700441000241
+logstash-atm-sn-20231110 size 3543238 date 1700441001745
+logstash-atm-sn-20231109 size 3559919 date 1700410647877
+logstash-atm-sn-20231108 size 3568376 date 1700410649812
+logstash-atm-sn-20231107 size 3566140 date 1699946773890
+logstash-sevone-sn-20231209-test size 1053 date 1702144823941
+logstash-sevone-sn-20231207-test size 4017 date 1701972058601
+logstash-sevone-sn-20231108-test size 118575 date 1701157108734
+logstash-sevone-sn-20231205-test size 1713 date 1701799231513
+logstash-sevone-sn-20231130 size 3764205 date 1701273602878
+logstash-sevone-sn-20231203-test size 709 date 1701626425121
+logstash-sevone-sn-20231116-test size 21427 date 1701172022232
+logstash-sevone-sn-20231201-test size 435 date 1701453625769
+logstash-sevone-sn-20231212 size 3918984 date 1702310404063
+logstash-sevone-sn-20231213 size 3835504 date 1702396803163
+logstash-sevone-sn-20231214 size 3840612 date 1702483201850
+logstash-sevone-sn-20231215 size 2945333 date 1702569605006
+logstash-sevone-sn-20231118-test size 14336 date 1701172514861
+logstash-sevone-sn-20231210 size 3885619 date 1702137607300
+logstash-sevone-sn-20231211 size 3710968 date 1702224001756
+logstash-sevone-sn-20231114-test size 83706 date 1701169650544
+logstash-sevone-sn-20231128 size 5468373 date 1701100803029
+logstash-sevone-sn-20231129 size 3762898 date 1701187203659
+logstash-sevone-sn-20231213-test size 1929 date 1702490426428
+logstash-sevone-sn-20231127 size 6289572 date 1701014403630
+logstash-sevone-sn-20231126 size 6290256 date 1700928004325
+logstash-sevone-sn-20231125 size 6274296 date 1700841604454
+logstash-sevone-sn-20231124 size 6269193 date 1700755203468
+logstash-sevone-sn-20231123 size 6263818 date 1700668802690
+logstash-sevone-sn-20231122 size 6248859 date 1700582402662
+logstash-sevone-sn-20231121 size 6243548 date 1700496001680
+logstash-sevone-sn-20231120 size 6250097 date 1700409602100
+logstash-sevone-sn-20231211-test size 88272 date 1702317626672
+logstash-sevone-sn-20231112-test size 113704 date 1701167051727
+logstash-sevone-sn-20231126-test size 854 date 1701173216811
+logstash-sevone-sn-20231128-test size 2383 date 1701222080600
+logstash-sevone-sn-20231110-test size 124693 date 1701164020115
+logstash-sevone-sn-20231209 size 3877810 date 1702051201897
+logstash-sevone-sn-20231205 size 3760954 date 1701705601351
+logstash-sevone-sn-20231206 size 3758495 date 1701792002393
+logstash-sevone-sn-20231207 size 3857193 date 1701878402942
+logstash-sevone-sn-20231208 size 3872729 date 1701964804293
+logstash-sevone-sn-20231201 size 3770533 date 1701360004586
+logstash-sevone-sn-20231202 size 3768148 date 1701446406176
+logstash-sevone-sn-20231203 size 3762392 date 1701532801813
+logstash-sevone-sn-20231204 size 3761042 date 1701619202524
+logstash-sevone-sn-20231122-test size 1474 date 1701172975598
+logstash-sevone-sn-20231124-test size 2161 date 1701173062614
+logstash-sevone-sn-20231119 size 6289997 date 1700323201960
+logstash-sevone-sn-20231118 size 6136289 date 1700237074627
+logstash-sevone-sn-20231117 size 6102964 date 1700150402378
+logstash-sevone-sn-20231116 size 6078354 date 1700064187720
+logstash-sevone-sn-20231115 size 5707179 date 1699978457791
+logstash-sevone-sn-20231114 size 5565143 date 1699891204751
+logstash-sevone-sn-20231113 size 5540609 date 1699804838441
+logstash-sevone-sn-20231112 size 5485565 date 1699718517240
+1246
+2946579
+5663096
+5665025
+9165916
+13006528
+13007745
+16843249
+20323567
+20411839
+24330823
+28062838
+28064245
+31630842
+35341810
+35342863
+39228482
+42819211
+42822896
+46376314
+50254124
+50258141
+54130870
+57801732
+57803386
+61417328
+65274521
+65276234
+69034729
+72237855
+72238512
+75468038
+79228992
+79229701
+82456451
+86217493
+86219471
+89340131
+93102523
+93102958
+96871106
+100091647
+100093397
+103863930
+107143482
+107148450
+110912655
+114205562
+114207945
+117970843
+121269389
+121269716
+121270570
+121271511
+121273672
+121274714
+121276188
+121276847
+121277324
+121278395
+121292731
+121311887
+121333314
+121419980
+121503686
+121595132
+121708836
+121755084
+121879777
+121969792
+122088367
+122195744
+127664117
+130987709
+137277281
+140589988
+146880244
+150047257
+156321553
+159480617
+162752143
+169021336
+172364252
+178628070
+182004929
+188253788
+191644723
+197888271
+201443237
+204963057
+208538334
+212081572
+215607440
+219175816
+222735735
+226114342
+232364439
+235619810
+241909807
+248046096
+251360885
+254739223
+260842187
+added:  []
+removed:  [logstash-atm-sn-20231116 logstash-sevone-sn-20231114 logstash-sevone-sn-20231113 logstash-sevone-sn-20231110 logstash-atm-sn-20231115 logstash-sevone-sn-20231107 logstash-sevone-sn-20231112 logstash-sevone-sn-20231108 logstash-sevone-sn-20231111 logstash-sevone-sn-20231115 logstash-atm-sn-20231107 logstash-sevone-sn-20231109]
+filter_of_filter's compare:  [logstash-atm-sn-20231116 logstash-atm-sn-20231115 logstash-atm-sn-20231107 logstash-sevone-sn-20231115 logstash-sevone-sn-20231114 logstash-sevone-sn-20231113 logstash-sevone-sn-20231112 logstash-sevone-sn-20231111 logstash-sevone-sn-20231110 logstash-sevone-sn-20231109 logstash-sevone-sn-20231108 logstash-sevone-sn-20231107]

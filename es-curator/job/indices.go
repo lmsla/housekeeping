@@ -121,9 +121,35 @@ func CatIndices() CatIndice {
 	var s CatIndice
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
-
+	// fmt.Println(string(resString))
 	return s
 }
+
+
+func CatIndices_withPattern(index_list []string) CatIndice {
+	req := esapi.CatIndicesRequest{
+		Index: index_list,
+		ExpandWildcards: "open",
+		Format:          "json",
+		Bytes:           "kb",
+		H:               []string{"health", "status", "index", "uuid", "pri", "rep", "docs.count", "docs.deleted", "store.size", "pri.store.size", "creation.date"},
+		V:               newTrue(),
+		Pretty:          true,
+	}
+	res, err := req.Do(context.Background(), es)
+	if err != nil {
+		log_record.Logrecord("ERROR ","cat index error" + err.Error())
+		// panic(err)
+	}
+	// log.Println(res)
+	resString, err := io.ReadAll(res.Body)
+	var s CatIndice
+	json.Unmarshal(resString, &s)
+	defer res.Body.Close()
+	fmt.Println(string(resString))
+	return s
+}
+
 
 // ---------- open,close,delete,forcemerge ---------- //
 

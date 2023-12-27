@@ -1,44 +1,49 @@
 #### timestring "2006-01-02 15:04:05"
 #### adjust 
-actions: 
+actions:
   - action: delete_indices
-    description: delete selected elasticsearch-api-status-2023
-    options: 
+    description: delete selected indices_test
+    options:
       disable_action: false
+      delay: 5
     filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 30
     - filtertype: pattern
       kind: prefix
-      value: elasticsearch-api-status-2023
+      value: logstash-atm-sn
+    - filtertype: water_level
+      upper_limit: 55
+      lower_limit: 54
+    # - filtertype: age
+    #   source: creation_date
+    #   direction: range
+    #   unit: days
+    #   range_from: 5
+    #   range_to: 0
 
-  - action: delete_indices
-    description: delete selected elasticsearch-api-status-calculate
-    options: 
-      disable_action: false
-    filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 30
-    - filtertype: pattern
-      kind: prefix
-      value: elasticsearch-api-status-calculate
+  # - action: delete_indices
+  #   description: delete selected elasticsearch-api-status-calculate
+  #   options: 
+  #     disable_action: false
+  #   filters:
+  #   - filtertype: age
+  #     source: creation_date
+  #     direction: older
+  #     unit: days
+  #     unit_count: 30
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: elasticsearch-api-status-calculate
 
-  - action: delete_indices
-    description: delete selected logstash-bde-apache-access
-    options: 
-      disable_action: false
-    filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 2
-    - filtertype: pattern
-      kind: prefix
-      value: logstash-bde-apache-access
+  # - action: delete_indices
+  #   description: delete selected logstash-bde-apache-access
+  #   options: 
+  #     disable_action: false
+  #   filters:
+  #   - filtertype: age
+  #     source: creation_date
+  #     direction: older
+  #     unit: days
+  #     unit_count: 2
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: logstash-bde-apache-access

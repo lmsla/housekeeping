@@ -1,0 +1,481 @@
+Actions 2023/12/26 13:41:54 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/26 13:41:54 use these filter :[pattern]
+Details 2023/12/26 13:41:54 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231204 logstash-atm-sn-20231203 logstash-atm-sn-20231202 logstash-atm-sn-20231201 logstash-atm-sn-20231209 logstash-atm-sn-20231208 logstash-atm-sn-20231207 logstash-atm-sn-20231206 logstash-atm-sn-20231205 logstash-atm-sn-20231215 logstash-atm-sn-20231214 logstash-atm-sn-20231213 logstash-atm-sn-20231212 logstash-atm-sn-20231211 logstash-atm-sn-20231210 logstash-atm-sn-20231219 logstash-atm-sn-20231218 logstash-atm-sn-20231217 logstash-atm-sn-20231216 logstash-atm-sn-20231105 logstash-atm-sn-20231226 logstash-atm-sn-20231104 logstash-atm-sn-20231225 logstash-atm-sn-20231103 logstash-atm-sn-20231224 logstash-atm-sn-20231102 logstash-atm-sn-20231223 logstash-atm-sn-20231101 logstash-atm-sn-20231222 logstash-atm-sn-20231221 logstash-atm-sn-20231220 logstash-atm-sn-20231109 logstash-atm-sn-20231108 logstash-atm-sn-20231107 logstash-atm-sn-20231106 logstash-atm-sn-20231116 logstash-atm-sn-20231115 logstash-atm-sn-20231114 logstash-atm-sn-20231113 logstash-atm-sn-20231112 logstash-atm-sn-20231111 logstash-atm-sn-20231110 logstash-atm-sn-20231119 logstash-atm-sn-20231118 logstash-atm-sn-20231117 logstash-atm-sn-20231130 logstash-atm-sn-20231127 logstash-atm-sn-20231126 logstash-atm-sn-20231125 logstash-atm-sn-20231124 logstash-atm-sn-20231123 logstash-atm-sn-20231122 logstash-atm-sn-20231121 logstash-atm-sn-20231120 logstash-atm-sn-20231129 logstash-atm-sn-20231128 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231031 logstash-atm-sn-20231030 logstash-atm-sn-20231028 logstash-atm-sn-20231027 logstash-atm-sn-20231026 logstash-atm-sn-20231025 logstash-atm-sn-20231024 logstash-atm-sn-20231023 logstash-atm-sn-20231022 logstash-atm-sn-20231021 logstash-atm-sn-20231029]
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231204] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231203] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231202] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231201] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231209] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231208] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231207] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231206] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231205] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231215] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231214] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231213] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231212] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231211] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231210] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231219] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231218] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231217] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231216] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231105] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231226] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231104] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231225] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231103] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231224] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231102] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231223] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231101] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231222] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231221] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231220] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231109] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231108] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231107] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231106] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231116] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231115] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231114] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231113] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231112] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231111] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231110] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231119] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231118] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231117] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231130] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231127] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231126] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231125] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231124] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231123] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231122] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231121] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231120] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231129] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231128] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231031] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231030] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231028] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231027] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231026] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231025] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231024] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231023] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231021] has already deleted
+Test Mode Details 2023/12/26 13:41:54 [logstash-atm-sn-20231029] has already deleted
+Info 2023/12/26 13:41:54 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 13:45:42 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 13:45:42 Average Water Level: 56.565001
+Details 2023/12/26 13:45:42 use these filter :[pattern water_level]
+Details 2023/12/26 13:45:42 no match indices
+Info 2023/12/26 13:45:42 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 13:49:29 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 13:49:29 Average Water Level: 56.585001
+Details 2023/12/26 13:49:29 use these filter :[pattern water_level]
+Details 2023/12/26 13:49:29 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231204 logstash-atm-sn-20231203 logstash-atm-sn-20231202 logstash-atm-sn-20231201 logstash-atm-sn-20231209 logstash-atm-sn-20231208 logstash-atm-sn-20231207 logstash-atm-sn-20231206 logstash-atm-sn-20231205 logstash-atm-sn-20231215 logstash-atm-sn-20231214 logstash-atm-sn-20231213 logstash-atm-sn-20231212 logstash-atm-sn-20231211 logstash-atm-sn-20231210 logstash-atm-sn-20231219 logstash-atm-sn-20231218 logstash-atm-sn-20231217 logstash-atm-sn-20231216 logstash-atm-sn-20231105 logstash-atm-sn-20231226 logstash-atm-sn-20231104 logstash-atm-sn-20231225 logstash-atm-sn-20231103 logstash-atm-sn-20231224 logstash-atm-sn-20231102 logstash-atm-sn-20231223 logstash-atm-sn-20231101 logstash-atm-sn-20231222 logstash-atm-sn-20231221 logstash-atm-sn-20231220 logstash-atm-sn-20231109 logstash-atm-sn-20231108 logstash-atm-sn-20231107 logstash-atm-sn-20231106 logstash-atm-sn-20231116 logstash-atm-sn-20231115 logstash-atm-sn-20231114 logstash-atm-sn-20231113 logstash-atm-sn-20231112 logstash-atm-sn-20231111 logstash-atm-sn-20231110 logstash-atm-sn-20231119 logstash-atm-sn-20231118 logstash-atm-sn-20231117 logstash-atm-sn-20231130 logstash-atm-sn-20231127 logstash-atm-sn-20231126 logstash-atm-sn-20231125 logstash-atm-sn-20231124 logstash-atm-sn-20231123 logstash-atm-sn-20231122 logstash-atm-sn-20231121 logstash-atm-sn-20231120 logstash-atm-sn-20231129 logstash-atm-sn-20231128 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231031 logstash-atm-sn-20231030 logstash-atm-sn-20231028 logstash-atm-sn-20231027 logstash-atm-sn-20231026 logstash-atm-sn-20231025 logstash-atm-sn-20231024 logstash-atm-sn-20231023 logstash-atm-sn-20231022 logstash-atm-sn-20231021 logstash-atm-sn-20231029]
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231204] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231203] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231202] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231201] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231209] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231208] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231207] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231206] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231205] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231215] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231214] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231213] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231212] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231211] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231210] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231219] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231218] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231217] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231216] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231105] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231226] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231104] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231225] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231103] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231224] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231102] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231223] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231101] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231222] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231221] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231220] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231109] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231108] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231107] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231106] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231116] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231115] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231114] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231113] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231112] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231111] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231110] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231119] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231118] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231117] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231130] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231127] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231126] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231125] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231124] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231123] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231122] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231121] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231120] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231129] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231128] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231031] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231030] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231028] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231027] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231026] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231025] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231024] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231023] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231021] has already deleted
+Test Mode Details 2023/12/26 13:49:29 [logstash-atm-sn-20231029] has already deleted
+Info 2023/12/26 13:49:29 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 16:50:02 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 16:50:02 Average Water Level: 56.625000
+Details 2023/12/26 16:50:02 use these filter :[pattern water_level]
+Details 2023/12/26 16:50:02 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231204 logstash-atm-sn-20231203 logstash-atm-sn-20231202 logstash-atm-sn-20231201 logstash-atm-sn-20231209 logstash-atm-sn-20231208 logstash-atm-sn-20231207 logstash-atm-sn-20231206 logstash-atm-sn-20231205 logstash-atm-sn-20231215 logstash-atm-sn-20231214 logstash-atm-sn-20231213 logstash-atm-sn-20231212 logstash-atm-sn-20231211 logstash-atm-sn-20231210 logstash-atm-sn-20231219 logstash-atm-sn-20231218 logstash-atm-sn-20231217 logstash-atm-sn-20231216 logstash-atm-sn-20231105 logstash-atm-sn-20231226 logstash-atm-sn-20231104 logstash-atm-sn-20231225 logstash-atm-sn-20231103 logstash-atm-sn-20231224 logstash-atm-sn-20231102 logstash-atm-sn-20231223 logstash-atm-sn-20231101 logstash-atm-sn-20231222 logstash-atm-sn-20231221 logstash-atm-sn-20231220 logstash-atm-sn-20231109 logstash-atm-sn-20231108 logstash-atm-sn-20231107 logstash-atm-sn-20231106 logstash-atm-sn-20231116 logstash-atm-sn-20231115 logstash-atm-sn-20231114 logstash-atm-sn-20231113 logstash-atm-sn-20231112 logstash-atm-sn-20231111 logstash-atm-sn-20231110 logstash-atm-sn-20231119 logstash-atm-sn-20231118 logstash-atm-sn-20231117 logstash-atm-sn-20231130 logstash-atm-sn-20231127 logstash-atm-sn-20231126 logstash-atm-sn-20231125 logstash-atm-sn-20231124 logstash-atm-sn-20231123 logstash-atm-sn-20231122 logstash-atm-sn-20231121 logstash-atm-sn-20231120 logstash-atm-sn-20231129 logstash-atm-sn-20231128 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231031 logstash-atm-sn-20231030 logstash-atm-sn-20231028 logstash-atm-sn-20231027 logstash-atm-sn-20231026 logstash-atm-sn-20231025 logstash-atm-sn-20231024 logstash-atm-sn-20231023 logstash-atm-sn-20231022 logstash-atm-sn-20231021 logstash-atm-sn-20231029]
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231204] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231203] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231202] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231201] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231209] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231208] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231207] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231206] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231205] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231215] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231214] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231213] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231212] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231211] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231210] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231219] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231218] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231217] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231216] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231105] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231226] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231104] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231225] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231103] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231224] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231102] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231223] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231101] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231222] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231221] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231220] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231109] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231108] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231107] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231106] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231116] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231115] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231114] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231113] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231112] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231111] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231110] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231119] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231118] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231117] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231130] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231127] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231126] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231125] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231124] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231123] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231122] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231121] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231120] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231129] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231128] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231031] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231030] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231028] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231027] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231026] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231025] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231024] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231023] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231021] has already deleted
+Test Mode Details 2023/12/26 16:50:02 [logstash-atm-sn-20231029] has already deleted
+Info 2023/12/26 16:50:02 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 16:50:43 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 16:50:44 Average Water Level: 56.625000
+Details 2023/12/26 16:50:44 use these filter :[pattern water_level]
+Details 2023/12/26 16:50:44 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231204 logstash-atm-sn-20231203 logstash-atm-sn-20231202 logstash-atm-sn-20231201 logstash-atm-sn-20231209 logstash-atm-sn-20231208 logstash-atm-sn-20231207 logstash-atm-sn-20231206 logstash-atm-sn-20231205 logstash-atm-sn-20231215 logstash-atm-sn-20231214 logstash-atm-sn-20231213 logstash-atm-sn-20231212 logstash-atm-sn-20231211 logstash-atm-sn-20231210 logstash-atm-sn-20231219 logstash-atm-sn-20231218 logstash-atm-sn-20231217 logstash-atm-sn-20231216 logstash-atm-sn-20231105 logstash-atm-sn-20231226 logstash-atm-sn-20231104 logstash-atm-sn-20231225 logstash-atm-sn-20231103 logstash-atm-sn-20231224 logstash-atm-sn-20231102 logstash-atm-sn-20231223 logstash-atm-sn-20231101 logstash-atm-sn-20231222 logstash-atm-sn-20231221 logstash-atm-sn-20231220 logstash-atm-sn-20231109 logstash-atm-sn-20231108 logstash-atm-sn-20231107 logstash-atm-sn-20231106 logstash-atm-sn-20231116 logstash-atm-sn-20231115 logstash-atm-sn-20231114 logstash-atm-sn-20231113 logstash-atm-sn-20231112 logstash-atm-sn-20231111 logstash-atm-sn-20231110 logstash-atm-sn-20231119 logstash-atm-sn-20231118 logstash-atm-sn-20231117 logstash-atm-sn-20231130 logstash-atm-sn-20231127 logstash-atm-sn-20231126 logstash-atm-sn-20231125 logstash-atm-sn-20231124 logstash-atm-sn-20231123 logstash-atm-sn-20231122 logstash-atm-sn-20231121 logstash-atm-sn-20231120 logstash-atm-sn-20231129 logstash-atm-sn-20231128 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231031 logstash-atm-sn-20231030 logstash-atm-sn-20231028 logstash-atm-sn-20231027 logstash-atm-sn-20231026 logstash-atm-sn-20231025 logstash-atm-sn-20231024 logstash-atm-sn-20231023 logstash-atm-sn-20231022 logstash-atm-sn-20231021 logstash-atm-sn-20231029]
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231204] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231203] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231202] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231201] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231209] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231208] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231207] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231206] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231205] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231215] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231214] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231213] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231212] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231211] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231210] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231219] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231218] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231217] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231216] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231105] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231226] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231104] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231225] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231103] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231224] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231102] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231223] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231101] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231222] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231221] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231220] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231109] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231108] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231107] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231106] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231116] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231115] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231114] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231113] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231112] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231111] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231110] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231119] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231118] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231117] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231130] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231127] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231126] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231125] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231124] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231123] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231122] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231121] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231120] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231129] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231128] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231031] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231030] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231028] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231027] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231026] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231025] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231024] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231023] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231021] has already deleted
+Test Mode Details 2023/12/26 16:50:44 [logstash-atm-sn-20231029] has already deleted
+Info 2023/12/26 16:50:44 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 16:53:25 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 16:53:26 Average Water Level: 56.645000
+Details 2023/12/26 16:53:26 use these filter :[pattern water_level]
+Details 2023/12/26 16:53:26 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231204 logstash-atm-sn-20231203 logstash-atm-sn-20231202 logstash-atm-sn-20231201 logstash-atm-sn-20231209 logstash-atm-sn-20231208 logstash-atm-sn-20231207 logstash-atm-sn-20231206 logstash-atm-sn-20231205 logstash-atm-sn-20231215 logstash-atm-sn-20231214 logstash-atm-sn-20231213 logstash-atm-sn-20231212 logstash-atm-sn-20231211 logstash-atm-sn-20231210 logstash-atm-sn-20231219 logstash-atm-sn-20231218 logstash-atm-sn-20231217 logstash-atm-sn-20231216 logstash-atm-sn-20231105 logstash-atm-sn-20231226 logstash-atm-sn-20231104 logstash-atm-sn-20231225 logstash-atm-sn-20231103 logstash-atm-sn-20231224 logstash-atm-sn-20231102 logstash-atm-sn-20231223 logstash-atm-sn-20231101 logstash-atm-sn-20231222 logstash-atm-sn-20231221 logstash-atm-sn-20231220 logstash-atm-sn-20231109 logstash-atm-sn-20231108 logstash-atm-sn-20231107 logstash-atm-sn-20231106 logstash-atm-sn-20231116 logstash-atm-sn-20231115 logstash-atm-sn-20231114 logstash-atm-sn-20231113 logstash-atm-sn-20231112 logstash-atm-sn-20231111 logstash-atm-sn-20231110 logstash-atm-sn-20231119 logstash-atm-sn-20231118 logstash-atm-sn-20231117 logstash-atm-sn-20231130 logstash-atm-sn-20231127 logstash-atm-sn-20231126 logstash-atm-sn-20231125 logstash-atm-sn-20231124 logstash-atm-sn-20231123 logstash-atm-sn-20231122 logstash-atm-sn-20231121 logstash-atm-sn-20231120 logstash-atm-sn-20231129 logstash-atm-sn-20231128 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231031 logstash-atm-sn-20231030 logstash-atm-sn-20231028 logstash-atm-sn-20231027 logstash-atm-sn-20231026 logstash-atm-sn-20231025 logstash-atm-sn-20231024 logstash-atm-sn-20231023 logstash-atm-sn-20231022 logstash-atm-sn-20231021 logstash-atm-sn-20231029]
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231204] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231203] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231202] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231201] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231209] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231208] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231207] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231206] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231205] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231215] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231214] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231213] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231212] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231211] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231210] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231219] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231218] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231217] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231216] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231105] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231226] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231104] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231225] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231103] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231224] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231102] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231223] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231101] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231222] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231221] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231220] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231109] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231108] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231107] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231106] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231116] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231115] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231114] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231113] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231112] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231111] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231110] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231119] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231118] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231117] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231130] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231127] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231126] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231125] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231124] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231123] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231122] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231121] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231120] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231129] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231128] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231031] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231030] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231028] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231027] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231026] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231025] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231024] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231023] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231021] has already deleted
+Test Mode Details 2023/12/26 16:53:26 [logstash-atm-sn-20231029] has already deleted
+Info 2023/12/26 16:53:26 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 16:53:59 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 16:53:59 Average Water Level: 56.645000
+Details 2023/12/26 16:53:59 use these filter :[pattern water_level]
+Details 2023/12/26 16:53:59 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231022 logstash-atm-sn-20231021]
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 16:53:59 [logstash-atm-sn-20231021] has already deleted
+Info 2023/12/26 16:53:59 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 16:56:55 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 16:56:56 Average Water Level: 56.654999
+Details 2023/12/26 16:56:56 use these filter :[pattern water_level]
+Details 2023/12/26 16:56:56 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231022 logstash-atm-sn-20231021]
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 16:56:56 [logstash-atm-sn-20231021] has already deleted
+Info 2023/12/26 16:56:56 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 16:58:23 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 16:58:24 Average Water Level: 56.665001
+Details 2023/12/26 16:58:24 use these filter :[pattern water_level]
+Details 2023/12/26 16:58:24 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231022 logstash-atm-sn-20231021]
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 16:58:24 [logstash-atm-sn-20231021] has already deleted
+Info 2023/12/26 16:58:24 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 17:34:26 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 17:34:27 Average Water Level: 56.644999
+Details 2023/12/26 17:34:27 use these filter :[pattern water_level]
+Details 2023/12/26 17:34:27 Delete these indices :[logstash-atm-sn-20231010]
+Test Mode Details 2023/12/26 17:34:27 [logstash-atm-sn-20231010] has already deleted
+Info 2023/12/26 17:34:27 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 17:38:03 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 17:38:03 Average Water Level: 56.660000
+Details 2023/12/26 17:38:03 use these filter :[pattern water_level]
+Details 2023/12/26 17:38:03 no match indices
+Info 2023/12/26 17:38:03 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 17:54:38 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 17:54:39 Average Water Level: 56.720001
+Details 2023/12/26 17:54:39 use these filter :[pattern water_level]
+Details 2023/12/26 17:54:39 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231022 logstash-atm-sn-20231021]
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 17:54:39 [logstash-atm-sn-20231021] has already deleted
+Info 2023/12/26 17:54:39 Pausing for 5 seconds before continuing...
+Actions 2023/12/26 18:05:23 Action: delete_indices,Description: delete selected indices_test
+INFO 2023/12/26 18:05:24 Average Water Level: 56.779999
+Details 2023/12/26 18:05:24 Disk Space to Clean 19.890000 gb
+Details 2023/12/26 18:05:24 use these filter :[pattern water_level]
+Details 2023/12/26 18:05:24 Delete these indices :[logstash-atm-sn-00010101 logstash-atm-sn-20231020 logstash-atm-sn-20231017 logstash-atm-sn-20231016 logstash-atm-sn-20231010 logstash-atm-sn-20231019 logstash-atm-sn-20231018 logstash-atm-sn-20231022 logstash-atm-sn-20231021]
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-00010101] has already deleted
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-20231020] has already deleted
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-20231017] has already deleted
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-20231016] has already deleted
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-20231010] has already deleted
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-20231019] has already deleted
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-20231018] has already deleted
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-20231022] has already deleted
+Test Mode Details 2023/12/26 18:05:24 [logstash-atm-sn-20231021] has already deleted
+Info 2023/12/26 18:05:24 Pausing for 5 seconds before continuing...
