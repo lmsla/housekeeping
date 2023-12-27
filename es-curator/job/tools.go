@@ -166,7 +166,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 	sort.Strings(filter_record)
 
 	// fmt.Println("sp:",sp)
-	fmt.Println("filter_record: ", filter_record)
+	// fmt.Println("filter_record: ", filter_record)
 
 	arr1 := []string{"space", "pattern", "age"}
 	arr2 := []string{"space", "age"}
@@ -180,7 +180,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 	sort.Strings(arr5)
 	sort.Strings(filter_record)
 
-	fmt.Println("filterList: ", FilterList)
+	// fmt.Println("filterList: ", FilterList)
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "pattern" {
@@ -190,7 +190,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 
 		}
 	}
-	
+
 	if fmt.Sprint(filter_record) == fmt.Sprint(arr1) || fmt.Sprint(filter_record) == fmt.Sprint(arr2) {
 		log_record.Logrecord("ERROR", "Can't use age & space at the same time")
 	} else if fmt.Sprint(filter_record) == fmt.Sprint(arr3) || fmt.Sprint(filter_record) == fmt.Sprint(arr4) {

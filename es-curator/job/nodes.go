@@ -55,7 +55,7 @@ func CatNodes() CatNode {
 		// panic(err)
 	}
 	defer res.Body.Close()
-	log.Println(res)
+	// log.Println(res)
 	// fmt.Println(res)
 	resString, err := io.ReadAll(res.Body)
 	var s CatNode

@@ -260,7 +260,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 	}
 
 	fmt.Println("patternlist", patternlist)
-	fmt.Println(indicesinfo)
+	// fmt.Println(indicesinfo)
 
 	/// 統計各個 Node 的 Average Water Level
 	nodesinfo := CatNodes()
@@ -280,20 +280,15 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 		}
 		AllDiskTotal += DiskTotal
 		water_level += DiskUsedPercent
-		fmt.Println(data.DiskUsedPercent)
 	}
-	fmt.Println(water_level)
-	fmt.Println(AllDiskTotal)
 
 	AnerageLevel := water_level / float64(len(nodesinfo))
-	fmt.Println(water_level / float64(len(nodesinfo)))
-	// AverageLevel := water_level/float64(len(nodesinfo))
 	msg := fmt.Sprintf("Average Water Level: %f", AnerageLevel)
 	log_record.Logrecord("INFO", msg)
 
-	for _, data := range nodesinfo {
-		fmt.Println("disk total", data.DiskTotal)
-	}
+	// for _, data := range nodesinfo {
+	// 	fmt.Println("disk total", data.DiskTotal)
+	// }
 	var diskKbToClean float64
 
 	// 觸發 upper_limit 才進行動作
@@ -302,10 +297,9 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 		diskToCleanPercentage := float64(upper_limit) - float64(lower_limit)
 		diskToClean := AllDiskTotal * (diskToCleanPercentage / 100)
 		diskKbToClean = diskToClean * 1024 * 1024
-		fmt.Println(diskToClean)
-		log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb",diskToClean))
-		fmt.Println(diskKbToClean)
 
+		log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb",diskToClean))
+	
 		indexSizemap = make(map[string]string)
 		creationdate_NameMap = make(map[string]string)
 	
@@ -330,8 +324,6 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 				indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
 			}
 	
-			fmt.Println("indexSortbycreation:", indexSortbycreation)
-	
 			total := 0
 			for _, data := range indexSortbycreation {
 	
@@ -342,15 +334,13 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 					return
 				}
 				aggregate_bytes = append(aggregate_bytes, data)
-				// fmt.Println("aggregate_bytes list",aggregate_bytes)
 				// 加總 index storage
 				total += bytesnum
-				fmt.Println(total)
-	
 				if float64(total) > diskKbToClean {
 					break
 				}
 			}
+			log_record.Logrecord("Details",fmt.Sprintf("Total Delete kbs %d",total))
 		}
 	} else {
 		log_record.Logrecord("INFO ", "Water Level doesn't exceed upper limit")
