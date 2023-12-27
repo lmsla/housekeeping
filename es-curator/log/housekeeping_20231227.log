@@ -154,3 +154,82 @@ Test Mode Details 2023/12/27 13:57:07 [logstash-atm-sn-20231018] has already del
 Test Mode Details 2023/12/27 13:57:07 [logstash-atm-sn-20231022] has already deleted ,Pri: 1,Rep: 1,DocCount: 13067781, DocDelete: 804777,StoreSize: 3045350,PriStoreSize: 1522675,CreationDate: 2023-10-22
 Test Mode Details 2023/12/27 13:57:07 [logstash-atm-sn-20231021] has already deleted ,Pri: 1,Rep: 1,DocCount: 13255594, DocDelete: 1458208,StoreSize: 3241825,PriStoreSize: 1620912,CreationDate: 2023-10-21
 Info 2023/12/27 13:57:07 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 14:20:39 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 14:20:39 no match indices
+Info 2023/12/27 14:20:39 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 14:21:34 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 14:21:35 forcemerge these indices :[logstash-sevone-sn-20231226 logstash-atm-sn-20231226 logstash-sevone-sn-00010103 logstash-sevone-sn-00010104 logstash-sevone-sn-00010102],segement num :0
+Test Mode Details 2023/12/27 14:21:35 [logstash-sevone-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 7025154, DocDelete: 21000,StoreSize: 5243985,PriStoreSize: 2639072,CreationDate: 2023-12-25
+Test Mode Details 2023/12/27 14:21:35 [logstash-atm-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 14040572, DocDelete: 205921,StoreSize: 3048099,PriStoreSize: 1520696,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 14:21:35 [logstash-sevone-sn-00010103] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 14:21:35 [logstash-sevone-sn-00010104] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 115, DocDelete: 0,StoreSize: 55,PriStoreSize: 27,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 14:21:35 [logstash-sevone-sn-00010102] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Info 2023/12/27 14:21:35 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 15:28:07 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 15:28:08 forcemerge these indices :[logstash-sevone-sn-20231226 logstash-atm-sn-20231226 logstash-sevone-sn-00010103 logstash-sevone-sn-00010104 logstash-sevone-sn-00010102],segement num :0
+Test Mode Details 2023/12/27 15:28:08 [logstash-sevone-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 7025154, DocDelete: 21000,StoreSize: 5243985,PriStoreSize: 2639072,CreationDate: 2023-12-25
+Test Mode Details 2023/12/27 15:28:08 [logstash-atm-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 14040572, DocDelete: 205921,StoreSize: 3048099,PriStoreSize: 1520696,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:28:08 [logstash-sevone-sn-00010103] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:28:08 [logstash-sevone-sn-00010104] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 115, DocDelete: 0,StoreSize: 55,PriStoreSize: 27,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:28:08 [logstash-sevone-sn-00010102] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Info 2023/12/27 15:28:08 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 15:41:27 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 15:41:27 Date Range From :2023-12-25 15:41:27 +0000 UTC ,Range To :2023-12-26 15:41:27 +0000 UTC
+Details 2023/12/27 15:41:27 use these filter :[age pattern]
+Details 2023/12/27 15:41:27 forcemerge these indices :[logstash-sevone-sn-20231226 logstash-atm-sn-20231226 logstash-sevone-sn-00010103 logstash-sevone-sn-00010104 logstash-sevone-sn-00010102],segement num :0
+Test Mode Details 2023/12/27 15:41:27 [logstash-sevone-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 7025154, DocDelete: 21000,StoreSize: 5243985,PriStoreSize: 2639072,CreationDate: 2023-12-25
+Test Mode Details 2023/12/27 15:41:27 [logstash-atm-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 14040572, DocDelete: 205921,StoreSize: 3048099,PriStoreSize: 1520696,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:41:27 [logstash-sevone-sn-00010103] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:41:27 [logstash-sevone-sn-00010104] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 115, DocDelete: 0,StoreSize: 55,PriStoreSize: 27,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:41:27 [logstash-sevone-sn-00010102] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Info 2023/12/27 15:41:27 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 15:44:32 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 15:44:32 Date Range From :2023-12-25 15:44:32 +0000 UTC ,Range To :2023-12-26 15:44:32 +0000 UTC
+Details 2023/12/27 15:44:32 use these filter :[age pattern]
+Details 2023/12/27 15:44:32 forcemerge these indices :[logstash-sevone-sn-20231226 logstash-atm-sn-20231226 logstash-sevone-sn-00010103 logstash-sevone-sn-00010104 logstash-sevone-sn-00010102],segement num :0
+Test Mode Details 2023/12/27 15:44:33 [logstash-sevone-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 7025154, DocDelete: 21000,StoreSize: 5243985,PriStoreSize: 2639072,CreationDate: 2023-12-25
+Test Mode Details 2023/12/27 15:44:33 [logstash-atm-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 14040572, DocDelete: 205921,StoreSize: 3048099,PriStoreSize: 1520696,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:44:33 [logstash-sevone-sn-00010103] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:44:33 [logstash-sevone-sn-00010104] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 115, DocDelete: 0,StoreSize: 55,PriStoreSize: 27,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:44:33 [logstash-sevone-sn-00010102] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Info 2023/12/27 15:44:33 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 15:45:45 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 15:45:46 Date Range From :2023-12-25 15:45:46 +0000 UTC ,Range To :2023-12-26 15:45:46 +0000 UTC
+Details 2023/12/27 15:45:46 use these filter :[age pattern]
+Details 2023/12/27 15:45:46 forcemerge these indices :[logstash-sevone-sn-20231226 logstash-atm-sn-20231226 logstash-sevone-sn-00010103 logstash-sevone-sn-00010104 logstash-sevone-sn-00010102],segement num :0
+Test Mode Details 2023/12/27 15:45:46 [logstash-sevone-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 7025154, DocDelete: 21000,StoreSize: 5243985,PriStoreSize: 2639072,CreationDate: 2023-12-25
+Test Mode Details 2023/12/27 15:45:46 [logstash-atm-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 14040572, DocDelete: 205921,StoreSize: 3048099,PriStoreSize: 1520696,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:45:46 [logstash-sevone-sn-00010103] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:45:46 [logstash-sevone-sn-00010104] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 115, DocDelete: 0,StoreSize: 55,PriStoreSize: 27,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:45:46 [logstash-sevone-sn-00010102] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Info 2023/12/27 15:45:46 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 15:48:18 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 15:48:18 use these filter :[pattern age]
+Details 2023/12/27 15:48:19 Date Range From :2023-12-25 15:48:19 +0000 UTC ,Range To :2023-12-26 15:48:19 +0000 UTC
+Details 2023/12/27 15:48:19 forcemerge these indices :[logstash-sevone-sn-20231226 logstash-atm-sn-20231226 logstash-sevone-sn-00010103 logstash-sevone-sn-00010104 logstash-sevone-sn-00010102],segement num :0
+Test Mode Details 2023/12/27 15:48:19 [logstash-sevone-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 7025154, DocDelete: 21000,StoreSize: 5243985,PriStoreSize: 2639072,CreationDate: 2023-12-25
+Test Mode Details 2023/12/27 15:48:19 [logstash-atm-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 14040572, DocDelete: 205921,StoreSize: 3048099,PriStoreSize: 1520696,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:48:19 [logstash-sevone-sn-00010103] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:48:19 [logstash-sevone-sn-00010104] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 115, DocDelete: 0,StoreSize: 55,PriStoreSize: 27,CreationDate: 2023-12-26
+Test Mode Details 2023/12/27 15:48:19 [logstash-sevone-sn-00010102] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26
+Info 2023/12/27 15:48:19 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 16:12:32 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 16:12:32 use these filter :[pattern age]
+Details 2023/12/27 16:12:33 Date Range From :2023-12-25 16:12:33 +0000 UTC ,Range To :2023-12-26 16:12:33 +0000 UTC
+Details 2023/12/27 16:12:33 forcemerge these indices :[logstash-sevone-sn-20231226 logstash-atm-sn-20231226 logstash-sevone-sn-00010103 logstash-sevone-sn-00010104 logstash-sevone-sn-00010102],segement num :0
+Test Mode Details 2023/12/27 16:12:33 [logstash-sevone-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 7025154, DocDelete: 21000,StoreSize: 5243985,PriStoreSize: 2639072,CreationDate: 2023-12-25 23:58:03
+Test Mode Details 2023/12/27 16:12:33 [logstash-atm-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 14040572, DocDelete: 205921,StoreSize: 3048099,PriStoreSize: 1520696,CreationDate: 2023-12-26 00:00:00
+Test Mode Details 2023/12/27 16:12:33 [logstash-sevone-sn-00010103] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26 02:00:42
+Test Mode Details 2023/12/27 16:12:33 [logstash-sevone-sn-00010104] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 115, DocDelete: 0,StoreSize: 55,PriStoreSize: 27,CreationDate: 2023-12-26 02:00:42
+Test Mode Details 2023/12/27 16:12:33 [logstash-sevone-sn-00010102] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26 02:00:42
+Info 2023/12/27 16:12:33 Pausing for 5 seconds before continuing...
+Actions 2023/12/27 16:15:53 Action: forcemerge,Description: forcemerge selected indices_test
+Details 2023/12/27 16:15:53 use these filter :[pattern age]
+Details 2023/12/27 16:15:54 Date Range From :2023-12-25 16:15:54 ,Range To :2023-12-26 16:15:54
+Details 2023/12/27 16:15:54 forcemerge these indices :[logstash-sevone-sn-20231226 logstash-atm-sn-20231226 logstash-sevone-sn-00010103 logstash-sevone-sn-00010104 logstash-sevone-sn-00010102],segement num :0
+Test Mode Details 2023/12/27 16:15:54 [logstash-sevone-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 7025154, DocDelete: 21000,StoreSize: 5243985,PriStoreSize: 2639072,CreationDate: 2023-12-25 23:58:03
+Test Mode Details 2023/12/27 16:15:54 [logstash-atm-sn-20231226] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 14040572, DocDelete: 205921,StoreSize: 3048099,PriStoreSize: 1520696,CreationDate: 2023-12-26 00:00:00
+Test Mode Details 2023/12/27 16:15:55 [logstash-sevone-sn-00010103] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26 02:00:42
+Test Mode Details 2023/12/27 16:15:55 [logstash-sevone-sn-00010104] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 115, DocDelete: 0,StoreSize: 55,PriStoreSize: 27,CreationDate: 2023-12-26 02:00:42
+Test Mode Details 2023/12/27 16:15:55 [logstash-sevone-sn-00010102] has already forcemerged ,Pri: 1,Rep: 1,DocCount: 288, DocDelete: 0,StoreSize: 68,PriStoreSize: 34,CreationDate: 2023-12-26 02:00:42
+Info 2023/12/27 16:15:55 Pausing for 5 seconds before continuing...

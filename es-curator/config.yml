@@ -1,23 +1,43 @@
 #### timestring "2006-01-02 15:04:05"
-#### adjust 
+
 actions:
-  - action: delete_indices
-    description: delete selected indices_test
+  - action: forcemerge
+    description: forcemerge selected indices_test
     options:
       disable_action: false
       delay: 5
     filters:
     - filtertype: pattern
       kind: prefix
-      value: logstash-atm-sn
-    - filtertype: water_level
-      upper_limit: 55
-      lower_limit: 54
+      value: logstash-
+    - filtertype: age
+      source: creation_date
+      direction: range
+      unit: days
+      range_from: 2
+      range_to: 1
+
+
+
+#### adjust 
+# actions:
+#   - action: delete_indices
+#     description: delete selected indices_test
+#     options:
+#       disable_action: false
+#       delay: 5
+#     filters:
+#     - filtertype: pattern
+#       kind: prefix
+#       value: logstash-atm-sn
+#     - filtertype: water_level
+#       upper_limit: 55
+#       lower_limit: 54
     # - filtertype: age
     #   source: creation_date
     #   direction: range
     #   unit: days
-    #   range_from: 5
+    #   range_from:
     #   range_to: 0
 
   # - action: delete_indices

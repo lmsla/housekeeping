@@ -16,30 +16,33 @@ func FilterType_age(source string, direction string, unit string, unit_count int
 	if source == "creation_date" {
 		indicesinfo := CatIndices()
 		var indices []string
+		// 時間往前推
+		var benchmarkDate string
+		if unit == "years" {
+			benchmarkDate = time.Now().AddDate(-unit_count, -0, -0).Format("2006-01-02 15:04:05")
+		} else if unit == "months" {
+			benchmarkDate = time.Now().AddDate(-0, -unit_count, -0).Format("2006-01-02 15:04:05")
+		} else if unit == "days" {
+			benchmarkDate = time.Now().AddDate(-0, -0, -unit_count).Format("2006-01-02 15:04:05")
+		}
+		// timeadjust := time.Now().AddDate(-0,-0,-global.EnvConfig.DeleteIndices.Filters.Unit_count).Format("2006-01-02")
+
+		benchmarkDateT, error := time.Parse("2006-01-02 15:04:05", benchmarkDate)
+		if error != nil {
+			fmt.Println(error)
+			return
+		}
 		for data := range indicesinfo {
 			// 將indices的 creation date 由 unixtime 轉為 "2006-01-02"的格式
 			timestamp, _ := strconv.ParseInt(indicesinfo[data].CreationDate, 10, 64)
-			CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
-			// 時間往前推
-			var benchmarkDate string
-			if unit == "years" {
-				benchmarkDate = time.Now().AddDate(-unit_count, -0, -0).Format("2006-01-02")
-			} else if unit == "months" {
-				benchmarkDate = time.Now().AddDate(-0, -unit_count, -0).Format("2006-01-02")
-			} else if unit == "days" {
-				benchmarkDate = time.Now().AddDate(-0, -0, -unit_count).Format("2006-01-02")
-			}
-			// timeadjust := time.Now().AddDate(-0,-0,-global.EnvConfig.DeleteIndices.Filters.Unit_count).Format("2006-01-02")
-			CreationDateT, error := time.Parse("2006-01-02", CreationDate)
+			CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
+
+			CreationDateT, error := time.Parse("2006-01-02 15:04:05", CreationDate)
 			if error != nil {
 				fmt.Println(error)
 				return
 			}
-			benchmarkDateT, error := time.Parse("2006-01-02", benchmarkDate)
-			if error != nil {
-				fmt.Println(error)
-				return
-			}
+
 			// 滿足 direction = "older" 及 產生日期 (creation date) 在 基準日期(benchmark Date)之前的 index
 			if CreationDateT.Before(benchmarkDateT) == true && direction == "older" {
 				// fmt.Println(indicesinfo[data].Index, "date is:", CreationDate, indicesinfo[data].CreationDate)
@@ -60,48 +63,49 @@ func FilterType_age(source string, direction string, unit string, unit_count int
 }
 
 func FilterType_age_range(source string, direction string, unit string, range_from int, range_to int) (indiceslist []string) {
-	fmt.Println("range_from", range_from)
-	fmt.Println("range_to", range_to)
+
 	if source == "creation_date" {
 		indicesinfo := CatIndices()
 		var indices []string
+		// 時間往前推
+		var RangeFromDate string
+		var RangeToDate string
+		if unit == "years" {
+			RangeFromDate = time.Now().AddDate(-range_from, -0, -0).Format("2006-01-02 15:04:05")
+			RangeToDate = time.Now().AddDate(-range_to, -0, -0).Format("2006-01-02 15:04:05")
+		} else if unit == "months" {
+			RangeFromDate = time.Now().AddDate(-0, -range_from, -0).Format("2006-01-02 15:04:05")
+			RangeToDate = time.Now().AddDate(-0, -range_to, -0).Format("2006-01-02 15:04:05")
+		} else if unit == "days" {
+			RangeFromDate = time.Now().AddDate(-0, -0, -range_from).Format("2006-01-02 15:04:05")
+			RangeToDate = time.Now().AddDate(-0, -0, -range_to).Format("2006-01-02 15:04:05")
+		}
+		RangeFromDateT, error := time.Parse("2006-01-02 15:04:05", RangeFromDate)
+		if error != nil {
+			fmt.Println(error)
+			return
+		}
+		RangeToDateT, error := time.Parse("2006-01-02 15:04:05", RangeToDate)
+		if error != nil {
+			fmt.Println(error)
+			return
+		}
+		fmt.Println("RangeFromDateT", RangeFromDateT)
+		fmt.Println("RangeToDateT", RangeToDateT)
+		log_record.Logrecord("Details", fmt.Sprintf("Date Range From :%s ,Range To :%s", RangeFromDate, RangeToDate))
 		for data := range indicesinfo {
 			// 將indices的 creation date 由 unixtime 轉為 "2006-01-02"的格式
 			timestamp, _ := strconv.ParseInt(indicesinfo[data].CreationDate, 10, 64)
-			CreationDate := time.UnixMilli(timestamp).Format("2006-01-02")
+			CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 			// NowDateTime := time.Now().Format("2006-01-02")
-			// 時間往前推
-			var RangeFromDate string
-			var RangeToDate string
-			if unit == "years" {
-				RangeFromDate = time.Now().AddDate(-range_from, -0, -0).Format("2006-01-02")
-				RangeToDate = time.Now().AddDate(-range_to, -0, -0).Format("2006-01-02")
-			} else if unit == "months" {
-				RangeFromDate = time.Now().AddDate(-0, -range_from, -0).Format("2006-01-02")
-				RangeToDate = time.Now().AddDate(-0, -range_to, -0).Format("2006-01-02")
-			} else if unit == "days" {
-				RangeFromDate = time.Now().AddDate(-0, -0, -range_from).Format("2006-01-02")
-				RangeToDate = time.Now().AddDate(-0, -0, -range_to).Format("2006-01-02")
-			}
+
 			// timeadjust := time.Now().AddDate(-0,-0,-global.EnvConfig.DeleteIndices.Filters.Unit_count).Format("2006-01-02")
-			CreationDateT, error := time.Parse("2006-01-02", CreationDate)
+			CreationDateT, error := time.Parse("2006-01-02 15:04:05", CreationDate)
 			if error != nil {
 				fmt.Println(error)
 				return
 			}
-			RangeFromDateT, error := time.Parse("2006-01-02", RangeFromDate)
-			if error != nil {
-				fmt.Println(error)
-				return
-			}
-			RangeToDateT, error := time.Parse("2006-01-02", RangeToDate)
-			if error != nil {
-				fmt.Println(error)
-				return
-			}
-			fmt.Println("RangeFromDateT", RangeFromDateT)
-			fmt.Println("RangeToDateT", RangeToDateT)
-			fmt.Println("CreationDateT", CreationDateT)
+
 			// 滿足 direction = "range" 及 產生日期 (creation date) 在 (RangeFrom Date)之前 及在(RangeTo Date)之後的index
 			if CreationDateT.After(RangeFromDateT) == true && CreationDateT.Before(RangeToDateT) == true && direction == "range" {
 				// fmt.Println(indicesinfo[data].Index, "date is:", CreationDate, indicesinfo[data].CreationDate)
@@ -109,7 +113,7 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 			}
 		}
 
-		fmt.Println("indices", indices)
+		// fmt.Println("indices", indices)
 		return indices
 	}
 	return
@@ -260,7 +264,6 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 	}
 
 	fmt.Println("patternlist", patternlist)
-	// fmt.Println(indicesinfo)
 
 	/// 統計各個 Node 的 Average Water Level
 	nodesinfo := CatNodes()
@@ -298,18 +301,18 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 		diskToClean := AllDiskTotal * (diskToCleanPercentage / 100)
 		diskKbToClean = diskToClean * 1024 * 1024
 
-		log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb",diskToClean))
-	
+		log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb", diskToClean))
+
 		indexSizemap = make(map[string]string)
 		creationdate_NameMap = make(map[string]string)
-	
+
 		for _, data := range indicesinfo {
 			indexSizemap[data.Index] = data.StoreSize
 			creationdate_NameMap[data.CreationDate] = data.Index
 			creationDateSlice = append(creationDateSlice, data.CreationDate)
 			// fmt.Println(data.Index, "size", data.StoreSize, "date", data.CreationDate)
 		}
-	
+
 		if creationDateSlice == nil {
 			// 如果撈不到 index 則返回一個空的list
 			finalIndexList = append(finalIndexList, "")
@@ -323,10 +326,10 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 			for date := range creationDateSlice {
 				indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
 			}
-	
+
 			total := 0
 			for _, data := range indexSortbycreation {
-	
+
 				bytesnum, err := strconv.Atoi(indexSizemap[data])
 				if err != nil {
 					log_record.Logrecord("ERROR ", "Error during conversion"+err.Error())
@@ -340,7 +343,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 					break
 				}
 			}
-			log_record.Logrecord("Details",fmt.Sprintf("Total Delete kbs %d",total))
+			log_record.Logrecord("Details", fmt.Sprintf("Total Delete kbs %d", total))
 		}
 	} else {
 		log_record.Logrecord("INFO ", "Water Level doesn't exceed upper limit")
