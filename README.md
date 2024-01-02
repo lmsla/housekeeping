@@ -119,11 +119,27 @@ ex. 1,2,3，forcemerge 後 index 的 segment 數量。
 
 
 ## Filter types
-三個過濾條件，可混用，或單獨使用。
+四個過濾條件，可混用，或單獨使用。
+
+
+與 index 產生時間相關：
 
 - `age`
+
+與 index 名稱相關：
+
 - `pattern`
+
+與 disk 容量相關：
+
 - `space`
+- `water_level`
+
+```
+*註：時間相關的 filter 不可與 disk 相關的 filter 一起使用 ;  disk 容量相關的兩個 filter 也不可同時使用。
+	例：action 中同時引用 age & space 或同時引用 space & water_level
+
+```
 
 ### Filter elements
 掛在 filtertype 下使用，不同的 filtertype 各有適用的 filter elements，詳細說明請往下翻看。
@@ -132,43 +148,61 @@ ex. 1,2,3，forcemerge 後 index 的 segment 數量。
 - `direction`
 - `unit`
 - `unit_count`
+- `range_from`
+- `range_to`
 - `kind`
 - `value`
 - `disk_space`
+- `upper_limit`
+- `lower_limit`
 
 
 ### age
 ---
-以執行程式當下，以 unit_count (5)  unit (days) 前的時間為基準，篩選出前 (older) 或後 (younger) 產生的 index。
 
-例： 當前時間為2023/01/16，unit : days ; unit_count : 5 ; direction : older ，篩選結果為2023/01/11 之前的產生的所有 index。
 
-#### source 
+##### source
 
 - creation_date
 
-#### direction
+##### direction
 - older
 - younger
 
-#### unit
+以執行程式當下，篩選出 `range_from` 到  `range_to` 之間產生的 index。
+
+例： 當前時間為2023/01/16，`direction` : range ; `unit` : days ; `range_from` : 5 ; `range_to` : 2 ，篩選結果為2023/01/14 ~ 2023/01/15 時間段中的產生的所有 index。
+
+- range
+
+以執行程式當下，以 unit_count (5) unit (days) 前的時間為基準，篩選出前 (older) 或後 (younger) 產生的 index。
+
+例： 當前時間為2023/01/16，unit : days ; unit_count : 5 ; direction : older ，篩選結果為2023/01/11 之前的產生的所有 index。
+
+##### unit
 - years
 - months
 - days
 
-#### unit_count
+##### unit_count
+- 任一正整數 ex. 1、2、5、10....
+
+##### range_from 
+- 任一正整數 ex. 1、2、5、10....
+
+##### range_to
 - 任一正整數 ex. 1、2、5、10....
 
 ### pattern
 ---
 以 index 名稱做匹配條件，可前匹配 (prefix) 、後匹配 (suffix)、及正則匹配 (regex)，value 中輸入的是匹配字樣，例如 kind : prefix ; value : logstash-asa 會匹配到所有 logstash-asa 開頭的 index。
 
-#### kind
+##### kind
 - prefix
 - suffix
 - regex
 
-#### value
+##### value
 匹配字樣</br>
 ex. logstash-ap , ap
 
@@ -197,9 +231,21 @@ index-05 10GB
 
 ```
 
-#### disk_space
+##### disk_space
 - 任一正整數，單位 GB，例如 10 代表 10 GB 。
 
+### water_level
+---
+disk 水位控管，統計目前 cluster 中所有 nodes 的 disk 使用率取平均值，如果超過 `upper_limit` (上限值百分比)，
+則觸發篩選機制 - 由舊到新加總 index 所佔容量直到約等於 `upper_limit` 與 `lower_limit` 百分比差值佔 cluster disk 總量。
+
+##### upper_limit
+
+- 任一正整數，單位 %，例如 50 代表上限 50% 。
+
+##### lower_limit
+
+- 任一正整數，單位 %，例如 40 代表下限 40% 。
 
 
 # config sample
@@ -208,10 +254,12 @@ index-05 10GB
 注意縮排不能有誤，不然程式會出錯。
 
 ### config.yml 
-config 中可以有一或多個 actions，一個 actions 中現階段最多可加入三個 filter，各個 filter 各有適用的 filter element ，請詳閱上方說明。
+config 中可以有一或多個 action，一個 action 可是情況搭配不同的 filter，不同的 filter 有各自適用的 filter element ，請詳閱上方說明。
 
 ```
 actions: 
+### 刪除產生在10天以前且開頭為 logstash- 的所有 index
+
   - action: delete_indices
     description: delete selected indices1
     options: 
@@ -222,60 +270,64 @@ actions:
       source: creation_date
       direction: older
       unit: days
-      unit_count: 1
+      unit_count: 10
     - filtertype: pattern
       kind: prefix
-      value: prefixmore
-      exclude: 
+      value: logstash-
+      
+### 開頭為 logstash- 的所有 index 只保留最新的 20G ，超過的刪除
+
+  - action: delete_indices
+    description: delete selected indices2
+    options: 
+      disable_action: false
+      delay: 5
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-
     - filtertype: space
-      disk_space: 2
-      use_age: True
-      source: creation_date
+      disk_space: 20
 
-  - action: close
-    description: close selected indices
+### 當 cluster 的平均 disk 使用量高於 80% 時，篩選出開頭為 logstash- ，
+	  從舊的開始刪，刪到釋放出 5% 的 cluster 的平均 disk 使用量。
+
+  - action: delete_indices
+    description: delete selected indices3
     options: 
       disable_action: true
       delay: 5
     filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 1
     - filtertype: pattern
       kind: prefix
-      value: prefixmore
+      value: logstash-
+    - filtertype: water_level
+      upper_limit: 80
+      lower_limit: 75
 
-  - action: open
-    description: open selected indices
-    options: 
-      disable_action: true
-      delay: 5
-    filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 1
-    - filtertype: pattern
-      kind: prefix
-      value: prefixmore
-
-
+### 將前1~5天之間產生的 index 搬遷到 warm data node 
+	 
   - action: allocation
-    description:  allocation routing to warm node setup for *-h indices older than 1 days, based on index-name1
+    description:  allocation selected indices to data_warm
     options:
-      disable_action: True
+      disable_action: true
       key: _tier_preference
-      value: data_hot
+      value: data_warm
       allocation_type: include
       delay: 20
     filters:
     - filtertype: pattern
       kind: prefix
       value: logstash-zs
-
+    - filtertype: age
+      source: creation_date
+      direction: range
+      unit: days
+      range_from: 5
+      range_to: 1
+      
+### 將前1~5天之間產生，開頭為 logstash-zs 的所有 index forcemerge to segments = 1
+      
   - action: forcemerge
     description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
     options:
@@ -286,17 +338,12 @@ actions:
     - filtertype: pattern
       kind: prefix
       value: logstash-zs
-
-
-  - action: delete_indices
-    description: delete selected indices1
-    options: 
-      disable_action: true
-      delay: 5
-    filters:
-    - filtertype: pattern
-      kind: prefix
-      value: logstash-zs
+    - filtertype: age
+      source: creation_date
+      direction: range
+      unit: days
+      range_from: 5
+      range_to: 1    
 
 
 ```
