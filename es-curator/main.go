@@ -4,6 +4,7 @@ import (
 	"es-curator/global"
 	"es-curator/job"
 	"es-curator/utils"
+	"fmt"
 	"sync"
 )
 
@@ -25,7 +26,9 @@ func main() {
 
 func main1() {
 	utils.LoadEnvironment()
-	job.SetElkClient()
+	fmt.Println("L")
+	fmt.Println(global.EnvConfig.ES.URL)
+	// job.SetElkClient()
 	// job.Allocation1([]string{"logstash-bimap-test01"})
 	// job.CatNodes()
 	// job.CatIndices()
@@ -36,6 +39,6 @@ func main1() {
 	// job.ListTest()
 	// job.Action_controll()
 	// job.CatIndices()
-	job.CatNodes()
-	job.CatIndices_withPattern([]string{"logstash-atm-sn-20231223"})
+	// job.CatNodes()
+	// job.CatIndices_withPattern([]string{"logstash-atm-sn-20231223"})
 }

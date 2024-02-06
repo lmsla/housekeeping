@@ -1,5 +1,7 @@
 es:
-  url: https://10.50.70.13:9200
+  url: 
+    - https://10.50.70.13:9200
+    - https://10.50.70.12:9200
   sourceAccount: "elastic"
   sourcePassword: "elk-uat"
   # url: https://10.99.1.64:9200

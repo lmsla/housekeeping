@@ -1,0 +1,45 @@
+Actions 2023/12/25 15:54:23 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/25 15:54:23 use these filter :[age pattern]
+Details 2023/12/25 15:54:23 no match indices
+Info 2023/12/25 15:54:23 Pausing for 5 seconds before continuing...
+Actions 2023/12/25 15:54:46 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/25 15:54:47 use these filter :[age pattern]
+Details 2023/12/25 15:54:47 no match indices
+Info 2023/12/25 15:54:47 Pausing for 5 seconds before continuing...
+Actions 2023/12/25 15:57:29 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/25 15:57:30 use these filter :[age pattern]
+Details 2023/12/25 15:57:30 no match indices
+Info 2023/12/25 15:57:30 Pausing for 5 seconds before continuing...
+Actions 2023/12/25 16:01:02 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/25 16:01:02 use these filter :[age pattern]
+Details 2023/12/25 16:01:02 no match indices
+Info 2023/12/25 16:01:02 Pausing for 5 seconds before continuing...
+Actions 2023/12/25 16:01:34 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/25 16:01:35 use these filter :[age pattern]
+Details 2023/12/25 16:01:35 no match indices
+Info 2023/12/25 16:01:35 Pausing for 5 seconds before continuing...
+Actions 2023/12/25 16:03:10 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/25 16:03:11 use these filter :[age pattern]
+Details 2023/12/25 16:03:11 no match indices
+Info 2023/12/25 16:03:11 Pausing for 5 seconds before continuing...
+Actions 2023/12/25 16:06:52 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/25 16:06:53 use these filter :[age pattern]
+Details 2023/12/25 16:06:53 Delete these indices :[logstash-sevone-sn-20231222 logstash-sevone-sn-20231221 logstash-sevone-sn-20231220 logstash-sevone-sn-20231219 logstash-sevone-sn-20231218 logstash-sevone-sn-20231217 logstash-atm-sn-20231219 logstash-atm-sn-20231218 logstash-atm-sn-20231217 logstash-atm-sn-20231216 logstash-atm-sn-20231221 logstash-atm-sn-20231220 logstash-sevone-sn-00010101]
+Test Mode Details 2023/12/25 16:06:53 [logstash-sevone-sn-20231222] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-sevone-sn-20231221] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-sevone-sn-20231220] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-sevone-sn-20231219] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-sevone-sn-20231218] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-sevone-sn-20231217] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-atm-sn-20231219] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-atm-sn-20231218] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-atm-sn-20231217] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-atm-sn-20231216] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-atm-sn-20231221] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-atm-sn-20231220] has already deleted
+Test Mode Details 2023/12/25 16:06:53 [logstash-sevone-sn-00010101] has already deleted
+Info 2023/12/25 16:06:53 Pausing for 5 seconds before continuing...
+Actions 2023/12/25 16:09:14 Action: delete_indices,Description: delete selected indices_test
+Details 2023/12/25 16:09:15 use these filter :[age pattern]
+Details 2023/12/25 16:09:15 no match indices
+Info 2023/12/25 16:09:15 Pausing for 5 seconds before continuing...
