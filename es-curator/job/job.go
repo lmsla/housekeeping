@@ -2,11 +2,13 @@ package job
 
 import (
 	"es-curator/global"
+	"fmt"
+
 	"github.com/elastic/go-elasticsearch/v8"
+
 	// "github.com/elastic/go-elasticsearch/v8/esapi"
 	"crypto/tls"
 	"net/http"
-
 )
 
 // type IndicesCloseRequest struct {
@@ -46,6 +48,7 @@ func SetElkClient() {
 	}
 
 	// log.SetFlags(0)
+	fmt.Println("ok")
 
 }
 

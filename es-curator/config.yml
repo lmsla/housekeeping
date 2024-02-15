@@ -1,7 +1,7 @@
 #### timestring "2006-01-02 15:04:05"
 
 actions:
-  - action: forcemerge
+  - action: delete_indices
     description: forcemerge selected indices_test
     options:
       disable_action: false
@@ -9,13 +9,15 @@ actions:
     filters:
     - filtertype: pattern
       kind: prefix
-      value: logstash-
-    - filtertype: age
-      source: creation_date
-      direction: range
-      unit: days
-      range_from: 2
-      range_to: 1
+      value: logstash-sevone-sn
+    - filtertype: space
+      disk_space: 650
+    # - filtertype: age
+    #   source: creation_date
+    #   direction: range
+    #   unit: days
+    #   range_from: 2
+    #   range_to: 1
 
 
 

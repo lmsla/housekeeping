@@ -44,12 +44,12 @@ func FilterType_age(source string, direction string, unit string, unit_count int
 			}
 
 			// 滿足 direction = "older" 及 產生日期 (creation date) 在 基準日期(benchmark Date)之前的 index
-			if CreationDateT.Before(benchmarkDateT) == true && direction == "older" {
+			if CreationDateT.Before(benchmarkDateT) && direction == "older" {
 				// fmt.Println(indicesinfo[data].Index, "date is:", CreationDate, indicesinfo[data].CreationDate)
 				indices = append(indices, indicesinfo[data].Index)
 
 				// 滿足 direction = "younger" 及 產生日期 (creation date) 在 基準日期(benchmark Date)之後的 index
-			} else if CreationDateT.After(benchmarkDateT) == true && direction == "younger" {
+			} else if CreationDateT.After(benchmarkDateT) && direction == "younger" {
 				// fmt.Println(indicesinfo[data].Index, "date is:", CreationDate, indicesinfo[data].CreationDate)
 				indices = append(indices, indicesinfo[data].Index)
 
@@ -107,7 +107,7 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 			}
 
 			// 滿足 direction = "range" 及 產生日期 (creation date) 在 (RangeFrom Date)之前 及在(RangeTo Date)之後的index
-			if CreationDateT.After(RangeFromDateT) == true && CreationDateT.Before(RangeToDateT) == true && direction == "range" {
+			if CreationDateT.After(RangeFromDateT) && CreationDateT.Before(RangeToDateT) && direction == "range" {
 				// fmt.Println(indicesinfo[data].Index, "date is:", CreationDate, indicesinfo[data].CreationDate)
 				indices = append(indices, indicesinfo[data].Index)
 			}
@@ -132,7 +132,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 					log_record.Logrecord("ERROR ", "filter prefix error"+err.Error())
 					// panic("prefix")
 				}
-				if matchbool == true {
+				if matchbool {
 					indices = append(indices, indicesinfo[data].Index)
 					// fmt.Println(indicesinfo[data].Index, matchbool)
 				}
@@ -147,7 +147,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 					log_record.Logrecord("ERROR ", "filter suffix error"+err.Error())
 					// panic("suffix")
 				}
-				if matchbool == true {
+				if matchbool {
 					indices = append(indices, indicesinfo[data].Index)
 					// fmt.Println(indicesinfo[data].Index, matchbool)
 				}
@@ -162,7 +162,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 					log_record.Logrecord("ERROR ", "filter regex error"+err.Error())
 					// panic("regex")
 				}
-				if matchbool == true {
+				if matchbool {
 					indices = append(indices, indicesinfo[data].Index)
 					// fmt.Println(indicesinfo[data].Index, matchbool)
 				}
@@ -185,9 +185,9 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 	fmt.Println("patternlist", patternlist)
 	fmt.Println(indicesinfo)
 	var creationDateSlice []string
-	var indexSizemap map[string]string
+	var indexSizemap, creationdate_NameMap map[string]string
 	indexSizemap = make(map[string]string)
-	var creationdate_NameMap map[string]string
+	// var creationdate_NameMap map[string]string
 	creationdate_NameMap = make(map[string]string)
 	for data := range indicesinfo {
 		indexSizemap[indicesinfo[data].Index] = indicesinfo[data].StoreSize
@@ -230,7 +230,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 				fmt.Println("Error during conversion 163")
 				return
 			}
-			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
+			// aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
 			// fmt.Println("aggregate_bytes list",aggregate_bytes)
 			// 加總 index storage
 			total += bytesnum
@@ -238,6 +238,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 			if total > disk_space*1024*1024 {
 				break
 			}
+			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
 			fmt.Println(total)
 		}
 		// fmt.Println("final_list:", finalIndexList)
@@ -254,7 +255,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 
 func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit int) (indiceslist []string) {
 
-	var creationDateSlice, finalIndexList, aggregate_bytes []string
+	var creationDateSlice, aggregate_bytes []string
 	var indexSizemap, creationdate_NameMap map[string]string
 	var indicesinfo CatIndice
 	if len(patternlist) < 1 {
@@ -313,10 +314,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 			// fmt.Println(data.Index, "size", data.StoreSize, "date", data.CreationDate)
 		}
 
-		if creationDateSlice == nil {
-			// 如果撈不到 index 則返回一個空的list
-			finalIndexList = append(finalIndexList, "")
-		} else if creationDateSlice != nil {
+		if creationDateSlice != nil {
 			// 按 index 的 create_date 排序
 			sort.Strings(creationDateSlice)
 			// fmt.Println("sort of creationDateSlice:", creationDateSlice)

@@ -93,7 +93,7 @@ func ClusterHealth() CatClusterHealth {
 
 	defer res.Body.Close()
 	// Parse the response
-	resString, err := io.ReadAll(res.Body)
+	resString, _ := io.ReadAll(res.Body)
 	var s CatClusterHealth
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
@@ -117,7 +117,7 @@ func CatIndices() CatIndice {
 		// panic(err)
 	}
 	// log.Println(res)
-	resString, err := io.ReadAll(res.Body)
+	resString, _ := io.ReadAll(res.Body)
 	var s CatIndice
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
@@ -142,7 +142,7 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 		// panic(err)
 	}
 	// log.Println(res)
-	resString, err := io.ReadAll(res.Body)
+	resString, _ := io.ReadAll(res.Body)
 	var s CatIndice
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()

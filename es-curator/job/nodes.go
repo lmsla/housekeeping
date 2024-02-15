@@ -57,7 +57,7 @@ func CatNodes() CatNode {
 	defer res.Body.Close()
 	// log.Println(res)
 	// fmt.Println(res)
-	resString, err := io.ReadAll(res.Body)
+	resString, _ := io.ReadAll(res.Body)
 	var s CatNode
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()

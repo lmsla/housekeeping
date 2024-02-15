@@ -4,8 +4,8 @@ import (
 	"es-curator/global"
 	"es-curator/log_record"
 	"fmt"
-	"time"
 	"strconv"
+	"time"
 )
 
 func Action_controll() {
@@ -13,7 +13,7 @@ func Action_controll() {
 	for actions := range ActionList {
 		switch ActionList[actions].Action {
 		case "allocation":
-			if ActionList[actions].Options.DisableAction == false {
+			if !ActionList[actions].Options.DisableAction {
 				// Action_allocation_indices()
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 				allocationtype := ActionList[actions].Options.AllocationType
@@ -44,22 +44,22 @@ func Action_controll() {
 					var index_onebyone []string
 					for index := range comparelist {
 						index_onebyone := append(index_onebyone, comparelist[index])
-						if global.EnvConfig.INFORMATION.Test_mode == true {
+						if global.EnvConfig.INFORMATION.Test_mode {
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 
 							log_record.Logrecord("Test Mode Details", individual_Msg)
 
-						} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							Allocation(index_onebyone, allocationtype, key, value)
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 
@@ -73,7 +73,7 @@ func Action_controll() {
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "forcemerge":
-			if ActionList[actions].Options.DisableAction == false {
+			if !ActionList[actions].Options.DisableAction {
 				// Action_forcemerge_indices()
 				Node_relocating_checking()
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
@@ -104,21 +104,21 @@ func Action_controll() {
 					for index := range comparelist {
 						index_onebyone := append(index_onebyone, comparelist[index])
 
-						if global.EnvConfig.INFORMATION.Test_mode == true {
+						if global.EnvConfig.INFORMATION.Test_mode {
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
 
-						} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							ForceMerge(index_onebyone, MaxNumSegments)
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 					}
@@ -131,7 +131,7 @@ func Action_controll() {
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "delete_indices":
-			if ActionList[actions].Options.DisableAction == false {
+			if !ActionList[actions].Options.DisableAction {
 				// Action_delete_indices()
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 				log_record.Logrecord("Actions", actionMsg)
@@ -163,20 +163,20 @@ func Action_controll() {
 					var index_onebyone []string
 					for index := range comparelist {
 						index_onebyone := append(index_onebyone, comparelist[index])
-						if global.EnvConfig.INFORMATION.Test_mode == true {
+						if global.EnvConfig.INFORMATION.Test_mode {
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
-						} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							DeleteIndex(index_onebyone)
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 
@@ -189,7 +189,7 @@ func Action_controll() {
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "close":
-			if ActionList[actions].Options.DisableAction == false {
+			if !ActionList[actions].Options.DisableAction {
 				// Action_close_indices()
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 				log_record.Logrecord("Actions", actionMsg)
@@ -219,21 +219,21 @@ func Action_controll() {
 					for index := range comparelist {
 						index_onebyone := append(index_onebyone, comparelist[index])
 
-						if global.EnvConfig.INFORMATION.Test_mode == true {
+						if global.EnvConfig.INFORMATION.Test_mode {
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
 
-						} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							CloseIndices(index_onebyone)
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 					}
@@ -246,7 +246,7 @@ func Action_controll() {
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "open":
-			if ActionList[actions].Options.DisableAction == false {
+			if !ActionList[actions].Options.DisableAction {
 				// Action_open_indices()
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
 				log_record.Logrecord("Actions", actionMsg)
@@ -273,20 +273,20 @@ func Action_controll() {
 					var index_onebyone []string
 					for index := range comparelist {
 						index_onebyone := append(index_onebyone, comparelist[index])
-						if global.EnvConfig.INFORMATION.Test_mode == true {
+						if global.EnvConfig.INFORMATION.Test_mode {
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
-						} else if global.EnvConfig.INFORMATION.Test_mode == false {
+						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							OpenIndices(index_onebyone)
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone,i.Pri,i.Rep,i.DocsCount,i.DocsDeleted,i.StoreSize,i.PriStoreSize,CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
 						}
 					}

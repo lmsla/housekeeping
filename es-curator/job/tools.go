@@ -28,7 +28,7 @@ func Indicesmapping3(list1 []string, list2 []string, list3 []string) []string {
 	return compareList
 }
 
-//取得兩個 list中相同的元素 method1
+// 取得兩個 list中相同的元素 method1
 func Intersection(a, b []string) []string {
 	m := make(map[string]bool)
 	for _, item := range a {
@@ -43,7 +43,7 @@ func Intersection(a, b []string) []string {
 	return intersection
 }
 
-//取得兩個 list中相同的元素 method2
+// 取得兩個 list中相同的元素 method2
 func Indicesmapping2(list1 []string, list2 []string) []string {
 	var compareList []string
 	if list1 != nil && list2 != nil {
@@ -216,25 +216,25 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 
 	switch {
 
-	case reflect.DeepEqual(filter_record, ap) == true:
+	case reflect.DeepEqual(filter_record, ap):
 		compareList = Indicesmapping2(agelist, patternlist)
 
-	case reflect.DeepEqual(filter_record, sp) == true:
+	case reflect.DeepEqual(filter_record, sp):
 		compareList = Indicesmapping2(patternlist, spacelist)
 
-	case reflect.DeepEqual(filter_record, wp) == true:
+	case reflect.DeepEqual(filter_record, wp):
 		compareList = Indicesmapping2(patternlist, water_level_list)
 
-	case reflect.DeepEqual(filter_record, a) == true:
+	case reflect.DeepEqual(filter_record, a):
 		compareList = agelist
 
-	case reflect.DeepEqual(filter_record, p) == true:
+	case reflect.DeepEqual(filter_record, p):
 		compareList = patternlist
 
-	case reflect.DeepEqual(filter_record, s) == true:
+	case reflect.DeepEqual(filter_record, s):
 		compareList = spacelist
 
-	case reflect.DeepEqual(filter_record, w) == true:
+	case reflect.DeepEqual(filter_record, w):
 		compareList = water_level_list
 
 	}
@@ -261,25 +261,25 @@ func Filter_of_filter_bak(filter_record, agelist, patternlist, spacelist []strin
 	fmt.Println("filter_record: ", filter_record)
 
 	switch {
-	case reflect.DeepEqual(filter_record, aps) == true:
+	case reflect.DeepEqual(filter_record, aps):
 		compareList = Indicesmapping3(agelist, patternlist, spacelist)
 
-	case reflect.DeepEqual(filter_record, ap) == true:
+	case reflect.DeepEqual(filter_record, ap):
 		compareList = Indicesmapping2(agelist, patternlist)
 
-	case reflect.DeepEqual(filter_record, as) == true:
+	case reflect.DeepEqual(filter_record, as):
 		compareList = Indicesmapping2(agelist, spacelist)
 
-	case reflect.DeepEqual(filter_record, sp) == true:
+	case reflect.DeepEqual(filter_record, sp):
 		compareList = Indicesmapping2(patternlist, spacelist)
 
-	case reflect.DeepEqual(filter_record, a) == true:
+	case reflect.DeepEqual(filter_record, a):
 		compareList = agelist
 
-	case reflect.DeepEqual(filter_record, p) == true:
+	case reflect.DeepEqual(filter_record, p):
 		compareList = patternlist
 
-	case reflect.DeepEqual(filter_record, s) == true:
+	case reflect.DeepEqual(filter_record, s):
 		compareList = spacelist
 
 	}
