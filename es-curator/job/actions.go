@@ -171,13 +171,13 @@ func Action_controll() {
 							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Test Mode Details", individual_Msg)
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
-							DeleteIndex(index_onebyone)
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 							log_record.Logrecord("Details", individual_Msg)
+							DeleteIndex(index_onebyone)
 						}
 
 					}
