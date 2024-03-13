@@ -200,7 +200,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 	if creationDateSlice == nil {
 		// 如果撈不到 index 則返回一個空的list
 		finalIndexList = append(finalIndexList, "")
-	} else if creationDateSlice != nil {
+	} else {
 		// 按 index 的 create_date 排序
 		sort.Strings(creationDateSlice)
 		// fmt.Println("sort of creationDateSlice:", creationDateSlice)
@@ -222,14 +222,31 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 		// fmt.Println("asc:", indexSortbycreationAsc)
 
 		total := 0
+
 		for bytes := range indexSortbycreationAsc {
+			var bytesnum int
 			// fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
-			bytesnum, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
-			if err != nil {
-				log_record.Logrecord("ERROR ", "Error during conversion"+err.Error())
-				fmt.Println("Error during conversion 163")
-				return
+			if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
+				bytesnum = 0
+				// total += bytesnum
+			} else {
+
+				bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
+				if err != nil {
+					log_record.Logrecord("ERROR ", "Error during conversion "+err.Error())
+					fmt.Println("Error during conversion 163")
+					return
+				}
+				// total += bytesnum
+				bytesnum = bytesint
 			}
+			// bytesnum, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
+			// if err != nil {
+			// 	log_record.Logrecord("ERROR ", "Error during conversion"+err.Error())
+			// 	fmt.Println("Error during conversion 163")
+			// 	return
+			// }
+
 			// aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
 			// fmt.Println("aggregate_bytes list",aggregate_bytes)
 			// 加總 index storage

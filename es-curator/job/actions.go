@@ -51,7 +51,7 @@ func Action_controll() {
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
 
-							log_record.Logrecord("Test Mode Details", individual_Msg)
+							log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
 
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							Allocation(index_onebyone, allocationtype, key, value)
@@ -60,12 +60,12 @@ func Action_controll() {
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Details", individual_Msg)
+							log_record.ActionDetailrecord("Details", individual_Msg)
 						}
 
 					}
 					Node_relocating_checking()
-				} else if comparelist == nil {
+				} else {
 					log_record.Logrecord("Details", "no match indices")
 				}
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
@@ -110,7 +110,7 @@ func Action_controll() {
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Test Mode Details", individual_Msg)
+							log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
 
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							ForceMerge(index_onebyone, MaxNumSegments)
@@ -119,11 +119,11 @@ func Action_controll() {
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Details", individual_Msg)
+							log_record.ActionDetailrecord("Details", individual_Msg)
 						}
 					}
 					// ForceMerge(comparelist, MaxNumSegments)
-				} else if comparelist == nil {
+				} else {
 					log_record.Logrecord("Details", "no match indices")
 				}
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
@@ -169,19 +169,19 @@ func Action_controll() {
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Test Mode Details", individual_Msg)
+							log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Details", individual_Msg)
+							log_record.ActionDetailrecord("Details", individual_Msg)
 							DeleteIndex(index_onebyone)
 						}
 
 					}
-				} else if comparelist == nil {
+				} else {
 					log_record.Logrecord("Details", "no match indices")
 				}
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
@@ -225,7 +225,7 @@ func Action_controll() {
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Test Mode Details", individual_Msg)
+							log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
 
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							CloseIndices(index_onebyone)
@@ -234,10 +234,10 @@ func Action_controll() {
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Details", individual_Msg)
+							log_record.ActionDetailrecord("Details", individual_Msg)
 						}
 					}
-				} else if comparelist == nil {
+				} else {
 					log_record.Logrecord("Details", "no match indices")
 				}
 
@@ -279,7 +279,7 @@ func Action_controll() {
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Test Mode Details", individual_Msg)
+							log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							OpenIndices(index_onebyone)
 							indicesInfo := CatIndices_withPattern(index_onebyone)
@@ -287,10 +287,10 @@ func Action_controll() {
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							log_record.Logrecord("Details", individual_Msg)
+							log_record.ActionDetailrecord("Details", individual_Msg)
 						}
 					}
-				} else if comparelist == nil {
+				} else {
 					log_record.Logrecord("Details", "no match indices")
 				}
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
