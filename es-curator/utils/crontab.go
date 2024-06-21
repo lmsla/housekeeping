@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"es-curator/global"
 	"es-curator/job"
-	"es-curator/log_record"
+	// "es-curator/log_record"
 	"github.com/robfig/cron/v3"
 )
 
@@ -50,12 +50,14 @@ func LoadCrontab() {
 	//fmt.Print(global.EnvConfig.CRONTAB.Period,global.EnvConfig.INFLUX.URL)
 	if err != nil {
 		fmt.Println("crontab ES-curator 初始化失敗")
-		log_record.Logrecord("排程 ","ES-curator排程 初始化失敗")
-		fmt.Println(err.Error())
-		log_record.Logrecord("ERROR ",err.Error())
+		// log_record.Logrecord("排程 ","ES-curator排程 初始化失敗")
+		global.Logger.Error(err.Error(),"ES-curator排程 初始化失敗")
+		// fmt.Println(err.Error())
+		// log_record.Logrecord("ERROR ",err.Error())
 	} else {
 		fmt.Println("crontab ES-curator 初始化成功")
-		log_record.Logrecord("排程 ","ES-curator排程 初始化成功")
+		// log_record.Logrecord("排程 ","ES-curator排程 初始化成功")
+		global.Logger.Infow("ES-curator排程 初始化成功","type","排程")
 		c.Start()
 
 	}

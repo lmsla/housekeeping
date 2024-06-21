@@ -50,7 +50,7 @@ func loadSettingFile() {
 			viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 		} else {
 			// 有找到 config.yml 但是發生了其他未知的錯誤
-			panic(fmt.Errorf("Fatal error config file: %s \n", err))
+			panic(fmt.Errorf("fatal error config file: %s", err))
 		}
 	}
 }
@@ -63,11 +63,18 @@ func viperSettingToModel() {
 	config.ES.SourceAccount = viper.GetString("es.sourceAccount")
 	config.ES.SourcePassword = viper.GetString("es.sourcePassword")
 	//// INFORMATION
-	config.INFORMATION.LogPath = viper.GetString("information.logPath")
+	// config.INFORMATION.LogPath = viper.GetString("information.logPath")
 	config.INFORMATION.Period = viper.GetString("information.period")
 	config.INFORMATION.CaPath = viper.GetString("information.caPath")
 	config.INFORMATION.Execute_cron = viper.GetBool("information.execute_cron")
 	config.INFORMATION.Test_mode = viper.GetBool("information.test_mode")
+
+
+	config.Log.Path = viper.GetString("log.path")
+	config.Log.MaxSize = viper.GetInt("log.maxSize")
+	config.Log.MaxBackups = viper.GetInt("log.maxBackups")
+	config.Log.MaxAge = viper.GetInt("log.maxAge")
+	config.Log.Debug = viper.GetBool("log.debug")
 
 	global.EnvConfig = &config
 	// global.Action = &action

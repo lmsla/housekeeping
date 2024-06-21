@@ -4,12 +4,18 @@ import (
 	"es-curator/global"
 	"es-curator/job"
 	"es-curator/utils"
+	"es-curator/log_record"
 	"sync"
+	// "fmt"
 )
 
 func main() {
 	utils.LoadEnvironment()
 	job.SetElkClient()
+
+	////	init logger
+	log_record.InitLogger()
+	log_record.InitDetailLogger()
 
 	if global.EnvConfig.INFORMATION.Execute_cron {
 		utils.LoadCrontab()
@@ -23,16 +29,23 @@ func main() {
 
 }
 
+
+
+
+
 // func main1() {
+// 	fmt.Println("start")
 // 	utils.LoadEnvironment()
-// 	fmt.Println("L")
+	
 // 	fmt.Println(global.EnvConfig.ES.URL)
-// 	// job.SetElkClient()
+// 	job.SetElkClient()
 // 	// job.Allocation1([]string{"logstash-bimap-test01"})
-// 	// job.CatNodes()
+// 	// job.CatNodes1()
+// 	// job.Nodetest()
+// 	job.NodeRoleDetermination("w")
 // 	// job.CatIndices()
 // 	// Action_test()
-// 	// job.Nodetest()
+// 	job.CatShards()
 // 	// job.Test111()
 // 	// job.Allocation([]string{"logstash-bimap-test01"},"include","_tier_preference","data_hot")
 // 	// job.ListTest()

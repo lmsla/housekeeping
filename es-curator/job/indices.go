@@ -9,7 +9,7 @@ import (
 	// "net/http"
 	// "time"
 	// "crypto/tls"
-	"es-curator/log_record"
+	"es-curator/global"
 	"context"
 	"encoding/json"
 	"io"
@@ -86,7 +86,8 @@ func ClusterHealth() CatClusterHealth {
 
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","cluster health error" + err.Error())
+		// log_record.Logrecord("ERROR ","cluster health error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 	// fmt.Println(res)
@@ -105,6 +106,7 @@ func ClusterHealth() CatClusterHealth {
 func CatIndices() CatIndice {
 	req := esapi.CatIndicesRequest{
 		ExpandWildcards: "open,closed",
+		// ExpandWildcards: "hidden",
 		Format:          "json",
 		Bytes:           "kb",
 		H:               []string{"health", "status", "index", "uuid", "pri", "rep", "docs.count", "docs.deleted", "store.size", "pri.store.size", "creation.date"},
@@ -113,7 +115,8 @@ func CatIndices() CatIndice {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","cat index error" + err.Error())
+		// log_record.Logrecord("ERROR ","cat index error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 	// log.Println(res)
@@ -138,7 +141,8 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","cat index error" + err.Error())
+		// log_record.Logrecord("ERROR ","cat index error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 	// log.Println(res)
@@ -159,7 +163,8 @@ func OpenIndices(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","open index error" + err.Error())
+		// log_record.Logrecord("ERROR ","open index error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 
@@ -173,7 +178,8 @@ func CloseIndices(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","close index error" + err.Error())
+		// log_record.Logrecord("ERROR ","close index error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 
@@ -187,7 +193,8 @@ func CreateIndex() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","create index error" + err.Error())
+		// log_record.Logrecord("ERROR ","create index error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 	defer res.Body.Close()
@@ -201,7 +208,8 @@ func DeleteIndex(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","delete index error" + err.Error())
+		// log_record.Logrecord("ERROR ","delete index error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 	defer res.Body.Close()
@@ -216,7 +224,8 @@ func IndicesStatus() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","cat index status error" + err.Error())
+		// log_record.Logrecord("ERROR ","cat index status error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 
@@ -234,7 +243,8 @@ func ForceMerge(Index []string, MaxNumSegments int) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","forcemerge error" + err.Error())
+		// log_record.Logrecord("ERROR ","forcemerge error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 
@@ -252,7 +262,8 @@ func Allocation(Index []string, AllocationType string, key string, value string)
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		log_record.Logrecord("ERROR ","allocation error" + err.Error())
+		// log_record.Logrecord("ERROR ","allocation error" + err.Error())
+		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 

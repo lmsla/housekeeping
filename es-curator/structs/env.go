@@ -1,10 +1,33 @@
 package structs
 
 type EnviromentModel struct {
-	ES              es
-	LIST            list
-	NotifyIndexName string
-	INFORMATION     information
+	ES es
+	// LIST            list
+	// NotifyIndexName string
+	INFORMATION information
+	Log         log
+}
+
+type information struct {
+	CaPath       string
+	LogPath      string
+	Period       string
+	Execute_cron bool
+	Test_mode    bool
+}
+
+type es struct {
+	URL            []string
+	SourceAccount  string
+	SourcePassword string
+}
+
+type log struct {
+	Path       string
+	MaxSize    int
+	MaxBackups int
+	MaxAge     int
+	Debug      bool
 }
 
 type ActionStruct struct {
@@ -48,49 +71,35 @@ type Option struct {
 	TimeoutOverride   int    `yaml:"TimeoutOverride"`
 }
 
-type delete_indices struct {
-	Action  string
-	Filters filters
-}
+// type delete_indices struct {
+// 	Action  string
+// 	Filters filters
+// }
 
-type filters struct {
-	Type_age     type_age
-	Type_pattern type_pattern
-}
+// type filters struct {
+// 	Type_age     type_age
+// 	Type_pattern type_pattern
+// }
 
-type type_age struct {
-	Source     string
-	Direction  string
-	Timestring string
-	Unit       string
-	Unit_count int
-}
+// type type_age struct {
+// 	Source     string
+// 	Direction  string
+// 	Timestring string
+// 	Unit       string
+// 	Unit_count int
+// }
 
-type type_pattern struct {
-	Kind    string
-	Value   interface{}
-	Exclude bool
-}
+// type type_pattern struct {
+// 	Kind    string
+// 	Value   interface{}
+// 	Exclude bool
+// }
 
-type value struct {
-	value []string `yaml:"value,omitempty"`
-}
+// type value struct {
+// 	value []string `yaml:"value,omitempty"`
+// }
 
-type information struct {
-	CaPath       string
-	LogPath      string
-	Period       string
-	Execute_cron bool
-	Test_mode    bool
-}
-
-type es struct {
-	URL            []string
-	SourceAccount  string
-	SourcePassword string
-}
-
-type list struct {
-	Iplist    string
-	Totallist string
-}
+// type list struct {
+// Iplist    string
+// Totallist string
+// }

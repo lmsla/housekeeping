@@ -1,0 +1,3 @@
+{"level":"INFO","timestamp":"2024-06-21T17:55:15.387+0800","msg":"This is an error message","mode":"test_mode"}
+{"level":"INFO","timestamp":"2024-06-21T17:55:15.535+0800","msg":"[logstash-l7_network-20240515] has already allocated ,Pri: 1,Rep: 0,DocCount: 24049, DocDelete: 0,StoreSize: 25209,PriStoreSize: 25209,CreationDate: 2024-05-15 17:44:33","mode":"Test_mode"}
+{"level":"INFO","timestamp":"2024-06-21T17:57:56.187+0800","msg":"[logstash-l7_network-20240515] has already allocated ,Pri: 1,Rep: 0,DocCount: 24049, DocDelete: 0,StoreSize: 25209,PriStoreSize: 25209,CreationDate: 2024-05-15 17:44:33","mode":"execution_mode"}
