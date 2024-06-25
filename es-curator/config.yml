@@ -43,12 +43,12 @@ actions:
     options:
       disable_action: false
       key: _tier_preference
-      value: data_hot
+      value: data_cold
       allocation_type: include
       delay: 20
     filters:
     - filtertype: node_role
-      value: c
+      value: h
     - filtertype: pattern
       kind: prefix
       value: logstash-
