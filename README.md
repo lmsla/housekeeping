@@ -15,15 +15,28 @@ config.yml 控制要執行的 Actions。
 
 ```
 es:
-  url: https://10.99.1.64:9200
+  url: 
+    - https://10.99.1.206:9200
+    # - https://10.50.70.12:9200
   sourceAccount: "elastic"
   sourcePassword: "a12345678"
+  # url: https://10.99.1.64:9200
+  # sourceAccount: "elastic"
+  # sourcePassword: "a12345678"
 
 information:
-  test_mode: true
-  logPath: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
-  execute_cron : false
+  test_mode: false
   period: "59 11 * * *"
+  execute_cron : false
+  # logPath: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
+
+
+log:
+  path: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
+  maxSize: 10
+  maxBackups: 0
+  maxAge: 0
+  debug: false
 ```
 
 ## es
@@ -41,15 +54,35 @@ es 的密碼</br>
 ```test_mode``` </br>
 是否在測試模式下執行，執行後只會在 log 中 print 出每個 action 條件設定下匹配到的 index，不會實際執行action，可接受的值為 true or false。
 
-```logPath``` </br>
-log 存放的路徑，注意最後不要加／
-會按執行的日期產生如 housekeeping_20230605.log 的紀錄檔。
-
 ```execute_cron``` </br>
 是否使用排程定時執行，可接受的值為 false or false，若為 true 則下一個參數 ```period``` 須加入排程時間，若為 false 則是單次執行。
 
 ```period``` </br>
 crontab的執行時間，與```execute_cron ```搭配使用。
+
+## log
+
+```path``` </br>
+log 存放的路徑，注意最後不要加／
+會按執行的日期產生如 housekeeping_202306.log 的紀錄檔。
+
+```maxSize``` </br>
+單個 log 檔最大儲存容量，超過此容量則自動壓縮為備份檔，單位為 mb
+
+```maxBackups``` </br>
+最多儲存幾個 log 備份檔
+
+```maxAge``` </br>
+備份檔最多保留天數，單位為天數
+
+```debug``` </br>
+控制是否以 debug 模式產出 Log ，type = bool ，接受的值為 true or false
+
+```
+*註：maxBackups = 0 & maxAge = 0 ，則 log 檔只會在滿足 maxSize 時自動壓縮，不會刪除備份檔。
+
+```
+
 
 # config.yml 參數說明
  
@@ -121,6 +154,9 @@ ex. 1,2,3，forcemerge 後 index 的 segment 數量。
 ## Filter types
 四個過濾條件，可混用，或單獨使用。
 
+與 node role 相關：
+
+- `node_role`
 
 與 index 產生時間相關：
 
@@ -156,16 +192,25 @@ ex. 1,2,3，forcemerge 後 index 的 segment 數量。
 - `upper_limit`
 - `lower_limit`
 
-
-### age
----
+## node_role
 
 
-##### source
+#### value
+
+以 node role 作為篩選條件，可用的值為 h (hot data node) 、w (warm data node)、c (cold data node)
+
+- h
+- w
+- c
+
+## age
+
+
+#### source
 
 - creation_date
 
-##### direction
+#### direction
 - older
 - younger
 
@@ -179,35 +224,35 @@ ex. 1,2,3，forcemerge 後 index 的 segment 數量。
 
 例： 當前時間為2023/01/16，unit : days ; unit_count : 5 ; direction : older ，篩選結果為2023/01/11 之前的產生的所有 index。
 
-##### unit
+#### unit
 - years
 - months
 - days
 
-##### unit_count
+#### unit_count
 - 任一正整數 ex. 1、2、5、10....
 
-##### range_from 
+#### range_from 
 - 任一正整數 ex. 1、2、5、10....
 
-##### range_to
+#### range_to
 - 任一正整數 ex. 1、2、5、10....
 
-### pattern
----
+## pattern
+
 以 index 名稱做匹配條件，可前匹配 (prefix) 、後匹配 (suffix)、及正則匹配 (regex)，value 中輸入的是匹配字樣，例如 kind : prefix ; value : logstash-asa 會匹配到所有 logstash-asa 開頭的 index。
 
-##### kind
+#### kind
 - prefix
 - suffix
 - regex
 
-##### value
+#### value
 匹配字樣</br>
 ex. logstash-ap , ap
 
-### space
----
+## space
+
 計算 index 所佔空間，由最新的 index 開始算，超過設定的閥值 disk_space ，篩選出較舊的 index，新舊判定依據為 index 產生時間。
 
 例，有五個 index ，舊到新的順序分別為 01~05 ，disk_space : 20 ，index-05、index-04 加起來共 20 GB，超過的部分 index-03、index-02、index-01，會被篩選出來。
@@ -231,19 +276,19 @@ index-05 10GB
 
 ```
 
-##### disk_space
+#### disk_space
 - 任一正整數，單位 GB，例如 10 代表 10 GB 。
 
-### water_level
----
+## water_level
+
 disk 水位控管，統計目前 cluster 中所有 nodes 的 disk 使用率取平均值，如果超過 `upper_limit` (上限值百分比)，
 則觸發篩選機制 - 由舊到新加總 index 所佔容量直到約等於 `upper_limit` 與 `lower_limit` 百分比差值佔 cluster disk 總量。
 
-##### upper_limit
+#### upper_limit
 
 - 任一正整數，單位 %，例如 50 代表上限 50% 。
 
-##### lower_limit
+#### lower_limit
 
 - 任一正整數，單位 %，例如 40 代表下限 40% 。
 
