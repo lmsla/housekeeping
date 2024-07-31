@@ -8,6 +8,7 @@ import (
 	"reflect"
 	"sort"
 	"time"
+	"strconv"
 )
 
 func Indicesmapping3(list1 []string, list2 []string, list3 []string) []string {
@@ -251,7 +252,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 
 func Filters_With_node(role []string, filter_record []string, FilterList []structs.Filter) []string {
 	// var agelist, patternlist, spacelist, water_level_list, patternListPre, compareList, role []string
-	var agelist, patternlist, patternListPre, spacelist, water_level_list, compareList []string
+	var agelist, patternlist_tmp,patternlist, patternListPre, spacelist_tmp,spacelist, water_level_list, compareList []string
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "pattern" {
@@ -260,15 +261,13 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 			}
 		}
 	}
-	fmt.Println("patternListPre", patternListPre)
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "node_role" {
 			role = FilterList[filtertype].Value
 		}
 	}
-
-	fmt.Println("filter_record", filter_record)
+	fmt.Println("filter_record: ", filter_record)
 
 	if containsBothParams(filter_record, "age", "space") {
 		// log_record.Logrecord("ERROR", "Can't use age & space at the same time")
@@ -290,9 +289,11 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 				} else if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction == "range" {
 					agelist = FilterType_age_range_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Range_From, FilterList[filtertype].Range_To)
 				} else if FilterList[filtertype].Filtertype == "pattern" {
-					patternlist = FilterType_pattern_role(nodeName, FilterList[filtertype].Kind, FilterList[filtertype].Value)
+					patternlist_tmp = FilterType_pattern_role(nodeName, FilterList[filtertype].Kind, FilterList[filtertype].Value)
+					patternlist = append(patternlist,patternlist_tmp... )
 				} else if FilterList[filtertype].Filtertype == "space" {
-					spacelist = FilterType_space_role(nodeName, patternListPre, FilterList[filtertype].Disk_space)
+					spacelist_tmp = FilterType_space_role(nodeName, patternListPre, FilterList[filtertype].Disk_space)
+					spacelist = append(spacelist, spacelist_tmp...)
 				} else if FilterList[filtertype].Filtertype == "water_level" {
 					water_level_list = FilterType_waterLevel_role(nodeName, patternListPre, FilterList[filtertype].Upper_limit, FilterList[filtertype].Lower_limit)
 				}
@@ -392,7 +393,7 @@ func Filter_of_filter_bak(filter_record, agelist, patternlist, spacelist []strin
 	sort.Strings(filter_record)
 
 	// fmt.Println("sp:",sp)
-	fmt.Println("filter_record: ", filter_record)
+	// fmt.Println("filter_record: ", filter_record)
 
 	switch {
 	case reflect.DeepEqual(filter_record, aps):
@@ -437,32 +438,26 @@ func RemoveDuplicates(arr []string) []string {
 	return result
 }
 
-func MatchIndexBetweenNodeNCluster(indicesinfo CatIndice, nodeName string) CatIndice {
-	var indexlist []string
+func MatchIndexBetweenNodeNCluster(indicesinfo CatIndice, nodeName string) map[string]IndicesInfo {
 
 	//// 取得每一個 node 存放的 shards
 	shardsinfo := CatShardsbyNodeName(nodeName)
-	// fmt.Println("shardsinfo", shardsinfo)
-	for _, data := range shardsinfo {
-		indexlist = append(indexlist, data.Index)
-	}
-	// fmt.Println("indexlist", indexlist)
-	///// 去除 indexlist 中重複的
-	index_no_du := RemoveDuplicates(indexlist)
 
-	// fmt.Println("index_no_du", index_no_du)
+	match := make(map[string]IndicesInfo)
+	for _, indices := range indicesinfo {
 
-	var match CatIndice
-	//// Index 過篩 node & All
-	for _, indice := range indicesinfo {
-		for _, data := range index_no_du {
-			if indice.Index == data {
-				match = append(match, indice)
+		for i, data := range shardsinfo {
+
+			if indices.Index == data.Index {
+				match[strconv.Itoa(i)] = IndicesInfo{
+					Index:        data.Index,
+					DocsCount:    data.Docs,
+					StoreSize:    data.Store,
+					CreationDate: indices.CreationDate,
+					Shard:        data.Shard,
+				}
 			}
-
 		}
-
 	}
-
 	return match
 }

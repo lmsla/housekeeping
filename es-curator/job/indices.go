@@ -9,9 +9,9 @@ import (
 	// "net/http"
 	// "time"
 	// "crypto/tls"
-	"es-curator/global"
 	"context"
 	"encoding/json"
+	"es-curator/global"
 	"io"
 )
 
@@ -61,6 +61,22 @@ type CatIndice []struct {
 	// CreationDate	time.Time
 }
 
+type IndicesInfo struct {
+	Health       string `json:"health"`
+	Status       string `json:"status"`
+	Index        string `json:"index"`
+	UUID         string `json:"uuid"`
+	Pri          string `json:"pri"`
+	Rep          string `json:"rep"`
+	DocsCount    string `json:"docs.count"`
+	DocsDeleted  string `json:"docs.deleted"`
+	StoreSize    string `json:"store.size"`
+	PriStoreSize string `json:"pri.store.size"`
+	CreationDate string `json:"creation.date"`
+	Shard        string `json:"shard"`
+	// CreationDate	time.Time
+}
+
 type CatClusterHealth struct {
 	ClusterName                 string  `json:"cluster_name"`
 	Status                      string  `json:"status"`
@@ -107,11 +123,11 @@ func CatIndices() CatIndice {
 	req := esapi.CatIndicesRequest{
 		ExpandWildcards: "open,closed",
 		// ExpandWildcards: "hidden",
-		Format:          "json",
-		Bytes:           "kb",
-		H:               []string{"health", "status", "index", "uuid", "pri", "rep", "docs.count", "docs.deleted", "store.size", "pri.store.size", "creation.date"},
-		V:               newTrue(),
-		Pretty:          true,
+		Format: "json",
+		Bytes:  "kb",
+		H:      []string{"health", "status", "index", "uuid", "pri", "rep", "docs.count", "docs.deleted", "store.size", "pri.store.size", "creation.date"},
+		V:      newTrue(),
+		Pretty: true,
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
@@ -128,10 +144,9 @@ func CatIndices() CatIndice {
 	return s
 }
 
-
 func CatIndices_withPattern(index_list []string) CatIndice {
 	req := esapi.CatIndicesRequest{
-		Index: index_list,
+		Index:           index_list,
 		ExpandWildcards: "open",
 		Format:          "json",
 		Bytes:           "kb",
@@ -153,7 +168,6 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 	// fmt.Println(string(resString))
 	return s
 }
-
 
 // ---------- open,close,delete,forcemerge ---------- //
 

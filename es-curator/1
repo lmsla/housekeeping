@@ -1,0 +1,208 @@
+ok
+/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log
+filter_record:  [node_role pattern space]
+[{172.22.0.3 hms es01 46.9gb 50.49 5.2d 8.13.4} {172.22.0.4 mw es02 46.9gb 50.49 5.2d 8.13.4} {172.22.0.8 mw es06 46.9gb 50.49 5.2d 8.13.4} {172.22.0.7 mw es05 46.9gb 50.49 5.2d 8.13.4} {172.22.0.5 cm es03 46.9gb 50.49 5.2d 8.13.4} {172.22.0.6 hms es04 46.9gb 50.49 5.2d 8.13.4}]
+nodeSelected [{logstash-l7_network2-20240731 0 r STARTED 172.22.0.4 es02 116061 132540 } {logstash-l7_network2-20240731 2 r STARTED 172.22.0.4 es02 109594 133573 } {logstash-l7_network5-20240731 0 p STARTED 172.22.0.4 es02 17205 16221 } {logstash-l7_network5-20240731 2 p STARTED 172.22.0.4 es02 16845 15941 } {logstash-l7_network1-20240731 0 p STARTED 172.22.0.4 es02 34918 32037 } {logstash-l7_network1-20240731 1 p STARTED 172.22.0.4 es02 26494 32064 } {logstash-l7_network5-20240729 0 r STARTED 172.22.0.4 es02 866646 1274597 }]
+
+
+nodeName  es02
+node_role filter indiceinfo  [{green open logstash-l7_network3-20240731 OvOsjRetQpCT-9i9If4czA 3 1 1322695 0 1937929 976733 1722412810772} {green open logstash-l7_network1-20240731 cfRkx--gQV-EWO4OiuFpeQ 3 1 96196 0 194227 97113 1722411383772} {green open logstash-l7_network4-20240731 F1jtfaJjRoy9hC-j4wDk6A 3 1 24049 0 56701 28988 1722415340711} {green open logstash-l7_network5-20240729 kM3S4kV4R4C3nC292GWXww 1 1 1274597 0 1733293 866646 1722224170526} {green open logstash-l7_network2-20240731 16nRLx_hSlakXxgZ8Wl1aA 3 1 399723 0 687405 343702 1722412034055} {green open logstash-l7_network5-20240731 tsN--cv_RoK1XQsDdNWNRw 3 1 48098 0 102692 51346 1722409447437}]
+nodeSelected [{logstash-l7_network2-20240731 0 r STARTED 172.22.0.4 es02 116061 132540 } {logstash-l7_network2-20240731 2 r STARTED 172.22.0.4 es02 109594 133573 } {logstash-l7_network5-20240731 0 p STARTED 172.22.0.4 es02 17205 16221 } {logstash-l7_network5-20240731 2 p STARTED 172.22.0.4 es02 16845 15941 } {logstash-l7_network1-20240731 0 p STARTED 172.22.0.4 es02 34918 32037 } {logstash-l7_network1-20240731 1 p STARTED 172.22.0.4 es02 26494 32064 } {logstash-l7_network5-20240729 0 r STARTED 172.22.0.4 es02 866646 1274597 }]
+ALLLL Matchhhhhhhhhh map[0:{  logstash-l7_network2-20240731    132540  116061  1722412034055 0} 1:{  logstash-l7_network2-20240731    133573  109594  1722412034055 2} 2:{  logstash-l7_network5-20240731    16221  17205  1722409447437 0} 3:{  logstash-l7_network5-20240731    15941  16845  1722409447437 2} 4:{  logstash-l7_network1-20240731    32037  34918  1722411383772 0} 5:{  logstash-l7_network1-20240731    32064  26494  1722411383772 1} 6:{  logstash-l7_network5-20240729    1274597  866646  1722224170526 0}]
+ALLLL Matchhhhhhhhhh end
+i:  6 data+i:  logstash-l7_network5-202407296
+logstash-l7_network5-20240729 size: 866646 date: 1722224170526
+i:  0 data+i:  logstash-l7_network2-202407310
+logstash-l7_network2-20240731 size: 116061 date: 1722412034055
+i:  1 data+i:  logstash-l7_network2-202407311
+logstash-l7_network2-20240731 size: 109594 date: 1722412034055
+i:  2 data+i:  logstash-l7_network5-202407312
+logstash-l7_network5-20240731 size: 17205 date: 1722409447437
+i:  3 data+i:  logstash-l7_network5-202407313
+logstash-l7_network5-20240731 size: 16845 date: 1722409447437
+i:  4 data+i:  logstash-l7_network1-202407314
+logstash-l7_network1-20240731 size: 34918 date: 1722411383772
+i:  5 data+i:  logstash-l7_network1-202407315
+logstash-l7_network1-20240731 size: 26494 date: 1722411383772
+indexSizemap map[logstash-l7_network1-202407314:34918 logstash-l7_network1-202407315:26494 logstash-l7_network2-202407310:116061 logstash-l7_network2-202407311:109594 logstash-l7_network5-202407296:866646 logstash-l7_network5-202407312:17205 logstash-l7_network5-202407313:16845]
+creationdate_NameMap map[17222241705260:logstash-l7_network5-202407296 17224094474370:logstash-l7_network5-202407312 17224094474372:logstash-l7_network5-202407313 17224113837720:logstash-l7_network1-202407314 17224113837721:logstash-l7_network1-202407315 17224120340550:logstash-l7_network2-202407310 17224120340552:logstash-l7_network2-202407311]
+creationDateSlice [17222241705260 17224120340550 17224120340552 17224094474370 17224094474372 17224113837720 17224113837721]
+indexSortbycreation: [logstash-l7_network5-202407296 logstash-l7_network5-202407312 logstash-l7_network5-202407313 logstash-l7_network1-202407314 logstash-l7_network1-202407315 logstash-l7_network2-202407310 logstash-l7_network2-202407311]
+asc: [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313 logstash-l7_network5-202407312 logstash-l7_network5-202407296]
+bytes 0
+indexSortbycreationAsc[bytes]logstash-l7_network2-202407311
+indexSizemap[indexSortbycreationAsc[bytes]]109594
+total_in 109594
+aggregate_bytes [logstash-l7_network2-202407311]
+bytes 1
+indexSortbycreationAsc[bytes]logstash-l7_network2-202407310
+indexSizemap[indexSortbycreationAsc[bytes]]116061
+total_in 225655
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310]
+bytes 2
+indexSortbycreationAsc[bytes]logstash-l7_network1-202407315
+indexSizemap[indexSortbycreationAsc[bytes]]26494
+total_in 252149
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315]
+bytes 3
+indexSortbycreationAsc[bytes]logstash-l7_network1-202407314
+indexSizemap[indexSortbycreationAsc[bytes]]34918
+total_in 287067
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314]
+bytes 4
+indexSortbycreationAsc[bytes]logstash-l7_network5-202407313
+indexSizemap[indexSortbycreationAsc[bytes]]16845
+total_in 303912
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313]
+bytes 5
+indexSortbycreationAsc[bytes]logstash-l7_network5-202407312
+indexSizemap[indexSortbycreationAsc[bytes]]17205
+total_in 321117
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313 logstash-l7_network5-202407312]
+bytes 6
+indexSortbycreationAsc[bytes]logstash-l7_network5-202407296
+indexSizemap[indexSortbycreationAsc[bytes]]866646
+total_in 1187763
+removed:  [logstash-l7_network5-202407296]
+finalIndexList:  [logstash-l7_network5-20240729]
+nodeSelected [{logstash-l7_network2-20240731 1 p STARTED 172.22.0.8 es06 118047 133610 } {logstash-l7_network2-20240731 2 p STARTED 172.22.0.8 es06 109594 133573 } {logstash-l7_network5-20240731 0 r STARTED 172.22.0.8 es06 17205 16221 } {logstash-l7_network5-20240731 1 r STARTED 172.22.0.8 es06 17295 15936 } {logstash-l7_network1-20240731 1 r STARTED 172.22.0.8 es06 26494 32064 } {logstash-l7_network1-20240731 2 p STARTED 172.22.0.8 es06 35700 32095 } {logstash-l7_network5-20240729 0 p STARTED 172.22.0.8 es06 866646 1274597 }]
+
+
+nodeName  es06
+node_role filter indiceinfo  [{green open logstash-l7_network3-20240731 OvOsjRetQpCT-9i9If4czA 3 1 1322695 0 1937929 976733 1722412810772} {green open logstash-l7_network1-20240731 cfRkx--gQV-EWO4OiuFpeQ 3 1 96196 0 194227 97113 1722411383772} {green open logstash-l7_network4-20240731 F1jtfaJjRoy9hC-j4wDk6A 3 1 24049 0 56701 28988 1722415340711} {green open logstash-l7_network5-20240729 kM3S4kV4R4C3nC292GWXww 1 1 1274597 0 1733293 866646 1722224170526} {green open logstash-l7_network2-20240731 16nRLx_hSlakXxgZ8Wl1aA 3 1 399723 0 687405 343702 1722412034055} {green open logstash-l7_network5-20240731 tsN--cv_RoK1XQsDdNWNRw 3 1 48098 0 102692 51346 1722409447437}]
+nodeSelected [{logstash-l7_network2-20240731 1 p STARTED 172.22.0.8 es06 118047 133610 } {logstash-l7_network2-20240731 2 p STARTED 172.22.0.8 es06 109594 133573 } {logstash-l7_network5-20240731 0 r STARTED 172.22.0.8 es06 17205 16221 } {logstash-l7_network5-20240731 1 r STARTED 172.22.0.8 es06 17295 15936 } {logstash-l7_network1-20240731 1 r STARTED 172.22.0.8 es06 26494 32064 } {logstash-l7_network1-20240731 2 p STARTED 172.22.0.8 es06 35700 32095 } {logstash-l7_network5-20240729 0 p STARTED 172.22.0.8 es06 866646 1274597 }]
+ALLLL Matchhhhhhhhhh map[0:{  logstash-l7_network2-20240731    133610  118047  1722412034055 1} 1:{  logstash-l7_network2-20240731    133573  109594  1722412034055 2} 2:{  logstash-l7_network5-20240731    16221  17205  1722409447437 0} 3:{  logstash-l7_network5-20240731    15936  17295  1722409447437 1} 4:{  logstash-l7_network1-20240731    32064  26494  1722411383772 1} 5:{  logstash-l7_network1-20240731    32095  35700  1722411383772 2} 6:{  logstash-l7_network5-20240729    1274597  866646  1722224170526 0}]
+ALLLL Matchhhhhhhhhh end
+i:  6 data+i:  logstash-l7_network5-202407296
+logstash-l7_network5-20240729 size: 866646 date: 1722224170526
+i:  0 data+i:  logstash-l7_network2-202407310
+logstash-l7_network2-20240731 size: 118047 date: 1722412034055
+i:  1 data+i:  logstash-l7_network2-202407311
+logstash-l7_network2-20240731 size: 109594 date: 1722412034055
+i:  2 data+i:  logstash-l7_network5-202407312
+logstash-l7_network5-20240731 size: 17205 date: 1722409447437
+i:  3 data+i:  logstash-l7_network5-202407313
+logstash-l7_network5-20240731 size: 17295 date: 1722409447437
+i:  4 data+i:  logstash-l7_network1-202407314
+logstash-l7_network1-20240731 size: 26494 date: 1722411383772
+i:  5 data+i:  logstash-l7_network1-202407315
+logstash-l7_network1-20240731 size: 35700 date: 1722411383772
+indexSizemap map[logstash-l7_network1-202407314:26494 logstash-l7_network1-202407315:35700 logstash-l7_network2-202407310:118047 logstash-l7_network2-202407311:109594 logstash-l7_network5-202407296:866646 logstash-l7_network5-202407312:17205 logstash-l7_network5-202407313:17295]
+creationdate_NameMap map[17222241705260:logstash-l7_network5-202407296 17224094474370:logstash-l7_network5-202407312 17224094474371:logstash-l7_network5-202407313 17224113837721:logstash-l7_network1-202407314 17224113837722:logstash-l7_network1-202407315 17224120340551:logstash-l7_network2-202407310 17224120340552:logstash-l7_network2-202407311]
+creationDateSlice [17222241705260 17224120340551 17224120340552 17224094474370 17224094474371 17224113837721 17224113837722]
+indexSortbycreation: [logstash-l7_network5-202407296 logstash-l7_network5-202407312 logstash-l7_network5-202407313 logstash-l7_network1-202407314 logstash-l7_network1-202407315 logstash-l7_network2-202407310 logstash-l7_network2-202407311]
+asc: [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313 logstash-l7_network5-202407312 logstash-l7_network5-202407296]
+bytes 0
+indexSortbycreationAsc[bytes]logstash-l7_network2-202407311
+indexSizemap[indexSortbycreationAsc[bytes]]109594
+total_in 109594
+aggregate_bytes [logstash-l7_network2-202407311]
+bytes 1
+indexSortbycreationAsc[bytes]logstash-l7_network2-202407310
+indexSizemap[indexSortbycreationAsc[bytes]]118047
+total_in 227641
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310]
+bytes 2
+indexSortbycreationAsc[bytes]logstash-l7_network1-202407315
+indexSizemap[indexSortbycreationAsc[bytes]]35700
+total_in 263341
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315]
+bytes 3
+indexSortbycreationAsc[bytes]logstash-l7_network1-202407314
+indexSizemap[indexSortbycreationAsc[bytes]]26494
+total_in 289835
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314]
+bytes 4
+indexSortbycreationAsc[bytes]logstash-l7_network5-202407313
+indexSizemap[indexSortbycreationAsc[bytes]]17295
+total_in 307130
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313]
+bytes 5
+indexSortbycreationAsc[bytes]logstash-l7_network5-202407312
+indexSizemap[indexSortbycreationAsc[bytes]]17205
+total_in 324335
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313 logstash-l7_network5-202407312]
+bytes 6
+indexSortbycreationAsc[bytes]logstash-l7_network5-202407296
+indexSizemap[indexSortbycreationAsc[bytes]]866646
+total_in 1190981
+removed:  [logstash-l7_network5-202407296]
+finalIndexList:  [logstash-l7_network5-20240729]
+nodeSelected [{logstash-l7_network2-20240731 0 p STARTED 172.22.0.7 es05 116061 132540 } {logstash-l7_network2-20240731 1 r STARTED 172.22.0.7 es05 118047 133610 } {logstash-l7_network5-20240731 1 p STARTED 172.22.0.7 es05 17295 15936 } {logstash-l7_network5-20240731 2 r STARTED 172.22.0.7 es05 16845 15941 } {logstash-l7_network1-20240731 0 r STARTED 172.22.0.7 es05 34918 32037 } {logstash-l7_network1-20240731 2 r STARTED 172.22.0.7 es05 35700 32095 }]
+
+
+nodeName  es05
+node_role filter indiceinfo  [{green open logstash-l7_network3-20240731 OvOsjRetQpCT-9i9If4czA 3 1 1322695 0 1937929 976733 1722412810772} {green open logstash-l7_network1-20240731 cfRkx--gQV-EWO4OiuFpeQ 3 1 96196 0 194227 97113 1722411383772} {green open logstash-l7_network4-20240731 F1jtfaJjRoy9hC-j4wDk6A 3 1 24049 0 56701 28988 1722415340711} {green open logstash-l7_network5-20240729 kM3S4kV4R4C3nC292GWXww 1 1 1274597 0 1733293 866646 1722224170526} {green open logstash-l7_network2-20240731 16nRLx_hSlakXxgZ8Wl1aA 3 1 399723 0 687405 343702 1722412034055} {green open logstash-l7_network5-20240731 tsN--cv_RoK1XQsDdNWNRw 3 1 48098 0 102692 51346 1722409447437}]
+nodeSelected [{logstash-l7_network2-20240731 0 p STARTED 172.22.0.7 es05 116061 132540 } {logstash-l7_network2-20240731 1 r STARTED 172.22.0.7 es05 118047 133610 } {logstash-l7_network5-20240731 1 p STARTED 172.22.0.7 es05 17295 15936 } {logstash-l7_network5-20240731 2 r STARTED 172.22.0.7 es05 16845 15941 } {logstash-l7_network1-20240731 0 r STARTED 172.22.0.7 es05 34918 32037 } {logstash-l7_network1-20240731 2 r STARTED 172.22.0.7 es05 35700 32095 }]
+ALLLL Matchhhhhhhhhh map[0:{  logstash-l7_network2-20240731    132540  116061  1722412034055 0} 1:{  logstash-l7_network2-20240731    133610  118047  1722412034055 1} 2:{  logstash-l7_network5-20240731    15936  17295  1722409447437 1} 3:{  logstash-l7_network5-20240731    15941  16845  1722409447437 2} 4:{  logstash-l7_network1-20240731    32037  34918  1722411383772 0} 5:{  logstash-l7_network1-20240731    32095  35700  1722411383772 2}]
+ALLLL Matchhhhhhhhhh end
+i:  3 data+i:  logstash-l7_network5-202407313
+logstash-l7_network5-20240731 size: 16845 date: 1722409447437
+i:  4 data+i:  logstash-l7_network1-202407314
+logstash-l7_network1-20240731 size: 34918 date: 1722411383772
+i:  5 data+i:  logstash-l7_network1-202407315
+logstash-l7_network1-20240731 size: 35700 date: 1722411383772
+i:  0 data+i:  logstash-l7_network2-202407310
+logstash-l7_network2-20240731 size: 116061 date: 1722412034055
+i:  1 data+i:  logstash-l7_network2-202407311
+logstash-l7_network2-20240731 size: 118047 date: 1722412034055
+i:  2 data+i:  logstash-l7_network5-202407312
+logstash-l7_network5-20240731 size: 17295 date: 1722409447437
+indexSizemap map[logstash-l7_network1-202407314:34918 logstash-l7_network1-202407315:35700 logstash-l7_network2-202407310:116061 logstash-l7_network2-202407311:118047 logstash-l7_network5-202407312:17295 logstash-l7_network5-202407313:16845]
+creationdate_NameMap map[17224094474371:logstash-l7_network5-202407312 17224094474372:logstash-l7_network5-202407313 17224113837720:logstash-l7_network1-202407314 17224113837722:logstash-l7_network1-202407315 17224120340550:logstash-l7_network2-202407310 17224120340551:logstash-l7_network2-202407311]
+creationDateSlice [17224094474372 17224113837720 17224113837722 17224120340550 17224120340551 17224094474371]
+indexSortbycreation: [logstash-l7_network5-202407312 logstash-l7_network5-202407313 logstash-l7_network1-202407314 logstash-l7_network1-202407315 logstash-l7_network2-202407310 logstash-l7_network2-202407311]
+asc: [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313 logstash-l7_network5-202407312]
+bytes 0
+indexSortbycreationAsc[bytes]logstash-l7_network2-202407311
+indexSizemap[indexSortbycreationAsc[bytes]]118047
+total_in 118047
+aggregate_bytes [logstash-l7_network2-202407311]
+bytes 1
+indexSortbycreationAsc[bytes]logstash-l7_network2-202407310
+indexSizemap[indexSortbycreationAsc[bytes]]116061
+total_in 234108
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310]
+bytes 2
+indexSortbycreationAsc[bytes]logstash-l7_network1-202407315
+indexSizemap[indexSortbycreationAsc[bytes]]35700
+total_in 269808
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315]
+bytes 3
+indexSortbycreationAsc[bytes]logstash-l7_network1-202407314
+indexSizemap[indexSortbycreationAsc[bytes]]34918
+total_in 304726
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314]
+bytes 4
+indexSortbycreationAsc[bytes]logstash-l7_network5-202407313
+indexSizemap[indexSortbycreationAsc[bytes]]16845
+total_in 321571
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313]
+bytes 5
+indexSortbycreationAsc[bytes]logstash-l7_network5-202407312
+indexSizemap[indexSortbycreationAsc[bytes]]17295
+total_in 338866
+aggregate_bytes [logstash-l7_network2-202407311 logstash-l7_network2-202407310 logstash-l7_network1-202407315 logstash-l7_network1-202407314 logstash-l7_network5-202407313 logstash-l7_network5-202407312]
+removed:  []
+finalIndexList:  []
+agelist []
+0
+patternlist [logstash-l7_network2-20240731 logstash-l7_network5-20240731 logstash-l7_network1-20240731 logstash-l7_network5-20240729 logstash-l7_network1-20240731 logstash-l7_network5-20240729 logstash-l7_network2-20240731 logstash-l7_network5-20240731 logstash-l7_network2-20240731 logstash-l7_network5-20240731 logstash-l7_network1-20240731]
+11
+spacelist [logstash-l7_network5-20240729 logstash-l7_network5-20240729]
+2
+water_level_list []
+0
+filter_of_filter's compare:  [logstash-l7_network5-20240729 logstash-l7_network5-20240729 logstash-l7_network5-20240729 logstash-l7_network5-20240729]
+include _tier_preference
+relocating_shards : not finished
+relocating_shards : not finished
+relocating_shards : not finished
+relocating_shards : not finished
+relocating_shards : not finished
+relocating_shards : not finished
+relocating_shards : not finished
+relocating_shards : not finished
+relocating_shards : not finished
+relocating_shards : 0
+check finish1

@@ -187,8 +187,8 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 	} else {
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
-	fmt.Println("patternlist", patternlist)
-	fmt.Println(indicesinfo)
+	// fmt.Println("patternlist", patternlist)
+	// fmt.Println(indicesinfo)
 	var creationDateSlice []string
 	var indexSizemap, creationdate_NameMap map[string]string
 	indexSizemap = make(map[string]string)
@@ -286,7 +286,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
 
-	fmt.Println("patternlist", patternlist)
+	// fmt.Println("patternlist", patternlist)
 
 	/// 統計各個 Node 的 Average Water Level
 	nodesinfo := CatNodes()

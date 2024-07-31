@@ -25,7 +25,7 @@ func Catnodes() {
 
 	defer res.Body.Close()
 	log.Println(res)
-	fmt.Println(res)
+	fmt.Println("res",res)
 }
 
 type CatNode []struct {
@@ -93,7 +93,7 @@ func NodeRoleDetermination(role string) (nodeName []string) {
 		}
 
 	}
-	fmt.Println("yes", nodeName)
+	// fmt.Println("yes", nodeName)
 	return nodeName
 }
 

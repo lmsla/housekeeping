@@ -187,11 +187,14 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 			}
 		}
 	}
+	indices = RemoveDuplicates(indices)
 	return indices
 
 }
 
 func FilterType_space_role(nodeName string,patternlist []string, disk_space int) (indiceslist []string) {
+	fmt.Println("nodeName ",nodeName)
+
 	// comparelist := []string{"logstash-department-iis-20221224", "logstash-department-iis-20221229", "logstash-department-iis-20221230", "logstash-department-iis-20221231", "logstash-department-iis-20230101", "logstash-department-iis-20221225"}
 	var indicesinfo CatIndice
 	if len(patternlist) < 1 {
@@ -200,25 +203,43 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
 	// fmt.Println("patternlist", patternlist)
-	// fmt.Println(indicesinfo)
+	fmt.Println("node_role filter indiceinfo ",indicesinfo)
 
 	match := MatchIndexBetweenNodeNCluster(indicesinfo,nodeName)
+	fmt.Println("ALLLL Matchhhhhhhhhh",match)
+
+	fmt.Println("ALLLL Matchhhhhhhhhh end")
 	var creationDateSlice []string
-	var indexSizemap, creationdate_NameMap map[string]string
+
+	var indexSizemap, creationdate_NameMap , onlyIndexName map[string]string
 	indexSizemap = make(map[string]string)
 	// var creationdate_NameMap map[string]string
 	creationdate_NameMap = make(map[string]string)
-	for data := range match {
-		indexSizemap[match[data].Index] = match[data].StoreSize
-		creationdate_NameMap[match[data].CreationDate] = match[data].Index
-		creationDateSlice = append(creationDateSlice, match[data].CreationDate)
-		fmt.Println(match[data].Index, "size", match[data].StoreSize, "date", match[data].CreationDate)
+	onlyIndexName = make(map[string]string)
+	for i,data := range match {
+		fmt.Println("i: ",i,"data+i: ",data.Index+i)
+		onlyIndexName[data.Index+i] = data.Index
+		//// 用 index name+i 做 key map size
+		indexSizemap[data.Index+i] = data.StoreSize
+		//// 用 CreationDate + Shard 做 key map index name+i
+		creationdate_NameMap[data.CreationDate+data.Shard] = data.Index+i
+		//// 用 CreationDate + Shard 組成的 array 
+		creationDateSlice = append(creationDateSlice,data.CreationDate+data.Shard)
+		fmt.Println(data.Index, "size:", data.StoreSize, "date:", data.CreationDate)
+
 	}
+
+	fmt.Println("indexSizemap",indexSizemap)
+	fmt.Println("creationdate_NameMap",creationdate_NameMap)
+	fmt.Println("creationDateSlice",creationDateSlice)
+
+
 	var finalIndexList []string
 	var aggregate_bytes []string
 	if creationDateSlice == nil {
 		//// 如果撈不到 index 則返回一個空的list
-		finalIndexList = append(finalIndexList, "")
+		// finalIndexList = append(finalIndexList, "")
+		finalIndexList = nil
 	} else {
 		// 按 index 的 create_date 排序
 		sort.Strings(creationDateSlice)
@@ -227,7 +248,8 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 		for date := range creationDateSlice {
 			indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
 		}
-		// fmt.Println("indexSortbycreation:", indexSortbycreation)
+		/// 以 create_date 後整理好的 index name + i
+		fmt.Println("indexSortbycreation:", indexSortbycreation)
 
 		//// 倒序 - 從 newest create 的 index 開始加總 disk_space
 		var indexSortbycreationAsc []string
@@ -236,13 +258,16 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 			indexSortbycreationAsc = append(indexSortbycreationAsc, name)
 
 		}
-		// fmt.Println("asc:", indexSortbycreationAsc)
+		//// indexSortbycreationAsc - 按新到舊排序 index name + i
+		fmt.Println("asc:", indexSortbycreationAsc)
 
 		total := 0
 
 		for bytes := range indexSortbycreationAsc {
+			fmt.Println("bytes",bytes)
 			var bytesnum int
-			// fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
+			fmt.Println("indexSortbycreationAsc[bytes]"+indexSortbycreationAsc[bytes])
+			fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
 			if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
 				bytesnum = 0
 				// total += bytesnum
@@ -260,21 +285,28 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 
 			// 加總 index storage
 			total += bytesnum
-			// fmt.Println(total)
+			fmt.Println("total_in",total)
+
 			if total > disk_space*1024*1024 {
 				break
 			}
 			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
-			// fmt.Println(total)
+			fmt.Println("aggregate_bytes",aggregate_bytes)
 		}
 		// fmt.Println("final_list:", finalIndexList)
 		// fmt.Println(total)
 
 		_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
-		finalIndexList = removed
+		// finalIndexList = removed
 		// fmt.Println("added: ", added)
-		// fmt.Println("removed: ", removed)
+		fmt.Println("removed: ", removed)
 
+		for _,data := range removed {
+			finalIndexList = append(finalIndexList, onlyIndexName[data])
+		}
+		
+		finalIndexList = RemoveDuplicates(finalIndexList)
+		fmt.Println("finalIndexList: ", finalIndexList)
 	}
 	return finalIndexList
 }

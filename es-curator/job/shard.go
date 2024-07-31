@@ -9,7 +9,7 @@ import (
 	// "time"
 	"context"
 	"es-curator/global"
-	
+
 	"io"
 )
 
@@ -21,6 +21,8 @@ type CatShard []struct {
 	Ip     string `json:"ip"`
 	Node   string `json:"node"`
 	Store  string `json:"store"`
+	Docs   string `json:"docs"`
+	CreationDate string `json:"creation.date"`
 }
 
 func CatShards() CatShard {
@@ -48,20 +50,18 @@ func CatShards() CatShard {
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
 	// fmt.Println("s",s)
-	
 
 	// fmt.Println(s)
 	return s
 }
 
-
 func CatShardsbyNodeName(nodeName string) CatShard {
 	req := esapi.CatShardsRequest{
 		// i:ip,r:nodeRole,
 		// Index:  []string{"logstash-l7_network-20240515"},
-		H:      []string{"index", "shard", "prirep", "state", "ip", "node", "store"},
+		H:      []string{"index", "shard", "prirep", "state", "ip", "node", "store", "docs","creation.date"},
 		Format: "json",
-		// Bytes:  "kb",
+		Bytes:  "kb",
 		// FullID: true,
 		Pretty: true,
 		V:      newTrue(),
@@ -79,15 +79,15 @@ func CatShardsbyNodeName(nodeName string) CatShard {
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
 	// fmt.Println("s",s)
-	
+
 	var nodeSelected CatShard
-	for _,data := range s {
+	for _, data := range s {
 		if data.Node == nodeName {
 			nodeSelected = append(nodeSelected, data)
 		}
-		
+
 	}
 
-	fmt.Println(nodeSelected)
+	fmt.Println("nodeSelected", nodeSelected)
 	return nodeSelected
 }
