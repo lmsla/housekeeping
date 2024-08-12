@@ -194,21 +194,17 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 
 func FilterType_space_role(nodeName string,patternlist []string, disk_space int) (indiceslist []string) {
 	fmt.Println("nodeName ",nodeName)
-
-	// comparelist := []string{"logstash-department-iis-20221224", "logstash-department-iis-20221229", "logstash-department-iis-20221230", "logstash-department-iis-20221231", "logstash-department-iis-20230101", "logstash-department-iis-20221225"}
 	var indicesinfo CatIndice
 	if len(patternlist) < 1 {
 		indicesinfo = CatIndices()
 	} else {
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
-	// fmt.Println("patternlist", patternlist)
-	fmt.Println("node_role filter indiceinfo ",indicesinfo)
+
 
 	match := MatchIndexBetweenNodeNCluster(indicesinfo,nodeName)
-	fmt.Println("ALLLL Matchhhhhhhhhh",match)
 
-	fmt.Println("ALLLL Matchhhhhhhhhh end")
+
 	var creationDateSlice []string
 
 	var indexSizemap, creationdate_NameMap , onlyIndexName map[string]string
@@ -225,13 +221,12 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 		creationdate_NameMap[data.CreationDate+data.Shard] = data.Index+i
 		//// 用 CreationDate + Shard 組成的 array 
 		creationDateSlice = append(creationDateSlice,data.CreationDate+data.Shard)
-		fmt.Println(data.Index, "size:", data.StoreSize, "date:", data.CreationDate)
-
+		// fmt.Println(data.Index, "size:", data.StoreSize, "date:", data.CreationDate)
 	}
 
-	fmt.Println("indexSizemap",indexSizemap)
-	fmt.Println("creationdate_NameMap",creationdate_NameMap)
-	fmt.Println("creationDateSlice",creationDateSlice)
+	// fmt.Println("indexSizemap",indexSizemap)
+	// fmt.Println("creationdate_NameMap",creationdate_NameMap)
+	// fmt.Println("creationDateSlice",creationDateSlice)
 
 
 	var finalIndexList []string
@@ -249,7 +244,7 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 			indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
 		}
 		/// 以 create_date 後整理好的 index name + i
-		fmt.Println("indexSortbycreation:", indexSortbycreation)
+		// fmt.Println("indexSortbycreation:", indexSortbycreation)
 
 		//// 倒序 - 從 newest create 的 index 開始加總 disk_space
 		var indexSortbycreationAsc []string
@@ -259,15 +254,15 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 
 		}
 		//// indexSortbycreationAsc - 按新到舊排序 index name + i
-		fmt.Println("asc:", indexSortbycreationAsc)
+		// fmt.Println("asc:", indexSortbycreationAsc)
 
 		total := 0
 
 		for bytes := range indexSortbycreationAsc {
-			fmt.Println("bytes",bytes)
+			// fmt.Println("bytes",bytes)
 			var bytesnum int
-			fmt.Println("indexSortbycreationAsc[bytes]"+indexSortbycreationAsc[bytes])
-			fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
+			// fmt.Println("indexSortbycreationAsc[bytes]"+indexSortbycreationAsc[bytes])
+			// fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
 			if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
 				bytesnum = 0
 				// total += bytesnum
@@ -285,13 +280,13 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 
 			// 加總 index storage
 			total += bytesnum
-			fmt.Println("total_in",total)
+			// fmt.Println("total_in",total)
 
 			if total > disk_space*1024*1024 {
 				break
 			}
 			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
-			fmt.Println("aggregate_bytes",aggregate_bytes)
+			// fmt.Println("aggregate_bytes",aggregate_bytes)
 		}
 		// fmt.Println("final_list:", finalIndexList)
 		// fmt.Println(total)
@@ -299,14 +294,14 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 		_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
 		// finalIndexList = removed
 		// fmt.Println("added: ", added)
-		fmt.Println("removed: ", removed)
+		// fmt.Println("removed: ", removed)
 
 		for _,data := range removed {
 			finalIndexList = append(finalIndexList, onlyIndexName[data])
 		}
 		
 		finalIndexList = RemoveDuplicates(finalIndexList)
-		fmt.Println("finalIndexList: ", finalIndexList)
+		// fmt.Println("finalIndexList: ", finalIndexList)
 	}
 	return finalIndexList
 }

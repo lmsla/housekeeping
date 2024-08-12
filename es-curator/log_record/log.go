@@ -100,7 +100,7 @@ func ActionDetailrecords(mode, msg string) string {
 	return msg
 }
 
-func Logrecord_old(title, msg string) string {
+func Logrecord(title, msg string) string {
 
 	fileName := fmt.Sprintf("%s/housekeeping_%s.log", global.EnvConfig.Log.Path, time.Now().Format("200601"))
 	// open file and create if non-existent
@@ -116,7 +116,7 @@ func Logrecord_old(title, msg string) string {
 
 }
 
-func ActionDetailrecord_old(title, msg string) string {
+func ActionDetailrecord(title, msg string) string {
 
 	fileName := fmt.Sprintf("%s/details_%s.log", global.EnvConfig.Log.Path, time.Now().Format("200601"))
 	// open file and create if non-existent

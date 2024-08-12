@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	// "log"
-	"fmt"
+	// "fmt"
 	// "strings"
 	// "time"
 	"context"
@@ -88,6 +88,6 @@ func CatShardsbyNodeName(nodeName string) CatShard {
 
 	}
 
-	fmt.Println("nodeSelected", nodeSelected)
+	// fmt.Println("nodeSelected", nodeSelected)
 	return nodeSelected
 }

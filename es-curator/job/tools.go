@@ -118,7 +118,7 @@ func Node_relocating_checking() {
 	i := 1
 	for i <= 10000 {
 		indicesinfo := ClusterHealth()
-		time.Sleep(3 * time.Second)
+		time.Sleep(5 * time.Second)
 		// a := fmt.Printf("%s",indicesinfo["relocating_shards"])
 		if indicesinfo.RelocatingShards != 0 {
 			fmt.Println("relocating_shards : not finished")
@@ -128,7 +128,7 @@ func Node_relocating_checking() {
 			break
 		}
 	}
-	fmt.Println("check finish1")
+	fmt.Println("check finish")
 
 }
 
@@ -189,9 +189,11 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "pattern" {
-			for _, pattern := range FilterList[filtertype].Value {
-				patternListPre = append(patternListPre, pattern+"*")
-			}
+			// for _, pattern := range FilterList[filtertype].Value {
+
+			// 	patternListPre = append(patternListPre, pattern+"*")
+			// }
+			patternListPre = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 
 		}
 	}
@@ -256,18 +258,22 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "pattern" {
-			for _, pattern := range FilterList[filtertype].Value {
-				patternListPre = append(patternListPre, pattern+"*")
-			}
+			// for _, pattern := range FilterList[filtertype].Value {
+			// 	patternListPre = append(patternListPre, pattern+"*")
+			// }
+
+			patternListPre = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 		}
 	}
+
+	fmt.Println("patternListPre: ", patternListPre)
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "node_role" {
 			role = FilterList[filtertype].Value
 		}
 	}
-	fmt.Println("filter_record: ", filter_record)
+	// fmt.Println("filter_record: ", filter_record)
 
 	if containsBothParams(filter_record, "age", "space") {
 		// log_record.Logrecord("ERROR", "Can't use age & space at the same time")
@@ -303,6 +309,12 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 		}
 
 	}
+
+	agelist = RemoveDuplicates(agelist)
+	patternlist = RemoveDuplicates(patternlist)
+	spacelist = RemoveDuplicates(spacelist)
+	water_level_list = RemoveDuplicates(water_level_list)
+
 
 	fmt.Println("agelist", agelist)
 	fmt.Println(len(agelist))
@@ -425,11 +437,9 @@ func Filter_of_filter_bak(filter_record, agelist, patternlist, spacelist []strin
 // 用來對 index list 去重
 func RemoveDuplicates(arr []string) []string {
 	seen := make(map[string]bool)
-
 	result := []string{}
 
 	for _, data := range arr {
-
 		if _, ok := seen[data]; !ok {
 			result = append(result, data)
 			seen[data] = true

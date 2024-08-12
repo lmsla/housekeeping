@@ -44,11 +44,13 @@ func SetElkClient() {
 	}
 	es, err = elasticsearch.NewClient(cfg)
 	if err != nil {
-		panic(err) // 連線失敗
+		// panic(err) 
+		// 連線失敗
+		global.Logger.Error(err.Error())
 	}
 
 	// log.SetFlags(0)
-	fmt.Println("ok")
+	fmt.Println("ES Connection ok")
 
 }
 

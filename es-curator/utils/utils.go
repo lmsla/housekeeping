@@ -22,10 +22,13 @@ func loadConfigFile() {
 	viper.AddConfigPath(".")
 	//读取配置文件内容
 	if err := viper.ReadInConfig(); err != nil {
+		global.Logger.Error(err.Error())
 		panic(err)
+		
 	}
 	var c structs.ActionStruct
 	if err := viper.Unmarshal(&c); err != nil {
+		global.Logger.Error(err.Error())
 		panic(err)
 	}
 
@@ -50,6 +53,7 @@ func loadSettingFile() {
 			viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 		} else {
 			// 有找到 config.yml 但是發生了其他未知的錯誤
+			global.Logger.Error(err.Error())
 			panic(fmt.Errorf("fatal error config file: %s", err))
 		}
 	}

@@ -16,16 +16,18 @@ func Action_controll() {
 		switch ActionList[actions].Action {
 		case "allocation":
 			if !ActionList[actions].Options.DisableAction {
-				// Action_allocation_indices()
+
+				global.Logger.Infow(fmt.Sprintf("Action %s Start,", ActionList[actions].Action), "logType", "Procedures")
+
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
+				global.Logger.Infow(actionMsg, "logType", "Procedures")
+
 				allocationtype := ActionList[actions].Options.AllocationType
 				key := ActionList[actions].Options.Key
 				value := ActionList[actions].Options.Value
-				// log_record.Logrecord("Actions", actionMsg)
-				global.Logger.Infow(actionMsg,"type","Actions")
+
 				FilterList := ActionList[actions].Filters
-				// var comparelist []string
-				// var filter_record []string
+
 				for filtertype := range FilterList {
 					if FilterList[filtertype].Filtertype == "age" {
 						filter_record = append(filter_record, "age")
@@ -39,8 +41,7 @@ func Action_controll() {
 					}
 				}
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
-				// log_record.Logrecord("Details", filter_info)
-				global.Logger.Infow(filter_info,"type","Details")
+				global.Logger.Infow(filter_info, "logType", "Procedures")
 
 				if len(role) == 0 {
 					comparelist = Filter_of_filter(filter_record, FilterList)
@@ -48,11 +49,9 @@ func Action_controll() {
 					comparelist = Filters_With_node(role, filter_record, FilterList)
 				}
 
-				fmt.Println(allocationtype, key)
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("allocation these indices :%s to %s ", comparelist, value)
-					// log_record.Logrecord("Details", detailMsg)
-					global.Logger.Infow(detailMsg,"type","Details")
+					global.Logger.Infow(detailMsg, "type", "Details")
 
 					var index_onebyone []string
 					for index := range comparelist {
@@ -62,10 +61,9 @@ func Action_controll() {
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
+							individual_Msg := fmt.Sprintf("%s has already allocated ", index_onebyone)
 
-							// log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode")
+							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							Allocation(index_onebyone, allocationtype, key, value)
@@ -73,34 +71,33 @@ func Action_controll() {
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already allocated ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode")
+
+							individual_Msg := fmt.Sprintf("%s has already allocated ", index_onebyone)
+
+							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 						}
 
 					}
 					Node_relocating_checking()
 				} else {
-					global.Logger.Infow("no match indices","type","Details")
-					// log_record.Logrecord("Details", "no match indices")
+					global.Logger.Infow("no match indices", "logType", "Procedures")
 				}
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
-				// log_record.Logrecord("Info", delaymsg)
 				global.Logger.Infow(delaymsg)
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
+
+				global.Logger.Infow(fmt.Sprintf("Action %s End,", ActionList[actions].Action), "logType", "Procedures")
 			}
 		case "forcemerge":
 			if !ActionList[actions].Options.DisableAction {
-				// Action_forcemerge_indices()
 				Node_relocating_checking()
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
-				// log_record.Logrecord("Actions", actionMsg)
-				global.Logger.Infow(actionMsg,"type","Actions")
-				
+				global.Logger.Infow(actionMsg, "logType", "Procedures")
+
 				FilterList := ActionList[actions].Filters
-				// var comparelist []string
+
 				var MaxNumSegments int
-				// var filter_record []string
+
 				for filtertype := range FilterList {
 					if FilterList[filtertype].Filtertype == "age" {
 						filter_record = append(filter_record, "age")
@@ -114,8 +111,7 @@ func Action_controll() {
 					}
 				}
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
-				// log_record.Logrecord("Details", filter_info)
-				global.Logger.Infow(filter_info,"type","Details")
+				global.Logger.Infow(filter_info, "logType", "Procedures")
 
 				if len(role) == 0 {
 					comparelist = Filter_of_filter(filter_record, FilterList)
@@ -126,8 +122,8 @@ func Action_controll() {
 				MaxNumSegments = ActionList[actions].Options.MaxNumSegment
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("forcemerge these indices :%s,segement num :%v", comparelist, MaxNumSegments)
-					// log_record.Logrecord("Details", detailMsg)
-					global.Logger.Infow(detailMsg,"type","Details")
+
+					global.Logger.Infow(detailMsg, "logType", "Procedures")
 
 					var index_onebyone []string
 					for index := range comparelist {
@@ -138,9 +134,8 @@ func Action_controll() {
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode")
+							individual_Msg := fmt.Sprintf("%s has already forcemerged", index_onebyone)
+							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							ForceMerge(index_onebyone, MaxNumSegments)
@@ -148,27 +143,25 @@ func Action_controll() {
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already forcemerged ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode")
+							individual_Msg := fmt.Sprintf("%s has already forcemerged", index_onebyone)
+
+							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 						}
 					}
-					// ForceMerge(comparelist, MaxNumSegments)
+
 				} else {
-					// log_record.Logrecord("Details", "no match indices")
-					global.Logger.Infow("no match indices","type","Details")
+					global.Logger.Infow("no match indices", "logType", "Procedures")
 				}
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
-				// log_record.Logrecord("Info", delaymsg)
 				global.Logger.Infow(delaymsg)
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "delete_indices":
 			if !ActionList[actions].Options.DisableAction {
-				// Action_delete_indices()
+
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
-				// log_record.Logrecord("Actions", actionMsg)
-				global.Logger.Infow(actionMsg,"type","Actions")
+
+				global.Logger.Infow(actionMsg, "logType", "Procedures")
 				FilterList := ActionList[actions].Filters
 				var comparelist []string
 				var filter_record []string
@@ -189,8 +182,8 @@ func Action_controll() {
 
 				}
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
-				// log_record.Logrecord("Details", filter_info)
-				global.Logger.Infow(filter_info,"type","Details")
+
+				global.Logger.Infow(filter_info, "logType", "Procedures")
 
 				if len(role) == 0 {
 					comparelist = Filter_of_filter(filter_record, FilterList)
@@ -198,11 +191,11 @@ func Action_controll() {
 					comparelist = Filters_With_node(role, filter_record, FilterList)
 				}
 
-				//// delete function write from here
+				//// delete function start write from here
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("Delete these indices :%s", comparelist)
-					// log_record.Logrecord("Details", detailMsg)
-					global.Logger.Infow(detailMsg,"type","Details")
+
+					global.Logger.Infow(detailMsg, "logType", "Procedures")
 
 					var index_onebyone []string
 					for index := range comparelist {
@@ -212,36 +205,36 @@ func Action_controll() {
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode")
+							individual_Msg := fmt.Sprintf("%s has already deleted", index_onebyone)
+
+							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already deleted ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode")
+							individual_Msg := fmt.Sprintf("%s has already deleted", index_onebyone)
+
+							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 							DeleteIndex(index_onebyone)
 						}
 
 					}
 				} else {
-					// log_record.Logrecord("Details", "no match indices")
-					global.Logger.Infow("no match indices","type","Details")
+
+					global.Logger.Infow("no match indices", "logType", "Procedures")
 				}
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
-				// log_record.Logrecord("Info", delaymsg)
+
 				global.Logger.Infow(delaymsg)
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "close":
 			if !ActionList[actions].Options.DisableAction {
-				// Action_close_indices()
+
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
-				// log_record.Logrecord("Actions", actionMsg)
-				global.Logger.Infow(actionMsg,"type","Actions")
+
+				global.Logger.Infow(actionMsg, "logType", "Procedures")
 				FilterList := ActionList[actions].Filters
 				var comparelist []string
 				var filter_record []string
@@ -260,8 +253,8 @@ func Action_controll() {
 				}
 
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
-				// log_record.Logrecord("Details", filter_info)
-				global.Logger.Infow(filter_info,"type","Details")
+
+				global.Logger.Infow(filter_info, "logType", "Procedures")
 
 				if len(role) == 0 {
 					comparelist = Filter_of_filter(filter_record, FilterList)
@@ -271,8 +264,8 @@ func Action_controll() {
 
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("Close these indices :%s", comparelist)
-					// log_record.Logrecord("Details", detailMsg)
-					global.Logger.Infow(detailMsg,"type","Details")
+
+					global.Logger.Infow(detailMsg, "logType", "Procedures")
 
 					var index_onebyone []string
 					for index := range comparelist {
@@ -283,9 +276,9 @@ func Action_controll() {
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode")
+							individual_Msg := fmt.Sprintf("%s has already closed", index_onebyone)
+
+							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							CloseIndices(index_onebyone)
@@ -293,28 +286,28 @@ func Action_controll() {
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already closed ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode")
+							individual_Msg := fmt.Sprintf("%s has already closed", index_onebyone)
+
+							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 						}
 					}
 				} else {
-					// log_record.Logrecord("Details", "no match indices")
-					global.Logger.Infow("no match indices","type","Details")
+
+					global.Logger.Infow("no match indices", "logType", "Procedures")
 				}
 
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
-				// log_record.Logrecord("Info", delaymsg)
+
 				global.Logger.Infow(delaymsg)
 
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}
 		case "open":
 			if !ActionList[actions].Options.DisableAction {
-				// Action_open_indices()
+
 				actionMsg := fmt.Sprintf("Action: %s,Description: %s", ActionList[actions].Action, ActionList[actions].Description)
-				// log_record.Logrecord("Actions", actionMsg)
-				global.Logger.Infow(actionMsg,"type","Actions")
+
+				global.Logger.Infow(actionMsg, "logType", "Procedures")
 				FilterList := ActionList[actions].Filters
 				var comparelist []string
 				var filter_record []string
@@ -331,8 +324,8 @@ func Action_controll() {
 					}
 				}
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
-				// log_record.Logrecord("Details", filter_info)
-				global.Logger.Infow(filter_info,"type","Details")
+
+				global.Logger.Infow(filter_info, "logType", "Procedures")
 				if len(role) == 0 {
 					comparelist = Filter_of_filter(filter_record, FilterList)
 				} else {
@@ -341,8 +334,8 @@ func Action_controll() {
 
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("Open these indices :%s", comparelist)
-					// log_record.Logrecord("Details", detailMsg)
-					global.Logger.Infow(detailMsg,"type","Details")
+
+					global.Logger.Infow(detailMsg, "logType", "Procedures")
 
 					var index_onebyone []string
 					for index := range comparelist {
@@ -352,26 +345,26 @@ func Action_controll() {
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Test Mode Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode")
+							individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
+
+							global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 						} else if !global.EnvConfig.INFORMATION.Test_mode {
 							OpenIndices(index_onebyone)
 							indicesInfo := CatIndices_withPattern(index_onebyone)
 							i := indicesInfo[0]
 							timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 							CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-							individual_Msg := fmt.Sprintf("%s has already opened ,Pri: %s,Rep: %s,DocCount: %s, DocDelete: %s,StoreSize: %s,PriStoreSize: %s,CreationDate: %s", index_onebyone, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate)
-							// log_record.ActionDetailrecord("Details", individual_Msg)
-							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode")
+							individual_Msg := fmt.Sprintf("%s has already opened", index_onebyone)
+
+							global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 						}
 					}
 				} else {
-					// log_record.Logrecord("Details", "no match indices")
-					global.Logger.Infow("no match indices","type","Details")
+
+					global.Logger.Infow("no match indices", "logType", "Procedures")
 				}
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
-				// log_record.Logrecord("Info", delaymsg)
+
 				global.Logger.Infow(delaymsg)
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
 			}

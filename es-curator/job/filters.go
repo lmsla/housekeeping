@@ -174,21 +174,20 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 			}
 		}
 	}
-	// fmt.Println(indices)
+	fmt.Println("indices",indices)
 	return indices
 
 }
 
 func FilterType_space(patternlist []string, disk_space int) (indiceslist []string) {
-	// comparelist := []string{"logstash-department-iis-20221224", "logstash-department-iis-20221229", "logstash-department-iis-20221230", "logstash-department-iis-20221231", "logstash-department-iis-20230101", "logstash-department-iis-20221225"}
+
 	var indicesinfo CatIndice
 	if len(patternlist) < 1 {
 		indicesinfo = CatIndices()
 	} else {
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
-	// fmt.Println("patternlist", patternlist)
-	// fmt.Println(indicesinfo)
+
 	var creationDateSlice []string
 	var indexSizemap, creationdate_NameMap map[string]string
 	indexSizemap = make(map[string]string)
@@ -265,7 +264,6 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 		}
 		// fmt.Println("final_list:", finalIndexList)
 		// fmt.Println(total)
-
 		added, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
 		finalIndexList = removed
 		fmt.Println("added: ", added)
