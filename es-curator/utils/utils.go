@@ -12,7 +12,7 @@ func LoadEnvironment() {
 	loadSettingFile()
 	viperSettingToModel()
 	loadConfigFile()
-	viperconfigToModel()
+	// viperconfigToModel()
 }
 
 func loadConfigFile() {
@@ -20,6 +20,7 @@ func loadConfigFile() {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
 	viper.AddConfigPath(".")
+	viper.AddConfigPath("/etc/bimap-housekeeping")
 	//读取配置文件内容
 	if err := viper.ReadInConfig(); err != nil {
 		global.Logger.Error(err.Error())
@@ -37,15 +38,16 @@ func loadConfigFile() {
 }
 
 
-func viperconfigToModel() {
+// func viperconfigToModel() {
 	// var c structs.ActionStruct
 	// c.Actions = viper.GetStringSlice("actions")
-}
+// }
 
 func loadSettingFile() {
 	viper.SetConfigName("setting")
 	viper.SetConfigType("yml")
 	viper.AddConfigPath(".")
+	viper.AddConfigPath("/etc/bimap-housekeeping")
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			fmt.Println("沒有發現 setting.yml，改抓取環境變數")
