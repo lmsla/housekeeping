@@ -20,15 +20,13 @@ es:
     # - https://10.50.70.12:9200
   sourceAccount: "elastic"
   sourcePassword: "a12345678"
-  # url: https://10.99.1.64:9200
-  # sourceAccount: "elastic"
-  # sourcePassword: "a12345678"
+
 
 information:
   test_mode: false
   period: "59 11 * * *"
   execute_cron : false
-  # logPath: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
+
 
 
 log:
@@ -303,7 +301,7 @@ config 中可以有一或多個 action，一個 action 可是情況搭配不同�
 
 ```
 actions: 
-### 刪除產生在10天以前且開頭為 logstash- 的所有 index
+### 刪除在10天以前產生且開頭為 logstash- 的所有 index
 
   - action: delete_indices
     description: delete selected indices1
