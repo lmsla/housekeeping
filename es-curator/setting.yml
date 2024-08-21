@@ -19,4 +19,4 @@ log:
   maxSize: 10
   maxBackups: 0
   maxAge: 0
-  debug: true
+  debug: false
