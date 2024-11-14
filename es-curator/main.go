@@ -3,8 +3,8 @@ package main
 import (
 	"es-curator/global"
 	"es-curator/job"
-	"es-curator/utils"
 	"es-curator/log_record"
+	"es-curator/utils"
 	"sync"
 	// "fmt"
 )
@@ -26,17 +26,12 @@ func main() {
 	} else if !global.EnvConfig.INFORMATION.Execute_cron {
 		job.Action_controll()
 	}
-
 }
-
-
-
-
 
 // func main1() {
 // 	fmt.Println("start")
 // 	utils.LoadEnvironment()
-	
+
 // 	fmt.Println(global.EnvConfig.ES.URL)
 // 	job.SetElkClient()
 // 	// job.Allocation1([]string{"logstash-bimap-test01"})

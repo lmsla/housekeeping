@@ -21,26 +21,31 @@ func loadConfigFile() {
 	viper.SetConfigType("yml")
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("/etc/bimap-housekeeping")
-	//读取配置文件内容
+
+	// // print 讀取到的 yaml 內容
+	// fmt.Printf("Config content_up: %v\n", viper.AllSettings())
+
+	//讀取配置文件内容
 	if err := viper.ReadInConfig(); err != nil {
+		fmt.Println("讀取 config.yml 錯誤，請檢查 yml 檔案", err.Error())
 		global.Logger.Error(err.Error())
 		panic(err)
-		
 	}
+	// // print 讀取到的 yaml 內容
+	// fmt.Printf("Config content_d: %v\n", viper.AllSettings())
+
 	var c structs.ActionStruct
 	if err := viper.Unmarshal(&c); err != nil {
 		global.Logger.Error(err.Error())
 		panic(err)
 	}
 
-
 	global.ActionStruct = &c
 }
 
-
 // func viperconfigToModel() {
-	// var c structs.ActionStruct
-	// c.Actions = viper.GetStringSlice("actions")
+// var c structs.ActionStruct
+// c.Actions = viper.GetStringSlice("actions")
 // }
 
 func loadSettingFile() {
@@ -74,7 +79,6 @@ func viperSettingToModel() {
 	config.INFORMATION.CaPath = viper.GetString("information.caPath")
 	config.INFORMATION.Execute_cron = viper.GetBool("information.execute_cron")
 	config.INFORMATION.Test_mode = viper.GetBool("information.test_mode")
-
 
 	config.Log.Path = viper.GetString("log.path")
 	config.Log.MaxSize = viper.GetInt("log.maxSize")

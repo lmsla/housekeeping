@@ -109,7 +109,7 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 				return
 			}
 
-			// 滿足 direction = "range" 及 產生日期 (creation date) 在 (RangeFrom Date)之前 及在(RangeTo Date)之後的index
+			// 滿足 direction = "range" 及 產生日期 (creation date) 在 (RangeFrom Date)之後 及在(RangeTo Date)之前的index
 			if CreationDateT.After(RangeFromDateT) && CreationDateT.Before(RangeToDateT) && direction == "range" {
 				// fmt.Println(indicesinfo[data].Index, "date is:", CreationDate, indicesinfo[data].CreationDate)
 				indices = append(indices, indicesinfo[data].Index)
