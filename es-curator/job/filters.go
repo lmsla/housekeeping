@@ -405,6 +405,5 @@ func ListTest() {
 
 	fmt.Println(reserveIndexList)
 	fmt.Println(final)
-
 	//[a b]
 }
