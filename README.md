@@ -1,6 +1,8 @@
 ES-curator 的 golang 版替代方案
 
 
+dfd
+
 主程式是與 README.md 同一層資料夾的 main，資料夾 es-curator 中含有原始碼，供開發人員維護使用。  
 
 會使用到的設定檔有 setting.yml 和 config.yml。
