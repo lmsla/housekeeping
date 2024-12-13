@@ -455,9 +455,7 @@ func MatchIndexBetweenNodeNCluster(indicesinfo CatIndice, nodeName string) map[s
 
 	match := make(map[string]IndicesInfo)
 	for _, indices := range indicesinfo {
-
 		for i, data := range shardsinfo {
-
 			if indices.Index == data.Index {
 				match[strconv.Itoa(i)] = IndicesInfo{
 					Index:        data.Index,
