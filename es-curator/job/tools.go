@@ -22,11 +22,9 @@ func Indicesmapping3(list1 []string, list2 []string, list3 []string) []string {
 						compareList = append(compareList, list1[list1data])
 					}
 				}
-
 			}
 		}
 	}
-
 	return compareList
 }
 
@@ -372,7 +370,6 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 	}
 	// fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
-
 }
 
 func containsBothParams(params []string, param1, param2 string) bool {
