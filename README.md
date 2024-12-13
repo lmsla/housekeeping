@@ -122,13 +122,13 @@ type = bool
 
 ### value
 ---
-**used in allocation**
+**只使用在 allocation，代表搬移的目的地**
 
 `data_hot`,`data_warm`,`data_cold`
 
 ### allocation_type
 ---
-**used in allocation**
+**只使用在 allocation**
 
 `include`,`require`,`exclude`
 
