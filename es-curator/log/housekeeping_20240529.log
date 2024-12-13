@@ -1,9 +1,0 @@
-Actions 2024/05/29 14:54:36 Action: delete_indices,Description: forcemerge selected indices_test
-Details 2024/05/29 14:54:36 use these filter :[pattern space]
-Details 2024/05/29 14:54:36 no match indices
-Info 2024/05/29 14:54:36 Pausing for 5 seconds before continuing...
-Actions 2024/05/29 14:54:41 Action: allocation,Description: allocation selected indices to data_warm
-Details 2024/05/29 14:54:41 use these filter :[pattern age]
-Details 2024/05/29 14:54:41 Date Range From :2024-05-24 14:54:41 ,Range To :2024-05-28 14:54:41
-Details 2024/05/29 14:54:41 no match indices
-Info 2024/05/29 14:54:41 Pausing for 20 seconds before continuing...

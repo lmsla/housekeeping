@@ -16,7 +16,7 @@ import (
 func InitLogger() {
 	logPath := global.EnvConfig.Log.Path // 替换为 global.EnvConfig.INFORMATION.LogPath
 	// fileName := fmt.Sprintf("%s/housekeeping_%s.log", logPath, time.Now().Format("200601"))
-	fmt.Println(logPath)
+
 	// 配置 lumberjack for log rotate
 	w := zapcore.AddSync(&lumberjack.Logger{
 		Filename:   fmt.Sprintf("%s/housekeeping_%s.log", logPath, time.Now().Format("200601")),

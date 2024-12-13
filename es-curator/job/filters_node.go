@@ -193,7 +193,7 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 }
 
 func FilterType_space_role(nodeName string,patternlist []string, disk_space int) (indiceslist []string) {
-	fmt.Println("nodeName ",nodeName)
+	// fmt.Println("nodeName ",nodeName)
 	var indicesinfo CatIndice
 	if len(patternlist) < 1 {
 		indicesinfo = CatIndices()
@@ -213,7 +213,8 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 	creationdate_NameMap = make(map[string]string)
 	onlyIndexName = make(map[string]string)
 	for i,data := range match {
-		fmt.Println("i: ",i,"data+i: ",data.Index+i)
+		// fmt.Println("i: ",i,"data+i: ",data.Index+i)
+
 		onlyIndexName[data.Index+i] = data.Index
 		//// 用 index name+i 做 key map size
 		indexSizemap[data.Index+i] = data.StoreSize

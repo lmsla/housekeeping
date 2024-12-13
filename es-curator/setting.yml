@@ -2,11 +2,10 @@ es:
   url: 
     - https://10.99.1.206:9200
     # - https://10.50.70.12:9200
-  sourceAccount: "elastic"
-  sourcePassword: "a12345678"
-  # url: https://10.99.1.64:9200
   # sourceAccount: "elastic"
   # sourcePassword: "a12345678"
+  sourceAccount: "housekeeping"
+  sourcePassword: "elastic"
 
 information:
   test_mode: false
@@ -15,8 +14,8 @@ information:
 
 
 log:
-  path: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
+  path: "/Users/chen/Downloads/01BiMap/02gitlab/bimap-product/housekeeping/es-curator/log"
   maxSize: 10
   maxBackups: 0
   maxAge: 0
-  debug: false
+  debug: true

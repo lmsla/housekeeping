@@ -4,29 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	"log"
+	// "log"
 	"strings"
 	// "time"
 	"context"
 	"es-curator/global"
 	"io"
 )
-
-func Catnodes() {
-	req := esapi.NodesInfoRequest{
-		NodeID: []string{"Q4kU"},
-	}
-	res, err := req.Do(context.Background(), es)
-	if err != nil {
-		// log_record.Logrecord("ERROR ", "cat nodes error"+err.Error())
-		global.Logger.Error(err.Error())
-		// panic(err)
-	}
-
-	defer res.Body.Close()
-	log.Println(res)
-	fmt.Println("res",res)
-}
 
 type CatNode []struct {
 	IP              string `json:"ip"`
@@ -55,14 +39,12 @@ func CatNodes() CatNode {
 		// panic(err)
 	}
 	defer res.Body.Close()
-	// log.Println(res)
-	// fmt.Println(res)
+
 	resString, _ := io.ReadAll(res.Body)
 	var s CatNode
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
-	// fmt.Println("s",s)
-	fmt.Println(s)
+
 	return s
 }
 
@@ -121,4 +103,22 @@ func NodeStatus() {
 	defer res.Body.Close()
 	// log.Println(res)
 	// fmt.Println(res)
+}
+
+
+
+func Catnodes() {
+	req := esapi.NodesInfoRequest{
+		NodeID: []string{"Q4kU"},
+	}
+	res, err := req.Do(context.Background(), es)
+	if err != nil {
+		// log_record.Logrecord("ERROR ", "cat nodes error"+err.Error())
+		global.Logger.Error(err.Error())
+		// panic(err)
+	}
+
+	defer res.Body.Close()
+	// log.Println(res)
+	fmt.Println("res",res)
 }

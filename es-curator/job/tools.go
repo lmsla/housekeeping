@@ -190,7 +190,6 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "pattern" {
 			// for _, pattern := range FilterList[filtertype].Value {
-
 			// 	patternListPre = append(patternListPre, pattern+"*")
 			// }
 			patternListPre = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
@@ -248,7 +247,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 		compareList = water_level_list
 
 	}
-	fmt.Println("filter_of_filter's compare: ", compareList)
+	// fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }
 
@@ -266,14 +265,13 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 		}
 	}
 
-	fmt.Println("patternListPre: ", patternListPre)
+	// fmt.Println("patternListPre: ", patternListPre)
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "node_role" {
 			role = FilterList[filtertype].Value
 		}
 	}
-	// fmt.Println("filter_record: ", filter_record)
 
 	if containsBothParams(filter_record, "age", "space") {
 		// log_record.Logrecord("ERROR", "Can't use age & space at the same time")
@@ -287,6 +285,7 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 	} else {
 		// 取得符合 node role 的 node names
 		nodeNames := NodeRoleDetermination(role[0])
+
 		for _, nodeName := range nodeNames {
 
 			for filtertype := range FilterList {
@@ -316,17 +315,17 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 	water_level_list = RemoveDuplicates(water_level_list)
 
 
-	fmt.Println("agelist", agelist)
-	fmt.Println(len(agelist))
+	// fmt.Println("agelist", agelist)
+	// fmt.Println(len(agelist))
 
-	fmt.Println("patternlist", patternlist)
-	fmt.Println(len(patternlist))
+	// fmt.Println("patternlist", patternlist)
+	// fmt.Println(len(patternlist))
 
-	fmt.Println("spacelist", spacelist)
-	fmt.Println(len(spacelist))
+	// fmt.Println("spacelist", spacelist)
+	// fmt.Println(len(spacelist))
 
-	fmt.Println("water_level_list", water_level_list)
-	fmt.Println(len(water_level_list))
+	// fmt.Println("water_level_list", water_level_list)
+	// fmt.Println(len(water_level_list))
 
 	ap := []string{"age", "pattern", "node_role"}
 	sp := []string{"space", "pattern", "node_role"}
@@ -340,6 +339,10 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 	sort.Strings(ap)
 	sort.Strings(wp)
 	sort.Strings(sp)
+	sort.Strings(a)
+	sort.Strings(p)
+	sort.Strings(s)
+	sort.Strings(w)
 	// sort.Strings(aps)
 	sort.Strings(filter_record)
 
@@ -367,7 +370,7 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 		compareList = water_level_list
 
 	}
-	fmt.Println("filter_of_filter's compare: ", compareList)
+	// fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 
 }

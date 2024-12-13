@@ -46,6 +46,7 @@ func Action_controll() {
 				if len(role) == 0 {
 					comparelist = Filter_of_filter(filter_record, FilterList)
 				} else {
+
 					comparelist = Filters_With_node(role, filter_record, FilterList)
 				}
 

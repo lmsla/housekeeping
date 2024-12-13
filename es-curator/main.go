@@ -13,7 +13,7 @@ func main() {
 	utils.LoadEnvironment()
 	job.SetElkClient()
 
-	////	init logger
+	//// init logger
 	log_record.InitLogger()
 	log_record.InitDetailLogger()
 

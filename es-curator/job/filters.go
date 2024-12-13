@@ -174,7 +174,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 			}
 		}
 	}
-	fmt.Println("indices",indices)
+	// fmt.Println("indices",indices)
 	return indices
 
 }
@@ -264,10 +264,10 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 		}
 		// fmt.Println("final_list:", finalIndexList)
 		// fmt.Println(total)
-		added, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
+		_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
 		finalIndexList = removed
-		fmt.Println("added: ", added)
-		fmt.Println("removed: ", removed)
+		// fmt.Println("added: ", added)
+		// fmt.Println("removed: ", removed)
 
 	}
 	return finalIndexList
