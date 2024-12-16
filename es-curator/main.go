@@ -5,17 +5,25 @@ import (
 	"es-curator/job"
 	"es-curator/log_record"
 	"es-curator/utils"
+	"log"
 	"sync"
-	// "fmt"
 )
 
 func main() {
 	utils.LoadEnvironment()
-	job.SetElkClient()
 
 	//// init logger
 	log_record.InitLogger()
 	log_record.InitDetailLogger()
+
+	// 初始化 Elasticsearch 客戶端
+	if err := job.SetElkClient(); err != nil {
+
+		global.Logger.Error(err)
+		log.Fatalf("初始化 Elasticsearch 客戶端失敗: %v", err)
+	}
+
+	// job.SetElkClient()
 
 	if global.EnvConfig.INFORMATION.Execute_cron {
 		utils.LoadCrontab()

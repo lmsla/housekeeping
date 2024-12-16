@@ -1,11 +1,11 @@
 es:
   url: 
     - https://10.99.1.206:9200
-    # - https://10.50.70.12:9200
-  # sourceAccount: "elastic"
-  # sourcePassword: "a12345678"
-  sourceAccount: "housekeeping"
-  sourcePassword: "elastic"
+    # - https://10.99.1.93:9200
+  sourceAccount: "elastic"
+  sourcePassword: "a12345678dasf"
+  # sourceAccount: "housekeeping"
+  # sourcePassword: "elastic"
 
 information:
   test_mode: false
