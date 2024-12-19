@@ -2,8 +2,8 @@ es:
   url: 
     - https://10.99.1.206:9200
     # - https://10.99.1.93:9200
-  sourceAccount: "elastic"
-  sourcePassword: "a12345678dasf"
+  sourceAccount: "housekeeping"
+  sourcePassword: "elastic"
   # sourceAccount: "housekeeping"
   # sourcePassword: "elastic"
 
@@ -18,4 +18,4 @@ log:
   maxSize: 10
   maxBackups: 0
   maxAge: 0
-  debug: true
+  debug: false

@@ -119,7 +119,7 @@ func Node_relocating_checking() {
 		time.Sleep(5 * time.Second)
 		// a := fmt.Printf("%s",indicesinfo["relocating_shards"])
 		if indicesinfo.RelocatingShards != 0 {
-			fmt.Println("relocating_shards : not finished")
+			fmt.Printf("relocating_shards : %d shards not finished\n",indicesinfo.RelocatingShards)
 			continue
 		} else if indicesinfo.RelocatingShards == 0 {
 			fmt.Println("relocating_shards : 0")

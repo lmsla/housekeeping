@@ -252,7 +252,7 @@ ex. logstash-ap , ap
 
 ## space
 
-計算 index 所佔空間，由最新的 index 開始算，超過設定的閥值 disk_space ，篩選出較舊的 index，新舊判定依據為 index 產生時間。
+計算 index 所佔空間(包含replica)，由最新的 index 開始算，超過設定的閥值 disk_space ，篩選出較舊的 index，新舊判定依據為 index 產生時間。
 
 例，有五個 index ，舊到新的順序分別為 01~05 ，disk_space : 20 ，index-05、index-04 加起來共 20 GB，超過的部分 index-03、index-02、index-01，會被篩選出來。
 
