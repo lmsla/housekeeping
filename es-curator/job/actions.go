@@ -195,7 +195,7 @@ func Action_controll() {
 
 				//// delete function start write from here
 				if comparelist != nil {
-					detailMsg := fmt.Sprintf("Delete these indices :%s", comparelist)
+					detailMsg := fmt.Sprintf("Delete these indices : %s,Number of indices : %d", comparelist,len(comparelist))
 
 					global.Logger.Infow(detailMsg, "logType", "Procedures")
 

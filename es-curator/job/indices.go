@@ -168,7 +168,7 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 	var s CatIndice
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
-	fmt.Println(string(resString))
+	// fmt.Println(string(resString))
 	return s
 }
 

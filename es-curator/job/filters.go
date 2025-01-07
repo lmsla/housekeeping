@@ -179,6 +179,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 
 }
 
+//// 將 pattern list 切分
 func chunkSlice(slice []string, chunkSize int) [][]string {
 	var chunks [][]string
 	for i := 0; i < len(slice); i += chunkSize {
@@ -207,10 +208,6 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 		}
 	}
 
-
-	// fmt.Println("indicesinfo2",indicesinfo2)
-	// fmt.Println("indicesinfo",indicesinfo)
-	
 
 	var creationDateSlice []string
 	var indexSizemap, creationdate_NameMap map[string]string
