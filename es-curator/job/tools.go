@@ -203,6 +203,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 		global.Logger.Error("Can't use space & water_level at the same time")
 	} else if fmt.Sprint(filter_record) == fmt.Sprint(arr5) {
 		// log_record.Logrecord("ERROR", "age can't use with space or water_level at the same time")
+		// 此處有誤
 		global.Logger.Error("age can't use with space or water_level at the same time")
 	} else {
 		for filtertype := range FilterList {
@@ -245,7 +246,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 		compareList = water_level_list
 
 	}
-	// fmt.Println("filter_of_filter's compare: ", compareList)
+	fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }
 

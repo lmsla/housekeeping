@@ -86,7 +86,7 @@ func Action_controll() {
 				delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 				global.Logger.Infow(delaymsg)
 				time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
-
+				
 				global.Logger.Infow(fmt.Sprintf("Action %s End,", ActionList[actions].Action), "logType", "Procedures")
 			}
 		case "forcemerge":
