@@ -248,7 +248,6 @@ func IndicesStatus() {
 
 	defer res.Body.Close()
 	log.Println(res)
-	fmt.Println(res)
 }
 
 func ForceMerge(Index []string, MaxNumSegments int) {

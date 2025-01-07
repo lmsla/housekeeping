@@ -1,0 +1,1342 @@
+成功連線到 Elasticsearch
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network4-20250103",
+    "uuid" : "eq2bnrimSJym-qo-C4dNpA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6098571",
+    "docs.deleted" : "0",
+    "store.size" : "8336056",
+    "pri.store.size" : "4210890",
+    "creation.date" : "1735874089015"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network1-20240731",
+    "uuid" : "cfRkx--gQV-EWO4OiuFpeQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "96196",
+    "docs.deleted" : "0",
+    "store.size" : "194227",
+    "pri.store.size" : "97113",
+    "creation.date" : "1722411383772"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250107",
+    "uuid" : "vLmviLzgSc2FbjP6O6sQFw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "3712",
+    "docs.deleted" : "0",
+    "store.size" : "7076",
+    "pri.store.size" : "2596",
+    "creation.date" : "1736208002370"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250105",
+    "uuid" : "eS1fpPfcQAG76VkEeer0QA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "19081",
+    "pri.store.size" : "10851",
+    "creation.date" : "1736035202498"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250106",
+    "uuid" : "u2X_BsSjQtitrbQxuhHKGA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "15949",
+    "pri.store.size" : "8979",
+    "creation.date" : "1736121602943"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241224",
+    "uuid" : "HwfqFejSTTu5JM0T0Dr6jA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "18116",
+    "pri.store.size" : "8628",
+    "creation.date" : "1734998402755"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241225",
+    "uuid" : "ebe1i6eES7KpmIyC4IPNFg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17063",
+    "pri.store.size" : "8612",
+    "creation.date" : "1735084801872"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241226",
+    "uuid" : "nr7nbbvOT2aMio2QYl5eXA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "19845",
+    "pri.store.size" : "9480",
+    "creation.date" : "1735171202143"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241229",
+    "uuid" : "mIPTUHUfT02R9nxkXUdBFw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "16649",
+    "pri.store.size" : "7779",
+    "creation.date" : "1735430402343"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241228",
+    "uuid" : "OpPUYmK8T9ax4_IX8Q7OLA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "19137",
+    "pri.store.size" : "9530",
+    "creation.date" : "1735344002464"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241227",
+    "uuid" : "Y3LYFA7pTJ6qQLnwp1PAzw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "18228",
+    "pri.store.size" : "8184",
+    "creation.date" : "1735257602871"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network4-20240731",
+    "uuid" : "F1jtfaJjRoy9hC-j4wDk6A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "24049",
+    "docs.deleted" : "0",
+    "store.size" : "57288",
+    "pri.store.size" : "28644",
+    "creation.date" : "1722415340711"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241220",
+    "uuid" : "FcpaWv82SdSjePAhVPa90A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17210",
+    "pri.store.size" : "7578",
+    "creation.date" : "1734652801677"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241221",
+    "uuid" : "xITLRsjjT1WYjeSOtctd2g",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "16972",
+    "pri.store.size" : "8527",
+    "creation.date" : "1734739202138"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241223",
+    "uuid" : "FoOMUmaiRpuvPfiIjpIRPA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "15519",
+    "pri.store.size" : "8400",
+    "creation.date" : "1734912002251"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241222",
+    "uuid" : "aDsWOwctTqqAKBPWeCZ8Iw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "18372",
+    "pri.store.size" : "8995",
+    "creation.date" : "1734825602768"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250104",
+    "uuid" : "iBZ8ACcASa20BOh9U12csA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "15629",
+    "pri.store.size" : "7361",
+    "creation.date" : "1735948802411"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250103",
+    "uuid" : "u8wRjbDvQuOnXTr-eCn0AA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "18837",
+    "pri.store.size" : "9956",
+    "creation.date" : "1735862402069"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250102",
+    "uuid" : "LuVdxXhtRg2tHLNj7K1YnA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17525",
+    "pri.store.size" : "8400",
+    "creation.date" : "1735776001727"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250101",
+    "uuid" : "bKkwXbYVRFetekrvQokg4Q",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "15825",
+    "pri.store.size" : "8478",
+    "creation.date" : "1735689602173"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network2-20240731",
+    "uuid" : "16nRLx_hSlakXxgZ8Wl1aA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "399723",
+    "docs.deleted" : "0",
+    "store.size" : "687405",
+    "pri.store.size" : "343702",
+    "creation.date" : "1722412034055"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241217",
+    "uuid" : "bVE1hx7-SEO3uG2QwJV8uw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11613",
+    "docs.deleted" : "0",
+    "store.size" : "19350",
+    "pri.store.size" : "9675",
+    "creation.date" : "1734393602315"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241219",
+    "uuid" : "qXh4B92wTTKXYR02PAZ0iw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "18626",
+    "pri.store.size" : "10122",
+    "creation.date" : "1734566402469"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241218",
+    "uuid" : "xZO-yAhCR8eWMknmL_dRBg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11484",
+    "docs.deleted" : "0",
+    "store.size" : "17095",
+    "pri.store.size" : "7323",
+    "creation.date" : "1734480001522"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241130",
+    "uuid" : "yirxLqFrQ7GZWMBzt14GGw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "8882",
+    "docs.deleted" : "0",
+    "store.size" : "11261",
+    "pri.store.size" : "5630",
+    "creation.date" : "1734317152668"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241216",
+    "uuid" : "r6x1TYGmTEG8PbfUEhR7fA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11467",
+    "docs.deleted" : "0",
+    "store.size" : "18116",
+    "pri.store.size" : "9058",
+    "creation.date" : "1734317192693"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241215",
+    "uuid" : "0Bu9zEBVTrKyXzNxCsZDrA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "13204",
+    "pri.store.size" : "6602",
+    "creation.date" : "1734317190708"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241214",
+    "uuid" : "ldFhZmUETgKsC6TpLfllRQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "12618",
+    "pri.store.size" : "6309",
+    "creation.date" : "1734317189061"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241213",
+    "uuid" : "fITfihp5R9OL86qoEBdAiA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11510",
+    "docs.deleted" : "0",
+    "store.size" : "12571",
+    "pri.store.size" : "6285",
+    "creation.date" : "1734317187311"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241212",
+    "uuid" : "HFps9w9gTXujnEZiZRvbeg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11617",
+    "docs.deleted" : "0",
+    "store.size" : "14463",
+    "pri.store.size" : "7231",
+    "creation.date" : "1734317185843"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241211",
+    "uuid" : "tUgtbGzNTCunKC92NWRfjw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11639",
+    "docs.deleted" : "0",
+    "store.size" : "14682",
+    "pri.store.size" : "7341",
+    "creation.date" : "1734317184191"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241210",
+    "uuid" : "R8TbqmcUSG2SRDCjdXMEKA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11485",
+    "docs.deleted" : "0",
+    "store.size" : "11255",
+    "pri.store.size" : "5627",
+    "creation.date" : "1734317181541"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241203",
+    "uuid" : "DDKNfQ_9RPetbDmvCMQZbQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "13678",
+    "pri.store.size" : "6839",
+    "creation.date" : "1734317162725"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network5-20240729",
+    "uuid" : "kM3S4kV4R4C3nC292GWXww",
+    "pri" : "1",
+    "rep" : "1",
+    "docs.count" : "1274597",
+    "docs.deleted" : "0",
+    "store.size" : "1733293",
+    "pri.store.size" : "866646",
+    "creation.date" : "1722224170526"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network3-20240731",
+    "uuid" : "OvOsjRetQpCT-9i9If4czA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1322695",
+    "docs.deleted" : "0",
+    "store.size" : "1931918",
+    "pri.store.size" : "965959",
+    "creation.date" : "1722412810772"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241204",
+    "uuid" : "53GKRn0dRD2RSw5wcT-jIw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11577",
+    "docs.deleted" : "0",
+    "store.size" : "13915",
+    "pri.store.size" : "6957",
+    "creation.date" : "1734317166637"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241209",
+    "uuid" : "4X4i1tAiRnG4rZ3N0kaKtQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11524",
+    "docs.deleted" : "0",
+    "store.size" : "13741",
+    "pri.store.size" : "6870",
+    "creation.date" : "1734317179843"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241208",
+    "uuid" : "AV7b9eoQTqmqgPhH2FxfkQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11522",
+    "docs.deleted" : "0",
+    "store.size" : "13003",
+    "pri.store.size" : "6501",
+    "creation.date" : "1734317176431"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241207",
+    "uuid" : "j7_SXvdWTEW3E0gl7GmSOg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11493",
+    "docs.deleted" : "0",
+    "store.size" : "14231",
+    "pri.store.size" : "7115",
+    "creation.date" : "1734317174000"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241206",
+    "uuid" : "VJW_Od1dTqeNKT899D-8dg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11573",
+    "docs.deleted" : "0",
+    "store.size" : "14696",
+    "pri.store.size" : "7348",
+    "creation.date" : "1734317171673"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241205",
+    "uuid" : "Q_IXdqAnRyGqUK7aLEtzsQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11616",
+    "docs.deleted" : "0",
+    "store.size" : "13218",
+    "pri.store.size" : "6609",
+    "creation.date" : "1734317169276"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241231",
+    "uuid" : "NLli6L9wSh2_np8ax0Kunw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17314",
+    "pri.store.size" : "7785",
+    "creation.date" : "1735603202331"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241230",
+    "uuid" : "GOWfoUOYSty_Uuz6XwsOQg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17162",
+    "pri.store.size" : "8327",
+    "creation.date" : "1735516802214"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241202",
+    "uuid" : "MZzPn1FjT7av8sOi3WGbAw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "13309",
+    "pri.store.size" : "6654",
+    "creation.date" : "1734317159330"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241201",
+    "uuid" : "TnmO8n_FRkqycVrk5LVDwA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "12494",
+    "pri.store.size" : "6247",
+    "creation.date" : "1734317156994"
+  }
+]
+
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241206",
+    "uuid" : "VJW_Od1dTqeNKT899D-8dg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11573",
+    "docs.deleted" : "0",
+    "store.size" : "14696",
+    "pri.store.size" : "7348",
+    "creation.date" : "1734317171673"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241209",
+    "uuid" : "4X4i1tAiRnG4rZ3N0kaKtQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11524",
+    "docs.deleted" : "0",
+    "store.size" : "13741",
+    "pri.store.size" : "6870",
+    "creation.date" : "1734317179843"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241208",
+    "uuid" : "AV7b9eoQTqmqgPhH2FxfkQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11522",
+    "docs.deleted" : "0",
+    "store.size" : "13003",
+    "pri.store.size" : "6501",
+    "creation.date" : "1734317176431"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241207",
+    "uuid" : "j7_SXvdWTEW3E0gl7GmSOg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11493",
+    "docs.deleted" : "0",
+    "store.size" : "14231",
+    "pri.store.size" : "7115",
+    "creation.date" : "1734317174000"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network4-20240731",
+    "uuid" : "F1jtfaJjRoy9hC-j4wDk6A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "24049",
+    "docs.deleted" : "0",
+    "store.size" : "57288",
+    "pri.store.size" : "28644",
+    "creation.date" : "1722415340711"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241205",
+    "uuid" : "Q_IXdqAnRyGqUK7aLEtzsQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11616",
+    "docs.deleted" : "0",
+    "store.size" : "13218",
+    "pri.store.size" : "6609",
+    "creation.date" : "1734317169276"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241204",
+    "uuid" : "53GKRn0dRD2RSw5wcT-jIw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11577",
+    "docs.deleted" : "0",
+    "store.size" : "13915",
+    "pri.store.size" : "6957",
+    "creation.date" : "1734317166637"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241203",
+    "uuid" : "DDKNfQ_9RPetbDmvCMQZbQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "13678",
+    "pri.store.size" : "6839",
+    "creation.date" : "1734317162725"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network1-20240731",
+    "uuid" : "cfRkx--gQV-EWO4OiuFpeQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "96196",
+    "docs.deleted" : "0",
+    "store.size" : "194227",
+    "pri.store.size" : "97113",
+    "creation.date" : "1722411383772"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network5-20240729",
+    "uuid" : "kM3S4kV4R4C3nC292GWXww",
+    "pri" : "1",
+    "rep" : "1",
+    "docs.count" : "1274597",
+    "docs.deleted" : "0",
+    "store.size" : "1733293",
+    "pri.store.size" : "866646",
+    "creation.date" : "1722224170526"
+  }
+]
+
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250107",
+    "uuid" : "vLmviLzgSc2FbjP6O6sQFw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "3712",
+    "docs.deleted" : "0",
+    "store.size" : "7076",
+    "pri.store.size" : "2596",
+    "creation.date" : "1736208002370"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network4-20250103",
+    "uuid" : "eq2bnrimSJym-qo-C4dNpA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "6098571",
+    "docs.deleted" : "0",
+    "store.size" : "8336056",
+    "pri.store.size" : "4210890",
+    "creation.date" : "1735874089015"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250106",
+    "uuid" : "u2X_BsSjQtitrbQxuhHKGA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "15949",
+    "pri.store.size" : "8979",
+    "creation.date" : "1736121602943"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250105",
+    "uuid" : "eS1fpPfcQAG76VkEeer0QA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "19081",
+    "pri.store.size" : "10851",
+    "creation.date" : "1736035202498"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250104",
+    "uuid" : "iBZ8ACcASa20BOh9U12csA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "15629",
+    "pri.store.size" : "7361",
+    "creation.date" : "1735948802411"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250103",
+    "uuid" : "u8wRjbDvQuOnXTr-eCn0AA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "18837",
+    "pri.store.size" : "9956",
+    "creation.date" : "1735862402069"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250102",
+    "uuid" : "LuVdxXhtRg2tHLNj7K1YnA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17525",
+    "pri.store.size" : "8400",
+    "creation.date" : "1735776001727"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20250101",
+    "uuid" : "bKkwXbYVRFetekrvQokg4Q",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "15825",
+    "pri.store.size" : "8478",
+    "creation.date" : "1735689602173"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241202",
+    "uuid" : "MZzPn1FjT7av8sOi3WGbAw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "13309",
+    "pri.store.size" : "6654",
+    "creation.date" : "1734317159330"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241201",
+    "uuid" : "TnmO8n_FRkqycVrk5LVDwA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "12494",
+    "pri.store.size" : "6247",
+    "creation.date" : "1734317156994"
+  }
+]
+
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241130",
+    "uuid" : "yirxLqFrQ7GZWMBzt14GGw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "8882",
+    "docs.deleted" : "0",
+    "store.size" : "11261",
+    "pri.store.size" : "5630",
+    "creation.date" : "1734317152668"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241231",
+    "uuid" : "NLli6L9wSh2_np8ax0Kunw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17314",
+    "pri.store.size" : "7785",
+    "creation.date" : "1735603202331"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241230",
+    "uuid" : "GOWfoUOYSty_Uuz6XwsOQg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17162",
+    "pri.store.size" : "8327",
+    "creation.date" : "1735516802214"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241229",
+    "uuid" : "mIPTUHUfT02R9nxkXUdBFw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "16649",
+    "pri.store.size" : "7779",
+    "creation.date" : "1735430402343"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network3-20240731",
+    "uuid" : "OvOsjRetQpCT-9i9If4czA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1322695",
+    "docs.deleted" : "0",
+    "store.size" : "1931918",
+    "pri.store.size" : "965959",
+    "creation.date" : "1722412810772"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241228",
+    "uuid" : "OpPUYmK8T9ax4_IX8Q7OLA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "19137",
+    "pri.store.size" : "9530",
+    "creation.date" : "1735344002464"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241227",
+    "uuid" : "Y3LYFA7pTJ6qQLnwp1PAzw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "18228",
+    "pri.store.size" : "8184",
+    "creation.date" : "1735257602871"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241226",
+    "uuid" : "nr7nbbvOT2aMio2QYl5eXA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "19845",
+    "pri.store.size" : "9480",
+    "creation.date" : "1735171202143"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241225",
+    "uuid" : "ebe1i6eES7KpmIyC4IPNFg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17063",
+    "pri.store.size" : "8612",
+    "creation.date" : "1735084801872"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241224",
+    "uuid" : "HwfqFejSTTu5JM0T0Dr6jA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11459",
+    "docs.deleted" : "0",
+    "store.size" : "18116",
+    "pri.store.size" : "8628",
+    "creation.date" : "1734998402755"
+  }
+]
+
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241216",
+    "uuid" : "r6x1TYGmTEG8PbfUEhR7fA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11467",
+    "docs.deleted" : "0",
+    "store.size" : "18116",
+    "pri.store.size" : "9058",
+    "creation.date" : "1734317192693"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241215",
+    "uuid" : "0Bu9zEBVTrKyXzNxCsZDrA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "13204",
+    "pri.store.size" : "6602",
+    "creation.date" : "1734317190708"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241223",
+    "uuid" : "FoOMUmaiRpuvPfiIjpIRPA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "15519",
+    "pri.store.size" : "8400",
+    "creation.date" : "1734912002251"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241222",
+    "uuid" : "aDsWOwctTqqAKBPWeCZ8Iw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "18372",
+    "pri.store.size" : "8995",
+    "creation.date" : "1734825602768"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241221",
+    "uuid" : "xITLRsjjT1WYjeSOtctd2g",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "16972",
+    "pri.store.size" : "8527",
+    "creation.date" : "1734739202138"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241220",
+    "uuid" : "FcpaWv82SdSjePAhVPa90A",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "17210",
+    "pri.store.size" : "7578",
+    "creation.date" : "1734652801677"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241217",
+    "uuid" : "bVE1hx7-SEO3uG2QwJV8uw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11613",
+    "docs.deleted" : "0",
+    "store.size" : "19350",
+    "pri.store.size" : "9675",
+    "creation.date" : "1734393602315"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241219",
+    "uuid" : "qXh4B92wTTKXYR02PAZ0iw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "18626",
+    "pri.store.size" : "10122",
+    "creation.date" : "1734566402469"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241218",
+    "uuid" : "xZO-yAhCR8eWMknmL_dRBg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11484",
+    "docs.deleted" : "0",
+    "store.size" : "17095",
+    "pri.store.size" : "7323",
+    "creation.date" : "1734480001522"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network2-20240731",
+    "uuid" : "16nRLx_hSlakXxgZ8Wl1aA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "399723",
+    "docs.deleted" : "0",
+    "store.size" : "687405",
+    "pri.store.size" : "343702",
+    "creation.date" : "1722412034055"
+  }
+]
+
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241214",
+    "uuid" : "ldFhZmUETgKsC6TpLfllRQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11433",
+    "docs.deleted" : "0",
+    "store.size" : "12618",
+    "pri.store.size" : "6309",
+    "creation.date" : "1734317189061"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241213",
+    "uuid" : "fITfihp5R9OL86qoEBdAiA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11510",
+    "docs.deleted" : "0",
+    "store.size" : "12571",
+    "pri.store.size" : "6285",
+    "creation.date" : "1734317187311"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241212",
+    "uuid" : "HFps9w9gTXujnEZiZRvbeg",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11617",
+    "docs.deleted" : "0",
+    "store.size" : "14463",
+    "pri.store.size" : "7231",
+    "creation.date" : "1734317185843"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241211",
+    "uuid" : "tUgtbGzNTCunKC92NWRfjw",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11639",
+    "docs.deleted" : "0",
+    "store.size" : "14682",
+    "pri.store.size" : "7341",
+    "creation.date" : "1734317184191"
+  },
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-redhat-audit-20241210",
+    "uuid" : "R8TbqmcUSG2SRDCjdXMEKA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "11485",
+    "docs.deleted" : "0",
+    "store.size" : "11255",
+    "pri.store.size" : "5627",
+    "creation.date" : "1734317181541"
+  }
+]
+
+indicesinfo2 [{green open logstash-l7_network4-20250103 eq2bnrimSJym-qo-C4dNpA 3 1 6098571 0 8336056 4210890 1735874089015} {green open logstash-l7_network1-20240731 cfRkx--gQV-EWO4OiuFpeQ 3 1 96196 0 194227 97113 1722411383772} {green open logstash-redhat-audit-20250107 vLmviLzgSc2FbjP6O6sQFw 3 1 3712 0 7076 2596 1736208002370} {green open logstash-redhat-audit-20250105 eS1fpPfcQAG76VkEeer0QA 3 1 11433 0 19081 10851 1736035202498} {green open logstash-redhat-audit-20250106 u2X_BsSjQtitrbQxuhHKGA 3 1 11433 0 15949 8979 1736121602943} {green open logstash-redhat-audit-20241224 HwfqFejSTTu5JM0T0Dr6jA 3 1 11459 0 18116 8628 1734998402755} {green open logstash-redhat-audit-20241225 ebe1i6eES7KpmIyC4IPNFg 3 1 11433 0 17063 8612 1735084801872} {green open logstash-redhat-audit-20241226 nr7nbbvOT2aMio2QYl5eXA 3 1 11459 0 19845 9480 1735171202143} {green open logstash-redhat-audit-20241229 mIPTUHUfT02R9nxkXUdBFw 3 1 11433 0 16649 7779 1735430402343} {green open logstash-redhat-audit-20241228 OpPUYmK8T9ax4_IX8Q7OLA 3 1 11433 0 19137 9530 1735344002464} {green open logstash-redhat-audit-20241227 Y3LYFA7pTJ6qQLnwp1PAzw 3 1 11459 0 18228 8184 1735257602871} {green open logstash-l7_network4-20240731 F1jtfaJjRoy9hC-j4wDk6A 3 1 24049 0 57288 28644 1722415340711} {green open logstash-redhat-audit-20241220 FcpaWv82SdSjePAhVPa90A 3 1 11433 0 17210 7578 1734652801677} {green open logstash-redhat-audit-20241221 xITLRsjjT1WYjeSOtctd2g 3 1 11433 0 16972 8527 1734739202138} {green open logstash-redhat-audit-20241223 FoOMUmaiRpuvPfiIjpIRPA 3 1 11433 0 15519 8400 1734912002251} {green open logstash-redhat-audit-20241222 aDsWOwctTqqAKBPWeCZ8Iw 3 1 11433 0 18372 8995 1734825602768} {green open logstash-redhat-audit-20250104 iBZ8ACcASa20BOh9U12csA 3 1 11433 0 15629 7361 1735948802411} {green open logstash-redhat-audit-20250103 u8wRjbDvQuOnXTr-eCn0AA 3 1 11459 0 18837 9956 1735862402069} {green open logstash-redhat-audit-20250102 LuVdxXhtRg2tHLNj7K1YnA 3 1 11433 0 17525 8400 1735776001727} {green open logstash-redhat-audit-20250101 bKkwXbYVRFetekrvQokg4Q 3 1 11433 0 15825 8478 1735689602173} {green open logstash-l7_network2-20240731 16nRLx_hSlakXxgZ8Wl1aA 3 1 399723 0 687405 343702 1722412034055} {green open logstash-redhat-audit-20241217 bVE1hx7-SEO3uG2QwJV8uw 3 1 11613 0 19350 9675 1734393602315} {green open logstash-redhat-audit-20241219 qXh4B92wTTKXYR02PAZ0iw 3 1 11433 0 18626 10122 1734566402469} {green open logstash-redhat-audit-20241218 xZO-yAhCR8eWMknmL_dRBg 3 1 11484 0 17095 7323 1734480001522} {green open logstash-redhat-audit-20241130 yirxLqFrQ7GZWMBzt14GGw 3 1 8882 0 11261 5630 1734317152668} {green open logstash-redhat-audit-20241216 r6x1TYGmTEG8PbfUEhR7fA 3 1 11467 0 18116 9058 1734317192693} {green open logstash-redhat-audit-20241215 0Bu9zEBVTrKyXzNxCsZDrA 3 1 11433 0 13204 6602 1734317190708} {green open logstash-redhat-audit-20241214 ldFhZmUETgKsC6TpLfllRQ 3 1 11433 0 12618 6309 1734317189061} {green open logstash-redhat-audit-20241213 fITfihp5R9OL86qoEBdAiA 3 1 11510 0 12571 6285 1734317187311} {green open logstash-redhat-audit-20241212 HFps9w9gTXujnEZiZRvbeg 3 1 11617 0 14463 7231 1734317185843} {green open logstash-redhat-audit-20241211 tUgtbGzNTCunKC92NWRfjw 3 1 11639 0 14682 7341 1734317184191} {green open logstash-redhat-audit-20241210 R8TbqmcUSG2SRDCjdXMEKA 3 1 11485 0 11255 5627 1734317181541} {green open logstash-redhat-audit-20241203 DDKNfQ_9RPetbDmvCMQZbQ 3 1 11433 0 13678 6839 1734317162725} {green open logstash-l7_network5-20240729 kM3S4kV4R4C3nC292GWXww 1 1 1274597 0 1733293 866646 1722224170526} {green open logstash-l7_network3-20240731 OvOsjRetQpCT-9i9If4czA 3 1 1322695 0 1931918 965959 1722412810772} {green open logstash-redhat-audit-20241204 53GKRn0dRD2RSw5wcT-jIw 3 1 11577 0 13915 6957 1734317166637} {green open logstash-redhat-audit-20241209 4X4i1tAiRnG4rZ3N0kaKtQ 3 1 11524 0 13741 6870 1734317179843} {green open logstash-redhat-audit-20241208 AV7b9eoQTqmqgPhH2FxfkQ 3 1 11522 0 13003 6501 1734317176431} {green open logstash-redhat-audit-20241207 j7_SXvdWTEW3E0gl7GmSOg 3 1 11493 0 14231 7115 1734317174000} {green open logstash-redhat-audit-20241206 VJW_Od1dTqeNKT899D-8dg 3 1 11573 0 14696 7348 1734317171673} {green open logstash-redhat-audit-20241205 Q_IXdqAnRyGqUK7aLEtzsQ 3 1 11616 0 13218 6609 1734317169276} {green open logstash-redhat-audit-20241231 NLli6L9wSh2_np8ax0Kunw 3 1 11433 0 17314 7785 1735603202331} {green open logstash-redhat-audit-20241230 GOWfoUOYSty_Uuz6XwsOQg 3 1 11433 0 17162 8327 1735516802214} {green open logstash-redhat-audit-20241202 MZzPn1FjT7av8sOi3WGbAw 3 1 11459 0 13309 6654 1734317159330} {green open logstash-redhat-audit-20241201 TnmO8n_FRkqycVrk5LVDwA 3 1 11433 0 12494 6247 1734317156994}]
+indicesinfo [{green open logstash-redhat-audit-20241206 VJW_Od1dTqeNKT899D-8dg 3 1 11573 0 14696 7348 1734317171673} {green open logstash-redhat-audit-20241209 4X4i1tAiRnG4rZ3N0kaKtQ 3 1 11524 0 13741 6870 1734317179843} {green open logstash-redhat-audit-20241208 AV7b9eoQTqmqgPhH2FxfkQ 3 1 11522 0 13003 6501 1734317176431} {green open logstash-redhat-audit-20241207 j7_SXvdWTEW3E0gl7GmSOg 3 1 11493 0 14231 7115 1734317174000} {green open logstash-l7_network4-20240731 F1jtfaJjRoy9hC-j4wDk6A 3 1 24049 0 57288 28644 1722415340711} {green open logstash-redhat-audit-20241205 Q_IXdqAnRyGqUK7aLEtzsQ 3 1 11616 0 13218 6609 1734317169276} {green open logstash-redhat-audit-20241204 53GKRn0dRD2RSw5wcT-jIw 3 1 11577 0 13915 6957 1734317166637} {green open logstash-redhat-audit-20241203 DDKNfQ_9RPetbDmvCMQZbQ 3 1 11433 0 13678 6839 1734317162725} {green open logstash-l7_network1-20240731 cfRkx--gQV-EWO4OiuFpeQ 3 1 96196 0 194227 97113 1722411383772} {green open logstash-l7_network5-20240729 kM3S4kV4R4C3nC292GWXww 1 1 1274597 0 1733293 866646 1722224170526} {green open logstash-redhat-audit-20250107 vLmviLzgSc2FbjP6O6sQFw 3 1 3712 0 7076 2596 1736208002370} {green open logstash-l7_network4-20250103 eq2bnrimSJym-qo-C4dNpA 3 1 6098571 0 8336056 4210890 1735874089015} {green open logstash-redhat-audit-20250106 u2X_BsSjQtitrbQxuhHKGA 3 1 11433 0 15949 8979 1736121602943} {green open logstash-redhat-audit-20250105 eS1fpPfcQAG76VkEeer0QA 3 1 11433 0 19081 10851 1736035202498} {green open logstash-redhat-audit-20250104 iBZ8ACcASa20BOh9U12csA 3 1 11433 0 15629 7361 1735948802411} {green open logstash-redhat-audit-20250103 u8wRjbDvQuOnXTr-eCn0AA 3 1 11459 0 18837 9956 1735862402069} {green open logstash-redhat-audit-20250102 LuVdxXhtRg2tHLNj7K1YnA 3 1 11433 0 17525 8400 1735776001727} {green open logstash-redhat-audit-20250101 bKkwXbYVRFetekrvQokg4Q 3 1 11433 0 15825 8478 1735689602173} {green open logstash-redhat-audit-20241202 MZzPn1FjT7av8sOi3WGbAw 3 1 11459 0 13309 6654 1734317159330} {green open logstash-redhat-audit-20241201 TnmO8n_FRkqycVrk5LVDwA 3 1 11433 0 12494 6247 1734317156994} {green open logstash-redhat-audit-20241130 yirxLqFrQ7GZWMBzt14GGw 3 1 8882 0 11261 5630 1734317152668} {green open logstash-redhat-audit-20241231 NLli6L9wSh2_np8ax0Kunw 3 1 11433 0 17314 7785 1735603202331} {green open logstash-redhat-audit-20241230 GOWfoUOYSty_Uuz6XwsOQg 3 1 11433 0 17162 8327 1735516802214} {green open logstash-redhat-audit-20241229 mIPTUHUfT02R9nxkXUdBFw 3 1 11433 0 16649 7779 1735430402343} {green open logstash-l7_network3-20240731 OvOsjRetQpCT-9i9If4czA 3 1 1322695 0 1931918 965959 1722412810772} {green open logstash-redhat-audit-20241228 OpPUYmK8T9ax4_IX8Q7OLA 3 1 11433 0 19137 9530 1735344002464} {green open logstash-redhat-audit-20241227 Y3LYFA7pTJ6qQLnwp1PAzw 3 1 11459 0 18228 8184 1735257602871} {green open logstash-redhat-audit-20241226 nr7nbbvOT2aMio2QYl5eXA 3 1 11459 0 19845 9480 1735171202143} {green open logstash-redhat-audit-20241225 ebe1i6eES7KpmIyC4IPNFg 3 1 11433 0 17063 8612 1735084801872} {green open logstash-redhat-audit-20241224 HwfqFejSTTu5JM0T0Dr6jA 3 1 11459 0 18116 8628 1734998402755} {green open logstash-redhat-audit-20241216 r6x1TYGmTEG8PbfUEhR7fA 3 1 11467 0 18116 9058 1734317192693} {green open logstash-redhat-audit-20241215 0Bu9zEBVTrKyXzNxCsZDrA 3 1 11433 0 13204 6602 1734317190708} {green open logstash-redhat-audit-20241223 FoOMUmaiRpuvPfiIjpIRPA 3 1 11433 0 15519 8400 1734912002251} {green open logstash-redhat-audit-20241222 aDsWOwctTqqAKBPWeCZ8Iw 3 1 11433 0 18372 8995 1734825602768} {green open logstash-redhat-audit-20241221 xITLRsjjT1WYjeSOtctd2g 3 1 11433 0 16972 8527 1734739202138} {green open logstash-redhat-audit-20241220 FcpaWv82SdSjePAhVPa90A 3 1 11433 0 17210 7578 1734652801677} {green open logstash-redhat-audit-20241217 bVE1hx7-SEO3uG2QwJV8uw 3 1 11613 0 19350 9675 1734393602315} {green open logstash-redhat-audit-20241219 qXh4B92wTTKXYR02PAZ0iw 3 1 11433 0 18626 10122 1734566402469} {green open logstash-redhat-audit-20241218 xZO-yAhCR8eWMknmL_dRBg 3 1 11484 0 17095 7323 1734480001522} {green open logstash-l7_network2-20240731 16nRLx_hSlakXxgZ8Wl1aA 3 1 399723 0 687405 343702 1722412034055} {green open logstash-redhat-audit-20241214 ldFhZmUETgKsC6TpLfllRQ 3 1 11433 0 12618 6309 1734317189061} {green open logstash-redhat-audit-20241213 fITfihp5R9OL86qoEBdAiA 3 1 11510 0 12571 6285 1734317187311} {green open logstash-redhat-audit-20241212 HFps9w9gTXujnEZiZRvbeg 3 1 11617 0 14463 7231 1734317185843} {green open logstash-redhat-audit-20241211 tUgtbGzNTCunKC92NWRfjw 3 1 11639 0 14682 7341 1734317184191} {green open logstash-redhat-audit-20241210 R8TbqmcUSG2SRDCjdXMEKA 3 1 11485 0 11255 5627 1734317181541}]
+logstash-redhat-audit-20241206 size 14696 date 1734317171673
+logstash-redhat-audit-20241209 size 13741 date 1734317179843
+logstash-redhat-audit-20241208 size 13003 date 1734317176431
+logstash-redhat-audit-20241207 size 14231 date 1734317174000
+logstash-l7_network4-20240731 size 57288 date 1722415340711
+logstash-redhat-audit-20241205 size 13218 date 1734317169276
+logstash-redhat-audit-20241204 size 13915 date 1734317166637
+logstash-redhat-audit-20241203 size 13678 date 1734317162725
+logstash-l7_network1-20240731 size 194227 date 1722411383772
+logstash-l7_network5-20240729 size 1733293 date 1722224170526
+logstash-redhat-audit-20250107 size 7076 date 1736208002370
+logstash-l7_network4-20250103 size 8336056 date 1735874089015
+logstash-redhat-audit-20250106 size 15949 date 1736121602943
+logstash-redhat-audit-20250105 size 19081 date 1736035202498
+logstash-redhat-audit-20250104 size 15629 date 1735948802411
+logstash-redhat-audit-20250103 size 18837 date 1735862402069
+logstash-redhat-audit-20250102 size 17525 date 1735776001727
+logstash-redhat-audit-20250101 size 15825 date 1735689602173
+logstash-redhat-audit-20241202 size 13309 date 1734317159330
+logstash-redhat-audit-20241201 size 12494 date 1734317156994
+logstash-redhat-audit-20241130 size 11261 date 1734317152668
+logstash-redhat-audit-20241231 size 17314 date 1735603202331
+logstash-redhat-audit-20241230 size 17162 date 1735516802214
+logstash-redhat-audit-20241229 size 16649 date 1735430402343
+logstash-l7_network3-20240731 size 1931918 date 1722412810772
+logstash-redhat-audit-20241228 size 19137 date 1735344002464
+logstash-redhat-audit-20241227 size 18228 date 1735257602871
+logstash-redhat-audit-20241226 size 19845 date 1735171202143
+logstash-redhat-audit-20241225 size 17063 date 1735084801872
+logstash-redhat-audit-20241224 size 18116 date 1734998402755
+logstash-redhat-audit-20241216 size 18116 date 1734317192693
+logstash-redhat-audit-20241215 size 13204 date 1734317190708
+logstash-redhat-audit-20241223 size 15519 date 1734912002251
+logstash-redhat-audit-20241222 size 18372 date 1734825602768
+logstash-redhat-audit-20241221 size 16972 date 1734739202138
+logstash-redhat-audit-20241220 size 17210 date 1734652801677
+logstash-redhat-audit-20241217 size 19350 date 1734393602315
+logstash-redhat-audit-20241219 size 18626 date 1734566402469
+logstash-redhat-audit-20241218 size 17095 date 1734480001522
+logstash-l7_network2-20240731 size 687405 date 1722412034055
+logstash-redhat-audit-20241214 size 12618 date 1734317189061
+logstash-redhat-audit-20241213 size 12571 date 1734317187311
+logstash-redhat-audit-20241212 size 14463 date 1734317185843
+logstash-redhat-audit-20241211 size 14682 date 1734317184191
+logstash-redhat-audit-20241210 size 11255 date 1734317181541
+7076
+23025
+42106
+57735
+8393791
+8412628
+8430153
+8445978
+8463292
+8480454
+8497103
+8516240
+8534468
+8554313
+8571376
+8589492
+8605011
+8623383
+8640355
+8657565
+8676191
+8693286
+8712636
+8730752
+8743956
+8756574
+8769145
+8783608
+8798290
+8809545
+8823286
+8836289
+8850520
+8865216
+8878434
+8892349
+8906027
+8919336
+8931830
+8943091
+9000379
+filter_of_filter's compare:  [logstash-l7_network5-20240729 logstash-l7_network1-20240731 logstash-l7_network3-20240731 logstash-l7_network2-20240731]
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network5-20240729",
+    "uuid" : "kM3S4kV4R4C3nC292GWXww",
+    "pri" : "1",
+    "rep" : "1",
+    "docs.count" : "1274597",
+    "docs.deleted" : "0",
+    "store.size" : "1733293",
+    "pri.store.size" : "866646",
+    "creation.date" : "1722224170526"
+  }
+]
+
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network1-20240731",
+    "uuid" : "cfRkx--gQV-EWO4OiuFpeQ",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "96196",
+    "docs.deleted" : "0",
+    "store.size" : "194227",
+    "pri.store.size" : "97113",
+    "creation.date" : "1722411383772"
+  }
+]
+
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network3-20240731",
+    "uuid" : "OvOsjRetQpCT-9i9If4czA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "1322695",
+    "docs.deleted" : "0",
+    "store.size" : "1931918",
+    "pri.store.size" : "965959",
+    "creation.date" : "1722412810772"
+  }
+]
+
+[
+  {
+    "health" : "green",
+    "status" : "open",
+    "index" : "logstash-l7_network2-20240731",
+    "uuid" : "16nRLx_hSlakXxgZ8Wl1aA",
+    "pri" : "3",
+    "rep" : "1",
+    "docs.count" : "399723",
+    "docs.deleted" : "0",
+    "store.size" : "687405",
+    "pri.store.size" : "343702",
+    "creation.date" : "1722412034055"
+  }
+]
+

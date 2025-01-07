@@ -179,15 +179,38 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 
 }
 
+func chunkSlice(slice []string, chunkSize int) [][]string {
+	var chunks [][]string
+	for i := 0; i < len(slice); i += chunkSize {
+		end := i + chunkSize
+		if end > len(slice) {
+			end = len(slice)
+		}
+		chunks = append(chunks, slice[i:end])
+	}
+	return chunks
+}
+
 func FilterType_space(patternlist []string, disk_space int) (indiceslist []string) {
 
 	var indicesinfo CatIndice
+	// var indicesinfo2 CatIndice
 
 	if len(patternlist) < 1 {
 		indicesinfo = CatIndices()
 	} else {
-		indicesinfo = CatIndices_withPattern(patternlist)
+		// indicesinfo2 = CatIndices_withPattern(patternlist)
+		chunks := chunkSlice(patternlist, 10)
+		for _, chunk := range chunks {
+				indicesinfo1 := CatIndices_withPattern(chunk) // Replace with your actual function call
+				indicesinfo = append(indicesinfo, indicesinfo1...)	
+		}
 	}
+
+
+	// fmt.Println("indicesinfo2",indicesinfo2)
+	// fmt.Println("indicesinfo",indicesinfo)
+	
 
 	var creationDateSlice []string
 	var indexSizemap, creationdate_NameMap map[string]string
