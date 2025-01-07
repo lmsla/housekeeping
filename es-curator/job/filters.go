@@ -182,6 +182,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 func FilterType_space(patternlist []string, disk_space int) (indiceslist []string) {
 	fmt.Println("disk_space",disk_space)
 	var indicesinfo CatIndice
+	
 	if len(patternlist) < 1 {
 		indicesinfo = CatIndices()
 	} else {
