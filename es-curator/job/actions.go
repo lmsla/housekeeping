@@ -164,8 +164,7 @@ func Action_controll() {
 
 				global.Logger.Infow(actionMsg, "logType", "Procedures")
 				FilterList := ActionList[actions].Filters
-				fmt.Println("FilterList",FilterList)
-				
+
 				var comparelist []string
 				var filter_record []string
 
@@ -187,7 +186,6 @@ func Action_controll() {
 				filter_info := fmt.Sprintf("use these filter :%s", filter_record)
 
 				global.Logger.Infow(filter_info, "logType", "Procedures")
-				fmt.Println("filter_record",filter_record)
 
 				if len(role) == 0 {
 					comparelist = Filter_of_filter(filter_record, FilterList)

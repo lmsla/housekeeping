@@ -161,7 +161,10 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 		// panic(err)
 	}
 	// log.Println(res)
-	resString, _ := io.ReadAll(res.Body)
+	resString, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("CatIndices_withPattern error",err.Error())
+	}
 	var s CatIndice
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()

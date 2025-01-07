@@ -194,7 +194,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 
 		}
 	}
-	fmt.Println("patternListPre",patternListPre)
+
 	if fmt.Sprint(filter_record) == fmt.Sprint(arr1) || fmt.Sprint(filter_record) == fmt.Sprint(arr2) {
 		// log_record.Logrecord("ERROR", "Can't use age & space at the same time")
 		global.Logger.Error("Can't use age & space at the same time")
@@ -222,8 +222,6 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 		}
 	}
 
-	fmt.Println("patternlist",patternlist)
-	fmt.Println("spacelist",spacelist)
 
 	switch {
 
