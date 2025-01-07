@@ -222,6 +222,9 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 		}
 	}
 
+	fmt.Println("patternlist",patternlist)
+	fmt.Println("spacelist",spacelist)
+	
 	switch {
 
 	case reflect.DeepEqual(filter_record, ap):
