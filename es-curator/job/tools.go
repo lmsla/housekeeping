@@ -437,7 +437,7 @@ func Filter_of_filter_bak(filter_record, agelist, patternlist, spacelist []strin
 }
 
 // 用來對 index list 去重
-func RemoveDuplicates(arr []string) []string {
+func RemoveDuplicates1(arr []string) []string {
 	seen := make(map[string]bool)
 	result := []string{}
 
@@ -470,4 +470,19 @@ func MatchIndexBetweenNodeNCluster(indicesinfo CatIndice, nodeName string) map[s
 		}
 	}
 	return match
+}
+
+
+func RemoveDuplicates(arr []string) []string {
+	uniqueMap := make(map[string]bool) // 用於存儲唯一元素
+	var uniqueArr []string
+
+	for _, item := range arr {
+		if _, exists := uniqueMap[item]; !exists {
+			uniqueMap[item] = true
+			uniqueArr = append(uniqueArr, item)
+		}
+	}
+
+	return uniqueArr
 }

@@ -2,7 +2,9 @@ package job
 
 import (
 	"encoding/json"
+
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+
 	// "log"
 	// "fmt"
 	// "strings"
@@ -14,14 +16,14 @@ import (
 )
 
 type CatShard []struct {
-	Index  string `json:"index"`
-	Shard  string `json:"shard"`
-	Prirep string `json:"prirep"`
-	State  string `json:"state"`
-	Ip     string `json:"ip"`
-	Node   string `json:"node"`
-	Store  string `json:"store"`
-	Docs   string `json:"docs"`
+	Index        string `json:"index"`
+	Shard        string `json:"shard"`
+	Prirep       string `json:"prirep"`
+	State        string `json:"state"`
+	Ip           string `json:"ip"`
+	Node         string `json:"node"`
+	Store        string `json:"store"`
+	Docs         string `json:"docs"`
 	CreationDate string `json:"creation.date"`
 }
 
@@ -38,7 +40,7 @@ func CatShards() CatShard {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ", "cat nodes error"+err.Error())
+		// log_record.Logrecord("ERROR", "cat nodes error"+err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -59,7 +61,7 @@ func CatShardsbyNodeName(nodeName string) CatShard {
 	req := esapi.CatShardsRequest{
 		// i:ip,r:nodeRole,
 		// Index:  []string{"logstash-l7_network-20240515"},
-		H:      []string{"index", "shard", "prirep", "state", "ip", "node", "store", "docs","creation.date"},
+		H:      []string{"index", "shard", "prirep", "state", "ip", "node", "store", "docs", "creation.date"},
 		Format: "json",
 		Bytes:  "kb",
 		// FullID: true,
@@ -68,7 +70,7 @@ func CatShardsbyNodeName(nodeName string) CatShard {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ", "cat nodes error"+err.Error())
+		// log_record.Logrecord("ERROR", "cat nodes error"+err.Error())
 		global.Logger.Error(err.Error())
 	}
 	defer res.Body.Close()

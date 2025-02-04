@@ -2,13 +2,13 @@ package job
 
 import (
 	// "es-curator/log_record"
+	"es-curator/global"
 	"fmt"
 	"regexp"
 	"sort"
 	"strconv"
 	"strings"
 	"time"
-	"es-curator/global"
 	// "math"
 )
 
@@ -103,7 +103,7 @@ func FilterType_age_range_node(nodeName string, source string, direction string,
 		// fmt.Println("RangeFromDateT", RangeFromDateT)
 		// fmt.Println("RangeToDateT", RangeToDateT)
 		// log_record.Logrecord("Details", fmt.Sprintf("Date Range From :%s ,Range To :%s", RangeFromDate, RangeToDate))
-		global.Logger.Infow(fmt.Sprintf("Date Range From :%s ,Range To :%s", RangeFromDate, RangeToDate),"type","Details")
+		global.Logger.Infow(fmt.Sprintf("Date Range From :%s ,Range To :%s", RangeFromDate, RangeToDate), "type", "Details")
 
 		for data := range match {
 			// 將indices的 creation date 由 unixtime 轉為 "2006-01-02"的格式
@@ -134,7 +134,7 @@ func FilterType_age_range_node(nodeName string, source string, direction string,
 
 func FilterType_pattern_role(nodeName string, kind string, value []string) (indiceslist []string) {
 	indicesinfo := CatIndices()
-	match := MatchIndexBetweenNodeNCluster(indicesinfo,nodeName)
+	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)
 
 	// indicesinfo := CatIndices()
 	var indices []string
@@ -145,7 +145,7 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 				matchstring := fmt.Sprintf("^%s.*$", pattern)
 				matchbool, err := regexp.MatchString(matchstring, match[data].Index)
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "filter prefix error"+err.Error())
+					// log_record.Logrecord("ERROR", "filter prefix error"+err.Error())
 					global.Logger.Error(err.Error())
 				}
 				if matchbool {
@@ -160,7 +160,7 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 				matchstring := fmt.Sprintf("%s.*$", pattern)
 				matchbool, err := regexp.MatchString(matchstring, match[data].Index)
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "filter suffix error"+err.Error())
+					// log_record.Logrecord("ERROR", "filter suffix error"+err.Error())
 					global.Logger.Error(err.Error())
 					// panic("suffix")
 				}
@@ -176,7 +176,7 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 			for _, pattern := range value {
 				matchbool, err := regexp.MatchString(pattern, match[data].Index)
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "filter regex error"+err.Error())
+					// log_record.Logrecord("ERROR", "filter regex error"+err.Error())
 					global.Logger.Error(err.Error())
 					// panic("regex")
 				}
@@ -192,7 +192,7 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 
 }
 
-func FilterType_space_role(nodeName string,patternlist []string, disk_space int) (indiceslist []string) {
+func FilterType_space_role(nodeName string, patternlist []string, disk_space int) (indiceslist []string) {
 	// fmt.Println("nodeName ",nodeName)
 	var indicesinfo CatIndice
 	if len(patternlist) < 1 {
@@ -201,34 +201,31 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
 
-
-	match := MatchIndexBetweenNodeNCluster(indicesinfo,nodeName)
-
+	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)
 
 	var creationDateSlice []string
 
-	var indexSizemap, creationdate_NameMap , onlyIndexName map[string]string
+	var indexSizemap, creationdate_NameMap, onlyIndexName map[string]string
 	indexSizemap = make(map[string]string)
 	// var creationdate_NameMap map[string]string
 	creationdate_NameMap = make(map[string]string)
 	onlyIndexName = make(map[string]string)
-	for i,data := range match {
+	for i, data := range match {
 		// fmt.Println("i: ",i,"data+i: ",data.Index+i)
 
 		onlyIndexName[data.Index+i] = data.Index
 		//// 用 index name+i 做 key map size
 		indexSizemap[data.Index+i] = data.StoreSize
 		//// 用 CreationDate + Shard 做 key map index name+i
-		creationdate_NameMap[data.CreationDate+data.Shard] = data.Index+i
-		//// 用 CreationDate + Shard 組成的 array 
-		creationDateSlice = append(creationDateSlice,data.CreationDate+data.Shard)
+		creationdate_NameMap[data.CreationDate+data.Shard] = data.Index + i
+		//// 用 CreationDate + Shard 組成的 array
+		creationDateSlice = append(creationDateSlice, data.CreationDate+data.Shard)
 		// fmt.Println(data.Index, "size:", data.StoreSize, "date:", data.CreationDate)
 	}
 
 	// fmt.Println("indexSizemap",indexSizemap)
 	// fmt.Println("creationdate_NameMap",creationdate_NameMap)
 	// fmt.Println("creationDateSlice",creationDateSlice)
-
 
 	var finalIndexList []string
 	var aggregate_bytes []string
@@ -271,7 +268,7 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 
 				bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "Error during conversion "+err.Error())
+					// log_record.Logrecord("ERROR", "Error during conversion "+err.Error())
 					global.Logger.Error(err.Error())
 					return
 				}
@@ -297,10 +294,10 @@ func FilterType_space_role(nodeName string,patternlist []string, disk_space int)
 		// fmt.Println("added: ", added)
 		// fmt.Println("removed: ", removed)
 
-		for _,data := range removed {
+		for _, data := range removed {
 			finalIndexList = append(finalIndexList, onlyIndexName[data])
 		}
-		
+
 		finalIndexList = RemoveDuplicates(finalIndexList)
 		// fmt.Println("finalIndexList: ", finalIndexList)
 	}
@@ -318,8 +315,7 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
 
-
-	match := MatchIndexBetweenNodeNCluster(indicesinfo,nodeName)
+	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)
 
 	/// 統計各個 Node 的 Average Water Level
 	nodesinfo := CatNodesWithNodeName(nodeName)
@@ -361,7 +357,7 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 		diskKbToClean = diskToClean * 1024 * 1024
 
 		// log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb", diskToClean))
-		global.Logger.Infow(fmt.Sprintf("Disk Space to Clean %f gb", diskToClean),"type","Details")
+		global.Logger.Infow(fmt.Sprintf("Disk Space to Clean %f gb", diskToClean), "type", "Details")
 
 		indexSizemap = make(map[string]string)
 		creationdate_NameMap = make(map[string]string)
@@ -389,7 +385,7 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 
 				bytesnum, err := strconv.Atoi(indexSizemap[data])
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "Error during conversion"+err.Error())
+					// log_record.Logrecord("ERROR", "Error during conversion"+err.Error())
 					global.Logger.Error(err.Error())
 					fmt.Println("Error during conversion 163")
 					return
@@ -402,7 +398,7 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 				}
 			}
 			// log_record.Logrecord("Details", fmt.Sprintf("Total Delete kbs %d", total))
-			global.Logger.Infow(fmt.Sprintf("Total Delete kbs %d", total),"type","Details")
+			global.Logger.Infow(fmt.Sprintf("Total Delete kbs %d", total), "type", "Details")
 		}
 	} else {
 		// log_record.Logrecord("INFO ", "Water Level doesn't exceed upper limit")

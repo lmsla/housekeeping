@@ -132,7 +132,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 				matchstring := fmt.Sprintf("^%s.*$", pattern)
 				matchbool, err := regexp.MatchString(matchstring, indicesinfo[data].Index)
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "filter prefix error"+err.Error())
+					// log_record.Logrecord("ERROR", "filter prefix error"+err.Error())
 					global.Logger.Error(err.Error())
 				}
 				if matchbool {
@@ -147,7 +147,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 				matchstring := fmt.Sprintf("%s.*$", pattern)
 				matchbool, err := regexp.MatchString(matchstring, indicesinfo[data].Index)
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "filter suffix error"+err.Error())
+					// log_record.Logrecord("ERROR", "filter suffix error"+err.Error())
 					global.Logger.Error(err.Error())
 					// panic("suffix")
 				}
@@ -163,7 +163,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 			for _, pattern := range value {
 				matchbool, err := regexp.MatchString(pattern, indicesinfo[data].Index)
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "filter regex error"+err.Error())
+					// log_record.Logrecord("ERROR", "filter regex error"+err.Error())
 					global.Logger.Error(err.Error())
 					// panic("regex")
 				}
@@ -179,7 +179,7 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 
 }
 
-//// 將 pattern list 切分
+// // 將 pattern list 切分
 func chunkSlice(slice []string, chunkSize int) [][]string {
 	var chunks [][]string
 	for i := 0; i < len(slice); i += chunkSize {
@@ -203,11 +203,10 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 		// indicesinfo2 = CatIndices_withPattern(patternlist)
 		chunks := chunkSlice(patternlist, 10)
 		for _, chunk := range chunks {
-				indicesinfo1 := CatIndices_withPattern(chunk) // Replace with your actual function call
-				indicesinfo = append(indicesinfo, indicesinfo1...)	
+			indicesinfo1 := CatIndices_withPattern(chunk) // Replace with your actual function call
+			indicesinfo = append(indicesinfo, indicesinfo1...)
 		}
 	}
-
 
 	var creationDateSlice []string
 	var indexSizemap, creationdate_NameMap map[string]string
@@ -258,7 +257,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 
 				bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "Error during conversion "+err.Error())
+					// log_record.Logrecord("ERROR", "Error during conversion "+err.Error())
 					global.Logger.Error(err.Error())
 					return
 				}
@@ -267,7 +266,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 			}
 			// bytesnum, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
 			// if err != nil {
-			// 	log_record.Logrecord("ERROR ", "Error during conversion"+err.Error())
+			// 	log_record.Logrecord("ERROR", "Error during conversion"+err.Error())
 			// 	fmt.Println("Error during conversion 163")
 			// 	return
 			// }
@@ -344,7 +343,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 		diskKbToClean = diskToClean * 1024 * 1024
 
 		// log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb", diskToClean))
-		global.Logger.Infow(fmt.Sprintf("Disk Space to Clean %f gb", diskToClean),"type","Details")
+		global.Logger.Infow(fmt.Sprintf("Disk Space to Clean %f gb", diskToClean), "type", "Details")
 
 		indexSizemap = make(map[string]string)
 		creationdate_NameMap = make(map[string]string)
@@ -372,7 +371,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 
 				bytesnum, err := strconv.Atoi(indexSizemap[data])
 				if err != nil {
-					// log_record.Logrecord("ERROR ", "Error during conversion"+err.Error())
+					// log_record.Logrecord("ERROR", "Error during conversion"+err.Error())
 					global.Logger.Error(err.Error())
 					return
 				}
@@ -384,7 +383,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 				}
 			}
 			// log_record.Logrecord("Details", fmt.Sprintf("Total Delete kbs %d", total))
-			global.Logger.Infow(fmt.Sprintf("Total Delete kbs %d", total),"type","Details")
+			global.Logger.Infow(fmt.Sprintf("Total Delete kbs %d", total), "type", "Details")
 		}
 	} else {
 		// log_record.Logrecord("INFO ", "Water Level doesn't exceed upper limit")
@@ -399,7 +398,7 @@ func Test1() {
 	for i, data := range nodesinfo {
 		DiskUsedPercent, err := strconv.ParseFloat(data.DiskUsedPercent, 32)
 		if err != nil {
-			// log_record.Logrecord("ERROR ", "Error during conversion"+err.Error())
+			// log_record.Logrecord("ERROR", "Error during conversion"+err.Error())
 			global.Logger.Error(err.Error())
 			// fmt.Println("Error during conversion 329")
 			return

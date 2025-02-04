@@ -49,7 +49,7 @@ func Action_controll() {
 
 					comparelist = Filters_With_node(role, filter_record, FilterList)
 				}
-
+				comparelist = RemoveDuplicates(comparelist)
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("allocation these indices :%s to %s ", comparelist, value)
 					global.Logger.Infow(detailMsg, "type", "Details")
@@ -119,7 +119,7 @@ func Action_controll() {
 				} else {
 					comparelist = Filters_With_node(role, filter_record, FilterList)
 				}
-
+				comparelist = RemoveDuplicates(comparelist)
 				MaxNumSegments = ActionList[actions].Options.MaxNumSegment
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("forcemerge these indices :%s,segement num :%v", comparelist, MaxNumSegments)
@@ -192,7 +192,7 @@ func Action_controll() {
 				} else {
 					comparelist = Filters_With_node(role, filter_record, FilterList)
 				}
-
+				comparelist = RemoveDuplicates(comparelist)
 				//// delete function start write from here
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("Delete these indices : %s,Number of indices : %d", comparelist,len(comparelist))
@@ -263,7 +263,7 @@ func Action_controll() {
 				} else {
 					comparelist = Filters_With_node(role, filter_record, FilterList)
 				}
-
+				comparelist = RemoveDuplicates(comparelist)
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("Close these indices :%s", comparelist)
 
@@ -333,7 +333,8 @@ func Action_controll() {
 				} else {
 					comparelist = Filters_With_node(role, filter_record, FilterList)
 				}
-
+				comparelist = RemoveDuplicates(comparelist)
+				
 				if comparelist != nil {
 					detailMsg := fmt.Sprintf("Open these indices :%s", comparelist)
 

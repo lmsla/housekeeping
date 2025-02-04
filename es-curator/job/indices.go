@@ -2,9 +2,11 @@ package job
 
 import (
 	"fmt"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"log"
 	"strings"
+
+	"github.com/elastic/go-elasticsearch/v8/esapi"
+
 	// "sync"
 	// "net/http"
 	// "time"
@@ -102,7 +104,7 @@ func ClusterHealth() CatClusterHealth {
 
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","cluster health error" + err.Error())
+		// log_record.Logrecord("ERROR","cluster health error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -131,7 +133,7 @@ func CatIndices() CatIndice {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","cat index error" + err.Error())
+		// log_record.Logrecord("ERROR","cat index error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -156,14 +158,14 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","cat index error" + err.Error())
+		// log_record.Logrecord("ERROR","cat index error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 	// log.Println(res)
 	resString, err := io.ReadAll(res.Body)
 	if err != nil {
-		global.Logger.Error("CatIndices_withPattern error",err.Error())
+		global.Logger.Error("CatIndices_withPattern error", err.Error())
 	}
 	var s CatIndice
 	json.Unmarshal(resString, &s)
@@ -180,7 +182,7 @@ func OpenIndices(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","open index error" + err.Error())
+		// log_record.Logrecord("ERROR","open index error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -195,7 +197,7 @@ func CloseIndices(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","close index error" + err.Error())
+		// log_record.Logrecord("ERROR","close index error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -210,7 +212,7 @@ func CreateIndex() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","create index error" + err.Error())
+		// log_record.Logrecord("ERROR","create index error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -225,7 +227,7 @@ func DeleteIndex(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","delete index error" + err.Error())
+		// log_record.Logrecord("ERROR","delete index error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -241,7 +243,7 @@ func IndicesStatus() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","cat index status error" + err.Error())
+		// log_record.Logrecord("ERROR","cat index status error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -259,7 +261,7 @@ func ForceMerge(Index []string, MaxNumSegments int) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","forcemerge error" + err.Error())
+		// log_record.Logrecord("ERROR","forcemerge error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -278,7 +280,7 @@ func Allocation(Index []string, AllocationType string, key string, value string)
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ","allocation error" + err.Error())
+		// log_record.Logrecord("ERROR","allocation error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}

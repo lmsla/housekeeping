@@ -3,7 +3,9 @@ package job
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+
 	// "log"
 	"strings"
 	// "time"
@@ -34,7 +36,7 @@ func CatNodes() CatNode {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ", "cat nodes error"+err.Error())
+		// log_record.Logrecord("ERROR", "cat nodes error"+err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
@@ -96,7 +98,7 @@ func NodeStatus() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ", "node status error"+err.Error())
+		// log_record.Logrecord("ERROR", "node status error"+err.Error())
 		global.Logger.Error(err.Error())
 	}
 
@@ -105,20 +107,18 @@ func NodeStatus() {
 	// fmt.Println(res)
 }
 
-
-
 func Catnodes() {
 	req := esapi.NodesInfoRequest{
 		NodeID: []string{"Q4kU"},
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR ", "cat nodes error"+err.Error())
+		// log_record.Logrecord("ERROR", "cat nodes error"+err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 
 	defer res.Body.Close()
 	// log.Println(res)
-	fmt.Println("res",res)
+	fmt.Println("res", res)
 }

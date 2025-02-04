@@ -1,12 +1,9 @@
 es:
   url: 
     - https://10.99.1.206:9200
-    # - https://10.50.70.12:9200
   sourceAccount: "elastic"
   sourcePassword: "a12345678"
-  # url: https://10.99.1.64:9200
-  # sourceAccount: "elastic"
-  # sourcePassword: "a12345678"
+
 
 information:
   test_mode: false
