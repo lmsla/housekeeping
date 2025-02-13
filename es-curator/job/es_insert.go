@@ -14,7 +14,7 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
-func CatIndices_withPatteran() {
+func CatIndices_withPattern1() {
 	data := map[string]interface{}{
 		"@timestamp": time.Now().Format(time.RFC3339),
 		"user":      "johndoe",

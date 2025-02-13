@@ -11,21 +11,37 @@ import (
 	// "math"
 )
 
+func timetransform(unit string,unit_count int ) (benchmarkDate string){
+
+	if unit == "years" {
+		benchmarkDate = time.Now().AddDate(-unit_count, -0, -0).Format("2006-01-02 15:04:05")
+	} else if unit == "months" {
+		benchmarkDate = time.Now().AddDate(-0, -unit_count, -0).Format("2006-01-02 15:04:05")
+	} else if unit == "days" {
+		benchmarkDate = time.Now().AddDate(-0, -0, -unit_count).Format("2006-01-02 15:04:05")
+	}
+	return benchmarkDate
+}
+
 func FilterType_age(source string, direction string, unit string, unit_count int) (indiceslist []string) {
 
 	if source == "creation_date" {
 		indicesinfo := CatIndices()
 		var indices []string
-		// 時間往前推
+
 		var benchmarkDate string
-		if unit == "years" {
-			benchmarkDate = time.Now().AddDate(-unit_count, -0, -0).Format("2006-01-02 15:04:05")
-		} else if unit == "months" {
-			benchmarkDate = time.Now().AddDate(-0, -unit_count, -0).Format("2006-01-02 15:04:05")
-		} else if unit == "days" {
-			benchmarkDate = time.Now().AddDate(-0, -0, -unit_count).Format("2006-01-02 15:04:05")
-		}
-		// timeadjust := time.Now().AddDate(-0,-0,-global.EnvConfig.DeleteIndices.Filters.Unit_count).Format("2006-01-02")
+		benchmarkDate = timetransform(unit,unit_count)
+
+		// // 時間往前推
+		// var benchmarkDate string
+		// if unit == "years" {
+		// 	benchmarkDate = time.Now().AddDate(-unit_count, -0, -0).Format("2006-01-02 15:04:05")
+		// } else if unit == "months" {
+		// 	benchmarkDate = time.Now().AddDate(-0, -unit_count, -0).Format("2006-01-02 15:04:05")
+		// } else if unit == "days" {
+		// 	benchmarkDate = time.Now().AddDate(-0, -0, -unit_count).Format("2006-01-02 15:04:05")
+		// }
+	
 
 		benchmarkDateT, error := time.Parse("2006-01-02 15:04:05", benchmarkDate)
 		if error != nil {
@@ -52,8 +68,6 @@ func FilterType_age(source string, direction string, unit string, unit_count int
 			} else if CreationDateT.After(benchmarkDateT) && direction == "younger" {
 				// fmt.Println(indicesinfo[data].Index, "date is:", CreationDate, indicesinfo[data].CreationDate)
 				indices = append(indices, indicesinfo[data].Index)
-
-				// 滿足 direction = "range" 及 產生日期 (creation date) 在 基準日期(benchmark Date)之後 及產生日期 (creation date) 在現在日期之前的 index
 			}
 		}
 		// fmt.Println(indices)
@@ -90,8 +104,7 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 			fmt.Println(error)
 			return
 		}
-		// fmt.Println("RangeFromDateT", RangeFromDateT)
-		// fmt.Println("RangeToDateT", RangeToDateT)
+
 
 		// log_record.Logrecord("Details", fmt.Sprintf("Date Range From :%s ,Range To :%s", RangeFromDate, RangeToDate))
 		global.Logger.Infow(fmt.Sprintf("Date Range From :%s ,Range To :%s", RangeFromDate, RangeToDate), "type", "Details")
@@ -101,8 +114,6 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 			timestamp, _ := strconv.ParseInt(indicesinfo[data].CreationDate, 10, 64)
 			CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 			// NowDateTime := time.Now().Format("2006-01-02")
-
-			// timeadjust := time.Now().AddDate(-0,-0,-global.EnvConfig.DeleteIndices.Filters.Unit_count).Format("2006-01-02")
 			CreationDateT, error := time.Parse("2006-01-02 15:04:05", CreationDate)
 			if error != nil {
 				fmt.Println(error)
@@ -115,8 +126,6 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 				indices = append(indices, indicesinfo[data].Index)
 			}
 		}
-
-		// fmt.Println("indices", indices)
 		return indices
 	}
 	return
@@ -126,7 +135,6 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 	indicesinfo := CatIndices()
 	var indices []string
 	if kind == "prefix" {
-		// fmt.Println("prefix")
 		for data := range indicesinfo {
 			for _, pattern := range value {
 				matchstring := fmt.Sprintf("^%s.*$", pattern)
@@ -254,7 +262,6 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 				bytesnum = 0
 				// total += bytesnum
 			} else {
-
 				bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
 				if err != nil {
 					// log_record.Logrecord("ERROR", "Error during conversion "+err.Error())
@@ -411,7 +418,7 @@ func Test1() {
 	fmt.Println(water_level / float64(len(nodesinfo)))
 }
 
-func ListTest() {
+func ListTest12() {
 	// var finalIndexList []string
 	// var x []string
 	x := []string{"a", "b", "c"}

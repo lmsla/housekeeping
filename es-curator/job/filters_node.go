@@ -279,7 +279,6 @@ func FilterType_space_role(nodeName string, patternlist []string, disk_space int
 			// 加總 index storage
 			total += bytesnum
 			// fmt.Println("total_in",total)
-
 			if total > disk_space*1024*1024 {
 				break
 			}
@@ -288,16 +287,13 @@ func FilterType_space_role(nodeName string, patternlist []string, disk_space int
 		}
 		// fmt.Println("final_list:", finalIndexList)
 		// fmt.Println(total)
-
 		_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
 		// finalIndexList = removed
 		// fmt.Println("added: ", added)
 		// fmt.Println("removed: ", removed)
-
 		for _, data := range removed {
 			finalIndexList = append(finalIndexList, onlyIndexName[data])
 		}
-
 		finalIndexList = RemoveDuplicates(finalIndexList)
 		// fmt.Println("finalIndexList: ", finalIndexList)
 	}

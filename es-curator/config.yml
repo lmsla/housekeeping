@@ -1,18 +1,16 @@
 #### timestring "2006-01-02 15:04:05"
-
-
 actions:
   - action: delete_indices
     description: delete selected indices
     options:
-      disable_action: false
+      disable_action: true
       delay: 5
     filters:
     - filtertype: pattern
       kind: prefix
       value: logstash
     - filtertype: space
-      disk_space: 10
+      disk_space: 15
     # - filtertype: age
     #   source: creation_date
     #   direction: range
@@ -23,9 +21,9 @@ actions:
   - action: allocation
     description:  allocate selected indices at data_hot
     options:
-      disable_action: true
+      disable_action: false
       key: _tier_preference
-      value: data_hot
+      value: data_warm
       allocation_type: include
       delay: 5
     filters:
@@ -35,7 +33,7 @@ actions:
     # - filtertype: node_role
     #   value: h
     - filtertype: space
-      disk_space: 1
+      disk_space: 10
 
   - action: allocation
     description:  allocation selected indices in selected node to data_warm12
