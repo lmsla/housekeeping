@@ -43,7 +43,7 @@ func SetElkClient() error {
         return fmt.Errorf("elasticsearch 返回錯誤狀態: %s", res.String())
     }
 
-    fmt.Println("成功連線到 Elasticsearch")
+	global.Stderr_logger.Info("成功連線到 Elasticsearch")
     return nil
 }
 
@@ -79,7 +79,6 @@ func SetElkClient1() {
 
 	}
 
-	// log.SetFlags(0)
 
 	fmt.Println(res)
 	fmt.Println("ES Connection ok")

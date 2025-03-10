@@ -31,7 +31,7 @@ func processFilters(FilterList []structs.Filter, filter_record *[]string, role *
 }
 
 func Action_controll() {
-	var comparelist, filter_record, role []string
+	var comparelist, role []string
 
 	ActionList := global.ActionStruct.Actions
 	for actions := range ActionList {
@@ -39,7 +39,7 @@ func Action_controll() {
 		if ActionList[actions].Options.DisableAction {
 			continue
 		}
-
+		var filter_record []string
 		logAction(ActionList[actions].Action, ActionList[actions].Description)
 
 		FilterList := ActionList[actions].Filters
@@ -68,13 +68,10 @@ func Action_controll() {
 		case "open":
 			handleOpen(comparelist)
 		}
-
 		delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 		global.Logger.Infow(delaymsg)
 		time.Sleep(time.Duration(ActionList[actions].Options.Delay) * time.Second)
-
 	}
-
 }
 
 func handleAllocation(comparelist []string, action structs.Actiond) {

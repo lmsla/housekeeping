@@ -11,8 +11,8 @@ import (
 	// "math"
 )
 
-func timetransform(unit string,unit_count int ) (benchmarkDate string){
-
+func timetransform(unit string, unit_count int) string {
+	var benchmarkDate string
 	if unit == "years" {
 		benchmarkDate = time.Now().AddDate(-unit_count, -0, -0).Format("2006-01-02 15:04:05")
 	} else if unit == "months" {
@@ -28,9 +28,7 @@ func FilterType_age(source string, direction string, unit string, unit_count int
 	if source == "creation_date" {
 		indicesinfo := CatIndices()
 		var indices []string
-
-		var benchmarkDate string
-		benchmarkDate = timetransform(unit,unit_count)
+		var benchmarkDate = timetransform(unit, unit_count)
 
 		// // 時間往前推
 		// var benchmarkDate string
@@ -41,7 +39,6 @@ func FilterType_age(source string, direction string, unit string, unit_count int
 		// } else if unit == "days" {
 		// 	benchmarkDate = time.Now().AddDate(-0, -0, -unit_count).Format("2006-01-02 15:04:05")
 		// }
-	
 
 		benchmarkDateT, error := time.Parse("2006-01-02 15:04:05", benchmarkDate)
 		if error != nil {
@@ -104,7 +101,6 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 			fmt.Println(error)
 			return
 		}
-
 
 		// log_record.Logrecord("Details", fmt.Sprintf("Date Range From :%s ,Range To :%s", RangeFromDate, RangeToDate))
 		global.Logger.Infow(fmt.Sprintf("Date Range From :%s ,Range To :%s", RangeFromDate, RangeToDate), "type", "Details")
@@ -225,7 +221,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 		indexSizemap[indicesinfo[data].Index] = indicesinfo[data].StoreSize
 		creationdate_NameMap[indicesinfo[data].CreationDate] = indicesinfo[data].Index
 		creationDateSlice = append(creationDateSlice, indicesinfo[data].CreationDate)
-		fmt.Println(indicesinfo[data].Index, "size", indicesinfo[data].StoreSize, "date", indicesinfo[data].CreationDate)
+		// fmt.Println(indicesinfo[data].Index, "size", indicesinfo[data].StoreSize, "date", indicesinfo[data].CreationDate)
 	}
 	var finalIndexList []string
 	var aggregate_bytes []string

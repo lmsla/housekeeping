@@ -1,6 +1,6 @@
 es:
   url: 
-    - https://10.99.1.206:9200
+    - https://10.99.1.213:9200
     # - https://10.99.1.93:9200
   sourceAccount: "housekeeping"
   sourcePassword: "elastic"
@@ -8,7 +8,7 @@ es:
   # sourcePassword: "elastic"
 
 information:
-  test_mode: false
+  test_mode: true
   period: "59 11 * * *"
   execute_cron : false
 

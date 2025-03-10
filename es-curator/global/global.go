@@ -2,7 +2,9 @@ package global
 
 import (
 	"es-curator/structs"
+
 	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/sirupsen/logrus"
 	"go.uber.org/zap"
 	// "go.uber.org/zap/zapcore"
 )
@@ -14,4 +16,5 @@ var (
 	ActionStruct  *structs.ActionStruct
 	Logger        *zap.SugaredLogger
 	Detail_Logger *zap.SugaredLogger
+	Stderr_logger *logrus.Logger
 )
