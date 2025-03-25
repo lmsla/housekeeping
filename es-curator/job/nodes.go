@@ -36,10 +36,12 @@ func CatNodes() CatNode {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR", "cat nodes error"+err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("CatNodes request failed: ", err.Error())
 		// panic(err)
 	}
+
+	ResponseStatusCheck(res,"CatNodes")
+
 	defer res.Body.Close()
 
 	resString, _ := io.ReadAll(res.Body)
@@ -50,20 +52,21 @@ func CatNodes() CatNode {
 	return s
 }
 
-func CatNodesWithNodeName(nodeName string) CatNode {
-	nodesinfo := CatNodes()
-
-	var nodesInfoWithName CatNode
-
-	for _, node := range nodesinfo {
-
-		if node.Name == nodeName {
-			nodesInfoWithName = append(nodesInfoWithName, node)
-		}
-
+func NodeStatus() {
+	req := esapi.NodesStatsRequest{
+		NodeID: []string{"Q4kUx91HR6mSOt0I6oydug"},
+		// Metric: []string{"indices"},
+		// IndexMetric: []string{"docs"},
+		Pretty: true,
 	}
-
-	return nodesInfoWithName
+	res, err := req.Do(context.Background(), es)
+	if err != nil {
+		global.Logger.Error("NodeStatus request failed: ", err.Error())
+	}
+	ResponseStatusCheck(res,"NodeStatus")
+	defer res.Body.Close()
+	// log.Println(res)
+	// fmt.Println(res)
 }
 
 // 判定 nodeRole 相對應的 nodeName
@@ -81,6 +84,18 @@ func NodeRoleDetermination(role string) (nodeName []string) {
 	return nodeName
 }
 
+// CatNodes by nodeName
+func CatNodesWithNodeName(nodeName string) CatNode {
+	nodesinfo := CatNodes()
+	var nodesInfoWithName CatNode
+	for _, node := range nodesinfo {
+		if node.Name == nodeName {
+			nodesInfoWithName = append(nodesInfoWithName, node)
+		}
+	}
+	return nodesInfoWithName
+}
+
 func Nodetest() {
 	nodeinfo := CatNodes()
 	for data := range nodeinfo {
@@ -89,35 +104,17 @@ func Nodetest() {
 	}
 }
 
-func NodeStatus() {
-	req := esapi.NodesStatsRequest{
-		NodeID: []string{"Q4kUx91HR6mSOt0I6oydug"},
-		// Metric: []string{"indices"},
-		// IndexMetric: []string{"docs"},
-		Pretty: true,
-	}
-	res, err := req.Do(context.Background(), es)
-	if err != nil {
-		// log_record.Logrecord("ERROR", "node status error"+err.Error())
-		global.Logger.Error(err.Error())
-	}
-
-	defer res.Body.Close()
-	// log.Println(res)
-	// fmt.Println(res)
-}
-
+// for test
 func Catnodes() {
 	req := esapi.NodesInfoRequest{
 		NodeID: []string{"Q4kU"},
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR", "cat nodes error"+err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("Catnodes request failed: ", err.Error())
 		// panic(err)
 	}
-
+	ResponseStatusCheck(res,"CatNodes")
 	defer res.Body.Close()
 	// log.Println(res)
 	fmt.Println("res", res)

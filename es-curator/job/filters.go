@@ -340,13 +340,13 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 
 	// 觸發 upper_limit 才進行動作
 	if AnerageLevel >= float64(upper_limit) {
-
+		AllDiskTotal := 195.66
 		diskToCleanPercentage := float64(upper_limit) - float64(lower_limit)
 		diskToClean := AllDiskTotal * (diskToCleanPercentage / 100)
 		diskKbToClean = diskToClean * 1024 * 1024
 
 		// log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb", diskToClean))
-		global.Logger.Infow(fmt.Sprintf("Disk Space to Clean %f gb", diskToClean), "type", "Details")
+		global.Logger.Infow(fmt.Sprintf("Estimated to Release %f GB of Disk Space", diskToClean), "type", "Details")
 
 		indexSizemap = make(map[string]string)
 		creationdate_NameMap = make(map[string]string)
@@ -386,7 +386,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 				}
 			}
 			// log_record.Logrecord("Details", fmt.Sprintf("Total Delete kbs %d", total))
-			global.Logger.Infow(fmt.Sprintf("Total Delete kbs %d", total), "type", "Details")
+			global.Logger.Infow(fmt.Sprintf("Actually released %d kbs", total), "type", "Details")
 		}
 	} else {
 		// log_record.Logrecord("INFO ", "Water Level doesn't exceed upper limit")

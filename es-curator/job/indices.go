@@ -17,32 +17,6 @@ import (
 	"io"
 )
 
-// type CatIndicesRequest struct {
-// 	Index []string
-
-// 	Bytes                   string
-// 	ExpandWildcards         string
-// 	Format                  string
-// 	H                       []string
-// 	Health                  string
-// 	Help                    *bool
-// 	IncludeUnloadedSegments *bool
-// 	Local                   *bool
-// 	MasterTimeout           time.Duration
-// 	Pri                     *bool
-// 	S                       []string
-// 	Time                    string
-// 	V                       *bool
-
-// 	Pretty     bool
-// 	Human      bool
-// 	ErrorTrace bool
-// 	FilterPath []string
-
-// 	Header http.Header
-// 	// contains filtered or unexported fields
-// }
-
 func newTrue() *bool {
 	b := true
 	return &b
@@ -105,11 +79,13 @@ func ClusterHealth() CatClusterHealth {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		// log_record.Logrecord("ERROR","cluster health error" + err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("ClusterHealth request failed: ", err.Error())
 		// panic(err)
 	}
 	// fmt.Println(res)
 
+	ResponseStatusCheck(res,"ClusterHealth")
+	
 	defer res.Body.Close()
 	// Parse the response
 	resString, _ := io.ReadAll(res.Body)
@@ -134,9 +110,12 @@ func CatIndices() CatIndice {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		// log_record.Logrecord("ERROR","cat index error" + err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("CatIndices request failed: ", err.Error())
 		// panic(err)
 	}
+
+	ResponseStatusCheck(res,"CatIndices")
+
 	// log.Println(res)
 	resString, _ := io.ReadAll(res.Body)
 	var s CatIndice
@@ -158,15 +137,17 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR","cat index error" + err.Error())
 		global.Logger.Error(err.Error())
 		// panic(err)
 	}
 	// log.Println(res)
 	resString, err := io.ReadAll(res.Body)
 	if err != nil {
-		global.Logger.Error("CatIndices_withPattern error", err.Error())
+		global.Logger.Error("CatIndices_withPattern request failed: ", err.Error())
 	}
+
+	ResponseStatusCheck(res,"CatIndices_withPattern")
+
 	var s CatIndice
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
@@ -182,11 +163,10 @@ func OpenIndices(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR","open index error" + err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("OpenIndices request failed: ", err.Error())
 		// panic(err)
 	}
-
+	ResponseStatusCheck(res,"OpenIndices")
 	defer res.Body.Close()
 	log.Println(res)
 }
@@ -197,11 +177,10 @@ func CloseIndices(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR","close index error" + err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("CloseIndices request failed: ", err.Error())
 		// panic(err)
 	}
-
+	ResponseStatusCheck(res,"CloseIndices")
 	defer res.Body.Close()
 	log.Println(res)
 }
@@ -212,10 +191,10 @@ func CreateIndex() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR","create index error" + err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("CreateIndices request failed: ", err.Error())
 		// panic(err)
 	}
+	ResponseStatusCheck(res,"CreateIndices")
 	defer res.Body.Close()
 	log.Println(res)
 }
@@ -227,10 +206,10 @@ func DeleteIndex(Index []string) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR","delete index error" + err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("DeleteIndex request failed: ", err.Error())
 		// panic(err)
 	}
+	ResponseStatusCheck(res,"DeleteIndex")
 	defer res.Body.Close()
 	log.Println(res)
 }
@@ -243,11 +222,10 @@ func IndicesStatus() {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR","cat index status error" + err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("IndicesStatus request failed: ", err.Error())
 		// panic(err)
 	}
-
+	ResponseStatusCheck(res,"IndicesStatus")
 	defer res.Body.Close()
 	log.Println(res)
 }
@@ -261,10 +239,11 @@ func ForceMerge(Index []string, MaxNumSegments int) {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR","forcemerge error" + err.Error())
-		global.Logger.Error(err.Error())
+		global.Logger.Error("ForceMerge request failed: ", err.Error())
 		// panic(err)
 	}
+
+	ResponseStatusCheck(res,"ForceMerge")
 
 	defer res.Body.Close()
 	log.Println(res)
@@ -279,12 +258,38 @@ func Allocation(Index []string, AllocationType string, key string, value string)
 		Body:  strings.NewReader(body),
 	}
 	res, err := req.Do(context.Background(), es)
+
 	if err != nil {
-		// log_record.Logrecord("ERROR","allocation error" + err.Error())
-		global.Logger.Error(err.Error())
-		// panic(err)
+		global.Logger.Error("Allocation request failed: ", err.Error())
+		// fmt.Println("error", err.Error())
+		return
 	}
 
+	ResponseStatusCheck(res,"Allocation")
+
 	defer res.Body.Close()
+
 	log.Println(res)
+}
+
+
+func ResponseStatusCheck(res *esapi.Response,action string) {
+		// 解析 ES API 回應，確保狀態碼是 2xx
+		if res.StatusCode < 200 || res.StatusCode >= 300 {
+			resBody, _ := io.ReadAll(res.Body)
+	
+			var formattedError map[string]interface{}
+			if err := json.Unmarshal(resBody, &formattedError); err == nil {
+				// 解析 reason
+				if errMap, ok := formattedError["error"].(map[string]interface{}); ok {
+					if reason, ok := errMap["reason"].(string); ok {
+						// fmt.Println("Reason:", reason)
+						global.Logger.Error(fmt.Sprintf("%s API failed with status [%d], Reason: %s", action,res.StatusCode,reason))
+					}
+				}
+			} else {
+				global.Logger.Error(fmt.Sprintf("%s API failed with status [%d]: %s", action, res.StatusCode, string(resBody)))
+			}
+			return
+		}
 }

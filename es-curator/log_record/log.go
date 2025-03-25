@@ -32,7 +32,10 @@ func InitLogger() {
 	// 配置 zap 編碼器
 	encoderConfig := zap.NewProductionEncoderConfig()
 	encoderConfig.TimeKey = "timestamp"
-	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	encoderConfig.EncodeTime = zapcore.TimeEncoder(func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+		enc.AppendString(t.Format("2006-01-02 15:04:05"))
+	})
+	// encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	encoderConfig.EncodeLevel = zapcore.CapitalLevelEncoder
 	encoderConfig.MessageKey = "msg"
 	encoderConfig.LevelKey = "level"
@@ -44,6 +47,7 @@ func InitLogger() {
 		zapcore.NewJSONEncoder(encoderConfig),
 		w,
 		zap.InfoLevel,
+		// zap.DebugLevel,
 		// zap.ErrorLevel,
 	)
 
@@ -70,7 +74,10 @@ func InitDetailLogger() {
 	// 配置 zap 編碼器
 	encoderConfig := zap.NewProductionEncoderConfig()
 	encoderConfig.TimeKey = "timestamp"
-	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	encoderConfig.EncodeTime = zapcore.TimeEncoder(func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+		enc.AppendString(t.Format("2006-01-02 15:04:05"))
+	})
+	// encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	encoderConfig.EncodeLevel = zapcore.CapitalLevelEncoder
 	encoderConfig.MessageKey = "msg"
 	encoderConfig.LevelKey = "level"

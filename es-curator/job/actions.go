@@ -13,6 +13,7 @@ func logAction(action string, description string) {
 	global.Logger.Infow(actionMsg, "logType", "Procedures")
 }
 
+// 採集 action 下的所有 filter
 func processFilters(FilterList []structs.Filter, filter_record *[]string, role *[]string) {
 
 	for filtertype := range FilterList {
@@ -26,6 +27,8 @@ func processFilters(FilterList []structs.Filter, filter_record *[]string, role *
 		case "node_role":
 			*filter_record = append(*filter_record, "node_role")
 			*role = FilterList[filtertype].Value
+		case "water_level":
+			*filter_record = append(*filter_record, "water_level")
 		}
 	}
 }
@@ -75,22 +78,64 @@ func Action_controll() {
 }
 
 func handleAllocation(comparelist []string, action structs.Actiond) {
-	if comparelist != nil {
+	var indices_on_node []string
+
+	// 轉換 node role value
+	roleMapping := map[string]string{
+		"data_hot":  "h",
+		"data_warm": "w",
+		"data_cold": "c",
+	}
+
+	convertedValue, exists := roleMapping[action.Options.Value]
+	if !exists {
+		convertedValue = action.Options.Value // 保持原值，防止未知值影響
+	}
+
+	// 找出目前存放在指定 node role 下的 index 並去除重複 (一個index 可能會有多個 shards)
+	nodeNames := NodeRoleDetermination(convertedValue)
+	// fmt.Println("nodeNames", nodeNames)
+
+	for _, node := range nodeNames {
+		indices_on_node = append(indices_on_node, CatIndicesbyNodeName(node)...)
+	}
+	indices_on_node = RemoveDuplicates(indices_on_node)
+
+	filtered_comparelist := []string{}
+	compareSet := make(map[string]struct{})
+	// fmt.Println("indices_on_node", indices_on_node)
+	// fmt.Println("comparelist", comparelist)
+	// 將 indices_on_node 轉換為 Set，提高查找效率
+	for _, index := range indices_on_node {
+		compareSet[index] = struct{}{}
+	}
+
+	// 只保留 comparelist 中不在 indices_on_node 的索引
+	for _, index := range comparelist {
+		if _, exists := compareSet[index]; !exists {
+			filtered_comparelist = append(filtered_comparelist, index)
+		}
+	}
+	// fmt.Println("filtered_comparelist", filtered_comparelist)
+
+	comparelist = filtered_comparelist
+
+	if len(comparelist) != 0 {
 		detailMsg := fmt.Sprintf("allocation these indices :%s to %s ", comparelist, action.Options.Value)
 		global.Logger.Infow(detailMsg, "type", "Details")
 
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone)
+				logTestMode(index_onebyone, "Allocation")
 			} else {
 				Allocation(index_onebyone, action.Options.AllocationType, action.Options.Key, action.Options.Value)
-				logExecutionMode(index_onebyone)
+				logExecutionMode(index_onebyone, "Allocation")
 			}
 		}
 		Node_relocating_checking()
 	} else {
-		global.Logger.Infow("no match indices", "logType", "Procedures")
+		global.Logger.Infow("No match indices", "logType", "Procedures")
 	}
 }
 
@@ -102,14 +147,14 @@ func handleForceMerge(comparelist []string, action structs.Actiond) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone)
+				logTestMode(index_onebyone, "Forcemerge")
 			} else {
 				ForceMerge(index_onebyone, action.Options.MaxNumSegment)
-				logExecutionMode(index_onebyone)
+				logExecutionMode(index_onebyone, "Forcemerge")
 			}
 		}
 	} else {
-		global.Logger.Infow("no match indices", "logType", "Procedures")
+		global.Logger.Infow("No match indices", "logType", "Procedures")
 	}
 }
 
@@ -121,14 +166,14 @@ func handleDeleteIndices(comparelist []string) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone)
+				logTestMode(index_onebyone, "Delete")
 			} else {
 				DeleteIndex(index_onebyone)
-				logExecutionMode(index_onebyone)
+				logExecutionMode(index_onebyone, "Delete")
 			}
 		}
 	} else {
-		global.Logger.Infow("no match indices", "logType", "Procedures")
+		global.Logger.Infow("No match indices", "logType", "Procedures")
 	}
 }
 
@@ -140,14 +185,14 @@ func handleClose(comparelist []string) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone)
+				logTestMode(index_onebyone, "Close")
 			} else {
 				CloseIndices(index_onebyone)
-				logExecutionMode(index_onebyone)
+				logExecutionMode(index_onebyone, "Close")
 			}
 		}
 	} else {
-		global.Logger.Infow("no match indices", "logType", "Procedures")
+		global.Logger.Infow("No match indices", "logType", "Procedures")
 	}
 }
 
@@ -159,33 +204,33 @@ func handleOpen(comparelist []string) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone)
+				logTestMode(index_onebyone, "Open")
 			} else {
 				OpenIndices(index_onebyone)
-				logExecutionMode(index_onebyone)
+				logExecutionMode(index_onebyone, "Open")
 			}
 		}
 	} else {
-		global.Logger.Infow("no match indices", "logType", "Procedures")
+		global.Logger.Infow("No match indices", "logType", "Procedures")
 	}
 }
 
-func logTestMode(index_onebyone []string) {
+func logTestMode(index_onebyone []string, action string) {
 	indicesInfo := CatIndices_withPattern(index_onebyone)
 	i := indicesInfo[0]
 	timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 	CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 	individual_Msg := fmt.Sprintf("%s has already processed in test mode", index_onebyone)
 
-	global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
+	global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode", "logType", "Detail", "action", action, "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 }
 
-func logExecutionMode(index_onebyone []string) {
+func logExecutionMode(index_onebyone []string, action string) {
 	indicesInfo := CatIndices_withPattern(index_onebyone)
 	i := indicesInfo[0]
 	timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 	CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
 	individual_Msg := fmt.Sprintf("%s has already processed in execution mode", index_onebyone)
 
-	global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode", "logType", "Detail", "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
+	global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode", "logType", "Detail", "action", action, "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
 }

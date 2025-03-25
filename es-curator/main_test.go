@@ -5,8 +5,9 @@ import (
 	"es-curator/job"
 	"es-curator/log_record"
 	"es-curator/utils"
-	"sync"
+	// "sync"
 	"testing"
+	// "fmt"
 
 )
 
@@ -25,16 +26,26 @@ func TestMain(t *testing.T) {
 		global.Stderr_logger.Fatalf("初始化 Elasticsearch 客戶端失敗: %v", err)
 	}
 	// job.SetElkClient()
+	// job.NodeRoleDetermination("h")
+	// if global.EnvConfig.INFORMATION.Execute_cron {
+	// 	utils.LoadCrontab()
+	// 	wg := new(sync.WaitGroup)
+	// 	num := 1
+	// 	wg.Add(num)
+	// 	wg.Wait()
+	// } else if !global.EnvConfig.INFORMATION.Execute_cron {
+	// 	job.Action_controll()
+	// }
 
-	if global.EnvConfig.INFORMATION.Execute_cron {
-		utils.LoadCrontab()
-		wg := new(sync.WaitGroup)
-		num := 1
-		wg.Add(num)
-		wg.Wait()
-	} else if !global.EnvConfig.INFORMATION.Execute_cron {
-		job.Action_controll()
-	}
+	// var indices_on_node []string
+
+	// nodeNames := job.NodeRoleDetermination("h")
+	// for _, node := range nodeNames {
+	// 	indices_on_node = append(indices_on_node, job.CatIndicesbyNodeName(node)...)
+	// }
+	// fmt.Println(indices_on_node)
+	// job.CatShardsbyNodeName("es04")
+	// job.FilterType_space_role("es05",[]string{},3)
 
 }
 

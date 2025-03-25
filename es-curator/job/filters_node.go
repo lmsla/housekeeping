@@ -192,111 +192,101 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 
 }
 
-func FilterType_space_role(nodeName string, patternlist []string, disk_space int) (indiceslist []string) {
+func FilterType_space_role(nodeNames []string, patternlist []string, disk_space int) (indiceslist []string) {
 	// fmt.Println("nodeName ",nodeName)
+	// fmt.Println("patternlist",patternlist)
 	var indicesinfo CatIndice
-	if len(patternlist) < 1 {
-		indicesinfo = CatIndices()
-	} else {
+	if len(patternlist) > 0 {
 		indicesinfo = CatIndices_withPattern(patternlist)
+	} else {
+		indicesinfo = CatIndices()
 	}
-
-	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)
-
-	var creationDateSlice []string
-
-	var indexSizemap, creationdate_NameMap, onlyIndexName map[string]string
-	indexSizemap = make(map[string]string)
-	// var creationdate_NameMap map[string]string
-	creationdate_NameMap = make(map[string]string)
-	onlyIndexName = make(map[string]string)
-	for i, data := range match {
-		// fmt.Println("i: ",i,"data+i: ",data.Index+i)
-
-		onlyIndexName[data.Index+i] = data.Index
-		//// 用 index name+i 做 key map size
-		indexSizemap[data.Index+i] = data.StoreSize
-		//// 用 CreationDate + Shard 做 key map index name+i
-		creationdate_NameMap[data.CreationDate+data.Shard] = data.Index + i
-		//// 用 CreationDate + Shard 組成的 array
-		creationDateSlice = append(creationDateSlice, data.CreationDate+data.Shard)
-		// fmt.Println(data.Index, "size:", data.StoreSize, "date:", data.CreationDate)
-	}
-
-	// fmt.Println("indexSizemap",indexSizemap)
-	// fmt.Println("creationdate_NameMap",creationdate_NameMap)
-	// fmt.Println("creationDateSlice",creationDateSlice)
 
 	var finalIndexList []string
 	var aggregate_bytes []string
-	if creationDateSlice == nil {
-		//// 如果撈不到 index 則返回一個空的list
-		// finalIndexList = append(finalIndexList, "")
-		finalIndexList = nil
-	} else {
-		// 按 index 的 create_date 排序
-		sort.Strings(creationDateSlice)
-		//// 把 index_name 塞到 slice 中
-		var indexSortbycreation []string
-		for date := range creationDateSlice {
-			indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
+	var creationDateSlice []string
+	var indexSizemap, creationdate_NameMap, onlyIndexName map[string]string
+	// for _, nodeName := range nodeNames {
+		match := MatchIndexBetweenNodeNCluster1(indicesinfo, nodeNames)
+
+		indexSizemap = make(map[string]string)
+		// var creationdate_NameMap map[string]string
+		creationdate_NameMap = make(map[string]string)
+		onlyIndexName = make(map[string]string)
+		// fmt.Println("match", match)
+		// 將所有 node
+		for i, data := range match {
+			onlyIndexName[data.Index+i] = data.Index
+			//// 用 index name+i 做 key map size
+			indexSizemap[data.Index+i] = data.StoreSize
+			//// 用 CreationDate + Shard 做 key map index name+i
+			creationdate_NameMap[data.CreationDate+data.Shard] = data.Index + i
+			//// 用 CreationDate + Shard 組成的 array
+			creationDateSlice = append(creationDateSlice, data.CreationDate+data.Shard)
+			// fmt.Println(data.Index, "size:", data.StoreSize, "date:", data.CreationDate)
 		}
-		/// 以 create_date 後整理好的 index name + i
-		// fmt.Println("indexSortbycreation:", indexSortbycreation)
+	// }
+		// fmt.Println("indexSizemap", indexSizemap)
+		if creationDateSlice == nil {
+			//// 如果撈不到 index 則返回一個空的list
+			finalIndexList = nil
+		} else {
+			// 按 index 的 create_date 排序
+			sort.Strings(creationDateSlice)
+			//// 把 index_name 塞到 slice 中
+			var indexSortbycreation []string
+			for date := range creationDateSlice {
+				indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
+			}
+			/// 以 create_date 後整理好的 index name + i
+			//// 倒序 - 從 newest create 的 index 開始加總 disk_space
+			var indexSortbycreationAsc []string
+			for index := range indexSortbycreation {
+				name := indexSortbycreation[len(indexSortbycreation)-index-1]
+				indexSortbycreationAsc = append(indexSortbycreationAsc, name)
+			}
+			//// indexSortbycreationAsc - 按新到舊排序 index name + i
+			// fmt.Println("asc:", indexSortbycreationAsc)
+			total := 0
 
-		//// 倒序 - 從 newest create 的 index 開始加總 disk_space
-		var indexSortbycreationAsc []string
-		for index := range indexSortbycreation {
-			name := indexSortbycreation[len(indexSortbycreation)-index-1]
-			indexSortbycreationAsc = append(indexSortbycreationAsc, name)
+			for bytes := range indexSortbycreationAsc {
+				// fmt.Println("bytes",bytes)
+				var bytesnum int
+				// fmt.Println("indexSortbycreationAsc[bytes]"+indexSortbycreationAsc[bytes])
+				// fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
+				if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
+					bytesnum = 0
+					// total += bytesnum
+				} else {
 
-		}
-		//// indexSortbycreationAsc - 按新到舊排序 index name + i
-		// fmt.Println("asc:", indexSortbycreationAsc)
-
-		total := 0
-
-		for bytes := range indexSortbycreationAsc {
-			// fmt.Println("bytes",bytes)
-			var bytesnum int
-			// fmt.Println("indexSortbycreationAsc[bytes]"+indexSortbycreationAsc[bytes])
-			// fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
-			if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
-				bytesnum = 0
-				// total += bytesnum
-			} else {
-
-				bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
-				if err != nil {
-					// log_record.Logrecord("ERROR", "Error during conversion "+err.Error())
-					global.Logger.Error(err.Error())
-					return
+					bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
+					if err != nil {
+						// log_record.Logrecord("ERROR", "Error during conversion "+err.Error())
+						global.Logger.Error(err.Error())
+						return
+					}
+					// total += bytesnum
+					bytesnum = bytesint
 				}
-				// total += bytesnum
-				bytesnum = bytesint
+
+				// 加總 index storage
+				total += bytesnum
+
+				if total > disk_space*1024*1024 {
+					break
+				}
+				// fmt.Println("total",total)
+				aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
 			}
 
-			// 加總 index storage
-			total += bytesnum
-			// fmt.Println("total_in",total)
-			if total > disk_space*1024*1024 {
-				break
+			_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
+
+			for _, data := range removed {
+				finalIndexList = append(finalIndexList, onlyIndexName[data])
 			}
-			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
-			// fmt.Println("aggregate_bytes",aggregate_bytes)
+			finalIndexList = RemoveDuplicates(finalIndexList)
 		}
-		// fmt.Println("final_list:", finalIndexList)
-		// fmt.Println(total)
-		_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
-		// finalIndexList = removed
-		// fmt.Println("added: ", added)
-		// fmt.Println("removed: ", removed)
-		for _, data := range removed {
-			finalIndexList = append(finalIndexList, onlyIndexName[data])
-		}
-		finalIndexList = RemoveDuplicates(finalIndexList)
-		// fmt.Println("finalIndexList: ", finalIndexList)
-	}
+		fmt.Println("finalIndexList",finalIndexList)
 	return finalIndexList
 }
 
@@ -353,7 +343,7 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 		diskKbToClean = diskToClean * 1024 * 1024
 
 		// log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb", diskToClean))
-		global.Logger.Infow(fmt.Sprintf("Disk Space to Clean %f gb", diskToClean), "type", "Details")
+		global.Logger.Infow(fmt.Sprintf("Estimated to Release %f GB of Disk Space", diskToClean), "type", "Details")
 
 		indexSizemap = make(map[string]string)
 		creationdate_NameMap = make(map[string]string)
@@ -394,7 +384,7 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 				}
 			}
 			// log_record.Logrecord("Details", fmt.Sprintf("Total Delete kbs %d", total))
-			global.Logger.Infow(fmt.Sprintf("Total Delete kbs %d", total), "type", "Details")
+			global.Logger.Infow(fmt.Sprintf("Actually released %d kbs", total), "type", "Details")
 		}
 	} else {
 		// log_record.Logrecord("INFO ", "Water Level doesn't exceed upper limit")

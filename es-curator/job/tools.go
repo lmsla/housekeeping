@@ -2,13 +2,14 @@ package job
 
 import (
 	"es-curator/global"
+	"strings"
 	// "es-curator/log_record"
 	"es-curator/structs"
 	"fmt"
 	"reflect"
 	"sort"
-	"time"
 	"strconv"
+	"time"
 )
 
 func Indicesmapping3(list1 []string, list2 []string, list3 []string) []string {
@@ -119,7 +120,7 @@ func Node_relocating_checking() {
 		time.Sleep(5 * time.Second)
 		// a := fmt.Printf("%s",indicesinfo["relocating_shards"])
 		if indicesinfo.RelocatingShards != 0 {
-			fmt.Printf("relocating_shards : %d shards not finished\n",indicesinfo.RelocatingShards)
+			fmt.Printf("relocating_shards : %d shards not finished\n", indicesinfo.RelocatingShards)
 			continue
 		} else if indicesinfo.RelocatingShards == 0 {
 			fmt.Println("relocating_shards : 0")
@@ -194,7 +195,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 
 		}
 	}
-
+	fmt.Println("filter_record",filter_record)
 	if fmt.Sprint(filter_record) == fmt.Sprint(arr1) || fmt.Sprint(filter_record) == fmt.Sprint(arr2) {
 		// log_record.Logrecord("ERROR", "Can't use age & space at the same time")
 		global.Logger.Error("Can't use age & space at the same time")
@@ -221,7 +222,6 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 
 		}
 	}
-
 
 	switch {
 
@@ -253,7 +253,7 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 
 func Filters_With_node(role []string, filter_record []string, FilterList []structs.Filter) []string {
 	// var agelist, patternlist, spacelist, water_level_list, patternListPre, compareList, role []string
-	var agelist, patternlist_tmp,patternlist, patternListPre, spacelist_tmp,spacelist, water_level_list, compareList []string
+	var agelist, patternlist_tmp, patternlist, patternListPre, spacelist_tmp, spacelist, water_level_list, compareList []string
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "pattern" {
@@ -295,18 +295,26 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 					agelist = FilterType_age_range_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Range_From, FilterList[filtertype].Range_To)
 				} else if FilterList[filtertype].Filtertype == "pattern" {
 					patternlist_tmp = FilterType_pattern_role(nodeName, FilterList[filtertype].Kind, FilterList[filtertype].Value)
-					patternlist = append(patternlist,patternlist_tmp... )
-				} else if FilterList[filtertype].Filtertype == "space" {
-					spacelist_tmp = FilterType_space_role(nodeName, patternListPre, FilterList[filtertype].Disk_space)
-					spacelist = append(spacelist, spacelist_tmp...)
+					patternlist = append(patternlist, patternlist_tmp...)
 				} else if FilterList[filtertype].Filtertype == "water_level" {
 					water_level_list = FilterType_waterLevel_role(nodeName, patternListPre, FilterList[filtertype].Upper_limit, FilterList[filtertype].Lower_limit)
+					// }  else if FilterList[filtertype].Filtertype == "space" {
+					// 	spacelist_tmp = FilterType_space_role(nodeName, patternListPre, FilterList[filtertype].Disk_space)
+					// 	spacelist = append(spacelist, spacelist_tmp...)
+					// }
 				}
 
 			}
 
 		}
-
+		fmt.Println("FilterList", FilterList)
+		for filtertype := range FilterList {
+			if FilterList[filtertype].Filtertype == "space" {
+				spacelist_tmp = FilterType_space_role(nodeNames, patternListPre, FilterList[filtertype].Disk_space)
+				fmt.Println("spacelist_tmp", spacelist_tmp)
+				spacelist = append(spacelist, spacelist_tmp...)
+			}
+		}
 	}
 
 	agelist = RemoveDuplicates(agelist)
@@ -314,63 +322,51 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 	spacelist = RemoveDuplicates(spacelist)
 	water_level_list = RemoveDuplicates(water_level_list)
 
+	compareList = ResolveCompareList(filter_record,agelist,patternlist,spacelist,water_level_list)
+	// ap := []string{"age", "pattern", "node_role"}
+	// sp := []string{"space", "pattern", "node_role"}
+	// wp := []string{"water_level", "pattern", "node_role"}
 
-	// fmt.Println("agelist", agelist)
-	// fmt.Println(len(agelist))
+	// a := []string{"age", "node_role"}
+	// p := []string{"pattern", "node_role"}
+	// s := []string{"space", "node_role"}
+	// w := []string{"water_level", "node_role"}
 
-	// fmt.Println("patternlist", patternlist)
-	// fmt.Println(len(patternlist))
+	// sort.Strings(ap)
+	// sort.Strings(wp)
+	// sort.Strings(sp)
+	// sort.Strings(a)
+	// sort.Strings(p)
+	// sort.Strings(s)
+	// sort.Strings(w)
+	// // sort.Strings(aps)
+	// sort.Strings(filter_record)
 
-	// fmt.Println("spacelist", spacelist)
-	// fmt.Println(len(spacelist))
+	// switch {
 
-	// fmt.Println("water_level_list", water_level_list)
-	// fmt.Println(len(water_level_list))
+	// case reflect.DeepEqual(filter_record, ap):
+	// 	compareList = Indicesmapping2(agelist, patternlist)
 
-	ap := []string{"age", "pattern", "node_role"}
-	sp := []string{"space", "pattern", "node_role"}
-	wp := []string{"water_level", "pattern", "node_role"}
+	// case reflect.DeepEqual(filter_record, sp):
+	// 	compareList = Indicesmapping2(patternlist, spacelist)
 
-	a := []string{"age", "node_role"}
-	p := []string{"pattern", "node_role"}
-	s := []string{"space", "node_role"}
-	w := []string{"water_level", "node_role"}
+	// case reflect.DeepEqual(filter_record, wp):
+	// 	compareList = Indicesmapping2(patternlist, water_level_list)
 
-	sort.Strings(ap)
-	sort.Strings(wp)
-	sort.Strings(sp)
-	sort.Strings(a)
-	sort.Strings(p)
-	sort.Strings(s)
-	sort.Strings(w)
-	// sort.Strings(aps)
-	sort.Strings(filter_record)
+	// case reflect.DeepEqual(filter_record, a):
+	// 	compareList = agelist
 
-	switch {
+	// case reflect.DeepEqual(filter_record, p):
+	// 	compareList = patternlist
 
-	case reflect.DeepEqual(filter_record, ap):
-		compareList = Indicesmapping2(agelist, patternlist)
+	// case reflect.DeepEqual(filter_record, s):
+	// 	compareList = spacelist
 
-	case reflect.DeepEqual(filter_record, sp):
-		compareList = Indicesmapping2(patternlist, spacelist)
+	// case reflect.DeepEqual(filter_record, w):
+	// 	compareList = water_level_list
 
-	case reflect.DeepEqual(filter_record, wp):
-		compareList = Indicesmapping2(patternlist, water_level_list)
-
-	case reflect.DeepEqual(filter_record, a):
-		compareList = agelist
-
-	case reflect.DeepEqual(filter_record, p):
-		compareList = patternlist
-
-	case reflect.DeepEqual(filter_record, s):
-		compareList = spacelist
-
-	case reflect.DeepEqual(filter_record, w):
-		compareList = water_level_list
-
-	}
-	// fmt.Println("filter_of_filter's compare: ", compareList)
+	// }
+	fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }
 
@@ -436,6 +432,77 @@ func Filter_of_filter_bak(filter_record, agelist, patternlist, spacelist []strin
 	return compareList
 }
 
+func MatchIndexBetweenNodeNCluster1(indicesinfo CatIndice, nodeNames []string) map[string]IndicesInfo {
+
+	match := make(map[string]IndicesInfo)
+	//// 取得每一個 node 存放的 shards
+	// fmt.Println("indicesinfo", indicesinfo)
+	for _, indices := range indicesinfo {
+		for _, nodeName := range nodeNames {
+			shardsinfo := CatShardsbyNodeName(nodeName)
+
+			// fmt.Println("shardsinfo", shardsinfo)
+			// for _, indices := range indicesinfo {
+			for _, data := range shardsinfo {
+
+				matchKey := fmt.Sprintf("%s-%s-%s", nodeName, data.Shard, data.Index)
+				// fmt.Println("matchKey",matchKey)
+				if indices.Index == data.Index {
+					// match[strconv.Itoa(i)] = IndicesInfo{
+					match[matchKey] = IndicesInfo{
+						Index:        data.Index,
+						DocsCount:    data.Docs,
+						StoreSize:    data.Store,
+						CreationDate: indices.CreationDate,
+						Shard:        data.Shard,
+					}
+				}
+			}
+		}
+	}
+	return match
+}
+
+func MatchIndexBetweenNodeNCluster(indicesinfo CatIndice, nodeName string) map[string]IndicesInfo {
+
+	match := make(map[string]IndicesInfo)
+	//// 取得每一個 node 存放的 shards
+
+	shardsinfo := CatShardsbyNodeName(nodeName)
+	// fmt.Println("shardsinfo", shardsinfo)
+	// fmt.Println("indicesinfo",indicesinfo)
+	for _, indices := range indicesinfo {
+		for i, data := range shardsinfo {
+			if indices.Index == data.Index {
+				match[strconv.Itoa(i)] = IndicesInfo{
+					Index:        data.Index,
+					DocsCount:    data.Docs,
+					StoreSize:    data.Store,
+					CreationDate: indices.CreationDate,
+					Shard:        data.Shard,
+				}
+			}
+		}
+	}
+
+	return match
+}
+
+// 用來對 index list 去重
+func RemoveDuplicates(arr []string) []string {
+	uniqueMap := make(map[string]bool) // 用於存儲唯一元素
+	var uniqueArr []string
+
+	for _, item := range arr {
+		if _, exists := uniqueMap[item]; !exists {
+			uniqueMap[item] = true
+			uniqueArr = append(uniqueArr, item)
+		}
+	}
+
+	return uniqueArr
+}
+
 // 用來對 index list 去重
 func RemoveDuplicates1(arr []string) []string {
 	seen := make(map[string]bool)
@@ -450,39 +517,48 @@ func RemoveDuplicates1(arr []string) []string {
 	return result
 }
 
-func MatchIndexBetweenNodeNCluster(indicesinfo CatIndice, nodeName string) map[string]IndicesInfo {
 
-	//// 取得每一個 node 存放的 shards
-	shardsinfo := CatShardsbyNodeName(nodeName)
+func ResolveCompareList(filter_record []string, agelist, patternlist, spacelist, water_level_list []string) []string {
+	// 對條件進行排序，確保順序一致性
+	sort.Strings(filter_record)
+	key := strings.Join(filter_record, "-") // 建立唯一 key，如 "age-pattern-node_role"
+	fmt.Println("Strings filter_record",filter_record)
+	fmt.Println("key",key)
 
-	match := make(map[string]IndicesInfo)
-	for _, indices := range indicesinfo {
-		for i, data := range shardsinfo {
-			if indices.Index == data.Index {
-				match[strconv.Itoa(i)] = IndicesInfo{
-					Index:        data.Index,
-					DocsCount:    data.Docs,
-					StoreSize:    data.Store,
-					CreationDate: indices.CreationDate,
-					Shard:        data.Shard,
-				}
-			}
-		}
+	// 建立條件組合與對應邏輯的映射表 取 list 交集
+	actionMap := map[string]func() []string{
+		"age-node_role": func() []string {
+			return agelist
+		},
+		"node_role-pattern": func() []string {
+			return patternlist
+		},
+		"node_role-space": func() []string {
+			return spacelist
+		},
+		"node_role-water_level": func() []string {
+			return water_level_list
+		},
+		"age-node_role-pattern": func() []string {
+			return Indicesmapping2(agelist, patternlist)
+		},
+		"node_role-pattern-space": func() []string {
+			return Indicesmapping2(patternlist, spacelist)
+		},
+		"node_role-pattern-water_level": func() []string {
+			return Indicesmapping2(patternlist, water_level_list)
+		},
 	}
-	return match
+
+	// 依據 key 執行對應邏輯
+	if action, ok := actionMap[key]; ok {
+		return action()
+	} else {
+		// log.Printf("未定義的條件組合: %v", filter_record)
+		return nil
+	}
 }
 
 
-func RemoveDuplicates(arr []string) []string {
-	uniqueMap := make(map[string]bool) // 用於存儲唯一元素
-	var uniqueArr []string
-
-	for _, item := range arr {
-		if _, exists := uniqueMap[item]; !exists {
-			uniqueMap[item] = true
-			uniqueArr = append(uniqueArr, item)
-		}
-	}
-
-	return uniqueArr
-}
+/// F128389895
+///Lmsla335812
