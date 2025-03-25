@@ -340,7 +340,7 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 
 	// 觸發 upper_limit 才進行動作
 	if AnerageLevel >= float64(upper_limit) {
-		AllDiskTotal := 195.66
+		
 		diskToCleanPercentage := float64(upper_limit) - float64(lower_limit)
 		diskToClean := AllDiskTotal * (diskToCleanPercentage / 100)
 		diskKbToClean = diskToClean * 1024 * 1024

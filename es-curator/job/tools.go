@@ -6,7 +6,7 @@ import (
 	// "es-curator/log_record"
 	"es-curator/structs"
 	"fmt"
-	"reflect"
+	// "reflect"
 	"sort"
 	"strconv"
 	"time"
@@ -30,7 +30,7 @@ func Indicesmapping3(list1 []string, list2 []string, list3 []string) []string {
 }
 
 // 取得兩個 list中相同的元素 method1
-func Intersection(a, b []string) []string {
+func Intersection1(a, b []string) []string {
 	m := make(map[string]bool)
 	for _, item := range a {
 		m[item] = true
@@ -151,61 +151,19 @@ func Diff(a, b []string) (added []string, removed []string) {
 
 func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []string {
 	var agelist, patternlist, spacelist, water_level_list, patternListPre, compareList []string
-	// aps := []string{"age", "pattern", "space"}
-	ap := []string{"age", "pattern"}
-	// as := []string{"age", "space"}
-	sp := []string{"space", "pattern"}
-	wp := []string{"water_level", "pattern"}
-
-	a := []string{"age"}
-	p := []string{"pattern"}
-	s := []string{"space"}
-	w := []string{"water_level"}
-
-	sort.Strings(ap)
-	sort.Strings(wp)
-	sort.Strings(sp)
-	// sort.Strings(aps)
-	sort.Strings(filter_record)
-
-	// fmt.Println("sp:",sp)
-	// fmt.Println("filter_record: ", filter_record)
-
-	arr1 := []string{"space", "pattern", "age"}
-	arr2 := []string{"space", "age"}
-	arr3 := []string{"space", "water_level"}
-	arr4 := []string{"space", "water_level", "pattern"}
-	arr5 := []string{"space", "water_level", "pattern", "age"}
-
-	sort.Strings(arr1)
-	sort.Strings(arr2)
-	sort.Strings(arr3)
-	sort.Strings(arr4)
-	sort.Strings(arr5)
-	sort.Strings(filter_record)
-
-	// fmt.Println("filterList: ", FilterList)
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "pattern" {
-			// for _, pattern := range FilterList[filtertype].Value {
-			// 	patternListPre = append(patternListPre, pattern+"*")
-			// }
 			patternListPre = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
-
 		}
 	}
-	fmt.Println("filter_record",filter_record)
-	if fmt.Sprint(filter_record) == fmt.Sprint(arr1) || fmt.Sprint(filter_record) == fmt.Sprint(arr2) {
-		// log_record.Logrecord("ERROR", "Can't use age & space at the same time")
+
+	if containsBothParams(filter_record, "age", "space") {
 		global.Logger.Error("Can't use age & space at the same time")
-	} else if fmt.Sprint(filter_record) == fmt.Sprint(arr3) || fmt.Sprint(filter_record) == fmt.Sprint(arr4) {
-		// log_record.Logrecord("ERROR", "Can't use space & water_level at the same time")
+	} else if containsBothParams(filter_record, "age", "water_level") {
+		global.Logger.Error("Can't use age & water_level at the same time")
+	} else if containsBothParams(filter_record, "space", "water_level") {
 		global.Logger.Error("Can't use space & water_level at the same time")
-	} else if fmt.Sprint(filter_record) == fmt.Sprint(arr5) {
-		// log_record.Logrecord("ERROR", "age can't use with space or water_level at the same time")
-		// 此處有誤
-		global.Logger.Error("age can't use with space or water_level at the same time")
 	} else {
 		for filtertype := range FilterList {
 			if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction != "range" {
@@ -223,49 +181,25 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 		}
 	}
 
-	switch {
+	agelist = RemoveDuplicates(agelist)
+	patternlist = RemoveDuplicates(patternlist)
+	spacelist = RemoveDuplicates(spacelist)
+	water_level_list = RemoveDuplicates(water_level_list)
 
-	case reflect.DeepEqual(filter_record, ap):
-		compareList = Indicesmapping2(agelist, patternlist)
+	compareList = ResolveCompareListNonRole(filter_record,agelist,patternlist,spacelist,water_level_list)
 
-	case reflect.DeepEqual(filter_record, sp):
-		compareList = Indicesmapping2(patternlist, spacelist)
-
-	case reflect.DeepEqual(filter_record, wp):
-		compareList = Indicesmapping2(patternlist, water_level_list)
-
-	case reflect.DeepEqual(filter_record, a):
-		compareList = agelist
-
-	case reflect.DeepEqual(filter_record, p):
-		compareList = patternlist
-
-	case reflect.DeepEqual(filter_record, s):
-		compareList = spacelist
-
-	case reflect.DeepEqual(filter_record, w):
-		compareList = water_level_list
-
-	}
 	fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }
 
 func Filters_With_node(role []string, filter_record []string, FilterList []structs.Filter) []string {
-	// var agelist, patternlist, spacelist, water_level_list, patternListPre, compareList, role []string
 	var agelist, patternlist_tmp, patternlist, patternListPre, spacelist_tmp, spacelist, water_level_list, compareList []string
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "pattern" {
-			// for _, pattern := range FilterList[filtertype].Value {
-			// 	patternListPre = append(patternListPre, pattern+"*")
-			// }
-
 			patternListPre = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 		}
 	}
-
-	// fmt.Println("patternListPre: ", patternListPre)
 
 	for filtertype := range FilterList {
 		if FilterList[filtertype].Filtertype == "node_role" {
@@ -274,14 +208,11 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 	}
 
 	if containsBothParams(filter_record, "age", "space") {
-		// log_record.Logrecord("ERROR", "Can't use age & space at the same time")
 		global.Logger.Error("Can't use age & space at the same time")
 	} else if containsBothParams(filter_record, "age", "water_level") {
-		// log_record.Logrecord("ERROR", "Can't use age & water_level at the same time")
-		global.Logger.Error("Can't use space & water_level at the same time")
+		global.Logger.Error("Can't use age & water_level at the same time")
 	} else if containsBothParams(filter_record, "space", "water_level") {
-		// log_record.Logrecord("ERROR", "Can't use space & water_level at the same time")
-		global.Logger.Error("age can't use with space or water_level at the same time")
+		global.Logger.Error("Can't use space & water_level at the same time")
 	} else {
 		// 取得符合 node role 的 node names
 		nodeNames := NodeRoleDetermination(role[0])
@@ -307,7 +238,7 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 			}
 
 		}
-		fmt.Println("FilterList", FilterList)
+		// 帶 node role 時，space list 另外處理
 		for filtertype := range FilterList {
 			if FilterList[filtertype].Filtertype == "space" {
 				spacelist_tmp = FilterType_space_role(nodeNames, patternListPre, FilterList[filtertype].Disk_space)
@@ -323,49 +254,7 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 	water_level_list = RemoveDuplicates(water_level_list)
 
 	compareList = ResolveCompareList(filter_record,agelist,patternlist,spacelist,water_level_list)
-	// ap := []string{"age", "pattern", "node_role"}
-	// sp := []string{"space", "pattern", "node_role"}
-	// wp := []string{"water_level", "pattern", "node_role"}
 
-	// a := []string{"age", "node_role"}
-	// p := []string{"pattern", "node_role"}
-	// s := []string{"space", "node_role"}
-	// w := []string{"water_level", "node_role"}
-
-	// sort.Strings(ap)
-	// sort.Strings(wp)
-	// sort.Strings(sp)
-	// sort.Strings(a)
-	// sort.Strings(p)
-	// sort.Strings(s)
-	// sort.Strings(w)
-	// // sort.Strings(aps)
-	// sort.Strings(filter_record)
-
-	// switch {
-
-	// case reflect.DeepEqual(filter_record, ap):
-	// 	compareList = Indicesmapping2(agelist, patternlist)
-
-	// case reflect.DeepEqual(filter_record, sp):
-	// 	compareList = Indicesmapping2(patternlist, spacelist)
-
-	// case reflect.DeepEqual(filter_record, wp):
-	// 	compareList = Indicesmapping2(patternlist, water_level_list)
-
-	// case reflect.DeepEqual(filter_record, a):
-	// 	compareList = agelist
-
-	// case reflect.DeepEqual(filter_record, p):
-	// 	compareList = patternlist
-
-	// case reflect.DeepEqual(filter_record, s):
-	// 	compareList = spacelist
-
-	// case reflect.DeepEqual(filter_record, w):
-	// 	compareList = water_level_list
-
-	// }
 	fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }
@@ -387,68 +276,18 @@ func containsBothParams(params []string, param1, param2 string) bool {
 	return false
 }
 
-func Filter_of_filter_bak(filter_record, agelist, patternlist, spacelist []string) []string {
-	var compareList []string
-	aps := []string{"age", "pattern", "space"}
-	ap := []string{"age", "pattern"}
-	as := []string{"age", "space"}
-	sp := []string{"space", "pattern"}
-	a := []string{"age"}
-	p := []string{"pattern"}
-	s := []string{"space"}
-	sort.Strings(ap)
-	sort.Strings(as)
-	sort.Strings(sp)
-	sort.Strings(aps)
-	sort.Strings(filter_record)
-
-	// fmt.Println("sp:",sp)
-	// fmt.Println("filter_record: ", filter_record)
-
-	switch {
-	case reflect.DeepEqual(filter_record, aps):
-		compareList = Indicesmapping3(agelist, patternlist, spacelist)
-
-	case reflect.DeepEqual(filter_record, ap):
-		compareList = Indicesmapping2(agelist, patternlist)
-
-	case reflect.DeepEqual(filter_record, as):
-		compareList = Indicesmapping2(agelist, spacelist)
-
-	case reflect.DeepEqual(filter_record, sp):
-		compareList = Indicesmapping2(patternlist, spacelist)
-
-	case reflect.DeepEqual(filter_record, a):
-		compareList = agelist
-
-	case reflect.DeepEqual(filter_record, p):
-		compareList = patternlist
-
-	case reflect.DeepEqual(filter_record, s):
-		compareList = spacelist
-
-	}
-	fmt.Println("filter_of_filter's compare: ", compareList)
-	return compareList
-}
-
 func MatchIndexBetweenNodeNCluster1(indicesinfo CatIndice, nodeNames []string) map[string]IndicesInfo {
 
 	match := make(map[string]IndicesInfo)
 	//// 取得每一個 node 存放的 shards
-	// fmt.Println("indicesinfo", indicesinfo)
+
 	for _, indices := range indicesinfo {
 		for _, nodeName := range nodeNames {
 			shardsinfo := CatShardsbyNodeName(nodeName)
 
-			// fmt.Println("shardsinfo", shardsinfo)
-			// for _, indices := range indicesinfo {
 			for _, data := range shardsinfo {
-
 				matchKey := fmt.Sprintf("%s-%s-%s", nodeName, data.Shard, data.Index)
-				// fmt.Println("matchKey",matchKey)
 				if indices.Index == data.Index {
-					// match[strconv.Itoa(i)] = IndicesInfo{
 					match[matchKey] = IndicesInfo{
 						Index:        data.Index,
 						DocsCount:    data.Docs,
@@ -469,8 +308,7 @@ func MatchIndexBetweenNodeNCluster(indicesinfo CatIndice, nodeName string) map[s
 	//// 取得每一個 node 存放的 shards
 
 	shardsinfo := CatShardsbyNodeName(nodeName)
-	// fmt.Println("shardsinfo", shardsinfo)
-	// fmt.Println("indicesinfo",indicesinfo)
+
 	for _, indices := range indicesinfo {
 		for i, data := range shardsinfo {
 			if indices.Index == data.Index {
@@ -518,12 +356,54 @@ func RemoveDuplicates1(arr []string) []string {
 }
 
 
+func ResolveCompareListNonRole(filter_record []string, agelist, patternlist, spacelist, water_level_list []string) []string {
+	// 對條件進行排序，確保順序一致性
+	sort.Strings(filter_record)
+	key := strings.Join(filter_record, "-") // 建立唯一 key，如 "age-pattern-node_role"
+
+	// 建立條件組合與對應邏輯的映射表 取 list 交集
+	actionMap := map[string]func() []string{
+		"age": func() []string {
+			return agelist
+		},
+		"pattern": func() []string {
+			return patternlist
+		},
+		"space": func() []string {
+			return spacelist
+		},
+		"water_level": func() []string {
+			return water_level_list
+		},
+		"age-pattern": func() []string {
+			return Indicesmapping2(agelist, patternlist)
+		},
+		"pattern-space": func() []string {
+			return Indicesmapping2(patternlist, spacelist)
+		},
+		"pattern-water_level": func() []string {
+			return Indicesmapping2(patternlist, water_level_list)
+		},
+	}
+
+	// 依據 key 執行對應邏輯
+	if action, ok := actionMap[key]; ok {
+		return action()
+	} else {
+		global.Logger.Error("Undefined filter combination,Please check filters again.")
+		return nil
+	}
+}
+
+
+
+
+// water_level 應該考慮不與 node_role 並用
 func ResolveCompareList(filter_record []string, agelist, patternlist, spacelist, water_level_list []string) []string {
 	// 對條件進行排序，確保順序一致性
 	sort.Strings(filter_record)
 	key := strings.Join(filter_record, "-") // 建立唯一 key，如 "age-pattern-node_role"
-	fmt.Println("Strings filter_record",filter_record)
-	fmt.Println("key",key)
+
 
 	// 建立條件組合與對應邏輯的映射表 取 list 交集
 	actionMap := map[string]func() []string{
@@ -554,10 +434,11 @@ func ResolveCompareList(filter_record []string, agelist, patternlist, spacelist,
 	if action, ok := actionMap[key]; ok {
 		return action()
 	} else {
-		// log.Printf("未定義的條件組合: %v", filter_record)
+		global.Logger.Error("Undefined filter combination,Please check filters again.")
 		return nil
 	}
 }
+
 
 
 /// F128389895

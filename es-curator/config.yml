@@ -9,17 +9,17 @@ actions:
     - filtertype: pattern
       kind: regex
       value: '-\d{8}'
-    # - filtertype: node_role
-    #   value: w
-    - filtertype: water_level
-      upper_limit: 23
-      lower_limit: 15
+    - filtertype: node_role
+      value: h
+    # - filtertype: water_level
+    #   upper_limit: 20
+    #   lower_limit: 15
     # - filtertype: age
     #   source: creation_date
-    #   direction: range
+    #   direction: younger
     #   unit: days
-    #   range_from: 2
-    #   range_to: 1
+    #   unit_count: 1
+
   - action: delete_indices
     description: delete selected indices
     options:

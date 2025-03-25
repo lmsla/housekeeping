@@ -61,7 +61,6 @@ func FilterType_age_node(nodeName string, source string, direction string, unit 
 				// 滿足 direction = "range" 及 產生日期 (creation date) 在 基準日期(benchmark Date)之後 及產生日期 (creation date) 在現在日期之前的 index
 			}
 		}
-		// fmt.Println("last",indices)
 		return indices
 	}
 	return
@@ -193,8 +192,7 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 }
 
 func FilterType_space_role(nodeNames []string, patternlist []string, disk_space int) (indiceslist []string) {
-	// fmt.Println("nodeName ",nodeName)
-	// fmt.Println("patternlist",patternlist)
+
 	var indicesinfo CatIndice
 	if len(patternlist) > 0 {
 		indicesinfo = CatIndices_withPattern(patternlist)
@@ -206,14 +204,13 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 	var aggregate_bytes []string
 	var creationDateSlice []string
 	var indexSizemap, creationdate_NameMap, onlyIndexName map[string]string
-	// for _, nodeName := range nodeNames {
+
 		match := MatchIndexBetweenNodeNCluster1(indicesinfo, nodeNames)
 
 		indexSizemap = make(map[string]string)
-		// var creationdate_NameMap map[string]string
 		creationdate_NameMap = make(map[string]string)
 		onlyIndexName = make(map[string]string)
-		// fmt.Println("match", match)
+
 		// 將所有 node
 		for i, data := range match {
 			onlyIndexName[data.Index+i] = data.Index
@@ -223,10 +220,9 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 			creationdate_NameMap[data.CreationDate+data.Shard] = data.Index + i
 			//// 用 CreationDate + Shard 組成的 array
 			creationDateSlice = append(creationDateSlice, data.CreationDate+data.Shard)
-			// fmt.Println(data.Index, "size:", data.StoreSize, "date:", data.CreationDate)
+
 		}
-	// }
-		// fmt.Println("indexSizemap", indexSizemap)
+
 		if creationDateSlice == nil {
 			//// 如果撈不到 index 則返回一個空的list
 			finalIndexList = nil
@@ -252,8 +248,7 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 			for bytes := range indexSortbycreationAsc {
 				// fmt.Println("bytes",bytes)
 				var bytesnum int
-				// fmt.Println("indexSortbycreationAsc[bytes]"+indexSortbycreationAsc[bytes])
-				// fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
+
 				if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
 					bytesnum = 0
 					// total += bytesnum
@@ -261,7 +256,7 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 
 					bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
 					if err != nil {
-						// log_record.Logrecord("ERROR", "Error during conversion "+err.Error())
+
 						global.Logger.Error(err.Error())
 						return
 					}
@@ -275,7 +270,7 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 				if total > disk_space*1024*1024 {
 					break
 				}
-				// fmt.Println("total",total)
+
 				aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
 			}
 
@@ -286,7 +281,6 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 			}
 			finalIndexList = RemoveDuplicates(finalIndexList)
 		}
-		fmt.Println("finalIndexList",finalIndexList)
 	return finalIndexList
 }
 
@@ -310,14 +304,12 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 	for _, data := range nodesinfo {
 		DiskUsedPercent, err := strconv.ParseFloat(data.DiskUsedPercent, 32)
 		if err != nil {
-			// log_record.Logrecord("ERROR", "Error during conversion DiskUsedPercent str"+err.Error())
 			global.Logger.Error(err.Error())
 			return
 		}
 		DiskTotalstr := strings.TrimSuffix(data.DiskTotal, "gb")
 		DiskTotal, err := strconv.ParseFloat(DiskTotalstr, 32)
 		if err != nil {
-			// log_record.Logrecord("ERROR", "Error during conversion disk total str"+err.Error())
 			global.Logger.Error(err.Error())
 			return
 		}
@@ -327,12 +319,9 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 
 	AnerageLevel := water_level / float64(len(nodesinfo))
 	msg := fmt.Sprintf("Average Water Level: %f", AnerageLevel)
-	// log_record.Logrecord("INFO", msg)
+
 	global.Logger.Infow(msg)
 
-	// for _, data := range nodesinfo {
-	// 	fmt.Println("disk total", data.DiskTotal)
-	// }
 	var diskKbToClean float64
 
 	// 觸發 upper_limit 才進行動作
@@ -341,8 +330,6 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 		diskToCleanPercentage := float64(upper_limit) - float64(lower_limit)
 		diskToClean := AllDiskTotal * (diskToCleanPercentage / 100)
 		diskKbToClean = diskToClean * 1024 * 1024
-
-		// log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb", diskToClean))
 		global.Logger.Infow(fmt.Sprintf("Estimated to Release %f GB of Disk Space", diskToClean), "type", "Details")
 
 		indexSizemap = make(map[string]string)
@@ -352,14 +339,13 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 			indexSizemap[data.Index] = data.StoreSize
 			creationdate_NameMap[data.CreationDate] = data.Index
 			creationDateSlice = append(creationDateSlice, data.CreationDate)
-			// fmt.Println(data.Index, "size", data.StoreSize, "date", data.CreationDate)
+
 		}
 
 		if creationDateSlice != nil {
 			// 按 index 的 create_date 排序
 			sort.Strings(creationDateSlice)
-			// fmt.Println("sort of creationDateSlice:", creationDateSlice)
-			// fmt.Println("indexSizemap", indexSizemap)
+
 			// 把 index_name 塞到 slice 中
 			var indexSortbycreation []string
 			for date := range creationDateSlice {
@@ -383,11 +369,11 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 					break
 				}
 			}
-			// log_record.Logrecord("Details", fmt.Sprintf("Total Delete kbs %d", total))
+
 			global.Logger.Infow(fmt.Sprintf("Actually released %d kbs", total), "type", "Details")
 		}
 	} else {
-		// log_record.Logrecord("INFO ", "Water Level doesn't exceed upper limit")
+
 		global.Logger.Infow("Water Level doesn't exceed upper limit")
 	}
 	return aggregate_bytes
