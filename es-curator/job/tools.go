@@ -440,6 +440,3 @@ func ResolveCompareList(filter_record []string, agelist, patternlist, spacelist,
 }
 
 
-
-/// F128389895
-///Lmsla335812
