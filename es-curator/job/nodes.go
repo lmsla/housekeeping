@@ -20,14 +20,16 @@ type CatNode []struct {
 	Name            string `json:"name"`
 	DiskTotal       string `json:"diskTotal"`
 	DiskUsedPercent string `json:"diskUsedPercent"`
+	DiskUsed        string `json:"diskUsed"`
 	Uptime          string `json:"uptime"`
 	Version         string `json:"version"`
+	DiskAvailable   string `json:"diskAvail"`
 }
 
 func CatNodes() CatNode {
 	req := esapi.CatNodesRequest{
 		// i:ip,r:nodeRole,
-		H:      []string{"ip", "nodeRole", "name", "diskTotal", "diskUsedPercent", "uptime", "version"},
+		H:      []string{"ip", "nodeRole", "name", "diskTotal", "diskUsedPercent", "diskUsed", "uptime", "version", "diskAvail"},
 		Format: "json",
 		// Bytes:  "kb",
 		// FullID: true,
@@ -40,7 +42,7 @@ func CatNodes() CatNode {
 		// panic(err)
 	}
 
-	ResponseStatusCheck(res,"CatNodes")
+	ResponseStatusCheck(res, "CatNodes")
 
 	defer res.Body.Close()
 
@@ -48,7 +50,6 @@ func CatNodes() CatNode {
 	var s CatNode
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
-
 	return s
 }
 
@@ -63,7 +64,7 @@ func NodeStatus() {
 	if err != nil {
 		global.Logger.Error("NodeStatus request failed: ", err.Error())
 	}
-	ResponseStatusCheck(res,"NodeStatus")
+	ResponseStatusCheck(res, "NodeStatus")
 	defer res.Body.Close()
 	// log.Println(res)
 	// fmt.Println(res)
@@ -114,7 +115,7 @@ func Catnodes() {
 		global.Logger.Error("Catnodes request failed: ", err.Error())
 		// panic(err)
 	}
-	ResponseStatusCheck(res,"CatNodes")
+	ResponseStatusCheck(res, "CatNodes")
 	defer res.Body.Close()
 	// log.Println(res)
 	fmt.Println("res", res)

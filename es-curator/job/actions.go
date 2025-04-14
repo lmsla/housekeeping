@@ -8,9 +8,16 @@ import (
 	"time"
 )
 
-func logAction(action string, description string) {
+func logAction(uuid string, action string, description string) {
 	actionMsg := fmt.Sprintf("Action: %s, Description: %s", action, description)
+
 	global.Logger.Infow(actionMsg, "logType", "Procedures")
+
+	if global.EnvConfig.Log.ToES && global.EnvConfig.INFORMATION.Test_mode {
+		ProceduresLogToES(uuid, "Test mode", description, action)
+	} else if global.EnvConfig.Log.ToES && !global.EnvConfig.INFORMATION.Test_mode {
+		ProceduresLogToES(uuid, "Execution mode", description, action)
+	}
 }
 
 // 採集 action 下的所有 filter
@@ -42,14 +49,24 @@ func Action_controll() {
 		if ActionList[actions].Options.DisableAction {
 			continue
 		}
+		// 產生 UUID 作為此次執行的唯一識別碼
+		uuid := fmt.Sprintf("%d-%s", time.Now().UnixNano(), strconv.FormatInt(time.Now().Unix(), 36))
+		global.Logger.Infow(fmt.Sprintf("執行 ID: %s", uuid), "logType", "Procedures")
+
 		var filter_record []string
-		logAction(ActionList[actions].Action, ActionList[actions].Description)
+		logAction(uuid, ActionList[actions].Action, ActionList[actions].Description)
 
 		FilterList := ActionList[actions].Filters
 		processFilters(FilterList, &filter_record, &role)
 
 		filter_info := fmt.Sprintf("use these filter :%s", filter_record)
 		global.Logger.Infow(filter_info, "logType", "Procedures")
+
+		if global.EnvConfig.Log.ToES && global.EnvConfig.INFORMATION.Test_mode {
+			ProceduresLogToES(uuid,"Test mode",filter_info, ActionList[actions].Action)
+		} else if global.EnvConfig.Log.ToES && !global.EnvConfig.INFORMATION.Test_mode {
+			ProceduresLogToES(uuid,"Execution mode",filter_info, ActionList[actions].Action)
+		}
 
 		if len(role) == 0 {
 			comparelist = Filter_of_filter(filter_record, FilterList)
@@ -61,15 +78,15 @@ func Action_controll() {
 		// 根據不同的 action 類型進行處理
 		switch ActionList[actions].Action {
 		case "allocation":
-			handleAllocation(comparelist, ActionList[actions])
+			handleAllocation(uuid, comparelist, ActionList[actions])
 		case "forcemerge":
-			handleForceMerge(comparelist, ActionList[actions])
+			handleForceMerge(uuid, comparelist, ActionList[actions])
 		case "delete_indices":
-			handleDeleteIndices(comparelist)
+			handleDeleteIndices(uuid, comparelist)
 		case "close":
-			handleClose(comparelist)
+			handleClose(uuid, comparelist)
 		case "open":
-			handleOpen(comparelist)
+			handleOpen(uuid, comparelist)
 		}
 		delaymsg := fmt.Sprintf("Pausing for %v seconds before continuing...", ActionList[actions].Options.Delay)
 		global.Logger.Infow(delaymsg)
@@ -77,7 +94,7 @@ func Action_controll() {
 	}
 }
 
-func handleAllocation(comparelist []string, action structs.Actiond) {
+func handleAllocation(uuid string, comparelist []string, action structs.Actiond) {
 	var indices_on_node []string
 
 	// 轉換 node role value
@@ -127,10 +144,10 @@ func handleAllocation(comparelist []string, action structs.Actiond) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone, "Allocation")
+				logTestMode(uuid, index_onebyone, action.Action)
 			} else {
 				Allocation(index_onebyone, action.Options.AllocationType, action.Options.Key, action.Options.Value)
-				logExecutionMode(index_onebyone, "Allocation")
+				logExecutionMode(uuid, index_onebyone, action.Action)
 			}
 		}
 		Node_relocating_checking()
@@ -139,7 +156,7 @@ func handleAllocation(comparelist []string, action structs.Actiond) {
 	}
 }
 
-func handleForceMerge(comparelist []string, action structs.Actiond) {
+func handleForceMerge(uuid string, comparelist []string, action structs.Actiond) {
 	if comparelist != nil {
 		detailMsg := fmt.Sprintf("forcemerge these indices :%s, segment num :%v", comparelist, action.Options.MaxNumSegment)
 		global.Logger.Infow(detailMsg, "logType", "Procedures")
@@ -147,18 +164,18 @@ func handleForceMerge(comparelist []string, action structs.Actiond) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone, "Forcemerge")
+				logTestMode(uuid, index_onebyone, action.Action)
 			} else {
 				ForceMerge(index_onebyone, action.Options.MaxNumSegment)
-				logExecutionMode(index_onebyone, "Forcemerge")
+				logExecutionMode(uuid, index_onebyone, action.Action)
 			}
 		}
 	} else {
-		global.Logger.Infow("No match indices", "logType", "Procedures")
+		global.Logger.Infow("No match indices", "logType", action.Action)
 	}
 }
 
-func handleDeleteIndices(comparelist []string) {
+func handleDeleteIndices(uuid string, comparelist []string) {
 	if comparelist != nil {
 		detailMsg := fmt.Sprintf("Delete these indices : %s, Number of indices : %d", comparelist, len(comparelist))
 		global.Logger.Infow(detailMsg, "logType", "Procedures")
@@ -166,10 +183,10 @@ func handleDeleteIndices(comparelist []string) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone, "Delete")
+				logTestMode(uuid, index_onebyone, "delete_indices")
 			} else {
 				DeleteIndex(index_onebyone)
-				logExecutionMode(index_onebyone, "Delete")
+				logExecutionMode(uuid, index_onebyone, "delete_indices")
 			}
 		}
 	} else {
@@ -177,7 +194,7 @@ func handleDeleteIndices(comparelist []string) {
 	}
 }
 
-func handleClose(comparelist []string) {
+func handleClose(uuid string, comparelist []string) {
 	if comparelist != nil {
 		detailMsg := fmt.Sprintf("Close these indices :%s", comparelist)
 		global.Logger.Infow(detailMsg, "logType", "Procedures")
@@ -185,10 +202,10 @@ func handleClose(comparelist []string) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone, "Close")
+				logTestMode(uuid, index_onebyone, "close")
 			} else {
 				CloseIndices(index_onebyone)
-				logExecutionMode(index_onebyone, "Close")
+				logExecutionMode(uuid, index_onebyone, "close")
 			}
 		}
 	} else {
@@ -196,7 +213,7 @@ func handleClose(comparelist []string) {
 	}
 }
 
-func handleOpen(comparelist []string) {
+func handleOpen(uuid string, comparelist []string) {
 	if comparelist != nil {
 		detailMsg := fmt.Sprintf("Open these indices :%s", comparelist)
 		global.Logger.Infow(detailMsg, "logType", "Procedures")
@@ -204,10 +221,10 @@ func handleOpen(comparelist []string) {
 		for _, index := range comparelist {
 			index_onebyone := []string{index}
 			if global.EnvConfig.INFORMATION.Test_mode {
-				logTestMode(index_onebyone, "Open")
+				logTestMode(uuid, index_onebyone, "open")
 			} else {
 				OpenIndices(index_onebyone)
-				logExecutionMode(index_onebyone, "Open")
+				logExecutionMode(uuid, index_onebyone, "open")
 			}
 		}
 	} else {
@@ -215,22 +232,29 @@ func handleOpen(comparelist []string) {
 	}
 }
 
-func logTestMode(index_onebyone []string, action string) {
+func logTestMode(uuid string, index_onebyone []string, action string) {
 	indicesInfo := CatIndices_withPattern(index_onebyone)
 	i := indicesInfo[0]
 	timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 	CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-	individual_Msg := fmt.Sprintf("%s has already processed in test mode", index_onebyone)
+	individual_Msg := fmt.Sprintf("%s has already processed in test mode", index_onebyone[0])
 
 	global.Detail_Logger.Infow(individual_Msg, "mode", "Test_mode", "logType", "Detail", "action", action, "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
+	mode := "Test mode"
+	if global.EnvConfig.Log.ToES {
+		LogToES(uuid, individual_Msg, mode, action, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate, index_onebyone[0])
+	}
 }
 
-func logExecutionMode(index_onebyone []string, action string) {
+func logExecutionMode(uuid string, index_onebyone []string, action string) {
 	indicesInfo := CatIndices_withPattern(index_onebyone)
 	i := indicesInfo[0]
 	timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 	CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
-	individual_Msg := fmt.Sprintf("%s has already processed in execution mode", index_onebyone)
-
+	individual_Msg := fmt.Sprintf("%s has already processed in execution mode", index_onebyone[0])
+	mode := "Execution mode"
 	global.Detail_Logger.Infow(individual_Msg, "mode", "execution_mode", "logType", "Detail", "action", action, "pri", i.Pri, "Rep", i.Rep, "DocCount", i.DocsCount, "DocDelete", i.DocsDeleted, "StoreSize", i.StoreSize, "PriStoreSize", i.PriStoreSize, "CreationDate", CreationDate)
+	if global.EnvConfig.Log.ToES {
+		LogToES(uuid, individual_Msg, mode, action, i.Pri, i.Rep, i.DocsCount, i.DocsDeleted, i.StoreSize, i.PriStoreSize, CreationDate, index_onebyone[0])
+	}
 }

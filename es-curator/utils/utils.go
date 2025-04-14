@@ -85,6 +85,7 @@ func viperSettingToModel() {
 	config.Log.MaxBackups = viper.GetInt("log.maxBackups")
 	config.Log.MaxAge = viper.GetInt("log.maxAge")
 	config.Log.Debug = viper.GetBool("log.debug")
+	config.Log.ToES = viper.GetBool("log.toES")
 
 	global.EnvConfig = &config
 	// global.Action = &action

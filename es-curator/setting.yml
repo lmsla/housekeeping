@@ -8,12 +8,13 @@ es:
   # sourcePassword: "elastic"
 
 information:
-  test_mode: true
-  period: "59 11 * * *"
-  execute_cron : false
+  test_mode: false
+  period: "14 17 * * *"
+  execute_cron : true
 
 
 log:
+  toes: true
   path: "/Users/chen/Downloads/01BiMap/02gitlab/bimap-product/housekeeping/es-curator/log"
   maxSize: 10
   maxBackups: 0

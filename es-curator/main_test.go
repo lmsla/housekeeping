@@ -25,6 +25,7 @@ func TestMain(t *testing.T) {
 		global.Logger.Error(err)
 		global.Stderr_logger.Fatalf("初始化 Elasticsearch 客戶端失敗: %v", err)
 	}
+	job.CatNodes()
 	// job.SetElkClient()
 	// job.NodeRoleDetermination("h")
 	// if global.EnvConfig.INFORMATION.Execute_cron {

@@ -28,6 +28,7 @@ type log struct {
 	MaxBackups int
 	MaxAge     int
 	Debug      bool
+	ToES       bool
 }
 
 type ActionStruct struct {

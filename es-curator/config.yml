@@ -3,7 +3,7 @@ actions:
   - action: delete_indices
     description: delete selected indices
     options:
-      disable_action: false
+      disable_action: true
       delay: 5
     filters:
     - filtertype: pattern
@@ -36,25 +36,26 @@ actions:
       direction: range
       unit: days
       range_from: 2
-      range_to: 1    
+      range_to: 1
 
   - action: allocation
     description:  allocate selected indices at data_hot
     options:
-      disable_action: true
+      disable_action: false
       key: _tier_preference
-      value: data_hot
+      value: data_warm
       allocation_type: include
       delay: 5
     filters:
     - filtertype: pattern
       kind: regex
-      value: '-\d{8}'
+      # value: '-\d{8}'
+      value: 'logstash-ubuntu'
     # - filtertype: node_role
     #   value: w
-    - filtertype: water_level
-      upper_limit: 90
-      lower_limit: 15
+    # - filtertype: water_level
+    #   upper_limit: 90
+    #   lower_limit: 15
     # - filtertype: space
     #   disk_space: 20
 
