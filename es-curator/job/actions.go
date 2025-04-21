@@ -146,8 +146,8 @@ func handleAllocation(uuid string, comparelist []string, action structs.Actiond)
 			if global.EnvConfig.INFORMATION.Test_mode {
 				logTestMode(uuid, index_onebyone, action.Action)
 			} else {
-				Allocation(index_onebyone, action.Options.AllocationType, action.Options.Key, action.Options.Value)
 				logExecutionMode(uuid, index_onebyone, action.Action)
+				Allocation(index_onebyone, action.Options.AllocationType, action.Options.Key, action.Options.Value)
 			}
 		}
 		Node_relocating_checking()
@@ -166,8 +166,8 @@ func handleForceMerge(uuid string, comparelist []string, action structs.Actiond)
 			if global.EnvConfig.INFORMATION.Test_mode {
 				logTestMode(uuid, index_onebyone, action.Action)
 			} else {
-				ForceMerge(index_onebyone, action.Options.MaxNumSegment)
 				logExecutionMode(uuid, index_onebyone, action.Action)
+				ForceMerge(index_onebyone, action.Options.MaxNumSegment)
 			}
 		}
 	} else {
@@ -185,8 +185,8 @@ func handleDeleteIndices(uuid string, comparelist []string) {
 			if global.EnvConfig.INFORMATION.Test_mode {
 				logTestMode(uuid, index_onebyone, "delete_indices")
 			} else {
-				DeleteIndex(index_onebyone)
 				logExecutionMode(uuid, index_onebyone, "delete_indices")
+				DeleteIndex(index_onebyone)
 			}
 		}
 	} else {
@@ -204,8 +204,8 @@ func handleClose(uuid string, comparelist []string) {
 			if global.EnvConfig.INFORMATION.Test_mode {
 				logTestMode(uuid, index_onebyone, "close")
 			} else {
-				CloseIndices(index_onebyone)
 				logExecutionMode(uuid, index_onebyone, "close")
+				CloseIndices(index_onebyone)
 			}
 		}
 	} else {
@@ -223,8 +223,8 @@ func handleOpen(uuid string, comparelist []string) {
 			if global.EnvConfig.INFORMATION.Test_mode {
 				logTestMode(uuid, index_onebyone, "open")
 			} else {
-				OpenIndices(index_onebyone)
 				logExecutionMode(uuid, index_onebyone, "open")
+				OpenIndices(index_onebyone)
 			}
 		}
 	} else {
