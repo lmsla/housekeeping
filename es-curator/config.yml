@@ -1,5 +1,18 @@
 #### timestring "2006-01-02 15:04:05"
 actions:
+
+  - action: delete_indices
+    description: delete indices when cluster used space greater than 20G
+    options:
+      disable_action: false
+      delay: 5
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-
+    - filtertype: space
+      disk_space: 10
+
   - action: delete_indices
     description: delete selected indices
     options:
@@ -136,3 +149,24 @@ actions:
   #   - filtertype: pattern
   #     kind: prefix
   #     value: logstash-bde-apache-access
+
+
+
+  ##### 將前1~5天之間產生，開頭為 logstash-zs 的所有 index forcemerge to segments = 1
+      
+  # - action: forcemerge
+  #   description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
+  #   options:
+  #     disable_action: true
+  #     max_num_segment: 1
+  #     delay: 10
+  #   filters:
+  #   - filtertype: pattern
+  #     kind: prefix
+  #     value: logstash-zs
+  #   - filtertype: age
+  #     source: creation_date
+  #     direction: range
+  #     unit: days
+  #     range_from: 5
+  #     range_to: 1    

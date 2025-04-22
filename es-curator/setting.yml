@@ -1,22 +1,32 @@
 es:
+  ## 連接的 es 地址
   url: 
     - https://10.99.1.213:9200
-    # - https://10.99.1.93:9200
+
+  ## 帳號
   sourceAccount: "housekeeping"
+  ## 密碼
   sourcePassword: "elastic"
-  # sourceAccount: "housekeeping"
-  # sourcePassword: "elastic"
+
 
 information:
+  ## 是否為測試模式
   test_mode: false
+  ## 執行時間
   period: "14 17 * * *"
-  execute_cron : true
-
+  ## 是否執行排程
+  execute_cron : false
 
 log:
+  ## 是否同時將log輸出至 es 
   toes: true
+  ## log 路徑
   path: "/Users/chen/Downloads/01BiMap/02gitlab/bimap-product/housekeeping/es-curator/log"
+  ## 最大大小
   maxSize: 10
+  ## 最大備份數量
   maxBackups: 0
+  ## 最大保存天數
   maxAge: 0
+  ## 是否為 debug 模式
   debug: false
