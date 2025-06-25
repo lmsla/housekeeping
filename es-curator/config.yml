@@ -101,72 +101,8 @@ actions:
     #   disk_space: 1
 
 
-#### adjust 
-# actions:
-#   - action: delete_indices
-#     description: delete selected indices_test
-#     options:
-#       disable_action: false
-#       delay: 5
-#     filters:
-#     - filtertype: pattern
-#       kind: prefix
-#       value: logstash-atm-sn
-#     - filtertype: water_level
-#       upper_limit: 55
-#       lower_limit: 54
-    # - filtertype: age
-    #   source: creation_date
-    #   direction: range
-    #   unit: days
-    #   range_from:
-    #   range_to: 0
-
-  # - action: delete_indices
-  #   description: delete selected elasticsearch-api-status-calculate
-  #   options: 
-  #     disable_action: false
-  #   filters:
-  #   - filtertype: age
-  #     source: creation_date
-  #     direction: older
-  #     unit: days
-  #     unit_count: 30
-  #   - filtertype: pattern
-  #     kind: prefix
-  #     value: elasticsearch-api-status-calculate
-
-  # - action: delete_indices
-  #   description: delete selected logstash-bde-apache-access
-  #   options: 
-  #     disable_action: false
-  #   filters:
-  #   - filtertype: age
-  #     source: creation_date
-  #     direction: older
-  #     unit: days
-  #     unit_count: 2
-  #   - filtertype: pattern
-  #     kind: prefix
-  #     value: logstash-bde-apache-access
-
-
-
-  ##### 將前1~5天之間產生，開頭為 logstash-zs 的所有 index forcemerge to segments = 1
-      
-  # - action: forcemerge
-  #   description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
-  #   options:
-  #     disable_action: true
-  #     max_num_segment: 1
-  #     delay: 10
-  #   filters:
-  #   - filtertype: pattern
-  #     kind: prefix
-  #     value: logstash-zs
-  #   - filtertype: age
-  #     source: creation_date
-  #     direction: range
-  #     unit: days
-  #     range_from: 5
-  #     range_to: 1    
+###### 正則表示範本
+# logstash-forti-20250412
+# '^[a-zA-Z0-9_-]+-[a-zA-Z0-9_-]+-\d{8}$'
+# logstash-windows-20250622 (排除掉開頭為.的index)
+# '^[^.]*-\d{8}$'
