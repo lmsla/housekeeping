@@ -1,5 +1,9 @@
+# v1.1.5
+1.新增 cluster health 及 action 寫回 es 做記錄及 dashboard 功能
+2.加入 cat cluster health 間隔的控制選項
+
 # v1.0.5 (2025.03.27)
-1.0000
+1.alloction 執行前應先確認 index 當前位在哪個 node 再動作
 
 # v1.0.3 (2025.02.04)
 1.排除掉執行 action 時，出現重複 index 的導致執行失敗的狀況
