@@ -1,4 +1,4 @@
-es:
+ es:
   ## 連接的 es 地址
   url: 
     - https://10.99.1.213:9200
@@ -20,6 +20,8 @@ information:
 log:
   ## 是否同時將log輸出至 es 
   toes: true
+  ## 健康檢查間隔
+  health_check_interval: 60
   ## log 路徑
   path: "/Users/chen/Downloads/01BiMap/02gitlab/bimap-product/housekeeping/es-curator/log"
   ## 最大大小
@@ -29,4 +31,5 @@ log:
   ## 最大保存天數
   maxAge: 0
   ## 是否為 debug 模式
-  debug: false
+  debug: false 
+  

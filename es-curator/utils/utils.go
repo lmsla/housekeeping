@@ -86,7 +86,7 @@ func viperSettingToModel() {
 	config.Log.MaxAge = viper.GetInt("log.maxAge")
 	config.Log.Debug = viper.GetBool("log.debug")
 	config.Log.ToES = viper.GetBool("log.toES")
-
+	config.Log.Health_check_interval = viper.GetInt("log.health_check_interval")
 	global.EnvConfig = &config
 	// global.Action = &action
 }

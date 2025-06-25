@@ -4,12 +4,13 @@ import (
 	// "log"
 	"strconv"
 	"time"
+	"es-curator/global"
 )
 
 func CatCluster() {
 	// 定時獲取 ES node 資訊並寫入 ES
 	go func() {
-		ticker := time.NewTicker(5 * time.Second)
+		ticker := time.NewTicker(time.Duration(global.EnvConfig.Log.Health_check_interval) * time.Second)
 		defer ticker.Stop()
 		// []string{"ip", "nodeRole", "name", "diskTotal", "diskUsedPercent", "diskUsed", "uptime", "version"},
 		for range ticker.C {

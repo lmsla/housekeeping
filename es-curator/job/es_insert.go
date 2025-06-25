@@ -149,7 +149,7 @@ func ClusterLogToES(data map[string]interface{}) {
 
 	// build index request
 	req := esapi.IndexRequest{
-		Index: fmt.Sprintf("housekeeping_cluster_health-%s", time.Now().Format("20060102")), // 生成带日期的索引名称
+		Index: fmt.Sprintf("housekeeping_cluster_health-%s", time.Now().Format("200601")), // 生成带日期的索引名称
 		// DocumentID: "1",          // 可選，設置文檔 ID
 		Body:    &buf,
 		Refresh: "true", // 刷新索引，使數據立即可用

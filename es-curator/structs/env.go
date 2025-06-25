@@ -23,12 +23,13 @@ type es struct {
 }
 
 type log struct {
-	Path       string
-	MaxSize    int
-	MaxBackups int
-	MaxAge     int
-	Debug      bool
-	ToES       bool
+	Path                  string
+	MaxSize               int
+	MaxBackups            int
+	MaxAge                int
+	Debug                 bool
+	ToES                  bool
+	Health_check_interval int
 }
 
 type ActionStruct struct {
