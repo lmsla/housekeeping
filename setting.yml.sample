@@ -1,19 +1,33 @@
 es:
-  url: 
-    - https://10.99.1.206:9200
-  sourceAccount: "elastic"
-  sourcePassword: "a12345678"
+  ## 連接的 es 地址
+  url:
+    - https://10.99.1.213:9200
+  ## 帳號
+  sourceAccount: "housekeeping"
+  ## 密碼
+  sourcePassword: "elastic"
 
 
 information:
+  ## 是否為測試模式
   test_mode: false
-  period: "59 11 * * *"
+  ## 執行時間
+  period: "14 17 * * *"
+  ## 是否執行排程
   execute_cron : false
 
-
 log:
-  path: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
+  ## 是否同時將log輸出至 es
+  toes: true
+  ## 偵測 ES 健康度時間間隔(單位:秒)
+  health_check_interval: 60
+  ## log 路徑
+  path: "/var/log/bimap-housekeeping"
+  ## 最大大小
   maxSize: 10
+  ## 最大備份數量
   maxBackups: 0
+  ## 最大保存天數
   maxAge: 0
+  ## 是否為 debug 模式
   debug: false

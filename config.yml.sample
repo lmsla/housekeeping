@@ -59,7 +59,9 @@ actions:
     filters:
     - filtertype: space
       disk_space: 10
-
+    - filtertype: pattern
+      kind: prefix
+      value: logstash-
 
   - action: close
     description: close selected indices

@@ -1,184 +1,224 @@
-ES-curator 的 golang 版替代方案
 
+# BiMAP-housekeeping 使用手冊
+- [簡介](#%E7%B0%A1%E4%BB%8B)
+	- [流程簡圖](#%E6%B5%81%E7%A8%8B%E7%B0%A1%E5%9C%96)
+- [重要提醒](#%E9%87%8D%E8%A6%81%E6%8F%90%E9%86%92)
+- [設定檔說明](#%E8%A8%AD%E5%AE%9A%E6%AA%94%E8%AA%AA%E6%98%8E)
+	- [setting.yml](#setting.yml)
+		- [es](#es)
+		- [information](#information)
+		- [log](#log)
+	- [config.yml](#config.yml)
+		- [Actions](#Actions)
+		- [Description](#Description)
+		- [Options](#Options)
+			- [disable_action](#disable_action)
+			- [key](#key)
+			- [value](#value)
+			- [allocation_type](#allocation_type)
+			- [delay](#delay)
+			- [max_num_segment](#max_num_segment)
+		- [Filter Types](#Filter%20Types)
+		- [Filter Elements](#Filter%20Elements)
+			- [node_role](#node_role)
+			- [age](#age)
+			- [pattern](#pattern)
+			- [space](#space)
+			- [water_level](#water_level)
+- [範例設定](#%E7%AF%84%E4%BE%8B%E8%A8%AD%E5%AE%9A)
+	- [config.yml範例](#config.yml%E7%AF%84%E4%BE%8B)
 
-主程式是與 README.md 同一層資料夾的 main，資料夾 es-curator 中含有原始碼，供開發人員維護使用。  
+## 簡介
 
-會使用到的設定檔有 setting.yml 和 config.yml。
+以 rpm 或 deb 安裝包，安裝即可使用。
+安裝後相關設定檔範例會在 ``/etc/bimap-housekeeping`` 資料夾中，可參考 sample file 依據實際狀況修改。
 
-setting.yml 用來設定基本的環境參數、控制排程開關及測試模式開關。
-config.yml 控制要執行的 Actions。
-
-注意縮排不能有誤，不然程式會出錯。
-
-# setting.yml 參數說明
-
-以下是一個 setting.yml 的範例
+啟用方式：
 
 ```
-es:
-  url: 
-    - https://10.99.1.206:9200
-    # - https://10.50.70.12:9200
-  sourceAccount: "elastic"
-  sourcePassword: "a12345678"
+### 啟動
+systemctl start bimap-housekeeping
 
+### 停止
+systemctl stop bimap-housekeeping
+
+### 重新啟動
+systemctl restart bimap-housekeeping
+
+### 安裝完成後記得加入開機自動重啟設定
+systemctl enable bimap-housekeeping
+```
+
+會使用到的設定檔有 `setting.yml` 和 `config.yml`：
+- `setting.yml`：用來設定基本的環境參數、控制排程開關及測試模式開關。
+- `config.yml`：控制要執行的 Actions。
+
+
+
+### 流程簡圖
+![](./image/flowchart.png)
+
+## 重要提醒
+- 縮排不能有誤，否則程式會出錯。
+- filter 中 時間與空間相關的 filter type 不可混用，ex: ``age``+``space`` 或是 ``age``+``water_level``。
+- 不論任何 action 都至少加上 pattern 設定，避免搜尋 index 時誤刪到系統層級 index 導致不可預期錯誤。
+
+
+
+
+## 設定檔說明
+
+### setting.yml
+以下是一個 `setting.yml` 的範例：
+
+```yaml
+es:
+  # 連接的 es 地址
+  url:
+    - https://10.99.1.213:9200
+  # 帳號
+  sourceAccount: "housekeeping"
+  # 密碼
+  sourcePassword: "elastic"
 
 information:
+  # 是否為測試模式
   test_mode: false
-  period: "59 11 * * *"
-  execute_cron : false
-
-
+  # 執行時間
+  period: "14 17 * * *"
+  # 是否執行排程
+  execute_cron: false
 
 log:
-  path: "/Users/chen/Documents/gitlab/git-out/product/house_keeping/es-curator/log"
+  # 是否同時將log輸出至 es
+  toes: true
+  # 偵測 ES 健康度時間間隔(單位:秒)
+  health_check_interval: 60
+  # log 路徑
+  path: "/var/log/bimap-housekeeping"
+  # 最大大小
   maxSize: 10
+  # 最大備份數量
   maxBackups: 0
+  # 最大保存天數
   maxAge: 0
+  # 是否為 debug 模式
   debug: false
 ```
 
-## es
-```url ``` </br>
-es的網址</br>
+#### es
+- **url**  
+  Elasticsearch 的網址。
 
-```sourceAccount``` </br>
-es 的帳號</br>
+- **sourceAccount**  
+  Elasticsearch 的帳號。
 
-```sourcePassword ``` </br>
-es 的密碼</br>
+- **sourcePassword**  
+  Elasticsearch 的密碼。
 
-## information
+#### information
+- **test_mode**  
+  是否在測試模式下執行。啟用後僅在 log 中輸出每個 action 條件匹配到的 index，不實際執行 action。  
+  可接受值：`true` 或 `false`。
 
-```test_mode``` </br>
-是否在測試模式下執行，執行後只會在 log 中 print 出每個 action 條件設定下匹配到的 index，不會實際執行action，可接受的值為 true or false。
+- **execute_cron**  
+  是否使用排程定時執行。若為 `true`，需設定 `period` 參數指定排程時間；若為 `false`，則為單次執行。  
+  可接受值：`true` 或 `false`。
 
-```execute_cron``` </br>
-是否使用排程定時執行，可接受的值為 false or false，若為 true 則下一個參數 ```period``` 須加入排程時間，若為 false 則是單次執行。
+- **period**  
+  Crontab 的執行時間，與 `execute_cron` 搭配使用。
 
-```period``` </br>
-crontab的執行時間，與```execute_cron ```搭配使用。
+#### log
+- **toes**  
+  是否將 housekeeping 相關 log 寫回 Elasticsearch，供 Kibana 視覺化。
 
-## log
+- **health_check_interval**  
+  啟用 `toes` 後，偵測 Elasticsearch 健康度的時間間隔（單位：秒）。建議設定為 60 秒以上，例如：60、120。
 
-```path``` </br>
-log 存放的路徑，注意最後不要加／
-會按執行的日期產生如 housekeeping_202306.log 的紀錄檔。
+- **path**  
+  Log 存放路徑，注意路徑結尾不要加 `/`。  
+  會按執行日期產生如 `housekeeping_202306.log` 的紀錄檔。
 
-```maxSize``` </br>
-單個 log 檔最大儲存容量，超過此容量則自動壓縮為備份檔，單位為 mb
+- **maxSize**  
+  單個 log 檔最大儲存容量，超過此容量則自動壓縮為備份檔（單位：MB）。
 
-```maxBackups``` </br>
-最多儲存幾個 log 備份檔
+- **maxBackups**  
+  最多儲存的 log 備份檔數量。
 
-```maxAge``` </br>
-備份檔最多保留天數，單位為天數
+- **maxAge**  
+  備份檔最多保留天數（單位：天）。
 
-```debug``` </br>
-控制是否以 debug 模式產出 Log ，type = bool ，接受的值為 true or false
+- **debug**  
+  是否以 debug 模式產生 log。  
+  可接受值：`true` 或 `false`。
 
-```
-*註：maxBackups = 0 & maxAge = 0 ，則 log 檔只會在滿足 maxSize 時自動壓縮，不會刪除備份檔。
+**備註**：若 `maxBackups = 0` 且 `maxAge = 0`，log 檔僅在滿足 `maxSize` 時自動壓縮，不會刪除備份檔。
 
-```
+### config.yml
+#### Actions
+可使用的 actions 如下：
+- `open`
+- `close`
+- `delete_indices`
+- `allocation`
+- `forcemerge`
 
+#### Description
+描述執行的動作，方便日後在 log 中查閱相關紀錄。  
+例：`description: delete selected indices1`
 
-# config.yml 參數說明
- 
-## Actions
-可使用的actions如下</br>
-`open` </br>
-`close` </br>
-`delete_indices`</br>
-`allocation`</br>
-`forcemerge`</br>
-
-## Description
-描述執行的動作，可將相關說明寫上，方便日後在 log 中查閱相關紀錄。
-
-ex. description: delete selected indices1
-
-## Options
-用來設定 action 執行時欲傳入的常用參數
-
+#### Options
+用來設定 action 執行時的常用參數：
 - `disable_action`
 - `key`
 - `value`
 - `allocation_type`
 - `delay`
 - `max_num_segment`
-- `delay`
+- `delay` *(重複列出，應為筆誤，實際僅使用一個 `delay`)*
 
-### disable_action
----
-type = bool
+##### disable_action
+- **Type**: Boolean  
+- 可接受值：`true` 或 `false`  
+- 控制 action 是否執行，每個 action 都必須包含此選項。
 
-接受的值為 true or false，控制 action 執行與否，每個 action 都要加上這個控制選項。
-### key
----
-**used in allocation**
+##### key
+- **Used in**: allocation  
+- 值：`_tier_preference`
 
-`_tier_preference`
+##### value
+- **Used in**: allocation  
+- 代表搬移目的地，可選值：`data_hot`, `data_warm`, `data_cold`
 
-### value
----
-**只使用在 allocation，代表搬移的目的地**
+##### allocation_type
+- **Used in**: allocation  
+- 可選值：`include`, `require`, `exclude`
 
-`data_hot`,`data_warm`,`data_cold`
+##### delay
+- **Type**: Number  
+- action 執行後等待的時間（單位：秒）。  
+- 預設值：0（立即執行下一個 action）。
 
-### allocation_type
----
-**只使用在 allocation**
+##### max_num_segment
+- **Used in**: forcemerge  
+- **Type**: Number  
+- 例：1, 2, 3，指定 forcemerge 後 index 的 segment 數量。
 
-`include`,`require`,`exclude`
+#### Filter Types
+支援以下四種過濾條件，可單獨或混合使用：
+- `node_role`：與節點角色相關。
+- `age`：與 index 產生時間相關。
+- `pattern`：與 index 名稱相關。
+- `space`：與磁碟容量相關。
+- `water_level`：與磁碟容量相關。
 
-### delay
----
-type = number 
+**備註**：
+- 時間相關的 filter（`age`）不可與磁碟相關的 filter（`space`, `water_level`）同時使用。
+- 磁碟容量相關的兩個 filter（`space`, `water_level`）不可同時使用。  
+例：不可在同一 action 中同時使用 `age` 與 `space`，或 `space` 與 `water_level`。
 
-action 執行後等待的時間，單位為秒
-
-沒加的話程式默認等待0秒，會直接進入下一個 action
-
-### max_num _segment
----
-**used in forcemerge**
-
-type = number 
-ex. 1,2,3，forcemerge 後 index 的 segment 數量。
-
-
-
-
-## Filter types
-四個過濾條件，可混用，或單獨使用。
-
-與 node role 相關：
-
-- `node_role`
-
-與 index 產生時間相關：
-
-- `age`
-
-與 index 名稱相關：
-
-- `pattern`
-
-與 disk 容量相關：
-
-- `space`
-- `water_level`
-
-```
-*註：時間相關的 filter 不可與 disk 相關的 filter 一起使用 ;  disk 容量相關的兩個 filter 也不可同時使用。
-	例：action 中同時引用 age & space 或同時引用 space & water_level
-
-```
-
-### Filter elements
-掛在 filtertype 下使用，不同的 filtertype 各有適用的 filter elements，詳細說明請往下翻看。
-
+#### Filter Elements
+不同 filter type 下適用的 filter elements 如下：
 - `source`
 - `direction`
 - `unit`
@@ -191,71 +231,53 @@ ex. 1,2,3，forcemerge 後 index 的 segment 數量。
 - `upper_limit`
 - `lower_limit`
 
-## node_role
+##### node_role
+- **value**  
+  以節點角色作為篩選條件，可選值：
+  - `h` (hot data node)
+  - `w` (warm data node)
+  - `c` (cold data node)
 
+##### age
+- **source**  
+  - `creation_date`
 
-#### value
+- **direction**  
+  - `older`：篩選早於指定時間的 index。
+  - `younger`：篩選晚於指定時間的 index。
+  - `range`：篩選指定時間範圍內的 index。  
+  例：當前時間為 2023/01/16，`direction: range`, `unit: days`, `range_from: 5`, `range_to: 2`，篩選結果為 2023/01/14 ~ 2023/01/15 產生的 index。
 
-以 node role 作為篩選條件，可用的值為 h (hot data node) 、w (warm data node)、c (cold data node)
+- **unit**  
+  - `years`
+  - `months`
+  - `days`
 
-- h
-- w
-- c
+- **unit_count**  
+  - 任一正整數，例如：1, 2, 5, 10。
 
-## age
+- **range_from**  
+  - 任一正整數，例如：1, 2, 5, 10。
 
+- **range_to**  
+  - 任一正整數，例如：1, 2, 5, 10。
 
-#### source
+##### pattern
+以 index 名稱進行匹配，支援以下匹配方式：
+- **kind**  
+  - `prefix`：前綴匹配。
+  - `suffix`：後綴匹配。
+  - `regex`：正則表達式匹配。
 
-- creation_date
+- **value**  
+  匹配字樣，例如：`logstash-ap`, `ap`。  
+  例：`kind: prefix`, `value: logstash-asa`，匹配所有以 `logstash-asa` 開頭的 index。
 
-#### direction
-- older
-- younger
+##### space
+計算 index 所佔空間（包含 replica），由最新 index 開始累計，超過設定的 `disk_space` 閥值後，篩選出較舊的 index（依據 index 產生時間）。
 
-以執行程式當下，篩選出 `range_from` 到  `range_to` 之間產生的 index。
-
-例： 當前時間為2023/01/16，`direction` : range ; `unit` : days ; `range_from` : 5 ; `range_to` : 2 ，篩選結果為2023/01/14 ~ 2023/01/15 時間段中的產生的所有 index。
-
-- range
-
-以執行程式當下，以 unit_count (5) unit (days) 前的時間為基準，篩選出前 (older) 或後 (younger) 產生的 index。
-
-例： 當前時間為2023/01/16，unit : days ; unit_count : 5 ; direction : older ，篩選結果為2023/01/11 之前的產生的所有 index。
-
-#### unit
-- years
-- months
-- days
-
-#### unit_count
-- 任一正整數 ex. 1、2、5、10....
-
-#### range_from 
-- 任一正整數 ex. 1、2、5、10....
-
-#### range_to
-- 任一正整數 ex. 1、2、5、10....
-
-## pattern
-
-以 index 名稱做匹配條件，可前匹配 (prefix) 、後匹配 (suffix)、及正則匹配 (regex)，value 中輸入的是匹配字樣，例如 kind : prefix ; value : logstash-asa 會匹配到所有 logstash-asa 開頭的 index。
-
-#### kind
-- prefix
-- suffix
-- regex
-
-#### value
-匹配字樣</br>
-ex. logstash-ap , ap
-
-## space
-
-計算 index 所佔空間(包含replica)，由最新的 index 開始算，超過設定的閥值 disk_space ，篩選出較舊的 index，新舊判定依據為 index 產生時間。
-
-例，有五個 index ，舊到新的順序分別為 01~05 ，disk_space : 20 ，index-05、index-04 加起來共 20 GB，超過的部分 index-03、index-02、index-01，會被篩選出來。
-
+例：有五個 index（由舊到新：01~05），`disk_space: 20`。  
+若 index-05、index-04 共佔 20GB，則 index-03、index-02、index-01 會被篩選出來：
 ```
 index-01 10GB
 index-02 10GB
@@ -264,49 +286,40 @@ index-04 10GB
 index-05 10GB
 ```
 
-閥值為絕對值，只要超過閥值就會被篩出來，如下例，index-05、index-04 加起來共 15 GB，再加上 index-03 的 5.1GB 共 20.1 GB ，即使只超過 0.1 GB，index-03 也會被列入篩選名單中。
-
+即使僅超出少量（例：index-05、index-04 共 15GB，index-03 為 5.1GB，總計 20.1GB），index-03 仍會被篩選：
 ```
 index-01 10GB
 index-02 10GB
 index-03 5.1GB
 index-04 5GB
 index-05 10GB
-
 ```
 
-#### disk_space
-- 任一正整數，單位 GB，例如 10 代表 10 GB 。
+- **disk_space**  
+  - 任一正整數，單位：GB，例如：10 代表 10GB。
 
-## water_level
+##### water_level
+根據 cluster 中所有節點的平均磁碟使用率進行控管。若平均使用率超過 `upper_limit`（上限百分比），則由舊到新累計 index 容量，直到釋放出約等於 `upper_limit` 與 `lower_limit` 百分比差值的磁碟空間。
 
-disk 水位控管，統計目前 cluster 中所有 nodes 的 disk 使用率取平均值，如果超過 `upper_limit` (上限值百分比)，
-則觸發篩選機制 - 由舊到新加總 index 所佔容量直到約等於 `upper_limit` 與 `lower_limit` 百分比差值佔 cluster disk 總量。
+- **upper_limit**  
+  - 任一正整數，單位：%，例如：50 代表上限 50%。
 
-#### upper_limit
+- **lower_limit**  
+  - 任一正整數，單位：%，例如：40 代表下限 40%。
+  
 
-- 任一正整數，單位 %，例如 50 代表上限 50% 。
+## 範例設定
+以下為 `config.yml` 的範例，展示如何設定多個 actions 及對應的 filters。
 
-#### lower_limit
-
-- 任一正整數，單位 %，例如 40 代表下限 40% 。
+### config.yml範例
 
 
-# config sample
-會用到兩個 config ，setting.yml 及 config.yml ，setting.yml 控制環境參數及排程執行相關；config.yml 控制要執行的 Actions。
-
-注意縮排不能有誤，不然程式會出錯。
-
-### config.yml 
-config 中可以有一或多個 action，一個 action 可是情況搭配不同的 filter，不同的 filter 有各自適用的 filter element ，請詳閱上方說明。
-
-```
-actions: 
-### 刪除在10天以前產生且開頭為 logstash- 的所有 index
-
+```yaml
+actions:
+  ### 刪除在10天以前產生且開頭為 logstash- 的所有 index
   - action: delete_indices
     description: delete selected indices1
-    options: 
+    options:
       disable_action: false
       delay: 5
     filters:
@@ -318,12 +331,11 @@ actions:
     - filtertype: pattern
       kind: prefix
       value: logstash-
-      
-### 開頭為 logstash- 的所有 index 只保留最新的 20G ，超過的刪除
 
+  ### 開頭為 logstash- 的所有 index 只保留最新的 20G，超過的刪除
   - action: delete_indices
     description: delete selected indices2
-    options: 
+    options:
       disable_action: false
       delay: 5
     filters:
@@ -333,12 +345,10 @@ actions:
     - filtertype: space
       disk_space: 20
 
-### 當 cluster 的平均 disk 使用量高於 80% 時，篩選出開頭為 logstash- ，
-	  從舊的開始刪，刪到釋放出 5% 的 cluster 的平均 disk 使用量。
-
+  ### 當 cluster 的平均 disk 使用量高於 80% 時，篩選出開頭為 logstash-，從舊的開始刪，刪到釋放出 5% 的 cluster 平均 disk 使用量
   - action: delete_indices
     description: delete selected indices3
-    options: 
+    options:
       disable_action: true
       delay: 5
     filters:
@@ -349,10 +359,9 @@ actions:
       upper_limit: 80
       lower_limit: 75
 
-### 將前1~5天之間產生的 index 搬遷到 warm data node 
-	 
+  ### 將前1~5天之間產生的 index 搬遷到 warm data node
   - action: allocation
-    description:  allocation selected indices to data_warm
+    description: allocation selected indices to data_warm
     options:
       disable_action: true
       key: _tier_preference
@@ -369,9 +378,8 @@ actions:
       unit: days
       range_from: 5
       range_to: 1
-      
-### 將前1~5天之間產生，開頭為 logstash-zs 的所有 index forcemerge to segments = 1
-      
+
+  ### 將前1~5天之間產生，開頭為 logstash-zs 的所有 index forcemerge to segments = 1
   - action: forcemerge
     description: Perform a forceMerge on selected indices to 'max_num_segments' per shard
     options:
@@ -387,9 +395,5 @@ actions:
       direction: range
       unit: days
       range_from: 5
-      range_to: 1    
-
-
+      range_to: 1
 ```
-
-
