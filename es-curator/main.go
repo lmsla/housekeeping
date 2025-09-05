@@ -6,7 +6,6 @@ import (
 	"es-curator/log_record"
 	"es-curator/utils"
 	// "log"
-	"sync"
 )
 
 func main() {
@@ -29,10 +28,7 @@ func main() {
 
 	if global.EnvConfig.INFORMATION.Execute_cron {
 		utils.LoadCrontab()
-		wg := new(sync.WaitGroup)
-		num := 1
-		wg.Add(num)
-		wg.Wait()
+		select {} // 保持程序運行等待定時任務
 	} else if !global.EnvConfig.INFORMATION.Execute_cron {
 		job.Action_controll()
 	}
