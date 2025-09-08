@@ -39,7 +39,6 @@ func CatNodes() CatNode {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("CatNodes request failed: ", err.Error())
-		// panic(err)
 	}
 
 	ResponseStatusCheck(res, "CatNodes")
@@ -66,8 +65,6 @@ func NodeStatus() {
 	}
 	ResponseStatusCheck(res, "NodeStatus")
 	defer res.Body.Close()
-	// log.Println(res)
-	// fmt.Println(res)
 }
 
 // 判定 nodeRole 相對應的 nodeName
@@ -75,13 +72,11 @@ func NodeRoleDetermination(role string) (nodeName []string) {
 	nodeinfo := CatNodes()
 	for _, data := range nodeinfo {
 		if strings.Contains(data.NodeRole, role) {
-			// fmt.Println("nodeName",data.Name,"nodeRole",data.NodeRole)
 			nodeName = append(nodeName, data.Name)
 
 		}
 
 	}
-	// fmt.Println("yes", nodeName)
 	return nodeName
 }
 
@@ -113,10 +108,8 @@ func Catnodes() {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("Catnodes request failed: ", err.Error())
-		// panic(err)
 	}
 	ResponseStatusCheck(res, "CatNodes")
 	defer res.Body.Close()
-	// log.Println(res)
 	fmt.Println("res", res)
 }

@@ -18,6 +18,13 @@ import (
 
 func InitLogger() {
 	logPath := global.EnvConfig.Log.Path // 替换为 global.EnvConfig.INFORMATION.LogPath
+	
+	// 確保日誌路徑不為空，如果為空使用當前目錄
+	if logPath == "" {
+		logPath = "./log"
+		fmt.Println("Warning: Log path is empty, using default ./log")
+	}
+	
 	// fileName := fmt.Sprintf("%s/housekeeping_%s.log", logPath, time.Now().Format("200601"))
 
 	// 配置 lumberjack for log rotate
@@ -62,6 +69,12 @@ func InitLogger() {
 
 func InitDetailLogger() {
 	logPath := global.EnvConfig.Log.Path // 替换为 global.EnvConfig.INFORMATION.LogPath
+	
+	// 確保日誌路徑不為空，如果為空使用當前目錄
+	if logPath == "" {
+		logPath = "./log"
+		fmt.Println("Warning: Detail log path is empty, using default ./log")
+	}
 	// 配置 lumberjack for log rotate
 	w_detail := zapcore.AddSync(&lumberjack.Logger{
 		Filename:   fmt.Sprintf("%s/detail_%s.log", logPath, time.Now().Format("200601")),
@@ -205,7 +218,7 @@ func (m *MyFormatter) Format(entry *logrus.Entry) ([]byte, error) {
 
 
 
-func LogTest() {
+func LogTest() error {
 	config := zap.NewProductionConfig()
 	config.EncoderConfig.TimeKey = "timestamp"
 	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
@@ -217,7 +230,7 @@ func LogTest() {
 	// 创建日志记录器
 	logger, err := config.Build()
 	if err != nil {
-		panic(err)
+		return fmt.Errorf("failed to build logger: %w", err)
 	}
 	defer logger.Sync() // 确保在程序退出前将缓存的日志刷新到磁盘
 
@@ -236,4 +249,6 @@ func LogTest() {
 	)
 
 	sugar.Infof("This is an info message with formatted %s", "output")
+	
+	return nil
 }

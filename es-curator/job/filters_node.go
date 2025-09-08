@@ -161,7 +161,6 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 				if err != nil {
 					// log_record.Logrecord("ERROR", "filter suffix error"+err.Error())
 					global.Logger.Error(err.Error())
-					// panic("suffix")
 				}
 				if matchbool {
 					indices = append(indices, match[data].Index)
@@ -177,7 +176,6 @@ func FilterType_pattern_role(nodeName string, kind string, value []string) (indi
 				if err != nil {
 					// log_record.Logrecord("ERROR", "filter regex error"+err.Error())
 					global.Logger.Error(err.Error())
-					// panic("regex")
 				}
 				if matchbool {
 					indices = append(indices, match[data].Index)

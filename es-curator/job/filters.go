@@ -153,7 +153,6 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 				if err != nil {
 					// log_record.Logrecord("ERROR", "filter suffix error"+err.Error())
 					global.Logger.Error(err.Error())
-					// panic("suffix")
 				}
 				if matchbool {
 					indices = append(indices, indicesinfo[data].Index)
@@ -169,7 +168,6 @@ func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 				if err != nil {
 					// log_record.Logrecord("ERROR", "filter regex error"+err.Error())
 					global.Logger.Error(err.Error())
-					// panic("regex")
 				}
 				if matchbool {
 					indices = append(indices, indicesinfo[data].Index)
@@ -197,6 +195,8 @@ func chunkSlice(slice []string, chunkSize int) [][]string {
 }
 
 func FilterType_space(patternlist []string, disk_space int) (indiceslist []string) {
+
+	fmt.Println("disk_space", disk_space)
 
 	var indicesinfo CatIndice
 	// var indicesinfo2 CatIndice
@@ -283,7 +283,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 				break
 			}
 			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
-			fmt.Println(total)
+			// fmt.Println(total)
 		}
 		// fmt.Println("final_list:", finalIndexList)
 		// fmt.Println(total)

@@ -149,7 +149,8 @@ func Diff(a, b []string) (added []string, removed []string) {
 	return added, removed
 }
 
-func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []string {
+func Filter_of_filter(filterRecord []string, FilterList []structs.Filter) []string {
+
 	var agelist, patternlist, spacelist, water_level_list, patternListPre, compareList []string
 
 	for filtertype := range FilterList {
@@ -158,24 +159,24 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 		}
 	}
 
-	if containsBothParams(filter_record, "age", "space") {
+	if containsBothParams(filterRecord, "age", "space") {
 		global.Logger.Error("Can't use age & space at the same time")
-	} else if containsBothParams(filter_record, "age", "water_level") {
+	} else if containsBothParams(filterRecord, "age", "water_level") {
 		global.Logger.Error("Can't use age & water_level at the same time")
-	} else if containsBothParams(filter_record, "space", "water_level") {
+	} else if containsBothParams(filterRecord, "space", "water_level") {
 		global.Logger.Error("Can't use space & water_level at the same time")
 	} else {
 		for filtertype := range FilterList {
 			if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction != "range" {
-				agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
+				agelist = FilterType_age(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].UnitCount)
 			} else if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction == "range" {
-				agelist = FilterType_age_range(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Range_From, FilterList[filtertype].Range_To)
+				agelist = FilterType_age_range(FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].RangeFrom, FilterList[filtertype].RangeTo)
 			} else if FilterList[filtertype].Filtertype == "pattern" {
 				patternlist = FilterType_pattern(FilterList[filtertype].Kind, FilterList[filtertype].Value)
 			} else if FilterList[filtertype].Filtertype == "space" {
-				spacelist = FilterType_space(patternListPre, FilterList[filtertype].Disk_space)
+				spacelist = FilterType_space(patternListPre, FilterList[filtertype].DiskSpace)
 			} else if FilterList[filtertype].Filtertype == "water_level" {
-				water_level_list = FilterType_waterLevel(patternListPre, FilterList[filtertype].Upper_limit, FilterList[filtertype].Lower_limit)
+				water_level_list = FilterType_waterLevel(patternListPre, FilterList[filtertype].UpperLimit, FilterList[filtertype].LowerLimit)
 			}
 
 		}
@@ -186,13 +187,13 @@ func Filter_of_filter(filter_record []string, FilterList []structs.Filter) []str
 	spacelist = RemoveDuplicates(spacelist)
 	water_level_list = RemoveDuplicates(water_level_list)
 
-	compareList = ResolveCompareListNonRole(filter_record,agelist,patternlist,spacelist,water_level_list)
+	compareList = ResolveCompareListNonRole(filterRecord,agelist,patternlist,spacelist,water_level_list)
 
 	fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }
 
-func Filters_With_node(role []string, filter_record []string, FilterList []structs.Filter) []string {
+func Filters_With_node(role []string, filterRecord []string, FilterList []structs.Filter) []string {
 	var agelist, patternlist_tmp, patternlist, patternListPre, spacelist_tmp, spacelist, water_level_list, compareList []string
 
 	for filtertype := range FilterList {
@@ -207,11 +208,11 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 		}
 	}
 
-	if containsBothParams(filter_record, "age", "space") {
+	if containsBothParams(filterRecord, "age", "space") {
 		global.Logger.Error("Can't use age & space at the same time")
-	} else if containsBothParams(filter_record, "age", "water_level") {
+	} else if containsBothParams(filterRecord, "age", "water_level") {
 		global.Logger.Error("Can't use age & water_level at the same time")
-	} else if containsBothParams(filter_record, "space", "water_level") {
+	} else if containsBothParams(filterRecord, "space", "water_level") {
 		global.Logger.Error("Can't use space & water_level at the same time")
 	} else {
 		// 取得符合 node role 的 node names
@@ -221,14 +222,14 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 
 			for filtertype := range FilterList {
 				if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction != "range" {
-					agelist = FilterType_age_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Unit_count)
+					agelist = FilterType_age_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].UnitCount)
 				} else if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction == "range" {
-					agelist = FilterType_age_range_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].Range_From, FilterList[filtertype].Range_To)
+					agelist = FilterType_age_range_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].RangeFrom, FilterList[filtertype].RangeTo)
 				} else if FilterList[filtertype].Filtertype == "pattern" {
 					patternlist_tmp = FilterType_pattern_role(nodeName, FilterList[filtertype].Kind, FilterList[filtertype].Value)
 					patternlist = append(patternlist, patternlist_tmp...)
 				} else if FilterList[filtertype].Filtertype == "water_level" {
-					water_level_list = FilterType_waterLevel_role(nodeName, patternListPre, FilterList[filtertype].Upper_limit, FilterList[filtertype].Lower_limit)
+					water_level_list = FilterType_waterLevel_role(nodeName, patternListPre, FilterList[filtertype].UpperLimit, FilterList[filtertype].LowerLimit)
 					// }  else if FilterList[filtertype].Filtertype == "space" {
 					// 	spacelist_tmp = FilterType_space_role(nodeName, patternListPre, FilterList[filtertype].Disk_space)
 					// 	spacelist = append(spacelist, spacelist_tmp...)
@@ -241,7 +242,7 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 		// 帶 node role 時，space list 另外處理
 		for filtertype := range FilterList {
 			if FilterList[filtertype].Filtertype == "space" {
-				spacelist_tmp = FilterType_space_role(nodeNames, patternListPre, FilterList[filtertype].Disk_space)
+				spacelist_tmp = FilterType_space_role(nodeNames, patternListPre, FilterList[filtertype].DiskSpace)
 				fmt.Println("spacelist_tmp", spacelist_tmp)
 				spacelist = append(spacelist, spacelist_tmp...)
 			}
@@ -253,7 +254,7 @@ func Filters_With_node(role []string, filter_record []string, FilterList []struc
 	spacelist = RemoveDuplicates(spacelist)
 	water_level_list = RemoveDuplicates(water_level_list)
 
-	compareList = ResolveCompareList(filter_record,agelist,patternlist,spacelist,water_level_list)
+	compareList = ResolveCompareList(filterRecord,agelist,patternlist,spacelist,water_level_list)
 
 	fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
@@ -356,10 +357,10 @@ func RemoveDuplicates1(arr []string) []string {
 }
 
 
-func ResolveCompareListNonRole(filter_record []string, agelist, patternlist, spacelist, water_level_list []string) []string {
+func ResolveCompareListNonRole(filterRecord []string, agelist, patternlist, spacelist, water_level_list []string) []string {
 	// 對條件進行排序，確保順序一致性
-	sort.Strings(filter_record)
-	key := strings.Join(filter_record, "-") // 建立唯一 key，如 "age-pattern-node_role"
+	sort.Strings(filterRecord)
+	key := strings.Join(filterRecord, "-") // 建立唯一 key，如 "age-pattern-node_role"
 
 	// 建立條件組合與對應邏輯的映射表 取 list 交集
 	actionMap := map[string]func() []string{
@@ -399,10 +400,10 @@ func ResolveCompareListNonRole(filter_record []string, agelist, patternlist, spa
 
 
 // water_level 應該考慮不與 node_role 並用
-func ResolveCompareList(filter_record []string, agelist, patternlist, spacelist, water_level_list []string) []string {
+func ResolveCompareList(filterRecord []string, agelist, patternlist, spacelist, water_level_list []string) []string {
 	// 對條件進行排序，確保順序一致性
-	sort.Strings(filter_record)
-	key := strings.Join(filter_record, "-") // 建立唯一 key，如 "age-pattern-node_role"
+	sort.Strings(filterRecord)
+	key := strings.Join(filterRecord, "-") // 建立唯一 key，如 "age-pattern-node_role"
 
 
 	// 建立條件組合與對應邏輯的映射表 取 list 交集

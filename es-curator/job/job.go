@@ -51,38 +51,5 @@ func SetElkClient() error {
 
 // var es *elasticsearch.Client
 
-func SetElkClient1() {
-	var err error
-	cfg := elasticsearch.Config{
-		Addresses: global.EnvConfig.ES.URL,
-		Username:  global.EnvConfig.ES.SourceAccount,
-		Password:  global.EnvConfig.ES.SourcePassword,
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
-	}
-
-	es, err = elasticsearch.NewClient(cfg)
-	if err != nil {
-		// 連線失敗
-		fmt.Println("ES Cluster 連線失敗")
-		// log.Logrecord("Elasticsearch ", "ES Cluster 連線失敗")
-		global.Logger.Error(err.Error())
-		fmt.Println(err.Error())
-		panic(err.Error())
-	}
-
-	res, err := es.Info()
-	if err != nil {
-		// log.Logrecord("Elasticsearch ", fmt.Sprintf("Error getting response: %s", err))
-		fmt.Println(err.Error())
-
-	}
-
-
-	fmt.Println(res)
-	fmt.Println("ES Connection ok")
-
-}
 
 

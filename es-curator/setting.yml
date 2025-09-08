@@ -1,4 +1,4 @@
- es:
+es:
   ## 連接的 es 地址
   url: 
     - https://10.99.1.213:9200
@@ -8,10 +8,9 @@
   ## 密碼
   sourcePassword: "elastic"
 
-
 information:
   ## 是否為測試模式
-  test_mode: false
+  test_mode: true
   ## 執行時間
   period: "14 17 * * *"
   ## 是否執行排程

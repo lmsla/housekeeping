@@ -38,7 +38,6 @@ func CatShards() CatShard {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("CatShards request failed: ", err.Error())
-		// panic(err)
 	}
 	ResponseStatusCheck(res, "CatShards")
 	defer res.Body.Close()

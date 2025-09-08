@@ -4,13 +4,10 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 
-	// "sync"
-	// "net/http"
-	// "time"
-	// "crypto/tls"
 	"context"
 	"encoding/json"
 	"es-curator/global"
@@ -34,7 +31,6 @@ type CatIndice []struct {
 	StoreSize    string `json:"store.size"`
 	PriStoreSize string `json:"pri.store.size"`
 	CreationDate string `json:"creation.date"`
-	// CreationDate	time.Time
 }
 
 type IndicesInfo struct {
@@ -72,29 +68,76 @@ type CatClusterHealth struct {
 }
 
 func ClusterHealth() CatClusterHealth {
-	req := esapi.ClusterHealthRequest{
-		Index: []string{"*"},
-	}
+	return ClusterHealthWithRetry(3)
+}
 
-	res, err := req.Do(context.Background(), es)
-	if err != nil {
-		// log_record.Logrecord("ERROR","cluster health error" + err.Error())
-		global.Logger.Error("ClusterHealth request failed: ", err.Error())
-		// panic(err)
-	}
-	// fmt.Println(res)
-
-	ResponseStatusCheck(res,"ClusterHealth")
+func ClusterHealthWithRetry(maxRetries int) CatClusterHealth {
+	var lastErr error
 	
-	defer res.Body.Close()
-	// Parse the response
-	resString, _ := io.ReadAll(res.Body)
-	var s CatClusterHealth
-	json.Unmarshal(resString, &s)
-	defer res.Body.Close()
+	for retry := 0; retry <= maxRetries; retry++ {
+		if retry > 0 {
+			// 指數退避，延遲 2^retry 秒
+			backoffDelay := time.Duration(1<<uint(retry-1)) * time.Second
+			global.Logger.Infow("Retrying ClusterHealth request", "attempt", retry+1, "delay", backoffDelay.String())
+			time.Sleep(backoffDelay)
+		}
 
-	return s
+		req := esapi.ClusterHealthRequest{
+			Index: []string{"*"},
+		}
 
+		res, err := req.Do(context.Background(), es)
+		if err != nil {
+			lastErr = err
+			global.Logger.Error("ClusterHealth request failed: ", err.Error())
+			if retry < maxRetries {
+				continue
+			}
+			return CatClusterHealth{}
+		}
+
+		// 檢查 HTTP 狀態碼
+		if res.StatusCode >= 400 {
+			defer res.Body.Close()
+			if retry < maxRetries {
+				continue
+			}
+			ResponseStatusCheck(res,"ClusterHealth")
+			return CatClusterHealth{}
+		}
+		
+		defer res.Body.Close()
+		// Parse the response
+		resString, err := io.ReadAll(res.Body)
+		if err != nil {
+			lastErr = err
+			global.Logger.Error("ClusterHealth read response body failed: ", err.Error())
+			if retry < maxRetries {
+				continue
+			}
+			return CatClusterHealth{}
+		}
+		
+		var s CatClusterHealth
+		if err := json.Unmarshal(resString, &s); err != nil {
+			lastErr = err
+			global.Logger.Error("ClusterHealth unmarshal failed: ", err.Error())
+			if retry < maxRetries {
+				continue
+			}
+			return CatClusterHealth{}
+		}
+
+		// 成功時記錄日誌
+		if retry > 0 {
+			global.Logger.Infow("ClusterHealth request succeeded after retries", "attempt", retry+1)
+		}
+		return s
+	}
+	
+	// 所有重試都失敗
+	global.Logger.Errorw("ClusterHealth failed after all retries", "maxRetries", maxRetries, "lastError", lastErr)
+	return CatClusterHealth{}
 }
 
 func CatIndices() CatIndice {
@@ -109,19 +152,15 @@ func CatIndices() CatIndice {
 	}
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
-		// log_record.Logrecord("ERROR","cat index error" + err.Error())
 		global.Logger.Error("CatIndices request failed: ", err.Error())
-		// panic(err)
 	}
 
 	ResponseStatusCheck(res,"CatIndices")
 
-	// log.Println(res)
 	resString, _ := io.ReadAll(res.Body)
 	var s CatIndice
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
-	// fmt.Println(string(resString))
 	return s
 }
 
@@ -138,9 +177,7 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error(err.Error())
-		// panic(err)
 	}
-	// log.Println(res)
 	resString, err := io.ReadAll(res.Body)
 	if err != nil {
 		global.Logger.Error("CatIndices_withPattern request failed: ", err.Error())
@@ -151,7 +188,6 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 	var s CatIndice
 	json.Unmarshal(resString, &s)
 	defer res.Body.Close()
-	// fmt.Println(string(resString))
 	return s
 }
 
@@ -164,7 +200,6 @@ func OpenIndices(Index []string) {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("OpenIndices request failed: ", err.Error())
-		// panic(err)
 	}
 	ResponseStatusCheck(res,"OpenIndices")
 	defer res.Body.Close()
@@ -178,7 +213,6 @@ func CloseIndices(Index []string) {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("CloseIndices request failed: ", err.Error())
-		// panic(err)
 	}
 	ResponseStatusCheck(res,"CloseIndices")
 	defer res.Body.Close()
@@ -192,7 +226,6 @@ func CreateIndex() {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("CreateIndices request failed: ", err.Error())
-		// panic(err)
 	}
 	ResponseStatusCheck(res,"CreateIndices")
 	defer res.Body.Close()
@@ -207,7 +240,6 @@ func DeleteIndex(Index []string) {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("DeleteIndex request failed: ", err.Error())
-		// panic(err)
 	}
 	ResponseStatusCheck(res,"DeleteIndex")
 	defer res.Body.Close()
@@ -223,7 +255,6 @@ func IndicesStatus() {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("IndicesStatus request failed: ", err.Error())
-		// panic(err)
 	}
 	ResponseStatusCheck(res,"IndicesStatus")
 	defer res.Body.Close()
@@ -240,7 +271,6 @@ func ForceMerge(Index []string, MaxNumSegments int) {
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("ForceMerge request failed: ", err.Error())
-		// panic(err)
 	}
 
 	ResponseStatusCheck(res,"ForceMerge")
@@ -261,7 +291,6 @@ func Allocation(Index []string, AllocationType string, key string, value string)
 
 	if err != nil {
 		global.Logger.Error("Allocation request failed: ", err.Error())
-		// fmt.Println("error", err.Error())
 		return
 	}
 
@@ -283,8 +312,7 @@ func ResponseStatusCheck(res *esapi.Response,action string) {
 				// 解析 reason
 				if errMap, ok := formattedError["error"].(map[string]interface{}); ok {
 					if reason, ok := errMap["reason"].(string); ok {
-						// fmt.Println("Reason:", reason)
-						global.Logger.Error(fmt.Sprintf("%s API failed with status [%d], Reason: %s", action,res.StatusCode,reason))
+							global.Logger.Error(fmt.Sprintf("%s API failed with status [%d], Reason: %s", action,res.StatusCode,reason))
 					}
 				}
 			} else {

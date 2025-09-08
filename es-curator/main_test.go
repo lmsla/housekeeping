@@ -28,13 +28,13 @@ func TestMain(t *testing.T) {
 	job.CatNodes()
 	// job.SetElkClient()
 	// job.NodeRoleDetermination("h")
-	// if global.EnvConfig.INFORMATION.Execute_cron {
+	// if global.EnvConfig.INFORMATION.ExecuteCron {
 	// 	utils.LoadCrontab()
 	// 	wg := new(sync.WaitGroup)
 	// 	num := 1
 	// 	wg.Add(num)
 	// 	wg.Wait()
-	// } else if !global.EnvConfig.INFORMATION.Execute_cron {
+	// } else if !global.EnvConfig.INFORMATION.ExecuteCron {
 	// 	job.Action_controll()
 	// }
 

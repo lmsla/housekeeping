@@ -1,8 +1,7 @@
 #### timestring "2006-01-02 15:04:05"
 actions:
-
   - action: delete_indices
-    description: delete indices when cluster used space greater than 20G
+    description: delete indices when cluster used space greater than 30G
     options:
       disable_action: false
       delay: 5
@@ -11,7 +10,7 @@ actions:
       kind: prefix
       value: logstash-
     - filtertype: space
-      disk_space: 10
+      disk_space: 10000
 
   - action: delete_indices
     description: delete selected indices
@@ -54,9 +53,9 @@ actions:
   - action: allocation
     description:  allocate selected indices at data_hot
     options:
-      disable_action: false
+      disable_action: true
       key: _tier_preference
-      value: data_warm
+      value: data_hot
       allocation_type: include
       delay: 5
     filters:
