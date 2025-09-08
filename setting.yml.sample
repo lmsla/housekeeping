@@ -14,7 +14,7 @@ information:
   ## 執行時間
   period: "14 17 * * *"
   ## 是否執行排程
-  execute_cron : false
+  execute_cron: false
 
 log:
   ## 是否同時將log輸出至 es

@@ -1,6 +1,6 @@
-actions: 
+actions:
   - action: allocation
-    description:  allocation selected indices in selected node to data_warm
+    description: allocation selected indices in selected node to data_warm
     options:
       disable_action: false
       key: _tier_preference
@@ -8,33 +8,33 @@ actions:
       allocation_type: include
       delay: 20
     filters:
-    - filtertype: node_role
-      value: h
-    - filtertype: pattern
-      kind: prefix
-      value: logstash-
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 30
+      - filtertype: node_role
+        value: h
+      - filtertype: pattern
+        kind: prefix
+        value: logstash-
+      - filtertype: age
+        source: creation_date
+        direction: older
+        unit: days
+        unit_count: 30
 
   - action: delete_indices
-    description: delete selected indices1
-    options: 
+    description: delete selected indices
+    options:
       disable_action: false
       delay: 5
     filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 1
-    - filtertype: pattern
-      kind: prefix
-      value: prefixmore
-    - filtertype: space
-      disk_space: 2
+      - filtertype: age
+        source: creation_date
+        direction: older
+        unit: days
+        unit_count: 1
+      - filtertype: pattern
+        kind: prefix
+        value: prefixmore
+      - filtertype: space
+        disk_space: 2
 
   - action: delete_indices
     description: delete selected indices2
@@ -42,70 +42,70 @@ actions:
       disable_action: false
       delay: 5
     filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 5
-    - filtertype: pattern
-      kind: prefix
-      value: test_index
+      - filtertype: age
+        source: creation_date
+        direction: older
+        unit: days
+        unit_count: 5
+      - filtertype: pattern
+        kind: prefix
+        value: test_index
 
   - action: delete_indices
     description: delete selected indices3
     options:
       disable_action: false
-      delay: 5    
+      delay: 5
     filters:
-    - filtertype: space
-      disk_space: 10
-    - filtertype: pattern
-      kind: prefix
-      value: logstash-
+      - filtertype: space
+        disk_space: 10
+      - filtertype: pattern
+        kind: prefix
+        value: logstash-
 
   - action: close
     description: close selected indices
-    filters:
     options:
       disable_action: false
-      delay: 5    
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 1
-    - filtertype: pattern
-      kind: prefix
-      value: prefixmore
+      delay: 5
+    filters:
+      - filtertype: age
+        source: creation_date
+        direction: older
+        unit: days
+        unit_count: 1
+      - filtertype: pattern
+        kind: prefix
+        value: prefixmore
 
   - action: open
     description: open selected indices
     options:
       disable_action: false
-      delay: 5    
+      delay: 5
     filters:
-    - filtertype: age
-      source: creation_date
-      direction: older
-      unit: days
-      unit_count: 1
-    - filtertype: pattern
-      kind: prefix
-      value: prefixmore
+      - filtertype: age
+        source: creation_date
+        direction: older
+        unit: days
+        unit_count: 1
+      - filtertype: pattern
+        kind: prefix
+        value: prefixmore
   - action: delete_indices
     description: forcemerge selected indices_test
     options:
       disable_action: true
       delay: 5
     filters:
-    - filtertype: pattern
-      kind: prefix
-      value: logstash-sevone-sn
-    - filtertype: space
-      disk_space: 650
+      - filtertype: pattern
+        kind: prefix
+        value: logstash-sevone-sn
+      - filtertype: space
+        disk_space: 650
 
   - action: allocation
-    description:  allocation selected indices to data_warm
+    description: allocation selected indices to data_warm
     options:
       disable_action: true
       key: _tier_preference
@@ -113,18 +113,18 @@ actions:
       allocation_type: include
       delay: 20
     filters:
-    - filtertype: pattern
-      kind: prefix
-      value: logstash-zs
-    - filtertype: age
-      source: creation_date
-      direction: range
-      unit: days
-      range_from: 5
-      range_to: 1
+      - filtertype: pattern
+        kind: prefix
+        value: logstash-zs
+      - filtertype: age
+        source: creation_date
+        direction: range
+        unit: days
+        range_from: 5
+        range_to: 1
 
   - action: allocation
-    description:  allocation selected indices in selected node to data_warm
+    description: allocation selected indices in selected node to data_warm
     options:
       disable_action: false
       key: _tier_preference
@@ -132,13 +132,13 @@ actions:
       allocation_type: include
       delay: 5
     filters:
-    - filtertype: node_role
-      value: w
-    - filtertype: pattern
-      kind: regex
-      value: 
-       - '[a-z]*-.{2}\_\w{7}5\-\d{8}'
-       - '[a-z]*-.{2}\_\w{7}4\-\d{8}'
+      - filtertype: node_role
+        value: w
+      - filtertype: pattern
+        kind: regex
+        value:
+      - '[a-z]*-.{2}\_\w{7}5\-\d{8}'
+      - '[a-z]*-.{2}\_\w{7}4\-\d{8}'
     # - filtertype: pattern
     #   kind: prefix
     #   value: logstash-
@@ -147,5 +147,5 @@ actions:
     #   direction: older
     #   unit: days
     #   unit_count: 30
-    - filtertype: space
-      disk_space: 1
+      - filtertype: space
+        disk_space: 1
