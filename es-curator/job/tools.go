@@ -189,7 +189,7 @@ func Filter_of_filter(filterRecord []string, FilterList []structs.Filter) []stri
 
 	compareList = ResolveCompareListNonRole(filterRecord,agelist,patternlist,spacelist,water_level_list)
 
-	fmt.Println("filter_of_filter's compare: ", compareList)
+	// fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }
 
@@ -256,7 +256,7 @@ func Filters_With_node(role []string, filterRecord []string, FilterList []struct
 
 	compareList = ResolveCompareList(filterRecord,agelist,patternlist,spacelist,water_level_list)
 
-	fmt.Println("filter_of_filter's compare: ", compareList)
+	// fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
 }
 

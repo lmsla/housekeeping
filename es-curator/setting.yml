@@ -10,11 +10,11 @@ es:
 
 information:
   ## 是否為測試模式
-  test_mode: true
+  test_mode: false
   ## 執行時間
-  period: "14 17 * * *"
+  period: "*/5 * * * *"
   ## 是否執行排程
-  execute_cron : false
+  execute_cron : true
 
 log:
   ## 是否同時將log輸出至 es 

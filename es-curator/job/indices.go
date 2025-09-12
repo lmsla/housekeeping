@@ -321,3 +321,86 @@ func ResponseStatusCheck(res *esapi.Response,action string) {
 			return
 		}
 }
+
+// Rollover 執行索引 rollover 操作
+func Rollover(alias string, maxSize string, maxDocs int64, maxAge string, newIndexName string) {
+	// 構建 rollover 條件
+	conditions := make(map[string]interface{})
+	
+	if maxSize != "" {
+		conditions["max_size"] = maxSize
+	}
+	if maxDocs > 0 {
+		conditions["max_docs"] = maxDocs
+	}
+	if maxAge != "" {
+		conditions["max_age"] = maxAge
+	}
+	
+	// 構建請求體
+	rolloverBody := map[string]interface{}{
+		"conditions": conditions,
+	}
+	
+	// 如果指定了新索引名稱模式，添加到請求中
+	if newIndexName != "" {
+		// 可以根據需要添加索引設定或映射
+		rolloverBody["settings"] = map[string]interface{}{
+			"index.number_of_shards": 1,
+			"index.number_of_replicas": 1,
+		}
+	}
+	
+	bodyJSON, err := json.Marshal(rolloverBody)
+	if err != nil {
+		global.Logger.Error("Failed to marshal rollover body: ", err.Error())
+		return
+	}
+	
+	// 執行 rollover 請求
+	req := esapi.IndicesRolloverRequest{
+		Alias: alias,
+		Body:  strings.NewReader(string(bodyJSON)),
+		Pretty: true,
+	}
+	
+	// 如果有指定新索引名稱，加入請求中
+	if newIndexName != "" {
+		req.NewIndex = newIndexName
+	}
+	
+	res, err := req.Do(context.Background(), es)
+	if err != nil {
+		global.Logger.Error("Rollover request failed: ", err.Error())
+		return
+	}
+	
+	defer res.Body.Close()
+	
+	// 檢查回應狀態
+	ResponseStatusCheck(res, "Rollover")
+	
+	// 解析回應以獲取詳細信息
+	var rolloverResponse map[string]interface{}
+	body, _ := io.ReadAll(res.Body)
+	
+	if err := json.Unmarshal(body, &rolloverResponse); err == nil {
+		if rolledOver, ok := rolloverResponse["rolled_over"].(bool); ok && rolledOver {
+			if oldIndex, ok := rolloverResponse["old_index"].(string); ok {
+				if newIndex, ok := rolloverResponse["new_index"].(string); ok {
+					global.Logger.Infow("Rollover successful", 
+						"alias", alias,
+						"old_index", oldIndex, 
+						"new_index", newIndex,
+						"logType", "Procedures")
+				}
+			}
+		} else {
+			global.Logger.Infow("Rollover conditions not met", 
+				"alias", alias,
+				"logType", "Procedures")
+		}
+	}
+	
+	log.Println(res)
+}

@@ -1,0 +1,70 @@
+service:
+  name: "bimap-housekeeping"
+  type: "batch-job"
+  version: "1.1.5"
+  environment: "production"
+
+metrics:
+  enabled: true
+  collection_interval: 30s
+  summary_interval: 5m
+  retention_duration: 24h
+
+universal_modules:
+  resource_monitoring:
+    enabled: true
+    collection_interval: 10s
+    cpu_monitoring: true
+    memory_monitoring: true
+    gc_monitoring: true
+    
+  error_tracking:
+    enabled: true
+    max_recent_errors: 100
+    error_sampling_rate: 1.0
+    
+  dependency_health:
+    enabled: true
+    check_interval: 30s
+    timeout: 5s
+
+custom_operations:
+  - name: "delete_indices"
+    display_name: "刪除索引"
+    type: "timer"
+    
+  - name: "allocation"
+    display_name: "索引分配"
+    type: "timer"
+    
+  - name: "forcemerge"
+    display_name: "強制合併"
+    type: "timer"
+    
+  - name: "close"
+    display_name: "關閉索引"
+    type: "timer"
+    
+  - name: "open"
+    display_name: "開啟索引"
+    type: "timer"
+
+exporters:
+  console:
+    enabled: true
+    format: "json"
+    level: "info"
+    output: "both"
+    file_path: "/var/log/housekeeping-metrics.json"
+    
+  prometheus:
+    enabled: false
+    endpoint: "/metrics"
+    namespace: "housekeeping"
+    
+  influxdb:
+    enabled: false
+    url: "${INFLUX_URL}"
+    database: "housekeeping_metrics"
+    batch_size: 1000
+    flush_interval: "10s"

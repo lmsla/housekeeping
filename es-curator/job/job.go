@@ -2,7 +2,9 @@ package job
 
 import (
 	"es-curator/global"
+	"es-curator/metrics"
 	"fmt"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v8"
 
@@ -15,6 +17,8 @@ import (
 var es *elasticsearch.Client
 
 func SetElkClient() error {
+    startTime := time.Now()
+    
     cfg := elasticsearch.Config{
         Addresses: global.EnvConfig.ES.URL,
         Username:  global.EnvConfig.ES.SourceAccount,
@@ -27,23 +31,40 @@ func SetElkClient() error {
     var err error
     es, err = elasticsearch.NewClient(cfg)
     if err != nil {
-        // fmt.Println("ES 客戶端初始化失敗: ", err)
+        // 記錄連線失敗指標
+        responseTime := time.Since(startTime)
+        if metrics.GlobalMetrics != nil {
+            metrics.GlobalMetrics.RecordESHealth(false, responseTime, "unknown")
+        }
         return fmt.Errorf("ES 客戶端初始化失敗: %w", err)
     }
 
     res, err := es.Info()
+    responseTime := time.Since(startTime)
+    
     if err != nil {
-        // fmt.Println("無法連線到 Elasticsearch: ", err)
+        // 記錄連線失敗指標
+        if metrics.GlobalMetrics != nil {
+            metrics.GlobalMetrics.RecordESHealth(false, responseTime, "unreachable")
+        }
         return fmt.Errorf("無法連線到 Elasticsearch: %w", err)
     }
     defer res.Body.Close()
 
     if res.IsError() {
-        // fmt.Println("elasticsearch 返回錯誤狀態: ", res.String())
+        // 記錄連線失敗指標
+        if metrics.GlobalMetrics != nil {
+            metrics.GlobalMetrics.RecordESHealth(false, responseTime, "error")
+        }
         return fmt.Errorf("elasticsearch 返回錯誤狀態: %s", res.String())
     }
 
-	global.Stderr_logger.Info("成功連線到 Elasticsearch")
+    // 記錄連線成功指標
+    if metrics.GlobalMetrics != nil {
+        metrics.GlobalMetrics.RecordESHealth(true, responseTime, "green")
+    }
+    
+    global.Stderr_logger.Info("成功連線到 Elasticsearch")
     return nil
 }
 

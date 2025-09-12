@@ -1,5 +1,9 @@
 
 # BiMAP-housekeeping 使用手冊
+
+> 📚 **技術文件已整理至 [`docs/`](./docs/) 目錄**  
+> 包含架構文件、優化清單、部署指南等完整技術資料
+
 - [簡介](#%E7%B0%A1%E4%BB%8B)
 	- [流程簡圖](#%E6%B5%81%E7%A8%8B%E7%B0%A1%E5%9C%96)
 - [重要提醒](#%E9%87%8D%E8%A6%81%E6%8F%90%E9%86%92)
@@ -162,6 +166,7 @@ log:
 - `delete_indices`
 - `allocation`
 - `forcemerge`
+- `rollover`
 
 #### Description
 描述執行的動作，方便日後在 log 中查閱相關紀錄。  
@@ -203,6 +208,36 @@ log:
 - **Used in**: forcemerge  
 - **Type**: Number  
 - 例：1, 2, 3，指定 forcemerge 後 index 的 segment 數量。
+
+##### rollover_alias
+- **Used in**: rollover  
+- **Type**: String  
+- **必需參數** - 要執行 rollover 的別名名稱。  
+- 例：`rollover_alias: "logs-write"`
+
+##### max_size
+- **Used in**: rollover  
+- **Type**: String  
+- 觸發 rollover 的最大索引大小。  
+- 例：`max_size: "50gb"`, `max_size: "1tb"`
+
+##### max_docs  
+- **Used in**: rollover  
+- **Type**: Number  
+- 觸發 rollover 的最大文檔數。  
+- 例：`max_docs: 100000000`
+
+##### max_age
+- **Used in**: rollover  
+- **Type**: String  
+- 觸發 rollover 的最大索引年齡。  
+- 例：`max_age: "30d"`, `max_age: "1w"`, `max_age: "24h"`
+
+##### new_index_name
+- **Used in**: rollover  
+- **Type**: String  
+- 可選：指定新索引名稱模式（留空使用預設命名規則）。  
+- 例：`new_index_name: "logs-2025.01.11"`
 
 #### Filter Types
 支援以下四種過濾條件，可單獨或混合使用：
@@ -396,4 +431,56 @@ actions:
       unit: days
       range_from: 5
       range_to: 1
+
+  ### 每日 rollover logs-write 別名，觸發條件：超過1天或大於5GB或文檔數超過1千萬
+  - action: rollover
+    description: Daily rollover for logs-write alias
+    options:
+      disable_action: false
+      rollover_alias: logs-write
+      max_age: 1d
+      max_size: 5gb
+      max_docs: 10000000
+      delay: 300  # rollover 後等待5分鐘
 ```
+
+### rollover 專用範例
+
+```yaml
+actions:
+  # 1. 執行 rollover
+  - action: rollover
+    description: Daily logs rollover
+    options:
+      rollover_alias: logs-write
+      max_age: 1d
+      max_size: 5gb
+      delay: 300
+
+  # 2. 將1天前的索引移到 warm 層
+  - action: allocation
+    description: Move old indices to warm tier
+    filters:
+      - filtertype: age
+        source: creation_date
+        direction: older
+        unit: days
+        unit_count: 1
+    options:
+      allocation_type: require
+      key: _tier_preference
+      value: data_warm
+      delay: 60
+
+  # 3. 刪除30天前的索引
+  - action: delete_indices
+    description: Delete indices older than 30 days
+    filters:
+      - filtertype: age
+        source: creation_date
+        direction: older
+        unit: days
+        unit_count: 30
+```
+
+> 💡 **Rollover 使用提示**: 詳細的使用說明和最佳實踐請參考 [`docs/ROLLOVER_GUIDE.md`](./docs/ROLLOVER_GUIDE.md)

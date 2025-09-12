@@ -2,9 +2,11 @@ package job
 
 import (
 	"es-curator/global"
+	"es-curator/metrics"
 	"es-curator/structs"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -13,6 +15,83 @@ type FilterInfo struct {
 	FilterRecord []string
 	Role         []string
 	Filters      []structs.Filter
+}
+
+// ActionExecutor 統一處理 Action 執行邏輯，保留完整的測試模式功能
+type ActionExecutor struct {
+	UUID   string
+	Action string
+}
+
+// ExecuteOnIndices 核心執行邏輯 - 完全保留原有的測試模式邏輯，新增指標收集
+func (ae *ActionExecutor) ExecuteOnIndices(indices []string, operation func([]string)) {
+	if len(indices) == 0 {
+		global.Logger.Infow("No match indices", "logType", "Procedures")
+		return
+	}
+	
+	// 保留原有的逐個處理邏輯
+	for _, index := range indices {
+		index_onebyone := []string{index}
+		
+		// 記錄操作開始時間
+		startTime := time.Now()
+		var success bool = true
+		
+		// 完全保留原有的測試模式分支邏輯
+		if global.EnvConfig.INFORMATION.TestMode {
+			logTestMode(ae.UUID, index_onebyone, ae.Action)
+			success = true // 測試模式總是成功
+		} else {
+			// 在實際操作中加入錯誤捕獲
+			func() {
+				defer func() {
+					if r := recover(); r != nil {
+						success = false
+						global.Logger.Error(fmt.Sprintf("Operation %s failed on index %s: %v", ae.Action, index, r))
+					}
+				}()
+				
+				logExecutionMode(ae.UUID, index_onebyone, ae.Action)
+				operation(index_onebyone)  // 只在非測試模式執行實際操作
+			}()
+		}
+		
+		// 記錄操作指標
+		duration := time.Since(startTime)
+		
+		// 記錄到本地指標系統
+		if metrics.GlobalMetrics != nil {
+			metrics.GlobalMetrics.RecordOperation(ae.Action, success, duration)
+		}
+		
+		
+		// 記錄操作詳細日誌
+		statusMsg := "success"
+		if !success {
+			statusMsg = "failed"
+		}
+		global.Logger.Infow(
+			fmt.Sprintf("Operation %s on index %s: %s (duration: %v)", ae.Action, index, statusMsg, duration),
+			"logType", "Metrics",
+			"action", ae.Action,
+			"index", index,
+			"success", success,
+			"duration_ms", duration.Nanoseconds()/1e6,
+		)
+	}
+}
+
+// LogActionSummary 統一的 Action 摘要日誌記錄
+func (ae *ActionExecutor) LogActionSummary(actionDesc string, indices []string) {
+	detailMsg := fmt.Sprintf("%s these indices: %s, Number of indices: %d", actionDesc, indices, len(indices))
+	global.Logger.Infow(detailMsg, "logType", "Procedures")
+}
+
+// LogActionSummaryWithParams 帶參數的 Action 摘要日誌記錄
+func (ae *ActionExecutor) LogActionSummaryWithParams(actionDesc string, indices []string, params string) {
+	detailMsg := fmt.Sprintf("%s these indices: %s, %s", actionDesc, indices, params)
+	global.Logger.Infow(detailMsg, "logType", "Procedures")
 }
 
 // ProcessedAction 包含處理後的 Action 信息
@@ -122,6 +201,8 @@ func executeAction(uuid string, indexList []string, action structs.Actiond) {
 		handleClose(uuid, indexList)
 	case "open":
 		handleOpen(uuid, indexList)
+	case "rollover":
+		handleRollover(uuid, action)
 	}
 }
 
@@ -217,18 +298,15 @@ func handleAllocation(uuid string, comparelist []string, action structs.Actiond)
 	comparelist = filtered_comparelist
 
 	if len(comparelist) != 0 {
-		detailMsg := fmt.Sprintf("allocation these indices :%s to %s ", comparelist, action.Options.Value)
-		global.Logger.Infow(detailMsg, "type", "Details")
-
-		for _, index := range comparelist {
-			index_onebyone := []string{index}
-			if global.EnvConfig.INFORMATION.TestMode {
-				logTestMode(uuid, index_onebyone, action.Action)
-			} else {
-				logExecutionMode(uuid, index_onebyone, action.Action)
-				Allocation(index_onebyone, action.Options.AllocationType, action.Options.Key, action.Options.Value)
-			}
+		executor := &ActionExecutor{UUID: uuid, Action: action.Action}
+		params := fmt.Sprintf("to %s", action.Options.Value)
+		executor.LogActionSummaryWithParams("allocation", comparelist, params)
+		
+		// 創建包含所有 allocation 參數的操作函數
+		operation := func(indices []string) {
+			Allocation(indices, action.Options.AllocationType, action.Options.Key, action.Options.Value)
 		}
+		executor.ExecuteOnIndices(comparelist, operation)
 		Node_relocating_checking()
 	} else {
 		global.Logger.Infow("No match indices", "logType", "Procedures")
@@ -236,79 +314,137 @@ func handleAllocation(uuid string, comparelist []string, action structs.Actiond)
 }
 
 func handleForceMerge(uuid string, comparelist []string, action structs.Actiond) {
+	executor := &ActionExecutor{UUID: uuid, Action: action.Action}
+	
 	if comparelist != nil {
-		detailMsg := fmt.Sprintf("forcemerge these indices :%s, segment num :%v", comparelist, action.Options.MaxNumSegment)
-		global.Logger.Infow(detailMsg, "logType", "Procedures")
-
-		for _, index := range comparelist {
-			index_onebyone := []string{index}
-			if global.EnvConfig.INFORMATION.TestMode {
-				logTestMode(uuid, index_onebyone, action.Action)
-			} else {
-				logExecutionMode(uuid, index_onebyone, action.Action)
-				ForceMerge(index_onebyone, action.Options.MaxNumSegment)
-			}
+		params := fmt.Sprintf("segment num: %v", action.Options.MaxNumSegment)
+		executor.LogActionSummaryWithParams("forcemerge", comparelist, params)
+		
+		// 創建一個包含 MaxNumSegment 參數的操作函數
+		operation := func(indices []string) {
+			ForceMerge(indices, action.Options.MaxNumSegment)
 		}
+		executor.ExecuteOnIndices(comparelist, operation)
 	} else {
 		global.Logger.Infow("No match indices", "logType", action.Action)
 	}
 }
 
 func handleDeleteIndices(uuid string, comparelist []string) {
+	executor := &ActionExecutor{UUID: uuid, Action: "delete_indices"}
+	
 	if comparelist != nil {
-		detailMsg := fmt.Sprintf("Delete these indices : %s, Number of indices : %d", comparelist, len(comparelist))
-		global.Logger.Infow(detailMsg, "logType", "Procedures")
-
-		for _, index := range comparelist {
-			index_onebyone := []string{index}
-			if global.EnvConfig.INFORMATION.TestMode {
-				logTestMode(uuid, index_onebyone, "delete_indices")
-			} else {
-				logExecutionMode(uuid, index_onebyone, "delete_indices")
-				DeleteIndex(index_onebyone)
-			}
-		}
+		executor.LogActionSummary("Delete", comparelist)
+		executor.ExecuteOnIndices(comparelist, DeleteIndex)
 	} else {
 		global.Logger.Infow("No match indices", "logType", "Procedures")
 	}
 }
 
 func handleClose(uuid string, comparelist []string) {
+	executor := &ActionExecutor{UUID: uuid, Action: "close"}
+	
 	if comparelist != nil {
-		detailMsg := fmt.Sprintf("Close these indices :%s", comparelist)
-		global.Logger.Infow(detailMsg, "logType", "Procedures")
-
-		for _, index := range comparelist {
-			index_onebyone := []string{index}
-			if global.EnvConfig.INFORMATION.TestMode {
-				logTestMode(uuid, index_onebyone, "close")
-			} else {
-				logExecutionMode(uuid, index_onebyone, "close")
-				CloseIndices(index_onebyone)
-			}
-		}
+		executor.LogActionSummary("Close", comparelist)
+		executor.ExecuteOnIndices(comparelist, CloseIndices)
 	} else {
 		global.Logger.Infow("No match indices", "logType", "Procedures")
 	}
 }
 
 func handleOpen(uuid string, comparelist []string) {
+	executor := &ActionExecutor{UUID: uuid, Action: "open"}
+	
 	if comparelist != nil {
-		detailMsg := fmt.Sprintf("Open these indices :%s", comparelist)
-		global.Logger.Infow(detailMsg, "logType", "Procedures")
-
-		for _, index := range comparelist {
-			index_onebyone := []string{index}
-			if global.EnvConfig.INFORMATION.TestMode {
-				logTestMode(uuid, index_onebyone, "open")
-			} else {
-				logExecutionMode(uuid, index_onebyone, "open")
-				OpenIndices(index_onebyone)
-			}
-		}
+		executor.LogActionSummary("Open", comparelist)
+		executor.ExecuteOnIndices(comparelist, OpenIndices)
 	} else {
 		global.Logger.Infow("No match indices", "logType", "Procedures")
 	}
+}
+
+func handleRollover(uuid string, action structs.Actiond) {
+	// Rollover 不需要索引清單，直接基於 alias 操作
+	if action.Options.RolloverAlias == "" {
+		global.Logger.Errorw("Rollover alias is required but not specified", 
+			"uuid", uuid, "action", action.Action)
+		return
+	}
+	
+	// 記錄 rollover 操作詳情
+	conditions := []string{}
+	if action.Options.MaxSize != "" {
+		conditions = append(conditions, fmt.Sprintf("max_size: %s", action.Options.MaxSize))
+	}
+	if action.Options.MaxDocs > 0 {
+		conditions = append(conditions, fmt.Sprintf("max_docs: %d", action.Options.MaxDocs))
+	}
+	if action.Options.MaxAge != "" {
+		conditions = append(conditions, fmt.Sprintf("max_age: %s", action.Options.MaxAge))
+	}
+	
+	conditionsStr := "no conditions"
+	if len(conditions) > 0 {
+		conditionsStr = fmt.Sprintf("[%s]", strings.Join(conditions, ", "))
+	}
+	
+	detailMsg := fmt.Sprintf("Rollover alias '%s' with conditions: %s", action.Options.RolloverAlias, conditionsStr)
+	global.Logger.Infow(detailMsg, "logType", "Procedures", "uuid", uuid)
+	
+	// 記錄操作開始時間進行指標追蹤
+	startTime := time.Now()
+	success := true
+	
+	// 完全保留原有的測試模式分支邏輯
+	if global.EnvConfig.INFORMATION.TestMode {
+		global.Logger.Infow(fmt.Sprintf("Rollover alias '%s' processed in test mode", action.Options.RolloverAlias), 
+			"logType", "Procedures", "mode", "TestMode", "uuid", uuid)
+		success = true // 測試模式總是成功
+	} else {
+		// 實際執行 rollover 操作
+		func() {
+			defer func() {
+				if r := recover(); r != nil {
+					success = false
+					global.Logger.Error(fmt.Sprintf("Rollover operation failed on alias %s: %v", action.Options.RolloverAlias, r))
+				}
+			}()
+			
+			global.Logger.Infow(fmt.Sprintf("Executing rollover on alias '%s'", action.Options.RolloverAlias), 
+				"logType", "Procedures", "uuid", uuid)
+			
+			Rollover(
+				action.Options.RolloverAlias,
+				action.Options.MaxSize,
+				action.Options.MaxDocs,
+				action.Options.MaxAge,
+				action.Options.NewIndexName,
+			)
+		}()
+	}
+	
+	// 記錄操作指標
+	duration := time.Since(startTime)
+	
+	// 記錄到本地指標系統
+	if metrics.GlobalMetrics != nil {
+		metrics.GlobalMetrics.RecordOperation(action.Action, success, duration)
+	}
+	
+	// 記錄操作詳細日誌
+	statusMsg := "success"
+	if !success {
+		statusMsg = "failed"
+	}
+	global.Logger.Infow(
+		fmt.Sprintf("Rollover operation on alias %s: %s (duration: %v)", action.Options.RolloverAlias, statusMsg, duration),
+		"logType", "Metrics",
+		"action", action.Action,
+		"alias", action.Options.RolloverAlias,
+		"success", success,
+		"duration_ms", duration.Nanoseconds()/1e6,
+		"uuid", uuid,
+	)
 }
 
 func logTestMode(uuid string, index_onebyone []string, action string) {

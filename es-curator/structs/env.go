@@ -71,4 +71,10 @@ type Option struct {
 	MaxNumSegment     int    `yaml:"max_num_segment"`
 	Delay             int    `yaml:"delay"`
 	TimeoutOverride   int    `yaml:"TimeoutOverride"`
+	// Rollover 相關配置
+	RolloverAlias     string `yaml:"rollover_alias"`        // 要 rollover 的 alias
+	MaxSize           string `yaml:"max_size,omitempty"`     // 觸發 rollover 的最大大小 (如 "50gb")
+	MaxDocs           int64  `yaml:"max_docs,omitempty"`     // 觸發 rollover 的最大文檔數
+	MaxAge            string `yaml:"max_age,omitempty"`      // 觸發 rollover 的最大時間 (如 "30d")
+	NewIndexName      string `yaml:"new_index_name,omitempty"` // 可選：指定新索引名稱模式
 }
