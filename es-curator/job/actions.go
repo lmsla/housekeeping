@@ -250,11 +250,21 @@ func Action_controll() {
 		executionID := generateExecutionID()
 		global.Logger.Infow(fmt.Sprintf("執行 ID: %s", executionID), "logType", "Procedures")
 		
-		// 處理 Action (過濾器處理 + 索引獲取)
-		processedAction := processAction(executionID, action)
-		
-		// 執行 Action 並應用延遲
-		executeActionWithDelay(processedAction)
+		// 根據 action type 決定處理路徑
+		if action.Action == "rollover" {
+			// Rollover 不需要 filter，直接執行
+			logAction(executionID, action.Action, action.Description)
+			processedAction := ProcessedAction{
+				UUID:      executionID,
+				Action:    action,
+				IndexList: nil, // Rollover 不依賴索引列表
+			}
+			executeActionWithDelay(processedAction)
+		} else {
+			// 其他 action 走標準的 filter 處理流程
+			processedAction := processAction(executionID, action)
+			executeActionWithDelay(processedAction)
+		}
 	}
 }
 
@@ -413,13 +423,15 @@ func handleRollover(uuid string, action structs.Actiond) {
 			global.Logger.Infow(fmt.Sprintf("Executing rollover on alias '%s'", action.Options.RolloverAlias), 
 				"logType", "Procedures", "uuid", uuid)
 			
-			Rollover(
+			if err := Rollover(
 				action.Options.RolloverAlias,
 				action.Options.MaxSize,
 				action.Options.MaxDocs,
 				action.Options.MaxAge,
 				action.Options.NewIndexName,
-			)
+			); err != nil {
+				success = false
+			}
 		}()
 	}
 	

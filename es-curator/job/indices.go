@@ -323,7 +323,7 @@ func ResponseStatusCheck(res *esapi.Response,action string) {
 }
 
 // Rollover 執行索引 rollover 操作
-func Rollover(alias string, maxSize string, maxDocs int64, maxAge string, newIndexName string) {
+func Rollover(alias string, maxSize string, maxDocs int64, maxAge string, newIndexName string) error {
 	// 構建 rollover 條件
 	conditions := make(map[string]interface{})
 	
@@ -354,7 +354,7 @@ func Rollover(alias string, maxSize string, maxDocs int64, maxAge string, newInd
 	bodyJSON, err := json.Marshal(rolloverBody)
 	if err != nil {
 		global.Logger.Error("Failed to marshal rollover body: ", err.Error())
-		return
+		return err
 	}
 	
 	// 執行 rollover 請求
@@ -372,18 +372,36 @@ func Rollover(alias string, maxSize string, maxDocs int64, maxAge string, newInd
 	res, err := req.Do(context.Background(), es)
 	if err != nil {
 		global.Logger.Error("Rollover request failed: ", err.Error())
-		return
+		return err
 	}
-	
 	defer res.Body.Close()
-	
+
+	// 讀取 body
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("Failed to read rollover response body: ", err.Error())
+		return err
+	}
+
 	// 檢查回應狀態
-	ResponseStatusCheck(res, "Rollover")
+	if res.IsError() {
+		var errResponse map[string]interface{}
+		if json.Unmarshal(body, &errResponse) == nil {
+			if errMap, ok := errResponse["error"].(map[string]interface{}); ok {
+				if reason, ok := errMap["reason"].(string); ok {
+					errMsg := fmt.Sprintf("Rollover API failed with status [%d], Reason: %s", res.StatusCode, reason)
+					global.Logger.Error(errMsg)
+					return fmt.Errorf(errMsg)
+				}
+			}
+		}
+		errMsg := fmt.Sprintf("Rollover API failed with status [%d]: %s", res.StatusCode, string(body))
+		global.Logger.Error(errMsg)
+		return fmt.Errorf(errMsg)
+	}
 	
 	// 解析回應以獲取詳細信息
 	var rolloverResponse map[string]interface{}
-	body, _ := io.ReadAll(res.Body)
-	
 	if err := json.Unmarshal(body, &rolloverResponse); err == nil {
 		if rolledOver, ok := rolloverResponse["rolled_over"].(bool); ok && rolledOver {
 			if oldIndex, ok := rolloverResponse["old_index"].(string); ok {
@@ -403,4 +421,5 @@ func Rollover(alias string, maxSize string, maxDocs int64, maxAge string, newInd
 	}
 	
 	log.Println(res)
+	return nil
 }

@@ -4,9 +4,11 @@ es:
     - https://10.99.1.213:9200
 
   ## 帳號
-  sourceAccount: "housekeeping"
+  #sourceAccount: "housekeeping"
+  sourceAccount: "elastic"
   ## 密碼
-  sourcePassword: "elastic"
+  #sourcePassword: "elastic"
+  sourcePassword: "a12345678"
 
 information:
   ## 是否為測試模式
@@ -14,7 +16,7 @@ information:
   ## 執行時間
   period: "*/5 * * * *"
   ## 是否執行排程
-  execute_cron : true
+  execute_cron : false
 
 log:
   ## 是否同時將log輸出至 es 

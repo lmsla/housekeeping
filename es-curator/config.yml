@@ -3,11 +3,11 @@ actions:
   - action: rollover
     description: "Daily logs rollover"
     options:
-      rollover_alias: "logstash-mock-data"
+      rollover_alias: "mock-data"
       max_age: "1d"
-      max_size: "500mb"
-      delay: 10  # 等待 5 分鐘
-
+      max_size: "3gb"
+      delay: 10
+        #new_index_name: "logstash-mock-data-roll"
   - action: delete_indices
     description: delete indices when cluster used space greater than 30G
     options:
