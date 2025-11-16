@@ -15,6 +15,40 @@ import (
 	
 )
 
+// initESClientWithRetry 使用指數退避策略重試連接 ES
+func initESClientWithRetry() error {
+	maxRetries := 5
+	if global.EnvConfig.ES.MaxRetries > 0 {
+		maxRetries = global.EnvConfig.ES.MaxRetries
+	}
+
+	var lastErr error
+	for i := 0; i < maxRetries; i++ {
+		if err := job.SetElkClient(); err == nil {
+			return nil // 連接成功
+		} else {
+			lastErr = err
+		}
+
+		if i < maxRetries-1 {
+			// 指數退避: 1s, 2s, 4s, 8s, 16s
+			backoff := time.Duration(1<<uint(i)) * time.Second
+			global.Logger.Warnw("ES 連接失敗，正在重試",
+				"attempt", i+1,
+				"max_retries", maxRetries,
+				"retry_after", backoff.String(),
+				"error", lastErr)
+			time.Sleep(backoff)
+		}
+	}
+
+	// 所有重試都失敗
+	global.Logger.Errorw("ES 連接失敗，已達最大重試次數",
+		"max_retries", maxRetries,
+		"last_error", lastErr)
+	return lastErr
+}
+
 func main() {
 	// 載入環境配置
 	if err := utils.LoadEnvironment(); err != nil {
@@ -26,7 +60,14 @@ func main() {
 	log_record.InitLogger()
 	log_record.InitDetailLogger()
 	log_record.InitStderrLogger()
-	
+
+	// ✅ 驗證配置（Fail Fast - 啟動時立即發現配置錯誤）
+	if err := utils.ValidateConfig(); err != nil {
+		global.Stderr_logger.Errorf("❌ 配置驗證失敗: %v\n\n請檢查 setting.yml 和 config.yml 配置文件", err)
+		os.Exit(1)
+	}
+	global.Logger.Info("✅ 配置驗證通過")
+
 	// 創建可取消的 context 來優雅關閉
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -43,11 +84,13 @@ func main() {
 	fmt.Printf("Execute cron: %v\n", global.EnvConfig.INFORMATION.ExecuteCron)
 	fmt.Printf("================\n")
 
-	// 初始化 Elasticsearch 客戶端
-	if err := job.SetElkClient(); err != nil {
-
-		global.Logger.Error(err)
-		global.Stderr_logger.Fatalf("初始化 Elasticsearch 客戶端失敗: %v", err)
+	// 初始化 Elasticsearch 客戶端（帶重試機制）
+	if err := initESClientWithRetry(); err != nil {
+		global.Logger.Error("ES 連接失敗，啟動降級模式", "error", err)
+		global.Stderr_logger.Warn("⚠️  服務以降級模式啟動，將定期嘗試重新連接 ES")
+		// 不終止服務，繼續啟動
+	} else {
+		global.Logger.Info("✅ ES 客戶端初始化成功")
 	}
 
 	// 設置信號處理，支援優雅關閉

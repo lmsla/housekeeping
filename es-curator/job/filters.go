@@ -7,8 +7,29 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 	// "math"
+)
+
+// ✅ HIGH-008 修復: 使用 sync.Pool 重用切片，減少內存分配和 GC 壓力
+var (
+	// stringSlicePool 用於重用字符串切片
+	stringSlicePool = sync.Pool{
+		New: func() interface{} {
+			// 預分配 2000 容量，適用於大型 ES 集群
+			s := make([]string, 0, 2000)
+			return &s
+		},
+	}
+
+	// mapPool 用於重用 map[string]string
+	mapPool = sync.Pool{
+		New: func() interface{} {
+			m := make(map[string]string, 2000)
+			return &m
+		},
+	}
 )
 
 func timetransform(unit string, unit_count int) string {
@@ -195,119 +216,167 @@ func chunkSlice(slice []string, chunkSize int) [][]string {
 }
 
 func FilterType_space(patternlist []string, disk_space int) (indiceslist []string) {
-
 	fmt.Println("disk_space", disk_space)
 
+	// ✅ HIGH-008 修復: 從池中獲取切片，減少內存分配
+	creationDateSlicePtr := stringSlicePool.Get().(*[]string)
+	indexSortbycreationPtr := stringSlicePool.Get().(*[]string)
+	indexSortbycreationAscPtr := stringSlicePool.Get().(*[]string)
+	aggregateBytesPtr := stringSlicePool.Get().(*[]string)
+	finalIndexListPtr := stringSlicePool.Get().(*[]string)
+
+	indexSizemapPtr := mapPool.Get().(*map[string]string)
+	creationdateNameMapPtr := mapPool.Get().(*map[string]string)
+
+	// ✅ 確保歸還給池
+	defer func() {
+		// 清空切片但保留容量
+		*creationDateSlicePtr = (*creationDateSlicePtr)[:0]
+		*indexSortbycreationPtr = (*indexSortbycreationPtr)[:0]
+		*indexSortbycreationAscPtr = (*indexSortbycreationAscPtr)[:0]
+		*aggregateBytesPtr = (*aggregateBytesPtr)[:0]
+		*finalIndexListPtr = (*finalIndexListPtr)[:0]
+
+		// ✅ 明確清理 map 後歸還
+		for k := range *indexSizemapPtr {
+			delete(*indexSizemapPtr, k)
+		}
+		for k := range *creationdateNameMapPtr {
+			delete(*creationdateNameMapPtr, k)
+		}
+
+		stringSlicePool.Put(creationDateSlicePtr)
+		stringSlicePool.Put(indexSortbycreationPtr)
+		stringSlicePool.Put(indexSortbycreationAscPtr)
+		stringSlicePool.Put(aggregateBytesPtr)
+		stringSlicePool.Put(finalIndexListPtr)
+		mapPool.Put(indexSizemapPtr)
+		mapPool.Put(creationdateNameMapPtr)
+	}()
+
+	// 解引用指針
+	creationDateSlice := *creationDateSlicePtr
+	indexSortbycreation := *indexSortbycreationPtr
+	indexSortbycreationAsc := *indexSortbycreationAscPtr
+	aggregate_bytes := *aggregateBytesPtr
+	finalIndexList := *finalIndexListPtr
+	indexSizemap := *indexSizemapPtr
+	creationdate_NameMap := *creationdateNameMapPtr
+
 	var indicesinfo CatIndice
-	// var indicesinfo2 CatIndice
 
 	if len(patternlist) < 1 {
 		indicesinfo = CatIndices()
 	} else {
-		// indicesinfo2 = CatIndices_withPattern(patternlist)
 		chunks := chunkSlice(patternlist, 10)
 		for _, chunk := range chunks {
-			indicesinfo1 := CatIndices_withPattern(chunk) // Replace with your actual function call
+			indicesinfo1 := CatIndices_withPattern(chunk)
 			indicesinfo = append(indicesinfo, indicesinfo1...)
 		}
 	}
 
-	var creationDateSlice []string
-	var indexSizemap, creationdate_NameMap map[string]string
-	indexSizemap = make(map[string]string)
-	// var creationdate_NameMap map[string]string
-	creationdate_NameMap = make(map[string]string)
+	// ✅ 收集索引信息到 map 和 slice
 	for data := range indicesinfo {
 		indexSizemap[indicesinfo[data].Index] = indicesinfo[data].StoreSize
 		creationdate_NameMap[indicesinfo[data].CreationDate] = indicesinfo[data].Index
 		creationDateSlice = append(creationDateSlice, indicesinfo[data].CreationDate)
-		// fmt.Println(indicesinfo[data].Index, "size", indicesinfo[data].StoreSize, "date", indicesinfo[data].CreationDate)
 	}
-	var finalIndexList []string
-	var aggregate_bytes []string
+
 	if creationDateSlice == nil {
 		// 如果撈不到 index 則返回一個空的list
 		finalIndexList = append(finalIndexList, "")
 	} else {
 		// 按 index 的 create_date 排序
 		sort.Strings(creationDateSlice)
-		// fmt.Println("sort of creationDateSlice:", creationDateSlice)
-		// fmt.Println("indexSizemap", indexSizemap)
+
 		// 把 index_name 塞到 slice 中
-		var indexSortbycreation []string
 		for date := range creationDateSlice {
 			indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
 		}
-		// fmt.Println("indexSortbycreation:", indexSortbycreation)
 
 		/// 倒序 - 從 newest create 的 index 開始加總 disk_space
-		var indexSortbycreationAsc []string
 		for index := range indexSortbycreation {
 			name := indexSortbycreation[len(indexSortbycreation)-index-1]
 			indexSortbycreationAsc = append(indexSortbycreationAsc, name)
-
 		}
-		// fmt.Println("asc:", indexSortbycreationAsc)
 
 		total := 0
 
 		for bytes := range indexSortbycreationAsc {
 			var bytesnum int
-			// fmt.Println("indexSizemap[indexSortbycreationAsc[bytes]]"+indexSizemap[indexSortbycreationAsc[bytes]])
 			if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
 				bytesnum = 0
-				// total += bytesnum
 			} else {
 				bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
 				if err != nil {
-					// log_record.Logrecord("ERROR", "Error during conversion "+err.Error())
 					global.Logger.Error(err.Error())
 					return
 				}
-				// total += bytesnum
 				bytesnum = bytesint
 			}
-			// bytesnum, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
-			// if err != nil {
-			// 	log_record.Logrecord("ERROR", "Error during conversion"+err.Error())
-			// 	fmt.Println("Error during conversion 163")
-			// 	return
-			// }
 
-			// aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
-			// fmt.Println("aggregate_bytes list",aggregate_bytes)
 			// 加總 index storage
 			total += bytesnum
-			// fmt.Println(total)
 			if total > disk_space*1024*1024 {
 				break
 			}
 			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
-			// fmt.Println(total)
 		}
-		// fmt.Println("final_list:", finalIndexList)
-		// fmt.Println(total)
+
 		_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
 		finalIndexList = removed
-		// fmt.Println("added: ", added)
-		// fmt.Println("removed: ", removed)
-
 	}
-	return finalIndexList
+
+	// ✅ 創建返回值的副本（避免返回池中的切片）
+	result := make([]string, len(finalIndexList))
+	copy(result, finalIndexList)
+	return result
 }
 
 func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit int) (indiceslist []string) {
+	// ✅ HIGH-008 修復: 從池中獲取切片和 map，減少內存分配
+	creationDateSlicePtr := stringSlicePool.Get().(*[]string)
+	aggregateBytesPtr := stringSlicePool.Get().(*[]string)
+	indexSortbycreationPtr := stringSlicePool.Get().(*[]string)
 
-	var creationDateSlice, aggregate_bytes []string
-	var indexSizemap, creationdate_NameMap map[string]string
+	indexSizemapPtr := mapPool.Get().(*map[string]string)
+	creationdateNameMapPtr := mapPool.Get().(*map[string]string)
+
+	// ✅ 確保歸還給池
+	defer func() {
+		// 清空切片但保留容量
+		*creationDateSlicePtr = (*creationDateSlicePtr)[:0]
+		*aggregateBytesPtr = (*aggregateBytesPtr)[:0]
+		*indexSortbycreationPtr = (*indexSortbycreationPtr)[:0]
+
+		// ✅ 明確清理 map 後歸還
+		for k := range *indexSizemapPtr {
+			delete(*indexSizemapPtr, k)
+		}
+		for k := range *creationdateNameMapPtr {
+			delete(*creationdateNameMapPtr, k)
+		}
+
+		stringSlicePool.Put(creationDateSlicePtr)
+		stringSlicePool.Put(aggregateBytesPtr)
+		stringSlicePool.Put(indexSortbycreationPtr)
+		mapPool.Put(indexSizemapPtr)
+		mapPool.Put(creationdateNameMapPtr)
+	}()
+
+	// 解引用指針
+	creationDateSlice := *creationDateSlicePtr
+	aggregate_bytes := *aggregateBytesPtr
+	indexSortbycreation := *indexSortbycreationPtr
+	indexSizemap := *indexSizemapPtr
+	creationdate_NameMap := *creationdateNameMapPtr
+
 	var indicesinfo CatIndice
 	if len(patternlist) < 1 {
 		indicesinfo = CatIndices()
 	} else {
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
-
-	// fmt.Println("patternlist", patternlist)
 
 	/// 統計各個 Node 的 Average Water Level
 	nodesinfo := CatNodes()
@@ -316,14 +385,12 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 	for _, data := range nodesinfo {
 		DiskUsedPercent, err := strconv.ParseFloat(data.DiskUsedPercent, 32)
 		if err != nil {
-			// log_record.Logrecord("ERROR", "Error during conversion DiskUsedPercent str"+err.Error())
 			global.Logger.Error(err.Error())
 			return
 		}
 		DiskTotalstr := strings.TrimSuffix(data.DiskTotal, "gb")
 		DiskTotal, err := strconv.ParseFloat(DiskTotalstr, 32)
 		if err != nil {
-			// log_record.Logrecord("ERROR", "Error during conversion disk total str"+err.Error())
 			global.Logger.Error(err.Error())
 			return
 		}
@@ -333,48 +400,38 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 
 	AnerageLevel := water_level / float64(len(nodesinfo))
 	msg := fmt.Sprintf("Average Water Level: %f", AnerageLevel)
-	// log_record.Logrecord("INFO", msg)
 	global.Logger.Infow(msg)
 
 	var diskKbToClean float64
 
 	// 觸發 upper_limit 才進行動作
 	if AnerageLevel >= float64(upper_limit) {
-		
 		diskToCleanPercentage := float64(upper_limit) - float64(lower_limit)
 		diskToClean := AllDiskTotal * (diskToCleanPercentage / 100)
 		diskKbToClean = diskToClean * 1024 * 1024
 
-		// log_record.Logrecord("Details", fmt.Sprintf("Disk Space to Clean %f gb", diskToClean))
 		global.Logger.Infow(fmt.Sprintf("Estimated to Release %f GB of Disk Space", diskToClean), "type", "Details")
 
-		indexSizemap = make(map[string]string)
-		creationdate_NameMap = make(map[string]string)
-
+		// ✅ 收集索引信息到 map 和 slice
 		for _, data := range indicesinfo {
 			indexSizemap[data.Index] = data.StoreSize
 			creationdate_NameMap[data.CreationDate] = data.Index
 			creationDateSlice = append(creationDateSlice, data.CreationDate)
-			// fmt.Println(data.Index, "size", data.StoreSize, "date", data.CreationDate)
 		}
 
 		if creationDateSlice != nil {
 			// 按 index 的 create_date 排序
 			sort.Strings(creationDateSlice)
-			// fmt.Println("sort of creationDateSlice:", creationDateSlice)
-			// fmt.Println("indexSizemap", indexSizemap)
+
 			// 把 index_name 塞到 slice 中
-			var indexSortbycreation []string
 			for date := range creationDateSlice {
 				indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
 			}
 
 			total := 0
 			for _, data := range indexSortbycreation {
-
 				bytesnum, err := strconv.Atoi(indexSizemap[data])
 				if err != nil {
-					// log_record.Logrecord("ERROR", "Error during conversion"+err.Error())
 					global.Logger.Error(err.Error())
 					return
 				}
@@ -385,14 +442,16 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 					break
 				}
 			}
-			// log_record.Logrecord("Details", fmt.Sprintf("Total Delete kbs %d", total))
 			global.Logger.Infow(fmt.Sprintf("Actually released %d kbs", total), "type", "Details")
 		}
 	} else {
-		// log_record.Logrecord("INFO ", "Water Level doesn't exceed upper limit")
 		global.Logger.Infow("Water Level doesn't exceed upper limit")
 	}
-	return aggregate_bytes
+
+	// ✅ 創建返回值的副本（避免返回池中的切片）
+	result := make([]string, len(aggregate_bytes))
+	copy(result, aggregate_bytes)
+	return result
 }
 
 func Test1() {

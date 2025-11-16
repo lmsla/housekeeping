@@ -2,11 +2,11 @@ package job
 
 import (
 	"encoding/json"
+	"time"
 	// "fmt"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	// "log"
 	// "strings"
-	// "time"
 	"context"
 	"es-curator/global"
 	"io"
@@ -35,18 +35,28 @@ func CatShards() CatShard {
 		Pretty: true,
 		V:      newTrue(),
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("CatShards request failed: ", err.Error())
+		return CatShard{}
 	}
 	ResponseStatusCheck(res, "CatShards")
 	defer res.Body.Close()
 
 	// fmt.Println(res)
-	resString, _ := io.ReadAll(res.Body)
+	resString, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("Failed to read response body in CatShards", "error", err)
+		return CatShard{}
+	}
+
 	var s CatShard
-	json.Unmarshal(resString, &s)
-	defer res.Body.Close()
+	if err := json.Unmarshal(resString, &s); err != nil {
+		global.Logger.Error("Failed to unmarshal JSON in CatShards", "error", err)
+		return CatShard{}
+	}
 	// fmt.Println("s",s)
 
 	// fmt.Println(s)
@@ -64,18 +74,28 @@ func CatShardsbyNodeName(nodeName string) CatShard {
 		Pretty: true,
 		V:      newTrue(),
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("CatShardsbyNodeName request failed: ", err.Error())
+		return CatShard{}
 	}
 
 	ResponseStatusCheck(res, "CatShardsbyNodeName")
 	defer res.Body.Close()
 
-	resString, _ := io.ReadAll(res.Body)
+	resString, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("Failed to read response body in CatShardsbyNodeName", "error", err)
+		return CatShard{}
+	}
+
 	var s CatShard
-	json.Unmarshal(resString, &s)
-	defer res.Body.Close()
+	if err := json.Unmarshal(resString, &s); err != nil {
+		global.Logger.Error("Failed to unmarshal JSON in CatShardsbyNodeName", "error", err)
+		return CatShard{}
+	}
 
 	var nodeSelected CatShard
 	for _, data := range s {
@@ -100,19 +120,30 @@ func CatIndicesbyNodeName(nodeName string) []string {
 		Pretty: true,
 		V:      newTrue(),
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("CatIndicesbyNodeName request failed: ", err.Error())
+		return []string{}
 	}
 	defer res.Body.Close()
-	// log.Println(res)
-	// fmt.Println(res)
-	resString, _ := io.ReadAll(res.Body)
-	var s CatShard
-	json.Unmarshal(resString, &s)
 
 	ResponseStatusCheck(res, "CatIndicesbyNodeName")
-	defer res.Body.Close()
+
+	// log.Println(res)
+	// fmt.Println(res)
+	resString, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("Failed to read response body in CatIndicesbyNodeName", "error", err)
+		return []string{}
+	}
+
+	var s CatShard
+	if err := json.Unmarshal(resString, &s); err != nil {
+		global.Logger.Error("Failed to unmarshal JSON in CatIndicesbyNodeName", "error", err)
+		return []string{}
+	}
 
 	var nodeSelected CatShard
 	for _, data := range s {

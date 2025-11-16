@@ -133,17 +133,21 @@ func (mc *MetricsCollector) RecordOperation(opType string, success bool, duratio
 	
 	atomic.AddInt64(&opStats.Total, 1)
 	atomic.AddInt64(&opStats.TotalTime, duration.Nanoseconds()/1e6) // 轉換為毫秒
-	
+
 	if success {
 		atomic.AddInt64(&opStats.Success, 1)
 	} else {
 		atomic.AddInt64(&opStats.Failed, 1)
 	}
-	
-	// 更新平均時間
-	if opStats.Total > 0 {
-		opStats.AvgTime = float64(opStats.TotalTime) / float64(opStats.Total)
+
+	// 更新平均時間 - 使用互斥鎖保護非原子操作
+	mc.mu.Lock()
+	total := atomic.LoadInt64(&opStats.Total)
+	if total > 0 {
+		totalTime := atomic.LoadInt64(&opStats.TotalTime)
+		opStats.AvgTime = float64(totalTime) / float64(total)
 	}
+	mc.mu.Unlock()
 }
 
 // RecordESHealth 記錄 ES 健康狀態

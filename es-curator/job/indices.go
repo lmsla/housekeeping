@@ -86,7 +86,9 @@ func ClusterHealthWithRetry(maxRetries int) CatClusterHealth {
 			Index: []string{"*"},
 		}
 
-		res, err := req.Do(context.Background(), es)
+		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+		res, err := req.Do(ctx, es)
+		cancel()
 		if err != nil {
 			lastErr = err
 			global.Logger.Error("ClusterHealth request failed: ", err.Error())
@@ -150,17 +152,28 @@ func CatIndices() CatIndice {
 		V:      newTrue(),
 		Pretty: true,
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("CatIndices request failed: ", err.Error())
+		return CatIndice{}
 	}
+	defer res.Body.Close()
 
 	ResponseStatusCheck(res,"CatIndices")
 
-	resString, _ := io.ReadAll(res.Body)
+	resString, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("Failed to read response body in CatIndices", "error", err)
+		return CatIndice{}
+	}
+
 	var s CatIndice
-	json.Unmarshal(resString, &s)
-	defer res.Body.Close()
+	if err := json.Unmarshal(resString, &s); err != nil {
+		global.Logger.Error("Failed to unmarshal JSON in CatIndices", "error", err)
+		return CatIndice{}
+	}
 	return s
 }
 
@@ -174,20 +187,28 @@ func CatIndices_withPattern(index_list []string) CatIndice {
 		V:               newTrue(),
 		Pretty:          true,
 	}
-	res, err := req.Do(context.Background(), es)
-	if err != nil {
-		global.Logger.Error(err.Error())
-	}
-	resString, err := io.ReadAll(res.Body)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("CatIndices_withPattern request failed: ", err.Error())
+		return CatIndice{}
 	}
+	defer res.Body.Close()
 
 	ResponseStatusCheck(res,"CatIndices_withPattern")
 
+	resString, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("Failed to read response body in CatIndices_withPattern", "error", err)
+		return CatIndice{}
+	}
+
 	var s CatIndice
-	json.Unmarshal(resString, &s)
-	defer res.Body.Close()
+	if err := json.Unmarshal(resString, &s); err != nil {
+		global.Logger.Error("Failed to unmarshal JSON in CatIndices_withPattern", "error", err)
+		return CatIndice{}
+	}
 	return s
 }
 
@@ -197,9 +218,12 @@ func OpenIndices(Index []string) {
 	req := esapi.IndicesOpenRequest{
 		Index: Index,
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("OpenIndices request failed: ", err.Error())
+		return
 	}
 	ResponseStatusCheck(res,"OpenIndices")
 	defer res.Body.Close()
@@ -210,9 +234,12 @@ func CloseIndices(Index []string) {
 	req := esapi.IndicesCloseRequest{
 		Index: Index,
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("CloseIndices request failed: ", err.Error())
+		return
 	}
 	ResponseStatusCheck(res,"CloseIndices")
 	defer res.Body.Close()
@@ -223,9 +250,12 @@ func CreateIndex() {
 	req := esapi.IndicesCreateRequest{
 		Index: "logstash-bimap-test01",
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("CreateIndices request failed: ", err.Error())
+		return
 	}
 	ResponseStatusCheck(res,"CreateIndices")
 	defer res.Body.Close()
@@ -237,9 +267,12 @@ func DeleteIndex(Index []string) {
 		// Index: []string{"test_index"},
 		Index: Index,
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("DeleteIndex request failed: ", err.Error())
+		return
 	}
 	ResponseStatusCheck(res,"DeleteIndex")
 	defer res.Body.Close()
@@ -252,9 +285,12 @@ func IndicesStatus() {
 		// Metric: []string{"_all"},
 		Pretty: true,
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("IndicesStatus request failed: ", err.Error())
+		return
 	}
 	ResponseStatusCheck(res,"IndicesStatus")
 	defer res.Body.Close()
@@ -268,9 +304,12 @@ func ForceMerge(Index []string, MaxNumSegments int) {
 		MaxNumSegments:    &MaxNumSegments,
 		WaitForCompletion: &a,
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("ForceMerge request failed: ", err.Error())
+		return
 	}
 
 	ResponseStatusCheck(res,"ForceMerge")
@@ -287,7 +326,9 @@ func Allocation(Index []string, AllocationType string, key string, value string)
 		Index: Index,
 		Body:  strings.NewReader(body),
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 
 	if err != nil {
 		global.Logger.Error("Allocation request failed: ", err.Error())
@@ -303,6 +344,12 @@ func Allocation(Index []string, AllocationType string, key string, value string)
 
 
 func ResponseStatusCheck(res *esapi.Response,action string) {
+		// 檢查 response 是否為 nil（防止 panic）
+		if res == nil {
+			global.Logger.Warn(fmt.Sprintf("%s: Response is nil, skipping status check", action))
+			return
+		}
+
 		// 解析 ES API 回應，確保狀態碼是 2xx
 		if res.StatusCode < 200 || res.StatusCode >= 300 {
 			resBody, _ := io.ReadAll(res.Body)
@@ -369,7 +416,9 @@ func Rollover(alias string, maxSize string, maxDocs int64, maxAge string, newInd
 		req.NewIndex = newIndexName
 	}
 	
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("Rollover request failed: ", err.Error())
 		return err

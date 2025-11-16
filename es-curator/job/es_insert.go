@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"time"
 	// "github.com/elastic/go-elasticsearch/v8"
 	"es-curator/global"
@@ -53,7 +52,8 @@ func LogToES(uuid, individual_Msg, mode, action, Pri, Rep, DocCount, DocsDeleted
 	// convert data to JSON
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(data); err != nil {
-		log.Fatalf("Error encoding data: %s", err)
+		global.Logger.Error("Error encoding data for LogToES", "error", err, "index", index)
+		return
 	}
 
 	// build index request
@@ -65,19 +65,22 @@ func LogToES(uuid, individual_Msg, mode, action, Pri, Rep, DocCount, DocsDeleted
 	}
 
 	// execute request
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
-		global.Logger.Error(err.Error())
+		global.Logger.Error("Error executing ES request in LogToES", "error", err, "index", index)
+		return
 	}
 	defer res.Body.Close()
 
 	// print request result
 	if res.IsError() {
-		log.Printf("Error response: %s", res.String())
+		global.Logger.Error("Error response from ES in LogToES", "response", res.String(), "index", index)
 	} else {
 		var response map[string]interface{}
 		if err := json.NewDecoder(res.Body).Decode(&response); err != nil {
-			log.Fatalf("Error parsing the response body: %s", err)
+			global.Logger.Error("Error parsing the response body in LogToES", "error", err, "index", index)
 		}
 	}
 	// return res.Body
@@ -106,7 +109,8 @@ func ProceduresLogToES(uuid,mode,description, action string) {
 	// convert data to JSON
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(data); err != nil {
-		log.Fatalf("Error encoding data: %s", err)
+		global.Logger.Error("Error encoding data for ProceduresLogToES", "error", err, "action", action)
+		return
 	}
 
 	// build index request
@@ -118,19 +122,22 @@ func ProceduresLogToES(uuid,mode,description, action string) {
 	}
 
 	// execute request
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
-		global.Logger.Error(err.Error())
+		global.Logger.Error("Error executing ES request in ProceduresLogToES", "error", err, "action", action)
+		return
 	}
 	defer res.Body.Close()
 
 	// print request result
 	if res.IsError() {
-		log.Printf("Error response: %s", res.String())
+		global.Logger.Error("Error response from ES in ProceduresLogToES", "response", res.String(), "action", action)
 	} else {
 		var response map[string]interface{}
 		if err := json.NewDecoder(res.Body).Decode(&response); err != nil {
-			log.Fatalf("Error parsing the response body: %s", err)
+			global.Logger.Error("Error parsing the response body in ProceduresLogToES", "error", err, "action", action)
 		}
 	}
 	// return res.Body
@@ -144,7 +151,8 @@ func ClusterLogToES(data map[string]interface{}) {
 	// convert data to JSON
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(data); err != nil {
-		log.Fatalf("Error encoding data: %s", err)
+		global.Logger.Error("Error encoding data for ClusterLogToES", "error", err)
+		return
 	}
 
 	// build index request
@@ -156,19 +164,22 @@ func ClusterLogToES(data map[string]interface{}) {
 	}
 
 	// execute request
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
-		global.Logger.Error(err.Error())
+		global.Logger.Error("Error executing ES request in ClusterLogToES", "error", err)
+		return
 	}
 	defer res.Body.Close()
 
 	// print request result
 	if res.IsError() {
-		log.Printf("Error response: %s", res.String())
+		global.Logger.Error("Error response from ES in ClusterLogToES", "response", res.String())
 	} else {
 		var response map[string]interface{}
 		if err := json.NewDecoder(res.Body).Decode(&response); err != nil {
-			log.Fatalf("Error parsing the response body: %s", err)
+			global.Logger.Error("Error parsing the response body in ClusterLogToES", "error", err)
 		}
 	}
 	// return res.Body

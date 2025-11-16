@@ -12,23 +12,6 @@ import (
 	"time"
 )
 
-func Indicesmapping3(list1 []string, list2 []string, list3 []string) []string {
-	var compareList []string
-	if list1 != nil && list2 != nil && list3 != nil {
-		///123
-		for list1data := range list1 {
-			for list2data := range list2 {
-				for list3data := range list3 {
-					if list2[list2data] == list1[list1data] && list3[list3data] == list1[list1data] {
-						compareList = append(compareList, list1[list1data])
-					}
-				}
-			}
-		}
-	}
-	return compareList
-}
-
 // 取得兩個 list中相同的元素 method1
 func Intersection1(a, b []string) []string {
 	m := make(map[string]bool)
@@ -44,8 +27,14 @@ func Intersection1(a, b []string) []string {
 	return intersection
 }
 
-// 取得兩個 list中相同的元素 method2
+// 取得兩個 list中相同的元素 method2 (優化版本 - 使用 hash map, O(n) 複雜度)
 func Indicesmapping2(list1 []string, list2 []string) []string {
+	// 使用高效的 Intersection1 實現 (O(n) 複雜度)
+	return Intersection1(list1, list2)
+}
+
+// Indicesmapping2_bak 原始實現備份 (O(n²) 複雜度) - 保留以防萬一
+func Indicesmapping2_bak(list1 []string, list2 []string) []string {
 	var compareList []string
 	if len(list1) != 0 && len(list2) != 0 {
 		for list1data := range list1 {
@@ -56,60 +45,6 @@ func Indicesmapping2(list1 []string, list2 []string) []string {
 			}
 		}
 	}
-	return compareList
-}
-
-func Indicesmapping(list1, list2, list3 []string) []string {
-	var compareList []string
-	switch {
-	///123
-	case list1 != nil && list2 != nil && list3 != nil:
-		for list1data := range list1 {
-			for list2data := range list2 {
-				for list3data := range list3 {
-					if list2[list2data] == list1[list1data] && list3[list3data] == list1[list1data] {
-						compareList = append(compareList, list1[list1data])
-					}
-				}
-
-			}
-		}
-	/// 12
-	case list1 != nil && list2 != nil && list3 == nil:
-		for list1data := range list1 {
-			for list2data := range list2 {
-				if list1[list1data] == list2[list2data] {
-					compareList = append(compareList, list1[list1data])
-				}
-			}
-		}
-	/// 23
-	case list1 == nil && list2 != nil && list3 != nil:
-		for list2data := range list2 {
-			for list3data := range list3 {
-				if list2[list2data] == list3[list3data] {
-					compareList = append(compareList, list2[list2data])
-				}
-			}
-		}
-	/// 13
-	case list1 != nil && list2 == nil && list3 != nil:
-		for list1data := range list1 {
-			for list3data := range list3 {
-				if list1[list1data] == list3[list3data] {
-					compareList = append(compareList, list1[list1data])
-				}
-			}
-		}
-
-	case list1 != nil && list2 == nil && list3 == nil:
-		compareList = list1
-	case list1 == nil && list2 != nil && list3 == nil:
-		compareList = list2
-	case list1 == nil && list2 == nil && list3 != nil:
-		compareList = list3
-	}
-
 	return compareList
 }
 

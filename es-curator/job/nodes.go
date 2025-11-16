@@ -3,12 +3,12 @@ package job
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 
 	// "log"
 	"strings"
-	// "time"
 	"context"
 	"es-curator/global"
 	"io"
@@ -26,6 +26,17 @@ type CatNode []struct {
 	DiskAvailable   string `json:"diskAvail"`
 }
 
+// CatAllocation 返回每個節點的 shard 分配資訊
+type CatAllocation []struct {
+	Node        string `json:"node"`         // 節點名稱
+	Shards      string `json:"shards"`       // Shard 總數（關鍵指標）
+	DiskIndices string `json:"disk.indices"` // 索引佔用磁碟
+	DiskUsed    string `json:"disk.used"`    // 已使用磁碟
+	DiskAvail   string `json:"disk.avail"`   // 可用磁碟
+	DiskTotal   string `json:"disk.total"`   // 總磁碟
+	DiskPercent string `json:"disk.percent"` // 磁碟使用率
+}
+
 func CatNodes() CatNode {
 	req := esapi.CatNodesRequest{
 		// i:ip,r:nodeRole,
@@ -36,19 +47,29 @@ func CatNodes() CatNode {
 		Pretty: true,
 		V:      newTrue(),
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("CatNodes request failed: ", err.Error())
+		return CatNode{}
 	}
 
 	ResponseStatusCheck(res, "CatNodes")
 
 	defer res.Body.Close()
 
-	resString, _ := io.ReadAll(res.Body)
+	resString, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("Failed to read response body in CatNodes", "error", err)
+		return CatNode{}
+	}
+
 	var s CatNode
-	json.Unmarshal(resString, &s)
-	defer res.Body.Close()
+	if err := json.Unmarshal(resString, &s); err != nil {
+		global.Logger.Error("Failed to unmarshal JSON in CatNodes", "error", err)
+		return CatNode{}
+	}
 	return s
 }
 
@@ -59,9 +80,12 @@ func NodeStatus() {
 		// IndexMetric: []string{"docs"},
 		Pretty: true,
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("NodeStatus request failed: ", err.Error())
+		return
 	}
 	ResponseStatusCheck(res, "NodeStatus")
 	defer res.Body.Close()
@@ -105,11 +129,51 @@ func Catnodes() {
 	req := esapi.NodesInfoRequest{
 		NodeID: []string{"Q4kU"},
 	}
-	res, err := req.Do(context.Background(), es)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	res, err := req.Do(ctx, es)
 	if err != nil {
 		global.Logger.Error("Catnodes request failed: ", err.Error())
+		return
 	}
 	ResponseStatusCheck(res, "CatNodes")
 	defer res.Body.Close()
 	fmt.Println("res", res)
+}
+
+// CatAllocationAPI 獲取每個節點的 shard 分配統計資訊
+func CatAllocationAPI() CatAllocation {
+	req := esapi.CatAllocationRequest{
+		H:      []string{"node", "shards", "disk.indices", "disk.used", "disk.avail", "disk.total", "disk.percent"},
+		Format: "json",
+		Bytes:  "gb",
+		Pretty: true,
+		V:      newTrue(),
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	res, err := req.Do(ctx, es)
+	if err != nil {
+		global.Logger.Error("CatAllocation request failed: ", err.Error())
+		return CatAllocation{}
+	}
+	defer res.Body.Close()
+
+	ResponseStatusCheck(res, "CatAllocation")
+
+	resString, err := io.ReadAll(res.Body)
+	if err != nil {
+		global.Logger.Error("Failed to read response body in CatAllocation", "error", err)
+		return CatAllocation{}
+	}
+
+	var s CatAllocation
+	if err := json.Unmarshal(resString, &s); err != nil {
+		global.Logger.Error("Failed to unmarshal JSON in CatAllocation", "error", err)
+		return CatAllocation{}
+	}
+
+	return s
 }

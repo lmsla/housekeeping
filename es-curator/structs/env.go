@@ -20,6 +20,7 @@ type es struct {
 	URL            []string
 	SourceAccount  string
 	SourcePassword string
+	MaxRetries     int  // 啟動時最大重試次數，預設 5
 }
 
 type log struct {
