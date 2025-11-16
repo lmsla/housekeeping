@@ -2,6 +2,17 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Shell Tools Usage Guidelines
+⚠️ **IMPORTANT**: Use the following specialized tools instead of traditional Unix commands: (Install if missing)
+| Task Type | Must Use | Do Not Use |
+|-----------|----------|------------|
+| Find Files | `fd` | `find`, `ls -R` |
+| Search Text | `rg` (ripgrep) | `grep`, `ag` |
+| Analyze Code Structure | `ast-grep` | `grep`, `sed` |
+| Interactive Selection | `fzf` | Manual filtering |
+| Process JSON | `jq` | `python -m json.tool` |
+| Process YAML/XML | `yq` | Manual parsing |
+
 ## Project Overview
 
 BiMAP Housekeeping is an Elasticsearch index lifecycle management service written in Go. It automates index operations like deletion, allocation (hot/warm/cold tiering), force merge, rollover, and more based on configurable filters (age, pattern, space, water level).
@@ -97,6 +108,8 @@ es-curator/
     ├── indices.go      # Index operations (delete, close, open, rollover)
     ├── filters.go      # Filter processing (age, pattern, space, water_level)
     ├── filters_node.go # Node role filtering
+    ├── nodes.go        # Node info and shard allocation APIs (CatNodes, CatAllocationAPI)
+    ├── cat_cluster.go  # Cluster health and shard monitoring (background goroutine)
     └── tools.go        # ES API helpers (allocation, forcemerge, etc.)
 ```
 
@@ -177,10 +190,46 @@ es-curator/
 - ES health status (connection, cluster health, response time)
 - Resource usage (memory, heap, goroutine count)
 
+**Cluster health monitoring** ([cat_cluster.go](es-curator/job/cat_cluster.go)):
+- Runs as independent goroutine, started in [main.go:58](es-curator/main.go:58)
+- Collects metrics every `health_check_interval` seconds (default: 60s)
+- Writes monitoring data to ES index `housekeeping_cluster_health-YYYYMM`
+
+**Monitored metrics:**
+
+*Cluster-level:*
+- Cluster status (green/yellow/red)
+- Unassigned/relocating/initializing shards
+- Active shards percentage
+- Number of nodes and data nodes
+
+*Node-level:*
+- **Shard count per node** (critical for preventing shard limit issues)
+- Shard usage percentage (alerts at 80% warning, 95% critical)
+- Remaining shard capacity
+- Disk usage and allocation
+- Node uptime and version
+
+**Shard limit monitoring:**
+- Elasticsearch default: `cluster.max_shards_per_node = 1000`
+- Alert levels:
+  - `shard_count >= 950` → CRITICAL (logged as error)
+  - `shard_count >= 800` → WARNING (logged as warning)
+  - `shard_count < 800` → NORMAL
+- Prevents write failures due to shard allocation errors
+
+**Data type optimization:**
+All numeric fields stored as proper types (int/float64) instead of strings:
+- Shard metrics: `shard_count` (int), `shard_usage_percent` (float64), `shard_remaining` (int)
+- Cluster metrics: `cluster_*_shards` (int), `cluster_*_nodes` (int), `cluster_active_shards_percent` (float64)
+- Disk metrics: `disk_*_gb` (float64), `disk_used_percent` (float64)
+- Enables direct numeric aggregations and calculations in Kibana/Elasticsearch
+
 **Metrics output:**
 - Single-run mode: prints summary to log after completion (see [printMetricsSummary](es-curator/main.go:96))
 - Cron mode: updates resource metrics every 30 seconds
 - All metrics logged with `logType: "Metrics"` for ES writeback filtering
+- Cluster health data written to separate index for Kibana visualization
 
 ### Logging Strategy
 

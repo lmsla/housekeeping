@@ -1,3 +1,7 @@
+# v1.1.6
+1.新增action 之 index roll over 功能
+2.修復 ES 失聯程式中斷退出問題，若 ES 暫時失聯，程式會繼續按時排程執行，直到 ES 恢復為止。
+
 # v1.1.5
 1.新增 cluster health 及 action 寫回 es 做記錄及 dashboard 功能
 2.加入 cat cluster health 間隔的控制選項
