@@ -3,6 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Shell Tools Usage Guidelines
+
 ⚠️ **IMPORTANT**: Use the following specialized tools instead of traditional Unix commands: (Install if missing)
 | Task Type | Must Use | Do Not Use |
 |-----------|----------|------------|
@@ -18,6 +19,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 BiMAP Housekeeping is an Elasticsearch index lifecycle management service written in Go. It automates index operations like deletion, allocation (hot/warm/cold tiering), force merge, rollover, and more based on configurable filters (age, pattern, space, water level).
 
 **Key characteristics:**
+
 - Distributed as RPM/DEB packages for production deployment
 - Runs as a systemd service or single-shot execution
 - Supports test mode (dry-run) to preview operations without execution
@@ -118,11 +120,13 @@ es-curator/
 **Two-file configuration system:**
 
 1. **setting.yml** - Environment and service settings:
+   
    - ES connection (url, credentials)
    - Execution mode (test_mode, execute_cron, period)
    - Logging (path, rotation, ES writeback)
 
 2. **config.yml** - Action definitions:
+   
    - List of actions to execute
    - Each action has: type, description, options, filters
    - Actions execute sequentially with optional delays
@@ -139,16 +143,17 @@ es-curator/
 
 ### Supported Actions
 
-| Action | Description | Key Options | Typical Use Case |
-|--------|-------------|-------------|------------------|
-| `delete_indices` | Delete matching indices | - | Cleanup old logs |
-| `allocation` | Move indices to tier | key, value, allocation_type | Hot→Warm→Cold tiering |
-| `forcemerge` | Reduce segment count | max_num_segment | Optimize read-heavy indices |
-| `close` | Close indices | - | Archive rarely-used data |
-| `open` | Reopen closed indices | - | Restore access |
-| `rollover` | Alias-based index rotation | rollover_alias, max_size, max_age, max_docs | Time-series data management |
+| Action           | Description                | Key Options                                 | Typical Use Case            |
+| ---------------- | -------------------------- | ------------------------------------------- | --------------------------- |
+| `delete_indices` | Delete matching indices    | -                                           | Cleanup old logs            |
+| `allocation`     | Move indices to tier       | key, value, allocation_type                 | Hot→Warm→Cold tiering       |
+| `forcemerge`     | Reduce segment count       | max_num_segment                             | Optimize read-heavy indices |
+| `close`          | Close indices              | -                                           | Archive rarely-used data    |
+| `open`           | Reopen closed indices      | -                                           | Restore access              |
+| `rollover`       | Alias-based index rotation | rollover_alias, max_size, max_age, max_docs | Time-series data management |
 
 **Rollover specifics:**
+
 - Unlike other actions, rollover doesn't use filters (operates on alias directly)
 - Requires pre-configured alias with `is_write_index: true` on one index
 - See [docs/ROLLOVER_GUIDE.md](docs/ROLLOVER_GUIDE.md) for detailed setup
@@ -156,6 +161,7 @@ es-curator/
 ### Filter System
 
 **Filter combinations:**
+
 - **pattern** (prefix/suffix/regex): Required for all non-rollover actions to avoid system index accidents
 - **age** (older/younger/range): Time-based filtering
 - **space**: Keep newest N GB, delete older indices
@@ -163,6 +169,7 @@ es-curator/
 - **node_role** (h/w/c): Used with allocation to target specific tiers
 
 **Important constraints:**
+
 - Cannot mix time filters (age) with space filters (space/water_level)
 - Cannot combine space and water_level in same action
 - Always include pattern filter as safety measure
@@ -172,12 +179,14 @@ es-curator/
 **Purpose:** Preview operations without making changes
 
 **Behavior:**
+
 - Set `test_mode: true` in setting.yml
 - Actions log matched indices but don't execute operations
 - Logs clearly marked with "Test mode" label
 - Essential for validating configs before production runs
 
 **How it works:**
+
 - [ActionExecutor.ExecuteOnIndices](es-curator/job/actions.go:27) branches on `global.EnvConfig.INFORMATION.TestMode`
 - Test mode: logs index details via `logTestMode()`
 - Execution mode: calls actual operation function (DeleteIndex, Allocation, etc.)
@@ -185,12 +194,14 @@ es-curator/
 ### Metrics and Monitoring
 
 **Local metrics system** (metrics/metrics.go):
+
 - Operation counts (total, success, failure) by action type
 - Average execution time per operation
 - ES health status (connection, cluster health, response time)
 - Resource usage (memory, heap, goroutine count)
 
 **Cluster health monitoring** ([cat_cluster.go](es-curator/job/cat_cluster.go)):
+
 - Runs as independent goroutine, started in [main.go:58](es-curator/main.go:58)
 - Collects metrics every `health_check_interval` seconds (default: 60s)
 - Writes monitoring data to ES index `housekeeping_cluster_health-YYYYMM`
@@ -198,12 +209,14 @@ es-curator/
 **Monitored metrics:**
 
 *Cluster-level:*
+
 - Cluster status (green/yellow/red)
 - Unassigned/relocating/initializing shards
 - Active shards percentage
 - Number of nodes and data nodes
 
 *Node-level:*
+
 - **Shard count per node** (critical for preventing shard limit issues)
 - Shard usage percentage (alerts at 80% warning, 95% critical)
 - Remaining shard capacity
@@ -211,6 +224,7 @@ es-curator/
 - Node uptime and version
 
 **Shard limit monitoring:**
+
 - Elasticsearch default: `cluster.max_shards_per_node = 1000`
 - Alert levels:
   - `shard_count >= 950` → CRITICAL (logged as error)
@@ -220,12 +234,14 @@ es-curator/
 
 **Data type optimization:**
 All numeric fields stored as proper types (int/float64) instead of strings:
+
 - Shard metrics: `shard_count` (int), `shard_usage_percent` (float64), `shard_remaining` (int)
 - Cluster metrics: `cluster_*_shards` (int), `cluster_*_nodes` (int), `cluster_active_shards_percent` (float64)
 - Disk metrics: `disk_*_gb` (float64), `disk_used_percent` (float64)
 - Enables direct numeric aggregations and calculations in Kibana/Elasticsearch
 
 **Metrics output:**
+
 - Single-run mode: prints summary to log after completion (see [printMetricsSummary](es-curator/main.go:96))
 - Cron mode: updates resource metrics every 30 seconds
 - All metrics logged with `logType: "Metrics"` for ES writeback filtering
@@ -234,16 +250,19 @@ All numeric fields stored as proper types (int/float64) instead of strings:
 ### Logging Strategy
 
 **Three log streams:**
+
 1. **Standard logger** (global.Logger): Procedures and high-level flow
 2. **Detail logger** (global.Detail_Logger): Per-index operation details
 3. **Stderr logger** (global.Stderr_logger): Critical startup errors
 
 **Log types** (logType field):
+
 - `Procedures`: Action execution flow
 - `Detail`: Individual index processing
 - `Metrics`: Performance and health data
 
 **ES writeback:**
+
 - Enabled via `log.toes: true` in setting.yml
 - Writes logs to ES for Kibana visualization
 - Health check interval configurable (log.health_check_interval)
@@ -259,6 +278,7 @@ All numeric fields stored as proper types (int/float64) instead of strings:
 5. **Update metrics** tracking in [ActionExecutor.ExecuteOnIndices](es-curator/job/actions.go:27)
 
 Example handler pattern:
+
 ```go
 func handleNewAction(uuid string, indexList []string, action structs.Actiond) {
     executor := &ActionExecutor{UUID: uuid, Action: "new_action"}
@@ -285,6 +305,7 @@ func handleNewAction(uuid string, indexList []string, action structs.Actiond) {
 ### Testing Practices
 
 **Before production:**
+
 1. Enable test_mode and run with production-like configs
 2. Verify matched indices in logs match expectations
 3. Check that pattern filters prevent system index selection
@@ -297,11 +318,13 @@ func handleNewAction(uuid string, indexList []string, action structs.Actiond) {
 ## Important Constraints and Safety
 
 ### Configuration Validation
+
 - YAML indentation errors cause parse failures
 - Filter type mixing (age + space) causes undefined behavior
 - Missing pattern filter risks system index deletion
 
 ### Production Safety Checklist
+
 - [ ] Pattern filters on all non-rollover actions
 - [ ] Test mode validation completed
 - [ ] Log path writable and has sufficient disk space
@@ -310,6 +333,7 @@ func handleNewAction(uuid string, indexList []string, action structs.Actiond) {
 - [ ] Rollover aliases pre-configured with write index
 
 ### ES API Permissions Required
+
 - `indices:admin/delete` - delete_indices
 - `indices:admin/close` - close
 - `indices:admin/open` - open
@@ -322,6 +346,7 @@ func handleNewAction(uuid string, indexList []string, action structs.Actiond) {
 ## Deployment Notes
 
 ### Package Installation
+
 - RPM/DEB packages install to standard locations
 - Binary: `/usr/local/bin/bimap-housekeeping` or similar
 - Configs: `/etc/bimap-housekeeping/`
@@ -329,9 +354,11 @@ func handleNewAction(uuid string, indexList []string, action structs.Actiond) {
 - Service file: `/etc/systemd/system/bimap-housekeeping.service`
 
 ### Service Configuration
+
 See [docs/ubuntu Service 啟用步驟.md](docs/ubuntu Service 啟用步驟.md) for systemd setup details.
 
 Key service parameters:
+
 - `WorkingDirectory`: Must contain config files
 - `ExecStart`: Path to binary
 - `Restart=always`: Ensures resilience
@@ -339,6 +366,7 @@ Key service parameters:
 ### Common Deployment Patterns
 
 **Pattern 1: Time-based cleanup**
+
 ```yaml
 - action: delete_indices
   filters:
@@ -352,6 +380,7 @@ Key service parameters:
 ```
 
 **Pattern 2: Hot→Warm→Cold tiering**
+
 ```yaml
 # Move 1-day-old indices to warm
 - action: allocation
@@ -394,21 +423,25 @@ See [docs/ROLLOVER_GUIDE.md](docs/ROLLOVER_GUIDE.md) for comprehensive examples.
 ## Troubleshooting Quick Reference
 
 **Service won't start:**
+
 - Check config file syntax: `go run main.go` shows parse errors
 - Verify ES connectivity: curl ES URL with credentials
 - Check file permissions on configs and log path
 
 **Actions not executing:**
+
 - Confirm test_mode: false in setting.yml
 - Check disable_action: false on each action
 - Verify filters match indices: enable test_mode to preview
 
 **Rollover fails:**
+
 - Ensure alias exists: `GET /_aliases/your-alias`
 - Verify write index set: alias must have `is_write_index: true` on one index
 - Check index naming follows rollover convention (e.g., logs-000001)
 
 **Memory issues:**
+
 - Reduce number of indices processed per run (use stricter filters)
 - Increase delay between actions to allow GC
 - Monitor via resource metrics in log output

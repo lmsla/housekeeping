@@ -14,7 +14,8 @@ import (
 )
 
 
-var es *elasticsearch.Client
+// 已廢棄：改用 global.Elasticsearch
+// var es *elasticsearch.Client
 
 func SetElkClient() error {
     startTime := time.Now()
@@ -29,7 +30,7 @@ func SetElkClient() error {
     }
 
     var err error
-    es, err = elasticsearch.NewClient(cfg)
+    global.Elasticsearch, err = elasticsearch.NewClient(cfg)
     if err != nil {
         // 記錄連線失敗指標
         responseTime := time.Since(startTime)
@@ -39,7 +40,7 @@ func SetElkClient() error {
         return fmt.Errorf("ES 客戶端初始化失敗: %w", err)
     }
 
-    res, err := es.Info()
+    res, err := global.Elasticsearch.Info()
     responseTime := time.Since(startTime)
     
     if err != nil {

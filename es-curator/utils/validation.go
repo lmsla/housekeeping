@@ -291,8 +291,25 @@ func validateFilters(actionIndex int, action structs.Actiond) error {
 		return fmt.Errorf("action[%d]: space 和 water_level 過濾器不能同時使用", actionIndex)
 	}
 
-	// 非 rollover action 建議有 pattern 過濾器（安全措施）
-	if action.Action != "rollover" && !hasPattern {
+	// 🔒 P1-2.1 修復：強制性安全檢查
+
+	// 1. delete_indices 必須有 pattern filter（防止意外刪除系統 index）
+	if action.Action == "delete_indices" && !hasPattern {
+		return fmt.Errorf("action[%d]: delete_indices action 必須配置 pattern filter 以避免意外刪除系統索引", actionIndex)
+	}
+
+	// 2. space/water_level 必須配合 pattern filter（防止選中所有 index）
+	if (hasSpace || hasWaterLevel) && !hasPattern {
+		filterType := "space"
+		if hasWaterLevel {
+			filterType = "water_level"
+		}
+		return fmt.Errorf("action[%d]: %s filter 必須配合 pattern filter 使用，否則會影響所有索引（包括系統索引）", actionIndex, filterType)
+	}
+
+	// 3. 非 rollover action 建議有 pattern 過濾器（安全措施 - 僅警告）
+	if action.Action != "rollover" && !hasPattern && action.Action != "delete_indices" {
+		// delete_indices 已在上面強制檢查，這裡排除以避免重複警告
 		if global.Logger != nil {
 			global.Logger.Warnw("⚠️  建議為所有非 rollover action 添加 pattern 過濾器以避免意外操作系統索引",
 				"action_index", actionIndex,

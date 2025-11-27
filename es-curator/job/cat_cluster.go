@@ -2,10 +2,124 @@ package job
 
 import (
 	"context"
+	"encoding/json"
+	"es-curator/global"
+	"fmt"
 	"strconv"
 	"time"
-	"es-curator/global"
 )
+
+// InitMaxShardsPerNode 從 Elasticsearch 查詢 cluster.max_shards_per_node 設定值
+// 並更新到 global.MaxShardsPerNode
+// 如果查詢失敗，保持預設值 1000
+func InitMaxShardsPerNode(ctx context.Context) error {
+	if global.Elasticsearch == nil {
+		return fmt.Errorf("elasticsearch client is not initialized")
+	}
+
+	// 查詢集群設定（包括預設值）
+	res, err := global.Elasticsearch.Cluster.GetSettings(
+		global.Elasticsearch.Cluster.GetSettings.WithContext(ctx),
+		global.Elasticsearch.Cluster.GetSettings.WithIncludeDefaults(true),
+	)
+
+	if err != nil {
+		global.Logger.Warnw("⚠️  無法查詢 cluster.max_shards_per_node 設定，使用預設值",
+			"error", err.Error(),
+			"default_value", global.MaxShardsPerNode)
+		return err
+	}
+	defer res.Body.Close()
+
+	if res.IsError() {
+		global.Logger.Warnw("⚠️  查詢 cluster settings 失敗，使用預設值",
+			"status", res.Status(),
+			"default_value", global.MaxShardsPerNode)
+		return fmt.Errorf("es API error: %s", res.Status())
+	}
+
+	// 解析響應
+	var result map[string]interface{}
+	if err := json.NewDecoder(res.Body).Decode(&result); err != nil {
+		global.Logger.Warnw("⚠️  解析 cluster settings 響應失敗，使用預設值",
+			"error", err.Error(),
+			"default_value", global.MaxShardsPerNode)
+		return err
+	}
+
+	// 嘗試從 defaults、persistent、transient 中讀取（優先級：transient > persistent > defaults）
+	var maxShards int
+	found := false
+
+	// 1. 檢查 transient settings（最高優先級）
+	if transient, ok := result["transient"].(map[string]interface{}); ok {
+		if cluster, ok := transient["cluster"].(map[string]interface{}); ok {
+			if maxShardsVal, ok := cluster["max_shards_per_node"]; ok {
+				maxShards, found = parseMaxShards(maxShardsVal)
+			}
+		}
+	}
+
+	// 2. 檢查 persistent settings
+	if !found {
+		if persistent, ok := result["persistent"].(map[string]interface{}); ok {
+			if cluster, ok := persistent["cluster"].(map[string]interface{}); ok {
+				if maxShardsVal, ok := cluster["max_shards_per_node"]; ok {
+					maxShards, found = parseMaxShards(maxShardsVal)
+				}
+			}
+		}
+	}
+
+	// 3. 檢查 defaults（預設設定）
+	if !found {
+		if defaults, ok := result["defaults"].(map[string]interface{}); ok {
+			if cluster, ok := defaults["cluster"].(map[string]interface{}); ok {
+				if maxShardsVal, ok := cluster["max_shards_per_node"]; ok {
+					maxShards, found = parseMaxShards(maxShardsVal)
+				}
+			}
+		}
+	}
+
+	if found && maxShards > 0 {
+		oldValue := global.MaxShardsPerNode
+		global.MaxShardsPerNode = maxShards
+
+		if oldValue != maxShards {
+			global.Logger.Infow("✅ 成功更新 cluster.max_shards_per_node 設定",
+				"old_value", oldValue,
+				"new_value", maxShards)
+		} else {
+			global.Logger.Infow("✅ 確認 cluster.max_shards_per_node 設定",
+				"value", maxShards)
+		}
+		return nil
+	}
+
+	global.Logger.Warnw("⚠️  未找到 cluster.max_shards_per_node 設定，使用預設值",
+		"default_value", global.MaxShardsPerNode)
+	return fmt.Errorf("max_shards_per_node not found in cluster settings")
+}
+
+// parseMaxShards 解析 max_shards_per_node 值（可能是 string 或 int）
+func parseMaxShards(val interface{}) (int, bool) {
+	switch v := val.(type) {
+	case string:
+		if num, err := strconv.Atoi(v); err == nil && num > 0 {
+			return num, true
+		}
+	case float64:
+		if v > 0 {
+			return int(v), true
+		}
+	case int:
+		if v > 0 {
+			return v, true
+		}
+	}
+	return 0, false
+}
 
 func CatCluster(ctx context.Context) {
 	// 定時獲取 ES node 資訊並寫入 ES
@@ -98,7 +212,9 @@ func CatCluster(ctx context.Context) {
 								"cluster_status":            clusterHealth.Status,
 								"cluster_unassigned_shards": clusterHealth.UnassignedShards,
 							}
-							ClusterLogToES(unassignedData)
+							if global.EnvConfig.Log.ToES {
+								ClusterLogToES(unassignedData)
+							}
 						}
 						continue
 					}
@@ -148,16 +264,17 @@ func CatCluster(ctx context.Context) {
 						diskIndicesGB = 0
 					}
 
-					// 計算 shard 使用率（預設上限 1000）
-					maxShardsPerNode := 1000
+					// 計算 shard 使用率（從 global.MaxShardsPerNode 讀取動態值）
+					maxShardsPerNode := global.MaxShardsPerNode
 					shardUsagePercent := float64(shardCount) / float64(maxShardsPerNode) * 100
 					shardRemaining := maxShardsPerNode - shardCount
 
-					// 判斷告警級別
+					// 判斷告警級別（基於百分比，更加準確）
+					// 95% 以上 → critical，80% 以上 → warning
 					shardAlertLevel := "normal"
-					if shardCount >= 950 {
+					if shardUsagePercent >= 95.0 {
 						shardAlertLevel = "critical"
-					} else if shardCount >= 800 {
+					} else if shardUsagePercent >= 80.0 {
 						shardAlertLevel = "warning"
 					}
 
@@ -181,7 +298,7 @@ func CatCluster(ctx context.Context) {
 						"node_version": nodeInfo.Version,
 
 						// Shard 相關指標（核心監控）- 全部使用數值型別
-						"shard_count":         shardCount,         // int
+						"shard_count":         shardCount,        // int
 						"shard_max_per_node":  maxShardsPerNode,  // int
 						"shard_usage_percent": shardUsagePercent, // float64
 						"shard_remaining":     shardRemaining,    // int
@@ -196,7 +313,9 @@ func CatCluster(ctx context.Context) {
 					}
 
 					// 寫入 ES
-					ClusterLogToES(data)
+					if global.EnvConfig.Log.ToES {
+						ClusterLogToES(data)
+					}
 
 					// 記錄告警日誌
 					if shardAlertLevel == "critical" {

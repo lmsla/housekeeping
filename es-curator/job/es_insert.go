@@ -5,11 +5,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"time"
-	// "github.com/elastic/go-elasticsearch/v8"
-	"es-curator/global"
+	"regexp"
 	"strconv"
-	"strings"
+	"time"
+
+	"es-curator/global"
+
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
@@ -21,11 +22,15 @@ func LogToES(uuid, individual_Msg, mode, action, Pri, Rep, DocCount, DocsDeleted
 	docsDeleted, _ := strconv.Atoi(DocsDeleted)
 	storeSize, _ := strconv.Atoi(StoreSize)
 	priStoreSize, _ := strconv.Atoi(PriStoreSize)
-	// 從 index 字串中取出 "-20" 前的內容
 
+	// 從 index 字串中取出第一個 "-數字" 前的內容
+	// 例如: "logs-app-2024.01.01" → "logs-app"
+	//       "metrics-001" → "metrics"
+	//       "logstash-20241126" → "logstash"
 	var indexPrefix string
-	if idx := strings.Index(index, "-20"); idx != -1 {
-		indexPrefix = index[:idx]
+	re := regexp.MustCompile(`-\d`)
+	if loc := re.FindStringIndex(index); loc != nil {
+		indexPrefix = index[:loc[0]]
 	} else {
 		indexPrefix = index
 	}
@@ -60,14 +65,14 @@ func LogToES(uuid, individual_Msg, mode, action, Pri, Rep, DocCount, DocsDeleted
 	req := esapi.IndexRequest{
 		Index: fmt.Sprintf("housekeeping_detail-%s", time.Now().Format("200601")), // 生成带日期的索引名称
 		// DocumentID: "1",          // 可選，設置文檔 ID
-		Body:    &buf,
-		Refresh: "true", // 刷新索引，使數據立即可用
+		Body: &buf,
+		// Refresh: "true", // 移除強制刷新以提升效能，ES 將使用預設的自動刷新機制（約1秒）
 	}
 
 	// execute request
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("Error executing ES request in LogToES", "error", err, "index", index)
 		return
@@ -117,14 +122,14 @@ func ProceduresLogToES(uuid,mode,description, action string) {
 	req := esapi.IndexRequest{
 		Index: fmt.Sprintf("housekeeping_detail-%s", time.Now().Format("200601")), // 生成带日期的索引名称
 		// DocumentID: "1",          // 可選，設置文檔 ID
-		Body:    &buf,
-		Refresh: "true", // 刷新索引，使數據立即可用
+		Body: &buf,
+		// Refresh: "true", // 移除強制刷新以提升效能，ES 將使用預設的自動刷新機制（約1秒）
 	}
 
 	// execute request
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("Error executing ES request in ProceduresLogToES", "error", err, "action", action)
 		return
@@ -159,14 +164,14 @@ func ClusterLogToES(data map[string]interface{}) {
 	req := esapi.IndexRequest{
 		Index: fmt.Sprintf("housekeeping_cluster_health-%s", time.Now().Format("200601")), // 生成带日期的索引名称
 		// DocumentID: "1",          // 可選，設置文檔 ID
-		Body:    &buf,
-		Refresh: "true", // 刷新索引，使數據立即可用
+		Body: &buf,
+		// Refresh: "true", // 移除強制刷新以提升效能，ES 將使用預設的自動刷新機制（約1秒）
 	}
 
 	// execute request
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("Error executing ES request in ClusterLogToES", "error", err)
 		return

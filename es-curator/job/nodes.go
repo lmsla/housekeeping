@@ -49,7 +49,7 @@ func CatNodes() CatNode {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("CatNodes request failed: ", err.Error())
 		return CatNode{}
@@ -82,7 +82,7 @@ func NodeStatus() {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("NodeStatus request failed: ", err.Error())
 		return
@@ -131,7 +131,7 @@ func Catnodes() {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("Catnodes request failed: ", err.Error())
 		return
@@ -154,7 +154,7 @@ func CatAllocationAPI() CatAllocation {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("CatAllocation request failed: ", err.Error())
 		return CatAllocation{}

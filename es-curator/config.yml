@@ -1,115 +1,149 @@
-#### timestring "2006-01-02 15:04:05"
 actions:
+
   - action: rollover
     description: "Daily logs rollover"
     options:
+      disable_action: false
       rollover_alias: "mock-data"
       max_age: "1d"
-      max_size: "3gb"
+      max_size: "1gb"
       delay: 10
         #new_index_name: "logstash-mock-data-roll"
+
   - action: delete_indices
-    description: delete indices when cluster used space greater than 30G
+    description: delete indices when cluster used space greater than 150G
     options:
-      disable_action: true
+      disable_action: false
       delay: 5
     filters:
     - filtertype: pattern
       kind: prefix
       value: logstash-
     - filtertype: space
-      disk_space: 10000
-
-  - action: delete_indices
-    description: delete selected indices
-    options:
-      disable_action: true
-      delay: 5
-    filters:
-    - filtertype: pattern
-      kind: regex
-      value: '-\d{8}'
-    - filtertype: node_role
-      value: h
-    # - filtertype: water_level
-    #   upper_limit: 20
-    #   lower_limit: 15
+      disk_space: 110
     # - filtertype: age
     #   source: creation_date
-    #   direction: younger
+    #   direction: range
     #   unit: days
-    #   unit_count: 1
-
-  - action: delete_indices
-    description: delete selected indices
-    options:
-      disable_action: true
-      delay: 5
-    filters:
-    - filtertype: pattern
-      kind: prefix
-      value: logstash
-    # - filtertype: space
-    #   disk_space: 15
-    - filtertype: age
-      source: creation_date
-      direction: range
-      unit: days
-      range_from: 2
-      range_to: 1
-
-  - action: allocation
-    description:  allocate selected indices at data_hot
-    options:
-      disable_action: true
-      key: _tier_preference
-      value: data_warm
-      allocation_type: include
-      delay: 5
-    filters:
-    - filtertype: pattern
-      kind: regex
-      # value: '-\d{8}'
-      value: 'logstash-ubuntu'
-    # - filtertype: node_role
-    #   value: w
-    # - filtertype: water_level
-    #   upper_limit: 90
-    #   lower_limit: 15
-    # - filtertype: space
-    #   disk_space: 20
-
-  - action: allocation
-    description:  allocation selected indices in selected node to data_warm12
-    options:
-      disable_action: true
-      key: _tier_preference
-      value: data_warm
-      allocation_type: include
-      delay: 5
-    filters:
-    - filtertype: pattern
-      kind: prefix
-      value: logstash-mock-data-20250519
-    - filtertype: node_role
-      value: h
-    # - filtertype: pattern
-    #   kind: regex
-    #   value: 
-    #    - '[a-z]*-.{2}\_\w{7}5\-\d{8}'
-    #    - '[a-z]*-.{2}\_\w{7}4\-\d{8}'
-
-    # - filtertype: age
-    #   source: creation_date
-    #   direction: older
-    #   unit: days
-    #   unit_count: 30
-    # - filtertype: space
-    #   disk_space: 1
+    #   range_from: 2
+    #   range_to: 1
 
 
-###### 正則表示範本
-# logstash-forti-20250412
-# '^[a-zA-Z0-9_-]+-[a-zA-Z0-9_-]+-\d{8}$'
-# logstash-windows-20250622 (排除掉開頭為.的index)
-# '^[^.]*-\d{8}$'
+#####------ 以下為範本，可參考使用 -------#####
+
+
+# #### timestring "2006-01-02 15:04:05"
+# actions:
+#   - action: rollover
+#     description: "Daily logs rollover"
+#     options:
+#       rollover_alias: "mock-data"
+#       max_age: "1d"
+#       max_size: "3gb"
+#       delay: 10
+#         #new_index_name: "logstash-mock-data-roll"
+#   - action: delete_indices
+#     description: delete indices when cluster used space greater than 30G
+#     options:
+#       disable_action: true
+#       delay: 5
+#     filters:
+#     - filtertype: pattern
+#       kind: prefix
+#       value: logstash-
+#     - filtertype: space
+#       disk_space: 10000
+
+#   - action: delete_indices
+#     description: delete selected indices
+#     options:
+#       disable_action: true
+#       delay: 5
+#     filters:
+#     - filtertype: pattern
+#       kind: regex
+#       value: '-\d{8}'
+#     - filtertype: node_role
+#       value: h
+#     # - filtertype: water_level
+#     #   upper_limit: 20
+#     #   lower_limit: 15
+#     # - filtertype: age
+#     #   source: creation_date
+#     #   direction: younger
+#     #   unit: days
+#     #   unit_count: 1
+
+#   - action: delete_indices
+#     description: delete selected indices
+#     options:
+#       disable_action: true
+#       delay: 5
+#     filters:
+#     - filtertype: pattern
+#       kind: prefix
+#       value: logstash
+#     # - filtertype: space
+#     #   disk_space: 15
+#     - filtertype: age
+#       source: creation_date
+#       direction: range
+#       unit: days
+#       range_from: 2
+#       range_to: 1
+
+#   - action: allocation
+#     description:  allocate selected indices at data_hot
+#     options:
+#       disable_action: true
+#       key: _tier_preference
+#       value: data_warm
+#       allocation_type: include
+#       delay: 5
+#     filters:
+#     - filtertype: pattern
+#       kind: regex
+#       # value: '-\d{8}'
+#       value: 'logstash-ubuntu'
+#     # - filtertype: node_role
+#     #   value: w
+#     # - filtertype: water_level
+#     #   upper_limit: 90
+#     #   lower_limit: 15
+#     # - filtertype: space
+#     #   disk_space: 20
+
+#   - action: allocation
+#     description:  allocation selected indices in selected node to data_warm12
+#     options:
+#       disable_action: true
+#       key: _tier_preference
+#       value: data_warm
+#       allocation_type: include
+#       delay: 5
+#     filters:
+#     - filtertype: pattern
+#       kind: prefix
+#       value: logstash-mock-data-20250519
+#     - filtertype: node_role
+#       value: h
+#     # - filtertype: pattern
+#     #   kind: regex
+#     #   value: 
+#     #    - '[a-z]*-.{2}\_\w{7}5\-\d{8}'
+#     #    - '[a-z]*-.{2}\_\w{7}4\-\d{8}'
+
+#     # - filtertype: age
+#     #   source: creation_date
+#     #   direction: older
+#     #   unit: days
+#     #   unit_count: 30
+#     # - filtertype: space
+#     #   disk_space: 1
+
+
+# ###### 正則表示範本
+# # logstash-forti-20250412
+# # '^[a-zA-Z0-9_-]+-[a-zA-Z0-9_-]+-\d{8}$'
+# # logstash-windows-20250622 (排除掉開頭為.的index)
+# # '^[^.]*-\d{8}$'

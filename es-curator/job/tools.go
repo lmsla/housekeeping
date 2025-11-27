@@ -297,6 +297,18 @@ func ResolveCompareListNonRole(filterRecord []string, agelist, patternlist, spac
 	sort.Strings(filterRecord)
 	key := strings.Join(filterRecord, "-") // 建立唯一 key，如 "age-pattern-node_role"
 
+	// 🔒 P0-001 修復：拒絕危險的單獨 space/water_level filter
+	// 這些 filter 沒有 pattern 時會選中所有 index，包括系統 index
+	if key == "space" || key == "water_level" {
+		global.Logger.Errorw("🚨 CRITICAL: Single space/water_level filter is FORBIDDEN",
+			"filter_combination", key,
+			"reason", "Would affect ALL indices including system indices",
+			"risk", "May cause permanent data loss and ES cluster failure",
+			"suggestion", "Must combine with pattern filter (e.g., pattern-space or pattern-water_level)",
+			"action", "filter_combination_blocked")
+		return []string{} // 明確返回空列表，拒絕執行
+	}
+
 	// 建立條件組合與對應邏輯的映射表 取 list 交集
 	actionMap := map[string]func() []string{
 		"age": func() []string {
@@ -305,12 +317,7 @@ func ResolveCompareListNonRole(filterRecord []string, agelist, patternlist, spac
 		"pattern": func() []string {
 			return patternlist
 		},
-		"space": func() []string {
-			return spacelist
-		},
-		"water_level": func() []string {
-			return water_level_list
-		},
+		// 🔒 已移除 "space" 和 "water_level" 單獨 case，由上方檢查攔截
 		"age-pattern": func() []string {
 			return Indicesmapping2(agelist, patternlist)
 		},
@@ -326,8 +333,18 @@ func ResolveCompareListNonRole(filterRecord []string, agelist, patternlist, spac
 	if action, ok := actionMap[key]; ok {
 		return action()
 	} else {
-		global.Logger.Error("Undefined filter combination,Please check filters again.")
-		return nil
+		// 改善錯誤訊息，提供更多資訊
+		supportedCombinations := []string{
+			"age", "pattern",
+			"age-pattern",
+			"pattern-space", "pattern-water_level",
+		}
+		global.Logger.Errorw("🚨 Undefined filter combination - Action ABORTED",
+			"filter_combination", key,
+			"supported_combinations", supportedCombinations,
+			"suggestion", "Check config.yml and ensure filter combinations are valid",
+			"action", "undefined_filter_combination")
+		return []string{} // 返回空列表而非 nil，行為更明確
 	}
 }
 

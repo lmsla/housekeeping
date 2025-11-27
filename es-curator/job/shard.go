@@ -37,7 +37,7 @@ func CatShards() CatShard {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("CatShards request failed: ", err.Error())
 		return CatShard{}
@@ -76,7 +76,7 @@ func CatShardsbyNodeName(nodeName string) CatShard {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("CatShardsbyNodeName request failed: ", err.Error())
 		return CatShard{}
@@ -122,7 +122,7 @@ func CatIndicesbyNodeName(nodeName string) []string {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	res, err := req.Do(ctx, es)
+	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
 		global.Logger.Error("CatIndicesbyNodeName request failed: ", err.Error())
 		return []string{}

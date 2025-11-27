@@ -91,6 +91,11 @@ func main() {
 		// 不終止服務，繼續啟動
 	} else {
 		global.Logger.Info("✅ ES 客戶端初始化成功")
+
+		// 查詢並初始化 cluster.max_shards_per_node 設定值
+		if err := job.InitMaxShardsPerNode(ctx); err != nil {
+			global.Logger.Warnw("⚠️  無法查詢 shard 上限設定，使用預設值 1000", "error", err)
+		}
 	}
 
 	// 設置信號處理，支援優雅關閉

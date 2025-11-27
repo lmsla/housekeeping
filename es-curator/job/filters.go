@@ -151,55 +151,105 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 func FilterType_pattern(kind string, value []string) (indiceslist []string) {
 	indicesinfo := CatIndices()
 	var indices []string
+	var systemIndicesExcluded []string
+
 	if kind == "prefix" {
 		for data := range indicesinfo {
+			indexName := indicesinfo[data].Index
+
+			// 🔒 安全檢查：跳過系統 index
+			if isSystemIndex(indexName) {
+				systemIndicesExcluded = append(systemIndicesExcluded, indexName)
+				continue
+			}
+
 			for _, pattern := range value {
 				matchstring := fmt.Sprintf("^%s.*$", pattern)
-				matchbool, err := regexp.MatchString(matchstring, indicesinfo[data].Index)
+				matchbool, err := regexp.MatchString(matchstring, indexName)
 				if err != nil {
-					// log_record.Logrecord("ERROR", "filter prefix error"+err.Error())
 					global.Logger.Error(err.Error())
 				}
 				if matchbool {
-					indices = append(indices, indicesinfo[data].Index)
-					// fmt.Println(indicesinfo[data].Index, matchbool)
+					indices = append(indices, indexName)
+					break // 已匹配，無需再檢查其他 pattern
 				}
 			}
 		}
 	} else if kind == "suffix" {
 		for data := range indicesinfo {
+			indexName := indicesinfo[data].Index
+
+			// 🔒 安全檢查：跳過系統 index
+			if isSystemIndex(indexName) {
+				systemIndicesExcluded = append(systemIndicesExcluded, indexName)
+				continue
+			}
+
 			for _, pattern := range value {
 				matchstring := fmt.Sprintf("%s.*$", pattern)
-				matchbool, err := regexp.MatchString(matchstring, indicesinfo[data].Index)
+				matchbool, err := regexp.MatchString(matchstring, indexName)
 				if err != nil {
-					// log_record.Logrecord("ERROR", "filter suffix error"+err.Error())
 					global.Logger.Error(err.Error())
 				}
 				if matchbool {
-					indices = append(indices, indicesinfo[data].Index)
-					// fmt.Println(indicesinfo[data].Index, matchbool)
+					indices = append(indices, indexName)
+					break // 已匹配，無需再檢查其他 pattern
 				}
-
 			}
 		}
 	} else if kind == "regex" {
 		for data := range indicesinfo {
+			indexName := indicesinfo[data].Index
+
+			// 🔒 安全檢查：跳過系統 index
+			if isSystemIndex(indexName) {
+				systemIndicesExcluded = append(systemIndicesExcluded, indexName)
+				continue
+			}
+
 			for _, pattern := range value {
-				matchbool, err := regexp.MatchString(pattern, indicesinfo[data].Index)
+				matchbool, err := regexp.MatchString(pattern, indexName)
 				if err != nil {
-					// log_record.Logrecord("ERROR", "filter regex error"+err.Error())
 					global.Logger.Error(err.Error())
 				}
 				if matchbool {
-					indices = append(indices, indicesinfo[data].Index)
-					// fmt.Println(indicesinfo[data].Index, matchbool)
+					indices = append(indices, indexName)
+					break // 已匹配，無需再檢查其他 pattern
 				}
 			}
 		}
 	}
-	// fmt.Println("indices",indices)
-	return indices
 
+	// 📊 記錄 pattern filter 執行結果
+	if len(systemIndicesExcluded) > 0 {
+		global.Logger.Infow("🔒 System indices excluded from pattern filter",
+			"excluded_count", len(systemIndicesExcluded),
+			"examples", getFirstN(systemIndicesExcluded, 3))
+	}
+
+	if len(indices) == 0 {
+		global.Logger.Warnw("⚠️  Pattern filter matched NO indices (system indices excluded)",
+			"kind", kind,
+			"patterns", value,
+			"total_indices_checked", len(indicesinfo),
+			"system_indices_excluded", len(systemIndicesExcluded))
+	} else {
+		global.Logger.Infow("Pattern filter matched indices",
+			"kind", kind,
+			"patterns", value,
+			"matched_count", len(indices),
+			"system_indices_excluded", len(systemIndicesExcluded))
+	}
+
+	return indices
+}
+
+// getFirstN 返回 slice 的前 n 個元素，用於日誌記錄
+func getFirstN(slice []string, n int) []string {
+	if len(slice) <= n {
+		return slice
+	}
+	return slice[:n]
 }
 
 // // 將 pattern list 切分
@@ -265,8 +315,15 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 
 	var indicesinfo CatIndice
 
+	// 🔒 P0-001 修復：禁止無 pattern filter 的 space filter
+	// 原因：會選中所有 index（包括 .kibana, .security 等系統 index），非常危險
 	if len(patternlist) < 1 {
-		indicesinfo = CatIndices()
+		global.Logger.Errorw("🚨 CRITICAL: space filter without pattern filter is FORBIDDEN",
+			"reason", "Would affect ALL indices including system indices (.kibana, .security, etc.)",
+			"risk", "May cause permanent data loss and ES cluster failure",
+			"suggestion", "Add a pattern filter to specify target indices",
+			"action", "space_filter_blocked")
+		return []string{} // 返回空列表，拒絕執行
 	} else {
 		chunks := chunkSlice(patternlist, 10)
 		for _, chunk := range chunks {
@@ -372,8 +429,16 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 	creationdate_NameMap := *creationdateNameMapPtr
 
 	var indicesinfo CatIndice
+
+	// 🔒 P0-001 修復：禁止無 pattern filter 的 water_level filter
+	// 原因：會選中所有 index（包括 .kibana, .security 等系統 index），非常危險
 	if len(patternlist) < 1 {
-		indicesinfo = CatIndices()
+		global.Logger.Errorw("🚨 CRITICAL: water_level filter without pattern filter is FORBIDDEN",
+			"reason", "Would affect ALL indices including system indices (.kibana, .security, etc.)",
+			"risk", "May cause permanent data loss and ES cluster failure",
+			"suggestion", "Add a pattern filter to specify target indices",
+			"action", "water_level_filter_blocked")
+		return []string{} // 返回空列表，拒絕執行
 	} else {
 		indicesinfo = CatIndices_withPattern(patternlist)
 	}
@@ -452,40 +517,4 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 	result := make([]string, len(aggregate_bytes))
 	copy(result, aggregate_bytes)
 	return result
-}
-
-func Test1() {
-	nodesinfo := CatNodes()
-	water_level := 0.00
-	for i, data := range nodesinfo {
-		DiskUsedPercent, err := strconv.ParseFloat(data.DiskUsedPercent, 32)
-		if err != nil {
-			// log_record.Logrecord("ERROR", "Error during conversion"+err.Error())
-			global.Logger.Error(err.Error())
-			// fmt.Println("Error during conversion 329")
-			return
-		}
-		water_level += DiskUsedPercent
-		fmt.Println(i)
-		fmt.Println(data.DiskUsedPercent)
-	}
-	fmt.Println(water_level)
-	fmt.Println(water_level / float64(len(nodesinfo)))
-}
-
-func ListTest12() {
-	// var finalIndexList []string
-	// var x []string
-	x := []string{"a", "b", "c"}
-
-	// reserveIndexList := finalIndexList[:len(finalIndexList)-1]
-	// finalIndexList = indexSortbycreationAsc[len(reserveIndexList):]
-
-	reserveIndexList := x[:len(x)-1]
-	// finalIndexList = indexSortbycreationAsc[len(reserveIndexList):]
-	final := x[0:]
-
-	fmt.Println(reserveIndexList)
-	fmt.Println(final)
-	//[a b]
 }

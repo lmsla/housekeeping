@@ -1,36 +1,42 @@
-
 # BiMAP-housekeeping 使用手冊
 
 > 📚 **技術文件已整理至 [`docs/`](./docs/) 目錄**  
 > 包含架構文件、優化清單、部署指南等完整技術資料
 
-- [簡介](#%E7%B0%A1%E4%BB%8B)
-	- [流程簡圖](#%E6%B5%81%E7%A8%8B%E7%B0%A1%E5%9C%96)
-- [重要提醒](#%E9%87%8D%E8%A6%81%E6%8F%90%E9%86%92)
-- [設定檔說明](#%E8%A8%AD%E5%AE%9A%E6%AA%94%E8%AA%AA%E6%98%8E)
-	- [setting.yml](#setting.yml)
-		- [es](#es)
-		- [information](#information)
-		- [log](#log)
-	- [config.yml](#config.yml)
-		- [Actions](#Actions)
-		- [Description](#Description)
-		- [Options](#Options)
-			- [disable_action](#disable_action)
-			- [key](#key)
-			- [value](#value)
-			- [allocation_type](#allocation_type)
-			- [delay](#delay)
-			- [max_num_segment](#max_num_segment)
-		- [Filter Types](#Filter%20Types)
-		- [Filter Elements](#Filter%20Elements)
-			- [node_role](#node_role)
-			- [age](#age)
-			- [pattern](#pattern)
-			- [space](#space)
-			- [water_level](#water_level)
-- [範例設定](#%E7%AF%84%E4%BE%8B%E8%A8%AD%E5%AE%9A)
-	- [config.yml範例](#config.yml%E7%AF%84%E4%BE%8B)
+- [BiMAP-housekeeping 使用手冊](#bimap-housekeeping-使用手冊)
+  - [簡介](#簡介)
+    - [流程簡圖](#流程簡圖)
+  - [重要提醒](#重要提醒)
+  - [設定檔說明](#設定檔說明)
+    - [setting.yml](#settingyml)
+      - [es](#es)
+      - [information](#information)
+      - [log](#log)
+    - [config.yml](#configyml)
+      - [Actions](#actions)
+      - [Description](#description)
+      - [Options](#options)
+        - [disable\_action](#disable_action)
+        - [key](#key)
+        - [value](#value)
+        - [allocation\_type](#allocation_type)
+        - [delay](#delay)
+        - [max\_num\_segment](#max_num_segment)
+        - [rollover\_alias](#rollover_alias)
+        - [max\_size](#max_size)
+        - [max\_docs](#max_docs)
+        - [max\_age](#max_age)
+        - [new\_index\_name](#new_index_name)
+      - [Filter Types](#filter-types)
+      - [Filter Elements](#filter-elements)
+        - [node\_role](#node_role)
+        - [age](#age)
+        - [pattern](#pattern)
+        - [space](#space)
+        - [water\_level](#water_level)
+  - [範例設定](#範例設定)
+    - [config.yml範例](#configyml範例)
+    - [rollover 專用範例](#rollover-專用範例)
 
 ## 簡介
 
@@ -54,25 +60,24 @@ systemctl enable bimap-housekeeping
 ```
 
 會使用到的設定檔有 `setting.yml` 和 `config.yml`：
+
 - `setting.yml`：用來設定基本的環境參數、控制排程開關及測試模式開關。
 - `config.yml`：控制要執行的 Actions。
 
-
-
 ### 流程簡圖
+
 ![](./image/flowchart.png)
 
 ## 重要提醒
+
 - 縮排不能有誤，否則程式會出錯。
 - filter 中 時間與空間相關的 filter type 不可混用，ex: ``age``+``space`` 或是 ``age``+``water_level``。
 - 不論任何 action 都至少加上 pattern 設定，避免搜尋 index 時誤刪到系統層級 index 導致不可預期錯誤。
 
-
-
-
 ## 設定檔說明
 
 ### setting.yml
+
 以下是一個 `setting.yml` 的範例：
 
 ```yaml
@@ -111,6 +116,7 @@ log:
 ```
 
 #### es
+
 - **url**  
   Elasticsearch 的網址。
 
@@ -121,6 +127,7 @@ log:
   Elasticsearch 的密碼。
 
 #### information
+
 - **test_mode**  
   是否在測試模式下執行。啟用後僅在 log 中輸出每個 action 條件匹配到的 index，不實際執行 action。  
   可接受值：`true` 或 `false`。
@@ -133,6 +140,7 @@ log:
   Crontab 的執行時間，與 `execute_cron` 搭配使用。
 
 #### log
+
 - **toes**  
   是否將 housekeeping 相關 log 寫回 Elasticsearch，供 Kibana 視覺化。
 
@@ -159,8 +167,11 @@ log:
 **備註**：若 `maxBackups = 0` 且 `maxAge = 0`，log 檔僅在滿足 `maxSize` 時自動壓縮，不會刪除備份檔。
 
 ### config.yml
+
 #### Actions
+
 可使用的 actions 如下：
+
 - `open`
 - `close`
 - `delete_indices`
@@ -169,11 +180,14 @@ log:
 - `rollover`
 
 #### Description
+
 描述執行的動作，方便日後在 log 中查閱相關紀錄。  
 例：`description: delete selected indices1`
 
 #### Options
+
 用來設定 action 執行時的常用參數：
+
 - `disable_action`
 - `key`
 - `value`
@@ -183,64 +197,77 @@ log:
 - `delay` *(重複列出，應為筆誤，實際僅使用一個 `delay`)*
 
 ##### disable_action
+
 - **Type**: Boolean  
 - 可接受值：`true` 或 `false`  
 - 控制 action 是否執行，每個 action 都必須包含此選項。
 
 ##### key
+
 - **Used in**: allocation  
 - 值：`_tier_preference`
 
 ##### value
+
 - **Used in**: allocation  
 - 代表搬移目的地，可選值：`data_hot`, `data_warm`, `data_cold`
 
 ##### allocation_type
+
 - **Used in**: allocation  
 - 可選值：`include`, `require`, `exclude`
 
 ##### delay
+
 - **Type**: Number  
 - action 執行後等待的時間（單位：秒）。  
 - 預設值：0（立即執行下一個 action）。
 
 ##### max_num_segment
+
 - **Used in**: forcemerge  
 - **Type**: Number  
 - 例：1, 2, 3，指定 forcemerge 後 index 的 segment 數量。
 
 ##### rollover_alias
+
 - **Used in**: rollover  
 - **Type**: String  
 - **必需參數** - 要執行 rollover 的別名名稱。  
 - 例：`rollover_alias: "logs-write"`
 
 ##### max_size
+
 - **Used in**: rollover  
 - **Type**: String  
 - 觸發 rollover 的最大索引大小。  
 - 例：`max_size: "50gb"`, `max_size: "1tb"`
 
-##### max_docs  
+##### max_docs
+
 - **Used in**: rollover  
 - **Type**: Number  
 - 觸發 rollover 的最大文檔數。  
 - 例：`max_docs: 100000000`
 
 ##### max_age
+
 - **Used in**: rollover  
 - **Type**: String  
 - 觸發 rollover 的最大索引年齡。  
 - 例：`max_age: "30d"`, `max_age: "1w"`, `max_age: "24h"`
 
 ##### new_index_name
+
 - **Used in**: rollover  
 - **Type**: String  
 - 可選：指定新索引名稱模式（留空使用預設命名規則）。  
 - 例：`new_index_name: "logs-2025.01.11"`
 
 #### Filter Types
+
 支援以下四種過濾條件，可單獨或混合使用：
+
 - `node_role`：與節點角色相關。
 - `age`：與 index 產生時間相關。
 - `pattern`：與 index 名稱相關。
@@ -248,12 +275,15 @@ log:
 - `water_level`：與磁碟容量相關。
 
 **備註**：
+
 - 時間相關的 filter（`age`）不可與磁碟相關的 filter（`space`, `water_level`）同時使用。
 - 磁碟容量相關的兩個 filter（`space`, `water_level`）不可同時使用。  
-例：不可在同一 action 中同時使用 `age` 與 `space`，或 `space` 與 `water_level`。
+  例：不可在同一 action 中同時使用 `age` 與 `space`，或 `space` 與 `water_level`。
 
 #### Filter Elements
+
 不同 filter type 下適用的 filter elements 如下：
+
 - `source`
 - `direction`
 - `unit`
@@ -267,6 +297,7 @@ log:
 - `lower_limit`
 
 ##### node_role
+
 - **value**  
   以節點角色作為篩選條件，可選值：
   - `h` (hot data node)
@@ -274,32 +305,42 @@ log:
   - `c` (cold data node)
 
 ##### age
+
 - **source**  
+  
   - `creation_date`
 
 - **direction**  
+  
   - `older`：篩選早於指定時間的 index。
   - `younger`：篩選晚於指定時間的 index。
   - `range`：篩選指定時間範圍內的 index。  
-  例：當前時間為 2023/01/16，`direction: range`, `unit: days`, `range_from: 5`, `range_to: 2`，篩選結果為 2023/01/14 ~ 2023/01/15 產生的 index。
+    例：當前時間為 2023/01/16，`direction: range`, `unit: days`, `range_from: 5`, `range_to: 2`，篩選結果為 2023/01/14 ~ 2023/01/15 產生的 index。
 
 - **unit**  
+  
   - `years`
   - `months`
   - `days`
 
 - **unit_count**  
+  
   - 任一正整數，例如：1, 2, 5, 10。
 
 - **range_from**  
+  
   - 任一正整數，例如：1, 2, 5, 10。
 
 - **range_to**  
+  
   - 任一正整數，例如：1, 2, 5, 10。
 
 ##### pattern
+
 以 index 名稱進行匹配，支援以下匹配方式：
+
 - **kind**  
+  
   - `prefix`：前綴匹配。
   - `suffix`：後綴匹配。
   - `regex`：正則表達式匹配。
@@ -309,10 +350,12 @@ log:
   例：`kind: prefix`, `value: logstash-asa`，匹配所有以 `logstash-asa` 開頭的 index。
 
 ##### space
+
 計算 index 所佔空間（包含 replica），由最新 index 開始累計，超過設定的 `disk_space` 閥值後，篩選出較舊的 index（依據 index 產生時間）。
 
 例：有五個 index（由舊到新：01~05），`disk_space: 20`。  
 若 index-05、index-04 共佔 20GB，則 index-03、index-02、index-01 會被篩選出來：
+
 ```
 index-01 10GB
 index-02 10GB
@@ -322,6 +365,7 @@ index-05 10GB
 ```
 
 即使僅超出少量（例：index-05、index-04 共 15GB，index-03 為 5.1GB，總計 20.1GB），index-03 仍會被篩選：
+
 ```
 index-01 10GB
 index-02 10GB
@@ -334,20 +378,22 @@ index-05 10GB
   - 任一正整數，單位：GB，例如：10 代表 10GB。
 
 ##### water_level
+
 根據 cluster 中所有節點的平均磁碟使用率進行控管。若平均使用率超過 `upper_limit`（上限百分比），則由舊到新累計 index 容量，直到釋放出約等於 `upper_limit` 與 `lower_limit` 百分比差值的磁碟空間。
 
 - **upper_limit**  
+  
   - 任一正整數，單位：%，例如：50 代表上限 50%。
 
 - **lower_limit**  
-  - 任一正整數，單位：%，例如：40 代表下限 40%。
   
+  - 任一正整數，單位：%，例如：40 代表下限 40%。
 
 ## 範例設定
+
 以下為 `config.yml` 的範例，展示如何設定多個 actions 及對應的 filters。
 
 ### config.yml範例
-
 
 ```yaml
 actions:
