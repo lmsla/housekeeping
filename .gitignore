@@ -1,2 +1,14 @@
 # 忽略 macOS 的 Finder 設定檔案
 .DS_Store
+
+# 忽略文檔歷史歸檔與模板
+docs/claude/archive/
+docs/claude/templates/
+docs/claude/error_check
+docs/claude/安全審計報告_Filter流程_2025-11-26.md
+產品化準備度評估_2025-11-29.md
+安全審計報告_Filter流程_2025-11-26.md
+測試環境驗證計劃_3.3.md
+docs/claude/學習筆記.md
+Note_template.md
+學習筆記.md
