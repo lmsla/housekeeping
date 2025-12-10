@@ -4,7 +4,8 @@
 # 忽略文檔歷史歸檔與模板
 docs/claude/archive/
 docs/claude/templates/
-docs/claude/error_check
+docs/error_check
+docs/gemini
 docs/claude/安全審計報告_Filter流程_2025-11-26.md
 產品化準備度評估_2025-11-29.md
 安全審計報告_Filter流程_2025-11-26.md
