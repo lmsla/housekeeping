@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "openai.openai-chatgpt-adhoc"
+        "openai.openai-chatgpt-adhoc",
+        "openai.chatgpt"
     ]
 }
