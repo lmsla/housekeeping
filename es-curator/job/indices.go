@@ -305,7 +305,7 @@ func ForceMerge(Index []string, MaxNumSegments int) {
 		MaxNumSegments:    &MaxNumSegments,
 		WaitForCompletion: &a,
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
 	defer cancel()
 	res, err := req.Do(ctx, global.Elasticsearch)
 	if err != nil {
