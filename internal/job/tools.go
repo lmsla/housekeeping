@@ -1,10 +1,10 @@
 package job
 
 import (
-	"es-curator/global"
+	"housekeeping/internal/global"
 	"strings"
-	// "es-curator/log_record"
-	"es-curator/structs"
+	// "housekeeping/internal/log_record"
+	"housekeeping/internal/structs"
 	"fmt"
 	// "reflect"
 	"sort"

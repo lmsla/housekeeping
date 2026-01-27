@@ -1,10 +1,10 @@
 package main
 
 import (
-	"es-curator/global"
-	"es-curator/job"
-	"es-curator/log_record"
-	"es-curator/utils"
+	"housekeeping/internal/global"
+	"housekeeping/internal/job"
+	"housekeeping/internal/log_record"
+	"housekeeping/internal/utils"
 	// "sync"
 	"testing"
 	// "fmt"

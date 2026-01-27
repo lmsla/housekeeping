@@ -10,7 +10,7 @@ import (
 	// "log"
 	"strings"
 	"context"
-	"es-curator/global"
+	"housekeeping/internal/global"
 	"io"
 )
 

@@ -1,11 +1,11 @@
 package utils
 
 import (
-	"es-curator/global"
-	"es-curator/job"
+	"housekeeping/internal/global"
+	"housekeeping/internal/job"
 	"fmt"
 
-	// "es-curator/log_record"
+	// "housekeeping/internal/log_record"
 	"github.com/robfig/cron/v3"
 )
 

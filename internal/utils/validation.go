@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"es-curator/global"
-	"es-curator/structs"
+	"housekeeping/internal/global"
+	"housekeeping/internal/structs"
 	"fmt"
 	"net/url"
 	"strings"

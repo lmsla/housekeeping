@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"es-curator/structs"
+	"housekeeping/internal/structs"
 	"testing"
 )
 

@@ -1,9 +1,9 @@
 package job
 
 import (
-	"es-curator/global"
-	"es-curator/metrics"
-	"es-curator/structs"
+	"housekeeping/internal/global"
+	"housekeeping/internal/metrics"
+	"housekeeping/internal/structs"
 	"fmt"
 	"strconv"
 	"strings"

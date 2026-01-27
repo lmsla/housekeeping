@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"es-curator/global"
-	"es-curator/structs"
+	"housekeeping/internal/global"
+	"housekeeping/internal/structs"
 	"fmt"
 	"github.com/spf13/viper"
 	"strings"
@@ -31,6 +31,7 @@ func loadConfigFile() error {
 	configViper.SetConfigName("config")
 	configViper.SetConfigType("yml")
 	configViper.AddConfigPath(".")
+	configViper.AddConfigPath("./configs")
 	configViper.AddConfigPath("/etc/bimap-housekeeping")
 
 	//讀取配置文件内容
@@ -78,6 +79,7 @@ func loadSettingFile() error {
 	viper.SetConfigName("setting")
 	viper.SetConfigType("yml")
 	viper.AddConfigPath(".")
+	viper.AddConfigPath("./configs")
 	viper.AddConfigPath("/etc/bimap-housekeeping")
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {

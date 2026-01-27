@@ -1,7 +1,7 @@
 package global
 
 import (
-	"es-curator/structs"
+	"housekeeping/internal/structs"
 
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/sirupsen/logrus"

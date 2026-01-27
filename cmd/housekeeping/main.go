@@ -7,11 +7,11 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	"es-curator/global"
-	"es-curator/job"
-	"es-curator/log_record"
-	localmetrics "es-curator/metrics"
-	"es-curator/utils"
+	"housekeeping/internal/global"
+	"housekeeping/internal/job"
+	"housekeeping/internal/log_record"
+	localmetrics "housekeeping/internal/metrics"
+	"housekeeping/internal/utils"
 	
 )
 

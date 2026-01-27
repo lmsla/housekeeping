@@ -1,8 +1,8 @@
 package job
 
 import (
-	// "es-curator/log_record"
-	"es-curator/global"
+	// "housekeeping/internal/log_record"
+	"housekeeping/internal/global"
 	"fmt"
 	"regexp"
 	"sort"

@@ -1,4 +1,4 @@
-module es-curator
+module housekeeping
 
 go 1.23.4
 

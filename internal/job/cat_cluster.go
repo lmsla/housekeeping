@@ -3,7 +3,7 @@ package job
 import (
 	"context"
 	"encoding/json"
-	"es-curator/global"
+	"housekeeping/internal/global"
 	"fmt"
 	"strconv"
 	"time"

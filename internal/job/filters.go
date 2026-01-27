@@ -1,7 +1,7 @@
 package job
 
 import (
-	"es-curator/global"
+	"housekeeping/internal/global"
 	"fmt"
 	"regexp"
 	"sort"

@@ -1,8 +1,8 @@
 package job
 
 import (
-	"es-curator/global"
-	"es-curator/metrics"
+	"housekeeping/internal/global"
+	"housekeeping/internal/metrics"
 	"fmt"
 	"time"
 

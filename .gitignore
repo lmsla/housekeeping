@@ -1,6 +1,17 @@
 # 忽略 macOS 的 Finder 設定檔案
 .DS_Store
 
+# Build output
+bin/
+
+# Test coverage
+coverage.out
+coverage.html
+
+# Local config files (use *.sample as templates)
+setting.yml
+config.yml
+
 # 忽略文檔歷史歸檔與模板
 docs/claude/archive/
 docs/claude/templates/

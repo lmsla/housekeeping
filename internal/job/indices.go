@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"es-curator/global"
+	"housekeeping/internal/global"
 
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )

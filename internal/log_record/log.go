@@ -2,7 +2,7 @@ package log_record
 
 import (
 	"bytes"
-	"es-curator/global"
+	"housekeeping/internal/global"
 	"fmt"
 	"github.com/natefinch/lumberjack"
 	"github.com/sirupsen/logrus"

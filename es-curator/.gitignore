@@ -1,7 +1,0 @@
-# Output of the go coverage tool, specifically when used with LiteIDE
-config.yml
-./log
-log
-./.DS_Store
-../.DS_Store
-.DS_Store
