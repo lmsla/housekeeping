@@ -33,6 +33,7 @@ actions:
       - filtertype: pattern
         kind: prefix
         value: prefixmore
+      # NOTE: space/water_level 必須配合 pattern，即使有 node_role 也不可省略
       - filtertype: space
         disk_space: 2
 
@@ -57,11 +58,12 @@ actions:
       disable_action: false
       delay: 5
     filters:
-      - filtertype: space
-        disk_space: 10
       - filtertype: pattern
         kind: prefix
         value: logstash-
+      # NOTE: space/water_level 必須配合 pattern，即使有 node_role 也不可省略
+      - filtertype: space
+        disk_space: 10
 
   - action: close
     description: close selected indices
@@ -101,6 +103,7 @@ actions:
       - filtertype: pattern
         kind: prefix
         value: logstash-sevone-sn
+      # NOTE: space/water_level 必須配合 pattern，即使有 node_role 也不可省略
       - filtertype: space
         disk_space: 650
 
@@ -137,8 +140,8 @@ actions:
       - filtertype: pattern
         kind: regex
         value:
-      - '[a-z]*-.{2}\_\w{7}5\-\d{8}'
-      - '[a-z]*-.{2}\_\w{7}4\-\d{8}'
+          - '[a-z]*-.{2}\_\w{7}5\-\d{8}'
+          - '[a-z]*-.{2}\_\w{7}4\-\d{8}'
     # - filtertype: pattern
     #   kind: prefix
     #   value: logstash-
@@ -147,5 +150,6 @@ actions:
     #   direction: older
     #   unit: days
     #   unit_count: 30
+      # NOTE: space/water_level 必須配合 pattern，即使有 node_role 也不可省略
       - filtertype: space
         disk_space: 1

@@ -1,5 +1,7 @@
 # BiMAP-housekeeping 使用手冊
 
+> **最後更新**: 2026-02-06
+
 > 📚 **技術文件已整理至 [`docs/`](./docs/) 目錄**  
 > 包含架構文件、優化清單、部署指南等完整技術資料
 
@@ -266,7 +268,7 @@ log:
 
 #### Filter Types
 
-支援以下四種過濾條件，可單獨或混合使用：
+支援以下五種過濾條件，可單獨或混合使用：
 
 - `node_role`：與節點角色相關。
 - `age`：與 index 產生時間相關。
@@ -279,6 +281,7 @@ log:
 - 時間相關的 filter（`age`）不可與磁碟相關的 filter（`space`, `water_level`）同時使用。
 - 磁碟容量相關的兩個 filter（`space`, `water_level`）不可同時使用。  
   例：不可在同一 action 中同時使用 `age` 與 `space`，或 `space` 與 `water_level`。
+- 含 `space` / `water_level` 時必須配合 `pattern`，即使有 `node_role` 也不可省略。
 
 #### Filter Elements
 

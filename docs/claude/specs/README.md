@@ -1,7 +1,7 @@
 # BiMAP Housekeeping - 軟體設計文件 (SDD)
 
 > **版本**: 2.0
-> **最後更新**: 2025-11-29
+> **最後更新**: 2026-02-06
 > **文件語言**: 繁體中文
 > **專案**: BiMAP Housekeeping - Elasticsearch Index Lifecycle Management
 
@@ -220,10 +220,10 @@
 
 ### 源碼位置
 
-- **主程式**: `es-curator/main.go`
-- **核心邏輯**: `es-curator/job/`
-- **配置範例**: `es-curator/setting.yml.sample`, `config.yml.sample`
-- **測試文件**: `es-curator/job/*_test.go`, `es-curator/utils/*_test.go`
+- **主程式**: `cmd/housekeeping/main.go`
+- **核心邏輯**: `internal/job/`
+- **配置範例**: `configs/setting.yml.sample`, `configs/config.yml.sample`
+- **測試文件**: `internal/job/*_test.go`, `internal/utils/*_test.go`
 
 ---
 
