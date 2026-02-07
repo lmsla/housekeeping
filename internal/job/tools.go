@@ -4,8 +4,8 @@ import (
 	"housekeeping/internal/global"
 	"strings"
 	// "housekeeping/internal/log_record"
-	"housekeeping/internal/structs"
 	"fmt"
+	"housekeeping/internal/structs"
 	// "reflect"
 	"sort"
 	"strconv"
@@ -122,7 +122,7 @@ func Filter_of_filter(filterRecord []string, FilterList []structs.Filter) []stri
 	spacelist = RemoveDuplicates(spacelist)
 	water_level_list = RemoveDuplicates(water_level_list)
 
-	compareList = ResolveCompareListNonRole(filterRecord,agelist,patternlist,spacelist,water_level_list)
+	compareList = ResolveCompareListNonRole(filterRecord, agelist, patternlist, spacelist, water_level_list)
 
 	// fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
@@ -152,19 +152,25 @@ func Filters_With_node(role []string, filterRecord []string, FilterList []struct
 	} else {
 		// 取得符合 node role 的 node names
 		nodeNames := NodeRoleDetermination(role[0])
+		if len(nodeNames) == 0 {
+			global.Logger.Warnw("No nodes matched the specified node_role",
+				"node_role", role[0],
+				"action", "node_role_filter_no_match")
+			return []string{}
+		}
 
 		for _, nodeName := range nodeNames {
 
 			for filtertype := range FilterList {
 				if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction != "range" {
-					agelist = FilterType_age_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].UnitCount)
+					agelist = append(agelist, FilterType_age_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].UnitCount)...)
 				} else if FilterList[filtertype].Filtertype == "age" && FilterList[filtertype].Direction == "range" {
-					agelist = FilterType_age_range_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].RangeFrom, FilterList[filtertype].RangeTo)
+					agelist = append(agelist, FilterType_age_range_node(nodeName, FilterList[filtertype].Source, FilterList[filtertype].Direction, FilterList[filtertype].Unit, FilterList[filtertype].RangeFrom, FilterList[filtertype].RangeTo)...)
 				} else if FilterList[filtertype].Filtertype == "pattern" {
 					patternlist_tmp = FilterType_pattern_role(nodeName, FilterList[filtertype].Kind, FilterList[filtertype].Value)
 					patternlist = append(patternlist, patternlist_tmp...)
 				} else if FilterList[filtertype].Filtertype == "water_level" {
-					water_level_list = FilterType_waterLevel_role(nodeName, patternListPre, FilterList[filtertype].UpperLimit, FilterList[filtertype].LowerLimit)
+					water_level_list = append(water_level_list, FilterType_waterLevel_role(nodeName, patternListPre, FilterList[filtertype].UpperLimit, FilterList[filtertype].LowerLimit)...)
 					// }  else if FilterList[filtertype].Filtertype == "space" {
 					// 	spacelist_tmp = FilterType_space_role(nodeName, patternListPre, FilterList[filtertype].Disk_space)
 					// 	spacelist = append(spacelist, spacelist_tmp...)
@@ -189,7 +195,7 @@ func Filters_With_node(role []string, filterRecord []string, FilterList []struct
 	spacelist = RemoveDuplicates(spacelist)
 	water_level_list = RemoveDuplicates(water_level_list)
 
-	compareList = ResolveCompareList(filterRecord,agelist,patternlist,spacelist,water_level_list)
+	compareList = ResolveCompareList(filterRecord, agelist, patternlist, spacelist, water_level_list)
 
 	// fmt.Println("filter_of_filter's compare: ", compareList)
 	return compareList
@@ -291,7 +297,6 @@ func RemoveDuplicates1(arr []string) []string {
 	return result
 }
 
-
 func ResolveCompareListNonRole(filterRecord []string, agelist, patternlist, spacelist, water_level_list []string) []string {
 	// 對條件進行排序，確保順序一致性
 	sort.Strings(filterRecord)
@@ -348,21 +353,24 @@ func ResolveCompareListNonRole(filterRecord []string, agelist, patternlist, spac
 	}
 }
 
-
-
-
 // water_level 應該考慮不與 node_role 並用
 func ResolveCompareList(filterRecord []string, agelist, patternlist, spacelist, water_level_list []string) []string {
 	// 對條件進行排序，確保順序一致性
 	sort.Strings(filterRecord)
 	key := strings.Join(filterRecord, "-") // 建立唯一 key，如 "age-pattern-node_role"
 
+	// node_role 必須搭配 pattern（由 validation fail fast 保證，這裡保留執行期防呆）
+	if key == "node_role" || key == "age-node_role" {
+		global.Logger.Errorw("🚨 Invalid node_role filter combination - Action ABORTED",
+			"filter_combination", key,
+			"reason", "node_role filter must be used with pattern filter",
+			"suggestion", "Use node_role-pattern or age-node_role-pattern",
+			"action", "invalid_node_role_combination")
+		return []string{}
+	}
 
 	// 建立條件組合與對應邏輯的映射表 取 list 交集
 	actionMap := map[string]func() []string{
-		"age-node_role": func() []string {
-			return agelist
-		},
 		"node_role-pattern": func() []string {
 			return patternlist
 		},
@@ -388,8 +396,6 @@ func ResolveCompareList(filterRecord []string, agelist, patternlist, spacelist, 
 		return action()
 	} else {
 		global.Logger.Error("Undefined filter combination,Please check filters again.")
-		return nil
+		return []string{}
 	}
 }
-
-

@@ -95,6 +95,50 @@ func TestValidateFilters_P1_WaterLevelWithoutPattern(t *testing.T) {
 	}
 }
 
+// TestValidateFilters_P1_NodeRoleWithoutPattern 測試 node_role filter 必須有 pattern
+func TestValidateFilters_P1_NodeRoleWithoutPattern(t *testing.T) {
+	action := structs.Actiond{
+		Action: "close",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "node_role",
+				Value:      []string{"w"},
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err == nil {
+		t.Error("Expected error for node_role filter without pattern, but got nil")
+	}
+	if err != nil && err.Error() != "action[0]: node_role filter 必須配合 pattern filter 使用，以限制操作範圍" {
+		t.Errorf("Unexpected error message: %v", err)
+	}
+}
+
+// TestValidateFilters_P1_NodeRoleWithPattern 測試 node_role + pattern 應該通過
+func TestValidateFilters_P1_NodeRoleWithPattern(t *testing.T) {
+	action := structs.Actiond{
+		Action: "close",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "node_role",
+				Value:      []string{"w"},
+			},
+			{
+				Filtertype: "pattern",
+				Kind:       "prefix",
+				Value:      []string{"logs-"},
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err != nil {
+		t.Errorf("Expected no error for node_role with pattern filter, but got: %v", err)
+	}
+}
+
 // TestValidateFilters_P1_SpaceWithPattern 測試 space + pattern 應該通過
 func TestValidateFilters_P1_SpaceWithPattern(t *testing.T) {
 	action := structs.Actiond{
@@ -167,8 +211,8 @@ func TestValidateFilters_P0_AgeAndWaterLevel(t *testing.T) {
 				UnitCount:  30,
 			},
 			{
-				Filtertype:  "water_level",
-				UpperLimit:  80,
+				Filtertype: "water_level",
+				UpperLimit: 80,
 			},
 		},
 	}
@@ -197,8 +241,8 @@ func TestValidateFilters_P0_SpaceAndWaterLevel(t *testing.T) {
 				DiskSpace:  100,
 			},
 			{
-				Filtertype:  "water_level",
-				UpperLimit:  80,
+				Filtertype: "water_level",
+				UpperLimit: 80,
 			},
 		},
 	}

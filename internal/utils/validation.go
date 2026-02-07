@@ -1,9 +1,9 @@
 package utils
 
 import (
+	"fmt"
 	"housekeeping/internal/global"
 	"housekeeping/internal/structs"
-	"fmt"
 	"net/url"
 	"strings"
 )
@@ -184,6 +184,7 @@ func validateFilters(actionIndex int, action structs.Actiond) error {
 	hasSpace := false
 	hasWaterLevel := false
 	hasPattern := false
+	hasNodeRole := false
 
 	for j, filter := range action.Filters {
 		switch filter.Filtertype {
@@ -259,6 +260,7 @@ func validateFilters(actionIndex int, action structs.Actiond) error {
 			}
 
 		case "node_role":
+			hasNodeRole = true
 			// node_role 驗證
 			if len(filter.Value) == 0 {
 				return fmt.Errorf("action[%d].filters[%d]: node_role filter 的 value 不能為空", actionIndex, j)
@@ -307,7 +309,12 @@ func validateFilters(actionIndex int, action structs.Actiond) error {
 		return fmt.Errorf("action[%d]: %s filter 必須配合 pattern filter 使用，否則會影響所有索引（包括系統索引）", actionIndex, filterType)
 	}
 
-	// 3. 非 rollover action 建議有 pattern 過濾器（安全措施 - 僅警告）
+	// 3. node_role 必須配合 pattern filter（避免按節點角色大範圍操作）
+	if hasNodeRole && !hasPattern {
+		return fmt.Errorf("action[%d]: node_role filter 必須配合 pattern filter 使用，以限制操作範圍", actionIndex)
+	}
+
+	// 4. 非 rollover action 建議有 pattern 過濾器（安全措施 - 僅警告）
 	if action.Action != "rollover" && !hasPattern && action.Action != "delete_indices" {
 		// delete_indices 已在上面強制檢查，這裡排除以避免重複警告
 		if global.Logger != nil {
