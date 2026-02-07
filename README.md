@@ -196,7 +196,6 @@ log:
 - `allocation_type`
 - `delay`
 - `max_num_segment`
-- `delay` *(重複列出，應為筆誤，實際僅使用一個 `delay`)*
 
 ##### disable_action
 
