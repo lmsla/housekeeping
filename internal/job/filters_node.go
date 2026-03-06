@@ -193,7 +193,12 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 
 	var indicesinfo CatIndice
 	if len(patternlist) > 0 {
-		indicesinfo = CatIndices_withPattern(patternlist)
+		// 分批處理避免 HTTP URL 過長 (4096 bytes 限制)
+		chunks := chunkSlice(patternlist, 10)
+		for _, chunk := range chunks {
+			indicesinfo1 := CatIndices_withPattern(chunk)
+			indicesinfo = append(indicesinfo, indicesinfo1...)
+		}
 	} else {
 		indicesinfo = CatIndices()
 	}
@@ -290,7 +295,12 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 	if len(patternlist) < 1 {
 		indicesinfo = CatIndices()
 	} else {
-		indicesinfo = CatIndices_withPattern(patternlist)
+		// 分批處理避免 HTTP URL 過長 (4096 bytes 限制)
+		chunks := chunkSlice(patternlist, 10)
+		for _, chunk := range chunks {
+			indicesinfo1 := CatIndices_withPattern(chunk)
+			indicesinfo = append(indicesinfo, indicesinfo1...)
+		}
 	}
 
 	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)

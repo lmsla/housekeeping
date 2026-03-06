@@ -440,7 +440,12 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 			"action", "water_level_filter_blocked")
 		return []string{} // 返回空列表，拒絕執行
 	} else {
-		indicesinfo = CatIndices_withPattern(patternlist)
+		// 分批處理避免 HTTP URL 過長 (4096 bytes 限制)
+		chunks := chunkSlice(patternlist, 10)
+		for _, chunk := range chunks {
+			indicesinfo1 := CatIndices_withPattern(chunk)
+			indicesinfo = append(indicesinfo, indicesinfo1...)
+		}
 	}
 
 	/// 統計各個 Node 的 Average Water Level
