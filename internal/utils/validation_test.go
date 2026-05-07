@@ -255,3 +255,210 @@ func TestValidateFilters_P0_SpaceAndWaterLevel(t *testing.T) {
 		t.Errorf("Unexpected error message: %v", err)
 	}
 }
+
+// TestValidateFilters_P1_AgeAndNodeRoleWithoutPattern 測試 age + node_role 缺少 pattern 應被拒絕
+func TestValidateFilters_P1_AgeAndNodeRoleWithoutPattern(t *testing.T) {
+	action := structs.Actiond{
+		Action: "close",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "age",
+				Direction:  "older",
+				Unit:       "days",
+				UnitCount:  30,
+			},
+			{
+				Filtertype: "node_role",
+				Value:      []string{"w"},
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err == nil {
+		t.Error("Expected error for age + node_role without pattern, but got nil")
+	}
+	if err != nil && err.Error() != "action[0]: node_role filter 必須配合 pattern filter 使用，以限制操作範圍" {
+		t.Errorf("Unexpected error message: %v", err)
+	}
+}
+
+// TestValidateFilters_P1_SpaceAndNodeRoleWithoutPattern 測試 space + node_role 缺少 pattern 應被拒絕
+func TestValidateFilters_P1_SpaceAndNodeRoleWithoutPattern(t *testing.T) {
+	action := structs.Actiond{
+		Action: "close",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "space",
+				DiskSpace:  100,
+			},
+			{
+				Filtertype: "node_role",
+				Value:      []string{"w"},
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err == nil {
+		t.Error("Expected error for space + node_role without pattern, but got nil")
+	}
+	if err != nil && err.Error() != "action[0]: space filter 必須配合 pattern filter 使用，否則會影響所有索引（包括系統索引）" {
+		t.Errorf("Unexpected error message: %v", err)
+	}
+}
+
+// TestValidateFilters_P1_WaterLevelAndNodeRoleWithoutPattern 測試 water_level + node_role 缺少 pattern 應被拒絕
+func TestValidateFilters_P1_WaterLevelAndNodeRoleWithoutPattern(t *testing.T) {
+	action := structs.Actiond{
+		Action: "close",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "water_level",
+				UpperLimit: 80,
+			},
+			{
+				Filtertype: "node_role",
+				Value:      []string{"w"},
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err == nil {
+		t.Error("Expected error for water_level + node_role without pattern, but got nil")
+	}
+	if err != nil && err.Error() != "action[0]: water_level filter 必須配合 pattern filter 使用，否則會影響所有索引（包括系統索引）" {
+		t.Errorf("Unexpected error message: %v", err)
+	}
+}
+
+// TestValidateFilters_P0_AgePatternAndSpace 測試 age + pattern + space 互斥
+func TestValidateFilters_P0_AgePatternAndSpace(t *testing.T) {
+	action := structs.Actiond{
+		Action: "delete_indices",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "age",
+				Direction:  "older",
+				Unit:       "days",
+				UnitCount:  30,
+			},
+			{
+				Filtertype: "pattern",
+				Kind:       "prefix",
+				Value:      []string{"logs-"},
+			},
+			{
+				Filtertype: "space",
+				DiskSpace:  100,
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err == nil {
+		t.Error("Expected error for age + pattern + space, but got nil")
+	}
+	if err != nil && err.Error() != "action[0]: age 和 space 過濾器不能同時使用" {
+		t.Errorf("Unexpected error message: %v", err)
+	}
+}
+
+// TestValidateFilters_P0_AgePatternAndWaterLevel 測試 age + pattern + water_level 互斥
+func TestValidateFilters_P0_AgePatternAndWaterLevel(t *testing.T) {
+	action := structs.Actiond{
+		Action: "delete_indices",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "age",
+				Direction:  "older",
+				Unit:       "days",
+				UnitCount:  30,
+			},
+			{
+				Filtertype: "pattern",
+				Kind:       "prefix",
+				Value:      []string{"logs-"},
+			},
+			{
+				Filtertype: "water_level",
+				UpperLimit: 80,
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err == nil {
+		t.Error("Expected error for age + pattern + water_level, but got nil")
+	}
+	if err != nil && err.Error() != "action[0]: age 和 water_level 過濾器不能同時使用" {
+		t.Errorf("Unexpected error message: %v", err)
+	}
+}
+
+// TestValidateFilters_P0_PatternSpaceAndWaterLevel 測試 pattern + space + water_level 互斥
+func TestValidateFilters_P0_PatternSpaceAndWaterLevel(t *testing.T) {
+	action := structs.Actiond{
+		Action: "delete_indices",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "pattern",
+				Kind:       "prefix",
+				Value:      []string{"logs-"},
+			},
+			{
+				Filtertype: "space",
+				DiskSpace:  100,
+			},
+			{
+				Filtertype: "water_level",
+				UpperLimit: 80,
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err == nil {
+		t.Error("Expected error for pattern + space + water_level, but got nil")
+	}
+	if err != nil && err.Error() != "action[0]: space 和 water_level 過濾器不能同時使用" {
+		t.Errorf("Unexpected error message: %v", err)
+	}
+}
+
+// TestValidateFilters_P0_FourFilterCombination 測試代表性四 filter 非法組合
+func TestValidateFilters_P0_FourFilterCombination(t *testing.T) {
+	action := structs.Actiond{
+		Action: "delete_indices",
+		Filters: []structs.Filter{
+			{
+				Filtertype: "age",
+				Direction:  "older",
+				Unit:       "days",
+				UnitCount:  30,
+			},
+			{
+				Filtertype: "pattern",
+				Kind:       "prefix",
+				Value:      []string{"logs-"},
+			},
+			{
+				Filtertype: "space",
+				DiskSpace:  100,
+			},
+			{
+				Filtertype: "node_role",
+				Value:      []string{"w"},
+			},
+		},
+	}
+
+	err := validateFilters(0, action)
+	if err == nil {
+		t.Error("Expected error for four-filter invalid combination, but got nil")
+	}
+	if err != nil && err.Error() != "action[0]: age 和 space 過濾器不能同時使用" {
+		t.Errorf("Unexpected error message: %v", err)
+	}
+}

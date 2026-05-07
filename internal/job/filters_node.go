@@ -2,8 +2,8 @@ package job
 
 import (
 	// "housekeeping/internal/log_record"
-	"housekeeping/internal/global"
 	"fmt"
+	"housekeeping/internal/global"
 	"regexp"
 	"sort"
 	"strconv"
@@ -14,7 +14,7 @@ import (
 
 func FilterType_age_node(nodeName string, source string, direction string, unit string, unit_count int) (indiceslist []string) {
 
-	indicesinfo := CatIndices()
+	indicesinfo := metadataProvider.CatIndices()
 
 	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)
 
@@ -68,7 +68,7 @@ func FilterType_age_node(nodeName string, source string, direction string, unit 
 
 func FilterType_age_range_node(nodeName string, source string, direction string, unit string, range_from int, range_to int) (indiceslist []string) {
 
-	indicesinfo := CatIndices()
+	indicesinfo := metadataProvider.CatIndices()
 
 	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)
 
@@ -132,7 +132,7 @@ func FilterType_age_range_node(nodeName string, source string, direction string,
 }
 
 func FilterType_pattern_role(nodeName string, kind string, value []string) (indiceslist []string) {
-	indicesinfo := CatIndices()
+	indicesinfo := metadataProvider.CatIndices()
 	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)
 
 	// indicesinfo := CatIndices()
@@ -196,11 +196,11 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 		// 分批處理避免 HTTP URL 過長 (4096 bytes 限制)
 		chunks := chunkSlice(patternlist, 10)
 		for _, chunk := range chunks {
-			indicesinfo1 := CatIndices_withPattern(chunk)
+			indicesinfo1 := metadataProvider.CatIndicesWithPattern(chunk)
 			indicesinfo = append(indicesinfo, indicesinfo1...)
 		}
 	} else {
-		indicesinfo = CatIndices()
+		indicesinfo = metadataProvider.CatIndices()
 	}
 
 	var finalIndexList []string
@@ -208,82 +208,82 @@ func FilterType_space_role(nodeNames []string, patternlist []string, disk_space 
 	var creationDateSlice []string
 	var indexSizemap, creationdate_NameMap, onlyIndexName map[string]string
 
-		match := MatchIndexBetweenNodeNCluster1(indicesinfo, nodeNames)
+	match := MatchIndexBetweenNodeNCluster1(indicesinfo, nodeNames)
 
-		indexSizemap = make(map[string]string)
-		creationdate_NameMap = make(map[string]string)
-		onlyIndexName = make(map[string]string)
+	indexSizemap = make(map[string]string)
+	creationdate_NameMap = make(map[string]string)
+	onlyIndexName = make(map[string]string)
 
-		// 將所有 node
-		for i, data := range match {
-			onlyIndexName[data.Index+i] = data.Index
-			//// 用 index name+i 做 key map size
-			indexSizemap[data.Index+i] = data.StoreSize
-			//// 用 CreationDate + Shard 做 key map index name+i
-			creationdate_NameMap[data.CreationDate+data.Shard] = data.Index + i
-			//// 用 CreationDate + Shard 組成的 array
-			creationDateSlice = append(creationDateSlice, data.CreationDate+data.Shard)
+	// 將所有 node
+	for i, data := range match {
+		onlyIndexName[data.Index+i] = data.Index
+		//// 用 index name+i 做 key map size
+		indexSizemap[data.Index+i] = data.StoreSize
+		//// 用 CreationDate + Shard 做 key map index name+i
+		creationdate_NameMap[data.CreationDate+data.Shard] = data.Index + i
+		//// 用 CreationDate + Shard 組成的 array
+		creationDateSlice = append(creationDateSlice, data.CreationDate+data.Shard)
 
+	}
+
+	if creationDateSlice == nil {
+		//// 如果撈不到 index 則返回一個空的list
+		finalIndexList = nil
+	} else {
+		// 按 index 的 create_date 排序
+		sort.Strings(creationDateSlice)
+		//// 把 index_name 塞到 slice 中
+		var indexSortbycreation []string
+		for date := range creationDateSlice {
+			indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
+		}
+		/// 以 create_date 後整理好的 index name + i
+		//// 倒序 - 從 newest create 的 index 開始加總 disk_space
+		var indexSortbycreationAsc []string
+		for index := range indexSortbycreation {
+			name := indexSortbycreation[len(indexSortbycreation)-index-1]
+			indexSortbycreationAsc = append(indexSortbycreationAsc, name)
+		}
+		//// indexSortbycreationAsc - 按新到舊排序 index name + i
+		// fmt.Println("asc:", indexSortbycreationAsc)
+		total := 0
+
+		for bytes := range indexSortbycreationAsc {
+			// fmt.Println("bytes",bytes)
+			var bytesnum int
+
+			if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
+				bytesnum = 0
+				// total += bytesnum
+			} else {
+
+				bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
+				if err != nil {
+
+					global.Logger.Error(err.Error())
+					return
+				}
+				// total += bytesnum
+				bytesnum = bytesint
+			}
+
+			// 加總 index storage
+			total += bytesnum
+
+			if total > disk_space*1024*1024 {
+				break
+			}
+
+			aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
 		}
 
-		if creationDateSlice == nil {
-			//// 如果撈不到 index 則返回一個空的list
-			finalIndexList = nil
-		} else {
-			// 按 index 的 create_date 排序
-			sort.Strings(creationDateSlice)
-			//// 把 index_name 塞到 slice 中
-			var indexSortbycreation []string
-			for date := range creationDateSlice {
-				indexSortbycreation = append(indexSortbycreation, creationdate_NameMap[creationDateSlice[date]])
-			}
-			/// 以 create_date 後整理好的 index name + i
-			//// 倒序 - 從 newest create 的 index 開始加總 disk_space
-			var indexSortbycreationAsc []string
-			for index := range indexSortbycreation {
-				name := indexSortbycreation[len(indexSortbycreation)-index-1]
-				indexSortbycreationAsc = append(indexSortbycreationAsc, name)
-			}
-			//// indexSortbycreationAsc - 按新到舊排序 index name + i
-			// fmt.Println("asc:", indexSortbycreationAsc)
-			total := 0
+		_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
 
-			for bytes := range indexSortbycreationAsc {
-				// fmt.Println("bytes",bytes)
-				var bytesnum int
-
-				if indexSizemap[indexSortbycreationAsc[bytes]] == "" {
-					bytesnum = 0
-					// total += bytesnum
-				} else {
-
-					bytesint, err := strconv.Atoi(indexSizemap[indexSortbycreationAsc[bytes]])
-					if err != nil {
-
-						global.Logger.Error(err.Error())
-						return
-					}
-					// total += bytesnum
-					bytesnum = bytesint
-				}
-
-				// 加總 index storage
-				total += bytesnum
-
-				if total > disk_space*1024*1024 {
-					break
-				}
-
-				aggregate_bytes = append(aggregate_bytes, indexSortbycreationAsc[bytes])
-			}
-
-			_, removed := Diff(indexSortbycreationAsc, aggregate_bytes)
-
-			for _, data := range removed {
-				finalIndexList = append(finalIndexList, onlyIndexName[data])
-			}
-			finalIndexList = RemoveDuplicates(finalIndexList)
+		for _, data := range removed {
+			finalIndexList = append(finalIndexList, onlyIndexName[data])
 		}
+		finalIndexList = RemoveDuplicates(finalIndexList)
+	}
 	return finalIndexList
 }
 
@@ -293,12 +293,12 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 	var indexSizemap, creationdate_NameMap map[string]string
 	var indicesinfo CatIndice
 	if len(patternlist) < 1 {
-		indicesinfo = CatIndices()
+		indicesinfo = metadataProvider.CatIndices()
 	} else {
 		// 分批處理避免 HTTP URL 過長 (4096 bytes 限制)
 		chunks := chunkSlice(patternlist, 10)
 		for _, chunk := range chunks {
-			indicesinfo1 := CatIndices_withPattern(chunk)
+			indicesinfo1 := metadataProvider.CatIndicesWithPattern(chunk)
 			indicesinfo = append(indicesinfo, indicesinfo1...)
 		}
 	}
@@ -306,7 +306,7 @@ func FilterType_waterLevel_role(nodeName string, patternlist []string, upper_lim
 	match := MatchIndexBetweenNodeNCluster(indicesinfo, nodeName)
 
 	/// 統計各個 Node 的 Average Water Level
-	nodesinfo := CatNodesWithNodeName(nodeName)
+	nodesinfo := metadataProvider.CatNodesWithNodeName(nodeName)
 	water_level := 0.00
 	AllDiskTotal := 0.00
 	for _, data := range nodesinfo {

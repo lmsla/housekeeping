@@ -1,8 +1,8 @@
 package job
 
 import (
-	"housekeeping/internal/global"
 	"fmt"
+	"housekeeping/internal/global"
 	"regexp"
 	"sort"
 	"strconv"
@@ -47,7 +47,7 @@ func timetransform(unit string, unit_count int) string {
 func FilterType_age(source string, direction string, unit string, unit_count int) (indiceslist []string) {
 
 	if source == "creation_date" {
-		indicesinfo := CatIndices()
+		indicesinfo := metadataProvider.CatIndices()
 		var indices []string
 		var benchmarkDate = timetransform(unit, unit_count)
 
@@ -97,7 +97,7 @@ func FilterType_age(source string, direction string, unit string, unit_count int
 func FilterType_age_range(source string, direction string, unit string, range_from int, range_to int) (indiceslist []string) {
 
 	if source == "creation_date" {
-		indicesinfo := CatIndices()
+		indicesinfo := metadataProvider.CatIndices()
 		var indices []string
 		// 時間往前推
 		var RangeFromDate string
@@ -149,7 +149,7 @@ func FilterType_age_range(source string, direction string, unit string, range_fr
 }
 
 func FilterType_pattern(kind string, value []string) (indiceslist []string) {
-	indicesinfo := CatIndices()
+	indicesinfo := metadataProvider.CatIndices()
 	var indices []string
 	var systemIndicesExcluded []string
 
@@ -327,7 +327,7 @@ func FilterType_space(patternlist []string, disk_space int) (indiceslist []strin
 	} else {
 		chunks := chunkSlice(patternlist, 10)
 		for _, chunk := range chunks {
-			indicesinfo1 := CatIndices_withPattern(chunk)
+			indicesinfo1 := metadataProvider.CatIndicesWithPattern(chunk)
 			indicesinfo = append(indicesinfo, indicesinfo1...)
 		}
 	}
@@ -443,13 +443,13 @@ func FilterType_waterLevel(patternlist []string, upper_limit int, lower_limit in
 		// 分批處理避免 HTTP URL 過長 (4096 bytes 限制)
 		chunks := chunkSlice(patternlist, 10)
 		for _, chunk := range chunks {
-			indicesinfo1 := CatIndices_withPattern(chunk)
+			indicesinfo1 := metadataProvider.CatIndicesWithPattern(chunk)
 			indicesinfo = append(indicesinfo, indicesinfo1...)
 		}
 	}
 
 	/// 統計各個 Node 的 Average Water Level
-	nodesinfo := CatNodes()
+	nodesinfo := metadataProvider.CatNodes()
 	water_level := 0.00
 	AllDiskTotal := 0.00
 	for _, data := range nodesinfo {

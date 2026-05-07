@@ -225,7 +225,7 @@ func MatchIndexBetweenNodeNCluster1(indicesinfo CatIndice, nodeNames []string) m
 
 	for _, indices := range indicesinfo {
 		for _, nodeName := range nodeNames {
-			shardsinfo := CatShardsbyNodeName(nodeName)
+			shardsinfo := metadataProvider.CatShardsByNodeName(nodeName)
 
 			for _, data := range shardsinfo {
 				matchKey := fmt.Sprintf("%s-%s-%s", nodeName, data.Shard, data.Index)
@@ -249,7 +249,7 @@ func MatchIndexBetweenNodeNCluster(indicesinfo CatIndice, nodeName string) map[s
 	match := make(map[string]IndicesInfo)
 	//// 取得每一個 node 存放的 shards
 
-	shardsinfo := CatShardsbyNodeName(nodeName)
+	shardsinfo := metadataProvider.CatShardsByNodeName(nodeName)
 
 	for _, indices := range indicesinfo {
 		for i, data := range shardsinfo {

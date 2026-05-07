@@ -8,10 +8,10 @@ import (
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 
 	// "log"
-	"strings"
 	"context"
 	"housekeeping/internal/global"
 	"io"
+	"strings"
 )
 
 type CatNode []struct {
@@ -93,7 +93,7 @@ func NodeStatus() {
 
 // 判定 nodeRole 相對應的 nodeName
 func NodeRoleDetermination(role string) (nodeName []string) {
-	nodeinfo := CatNodes()
+	nodeinfo := metadataProvider.CatNodes()
 	for _, data := range nodeinfo {
 		if strings.Contains(data.NodeRole, role) {
 			nodeName = append(nodeName, data.Name)
@@ -106,7 +106,7 @@ func NodeRoleDetermination(role string) (nodeName []string) {
 
 // CatNodes by nodeName
 func CatNodesWithNodeName(nodeName string) CatNode {
-	nodesinfo := CatNodes()
+	nodesinfo := metadataProvider.CatNodes()
 	var nodesInfoWithName CatNode
 	for _, node := range nodesinfo {
 		if node.Name == nodeName {

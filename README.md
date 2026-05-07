@@ -1,6 +1,6 @@
 # BiMAP-housekeeping 使用手冊
 
-> **最後更新**: 2026-02-07
+> **最後更新**: 2026-05-06
 
 > 📚 **技術文件已整理至 [`docs/`](./docs/) 目錄**  
 > 包含架構文件、優化清單、部署指南等完整技術資料
@@ -9,6 +9,7 @@
   - [簡介](#簡介)
     - [流程簡圖](#流程簡圖)
   - [重要提醒](#重要提醒)
+  - [測試流程](#測試流程)
   - [設定檔說明](#設定檔說明)
     - [setting.yml](#settingyml)
       - [es](#es)
@@ -74,7 +75,32 @@ systemctl enable bimap-housekeeping
 
 - 縮排不能有誤，否則程式會出錯。
 - filter 中 時間與空間相關的 filter type 不可混用，ex: ``age``+``space`` 或是 ``age``+``water_level``。
-- 不論任何 action 都至少加上 pattern 設定，避免搜尋 index 時誤刪到系統層級 index 導致不可預期錯誤。
+- `delete_indices` 必須配置 `pattern`；`space` / `water_level` / `node_role` 也都必須搭配 `pattern` 使用。其他 action 雖可接受較寬鬆的組合，但仍建議優先加上 `pattern` 以縮小影響範圍。
+
+## 測試流程
+
+日常開發建議至少執行以下兩條：
+
+```bash
+# 一般單元測試
+make test
+
+# 並發安全檢查（強制重跑，不吃 cache）
+make test-race
+```
+
+若不透過 `Makefile`，可直接執行：
+
+```bash
+GOCACHE=/tmp/go-build go test ./... -v
+GOCACHE=/tmp/go-build go test -race -count=1 ./...
+```
+
+說明：
+
+- `make test`：執行目前所有單元測試
+- `make test-race`：使用 Go Race Detector 檢查現有測試路徑是否有 data race
+- 若只想驗證 filter 邏輯，可優先跑 `./internal/job` 與 `./internal/utils`
 
 ## 設定檔說明
 
@@ -110,9 +136,9 @@ log:
   # 最大大小
   maxSize: 10
   # 最大備份數量
-  maxBackups: 0
-  # 最大保存天數
-  maxAge: 0
+  maxBackups: 7
+  # 最大保存天數（必須 > 0）
+  maxAge: 30
   # 是否為 debug 模式
   debug: false
 ```
@@ -166,7 +192,7 @@ log:
   是否以 debug 模式產生 log。  
   可接受值：`true` 或 `false`。
 
-**備註**：若 `maxBackups = 0` 且 `maxAge = 0`，log 檔僅在滿足 `maxSize` 時自動壓縮，不會刪除備份檔。
+**備註**：`maxBackups` 可為 `0`，表示不限制備份數量；`maxAge` 目前必須大於 `0`，否則啟動時會被配置驗證拒絕。
 
 ### config.yml
 
@@ -201,7 +227,7 @@ log:
 
 - **Type**: Boolean  
 - 可接受值：`true` 或 `false`  
-- 控制 action 是否執行，每個 action 都必須包含此選項。
+- 控制 action 是否執行。此選項可省略，省略時等同 `false`。
 
 ##### key
 
@@ -306,6 +332,7 @@ log:
   - `h` (hot data node)
   - `w` (warm data node)
   - `c` (cold data node)
+  - 建議單值配置；目前執行邏輯只會使用 `value` 的第一個角色。
 
 ##### age
 
@@ -322,6 +349,10 @@ log:
 
 - **unit**  
   
+  - `seconds`
+  - `minutes`
+  - `hours`
+  - `weeks`
   - `years`
   - `months`
   - `days`

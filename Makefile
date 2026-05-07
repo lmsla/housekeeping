@@ -1,4 +1,4 @@
-.PHONY: build test clean run fmt vet
+.PHONY: build test test-race test-coverage clean run fmt vet
 
 # Binary name
 BINARY_NAME=housekeeping
@@ -12,6 +12,10 @@ build:
 # Run tests
 test:
 	go test ./... -v
+
+# Run tests with race detector
+test-race:
+	GOCACHE=$${GOCACHE:-/tmp/go-build} go test -race -count=1 ./...
 
 # Run tests with coverage
 test-coverage:

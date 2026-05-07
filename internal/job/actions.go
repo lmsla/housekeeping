@@ -1,10 +1,10 @@
 package job
 
 import (
+	"fmt"
 	"housekeeping/internal/global"
 	"housekeeping/internal/metrics"
 	"housekeeping/internal/structs"
-	"fmt"
 	"strconv"
 	"strings"
 	"time"
@@ -289,7 +289,7 @@ func handleAllocation(uuid string, comparelist []string, action structs.Actiond)
 	nodeNames := NodeRoleDetermination(convertedValue)
 
 	for _, node := range nodeNames {
-		indices_on_node = append(indices_on_node, CatIndicesbyNodeName(node)...)
+		indices_on_node = append(indices_on_node, metadataProvider.CatIndicesByNodeName(node)...)
 	}
 	indices_on_node = RemoveDuplicates(indices_on_node)
 
@@ -498,7 +498,7 @@ func handleRollover(uuid string, action structs.Actiond) {
 }
 
 func logTestMode(uuid string, index_onebyone []string, action string) {
-	indicesInfo := CatIndices_withPattern(index_onebyone)
+	indicesInfo := metadataProvider.CatIndicesWithPattern(index_onebyone)
 	i := indicesInfo[0]
 	timestamp, _ := strconv.ParseInt(i.CreationDate, 10, 64)
 	CreationDate := time.UnixMilli(timestamp).Format("2006-01-02 15:04:05")
@@ -512,7 +512,7 @@ func logTestMode(uuid string, index_onebyone []string, action string) {
 }
 
 func logExecutionMode(uuid string, index_onebyone []string, action string) {
-	indicesInfo := CatIndices_withPattern(index_onebyone)
+	indicesInfo := metadataProvider.CatIndicesWithPattern(index_onebyone)
 	if len(indicesInfo) == 0 {
 		global.Logger.Errorw("Failed to get index info for logging",
 			"logType", "Detail",
